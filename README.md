@@ -33,7 +33,7 @@
 ## __📂 PLAY__
 Após feito todas as instalações, rode o servidor usando
 > cd server
-> npm start
+> npm runserver
 
 <!--
 ## __❤ AGRADECIMENTOS__

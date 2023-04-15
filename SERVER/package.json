@@ -1,15 +1,16 @@
 {
-  "name": "server",
+  "name": "estok-server",
   "version": "1.0.0",
-  "description": "eStok",
+  "description": "eSTOK",
   "main": "src/main.js",
-  "scripts": {
-    "runserver": "nodemon --exec babel-node src/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "TURMA 2023 TADS - INSTED",
   "license": "ISC",
+  "scripts": {
+    "runserver": "nodemon --exec babel-node src/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d dist"
+  },
   "dependencies": {
     "@babel/cli": "^7.21.0",
     "@babel/core": "^7.21.4",
