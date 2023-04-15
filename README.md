@@ -1,4 +1,4 @@
-# eStok: Controle de 
+# eSTOK: compra de um produto disponível no estoque do fornecedor
 
 [![preview](./.github/preview.png)](/LINK-ACESSO-PROJETO/)
 
