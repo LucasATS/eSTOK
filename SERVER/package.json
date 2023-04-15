@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "eStok",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node src/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "TURMA 2023 TADS - INSTED",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/node": "^7.20.7",
+    "@babel/plugin-transform-async-to-generator": "^7.20.7",
+    "@babel/preset-env": "^7.21.4",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22",
+    "sequelize": "^6.31.0",
+    "sequelize-cli": "^6.6.0",
+    "sqlite3": "^5.1.6"
+  }
+}
