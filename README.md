@@ -7,13 +7,13 @@
 ## __📚 INSTALAÇÃO__
 > gitclone: https://github.com/LucasATS/eStoK.git
 
-> Use NVM windowns para realizar o controle de versones do node [🔗 DOWNLOAD NVM ](https://github.com/coreybutler/nvm-windows/releases) 
+> Use NVM windowns para realizar o controle de versões do node [🔗 DOWNLOAD NVM ](https://github.com/coreybutler/nvm-windows/releases) 
 
 > nvm install 18.16.0
 
 > nvm use 18.16.0
 
-> Certificertifique-se de que esta com a versão 18.16.0
+> certifique-se de que esta com a versão 18.16.0
 > node -v
 
 ### Configuração
@@ -34,10 +34,6 @@
 Após feito todas as instalações, rode o servidor usando
 > cd server
 > npm start
-
-## __🎯 METAS__
-- [ ] Task não concluída.
-- [x] Task concluída.
 
 <!--
 ## __❤ AGRADECIMENTOS__
