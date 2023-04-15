@@ -10,6 +10,14 @@ const adicionarDadosTest = async (models) => {
         Telefone: '1234567890',
         Senha: 'senha123',
     });
+    await criarUsuario((await models).Usuario, {
+        Nome: 'Gaikko',
+        Email: 'Gaikko@email.com',
+        CEP: '12345678',
+        CPF: '12345678900',
+        Telefone: '1234567890',
+        Senha: 'senha123',
+    });
 
     // let user = await BuscarUsuario((await models).Usuario, {
     //     id: 2
