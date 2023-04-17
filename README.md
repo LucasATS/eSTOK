@@ -1,6 +1,5 @@
 # eSTOK: compra de um produto disponível no estoque do fornecedor
 
-
 <!-- 
 [![preview](./.github/preview.png)](/LINK-ACESSO-PROJETO/)
 
@@ -8,53 +7,45 @@
 -->
 
 
+
 ## __📚 INSTALAÇÃO__
-> gitclone: https://github.com/LucasATS/eStoK.git
+>- gitclone: https://github.com/LucasATS/eStoK.git
+>- Use NVM windowns para realizar o controle de versões do node [🔗 DOWNLOAD NVM ](https://github.com/coreybutler/nvm-windows/releases)
+>- nvm install 18.16.0
+>- nvm use 18.16.0
+>- certifique-se de que esta com a versão 18.16.0
+>- node -v
 
-> Use NVM windowns para realizar o controle de versões do node [🔗 DOWNLOAD NVM ](https://github.com/coreybutler/nvm-windows/releases) 
-
-> nvm install 18.16.0
-
-> nvm use 18.16.0
-
-> certifique-se de que esta com a versão 18.16.0
-> node -v
 
 ### 🔧 Configuração
-> cd server
+>- cd server
+>- npm install @babel/node
+>- npm install @babel/core @babel/cli @babel/preset-env
+>- npm install @babel/plugin-transform-async-to-generator
+>- npm install dotenv
+>- npm install nodemon
+>- npm install express
 
-> npm install @babel/node
-
-> npm install @babel/core @babel/cli @babel/preset-env
-
-> npm install @babel/plugin-transform-async-to-generator
-
-> npm install dotenv
-
-> npm install nodemon
-
-> npm install express
 
 ### 🎲 Banco de dados
-> cd server
+>- cd server
+>- npm install sequelize
+>- npm install sequelize-cli
+>- npm install sqlite3
 
-> npm install sequelize
-
-> npm install sequelize-cli
-
-> npm install sqlite3
 
 
 ## __📂 PLAY__
 Após feito todas as instalações, rode o servidor usando
-> cd server
-> npm runserver
+>- cd server
+>- npm runserver
 
 
 <!--
 ## __❤ AGRADECIMENTOS__
 [@<NOME>](<LINK>) "<MENSAGEM>"
 -->
+
 
 
 ## __🛠 TECNOLOGIAS__ 
