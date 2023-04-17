@@ -9,7 +9,7 @@
 
 
 ## __📚 INSTALAÇÃO__
->- gitclone: https://github.com/LucasATS/eStoK.git
+>- git clone https://github.com/LucasATS/eStoK.git
 >- Use NVM windowns para realizar o controle de versões do node [🔗 DOWNLOAD NVM ](https://github.com/coreybutler/nvm-windows/releases)
 >- nvm install 18.16.0
 >- nvm use 18.16.0
