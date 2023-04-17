@@ -1,8 +1,12 @@
 # eSTOK: compra de um produto disponível no estoque do fornecedor
 
+
+<!-- 
 [![preview](./.github/preview.png)](/LINK-ACESSO-PROJETO/)
 
 [🔗 ACESSE O PROJETO ](/LINK-ACESSO-PROJETO/)
+-->
+
 
 ## __📚 INSTALAÇÃO__
 > gitclone: https://github.com/LucasATS/eStoK.git
@@ -16,29 +20,42 @@
 > certifique-se de que esta com a versão 18.16.0
 > node -v
 
-### Configuração
+### 🔧 Configuração
 > cd server
+
 > npm install @babel/node
+
 > npm install @babel/core @babel/cli @babel/preset-env
+
 > npm install @babel/plugin-transform-async-to-generator
+
 > npm install dotenv
+
 > npm install nodemon
+
 > npm install express
 
-### Banco de dados
+### 🎲 Banco de dados
+> cd server
+
 > npm install sequelize
+
 > npm install sequelize-cli
+
 > npm install sqlite3
+
 
 ## __📂 PLAY__
 Após feito todas as instalações, rode o servidor usando
 > cd server
 > npm runserver
 
+
 <!--
 ## __❤ AGRADECIMENTOS__
 [@<NOME>](<LINK>) "<MENSAGEM>"
 -->
+
 
 ## __🛠 TECNOLOGIAS__ 
 ![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
@@ -48,3 +65,4 @@ Após feito todas as instalações, rode o servidor usando
 ![NODE.JS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 ![VERCEL](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 ![SQLITE](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
+![MYSQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
