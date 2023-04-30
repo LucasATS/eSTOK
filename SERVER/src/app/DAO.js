@@ -4,18 +4,12 @@ import { Op } from "sequelize";
 const adicionarDadosTest = async (models) => {
     await criarUsuario((await models).Usuario, {
         Nome: 'Thalia',
-        Email: 'thalia@email.com',
-        CEP: '12345678',
-        CPF: '12345678900',
-        Telefone: '1234567890',
+        Email: 'Gaikko@email.com',
         Senha: 'senha123',
     });
     await criarUsuario((await models).Usuario, {
         Nome: 'Gaikko',
         Email: 'Gaikko@email.com',
-        CEP: '12345678',
-        CPF: '12345678900',
-        Telefone: '1234567890',
         Senha: 'senha123',
     });
 
@@ -45,37 +39,24 @@ const criarUsuario = async (
     Usuario, {
         Nome = '',
         Email = '',
-        CEP = '',
-        CPF = '',
-        Telefone = '',
+        senhaReset = '',
         Senha = '',
     }) => {
 
     // VALIDA SE JÁ EXISTE UM CADASTRADO
     // REGRAS: APENAS UM EMAIL, CPF e TELEFONE POR USUÁRIO    
-    try {
-        const user = await Usuario.findOne({
-            attributes: ['Email', 'Nome', 'CPF', 'Telefone'],
-            where: {
-                [Op.or]: [{ Email }, { CPF }, { Telefone }]
-            }
-        });
-        if ((await user).Email === Email) return console.log(`${Nome}: Já existe um Email cadastrado!`);
-        if ((await user).Telefone === Telefone) return console.log(`${Nome}: Já existe um Telefone cadastrado!`);
-        if ((await user).CPF === CPF) return console.log(`${Nome}: Já existe um CPF cadastrado!`);
-
-    } catch (e) { }
-
+    
     Usuario.create({
         Nome: Nome,
         Email: Email,
-        CEP: CEP,
-        CPF: CPF,
-        Telefone: Telefone,
-        Senha: Senha,
-    });
-
-    console.log(`Usuário ${Nome} cadastrado!`);
+        senhaReset: senhaReset,
+        Senha: Senha,})
+        .then( () => {
+            console.log(`Usuário ${Nome} cadastrado!`);
+        })
+        .catch((error) => {
+            console.log(`${Nome} : ${error.errors[0].message}`);
+        });
 }
 
 const BuscarUsuario = async (

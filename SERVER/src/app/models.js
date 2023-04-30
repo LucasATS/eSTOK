@@ -1,5 +1,4 @@
 // COMO USAR O SEQUELIZE >> https://sequelize.org/docs/v6/core-concepts/model-basics/
-
 import { Sequelize, DataTypes } from 'sequelize';
 import 'dotenv/config';
 
@@ -29,11 +28,15 @@ class models {
     // DADOS USUÁRIO
     const Usuario = sequelize.define('Usuarios', {
       Nome: { type: DataTypes.STRING(127), allowNull: false },
-      Email: { type: DataTypes.STRING(127), allowNull: false },
-      CPF: { type: DataTypes.STRING(11), allowNull: false },
-      CEP: { type: DataTypes.STRING(8), allowNull: false },
-      Telefone: { type: DataTypes.STRING(16), allowNull: false },
+      Email: { type: DataTypes.STRING(127), allowNull: false, unique: true },
+      senhaReset: { type: DataTypes.BOOLEAN(), allowNull: false, defaultValue: true },
       Senha: { type: DataTypes.STRING(127), allowNull: false },
+    }, config);
+
+    const Produto = sequelize.define('Produtos', {
+      Nome: { type: DataTypes.STRING(127), allowNull: false },
+      Descricao: { type: DataTypes.STRING(127), allowNull: false, unique: true },
+      Foto: { type: DataTypes.BLOB(), allowNull: true }
     }, config);
 
     // ... ADICIONAR MAIS MODELS AQUI ...
@@ -43,7 +46,7 @@ class models {
     console.log("\nTodas as Models foram atualizadas!\n");
 
     return {
-      Usuario,
+      Usuario, Produto
     };
   }
 }

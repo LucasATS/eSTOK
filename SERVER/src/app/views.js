@@ -1,4 +1,5 @@
 import adicionarDadosTest, { BuscarUsuario } from "./DAO";
+import forms from "./validar";
 import models from "./models";
 
 class views {
@@ -20,6 +21,32 @@ class views {
         });
         console.log('>>>>',user.Nome);
         res.send("Usuário: " + user.Nome);
+    };
+    cadastra = async (req, res) => {
+        let cad = await forms.FormularioProduto((await this.modelos).Produto,{
+            Nome: 'Blusa',
+            Descricao: 'Regata com estampa',
+        } )
+        
+        if (cad == 'success') {
+            res.send("produto: " + "Blusa cadastrada");
+        } else {
+            res.send(cad);
+        }
+        
+    };
+    atualiza = async (req, res) => {
+        let cad = await forms.FormularioProduto((await this.modelos).Produto,{
+            id: 1,
+            Nome: 'Blusa',
+            Descricao: 'Regata com estampa',
+        } )
+        
+        if (cad == 'success') {
+            res.send("produto: " + "Blusa atualizada");
+        } else {
+            res.send(cad);
+        }
     };
 }
 
