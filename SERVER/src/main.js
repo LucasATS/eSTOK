@@ -6,5 +6,6 @@ import appConfig from './app/appConfig';
 const PATH = __dirname;
 const server = express();
 
+express.request.headers
 // SERVIDOR DO APLICATIVO
 appConfig(server, PATH);

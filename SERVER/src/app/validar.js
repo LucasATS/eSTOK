@@ -1,6 +1,36 @@
 import { Op } from "sequelize";
+const JWT = require('jsonwebtoken');
+import 'dotenv/config';
 
 class forms {
+
+    static FormularioAuthentic = async (Usuario,
+        {
+            Email = '',
+            Senha = '',
+        }) => {
+        
+        if (!Email, !Senha){
+            return { is_valid: false }
+        }
+
+        const user = await Usuario.findOne({
+            attributes: ['Email', 'Senha'],
+            where: {
+                [Op.and]: [
+                    { Email },
+                    { Senha },
+                ]
+            }
+        });
+
+        let Token = await JWT.sign({
+            id: user.Id,
+            usuario: user.Email,
+        }, process.env.SECRETKEY);
+        
+        return {is_valid: true, sessao: Token}
+    }
 
     static FormularioUsuario = async (
         Usuario, {
@@ -21,8 +51,6 @@ class forms {
             .catch((error) => {
                 console.log(`${Nome} : ${error.errors[0].message}`);
             });
-        
-        
         
     }
 
@@ -66,7 +94,6 @@ class forms {
                 });
         }
     }
-
 }
 
 
