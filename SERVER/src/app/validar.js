@@ -15,7 +15,7 @@ class forms {
         }
 
         const user = await Usuario.findOne({
-            attributes: ['Email', 'Senha'],
+            attributes: ['id', 'Email', 'Senha'],
             where: {
                 [Op.and]: [
                     { Email },
@@ -24,36 +24,19 @@ class forms {
             }
         });
 
+        if (!user){
+            return { is_valid: false }
+        }
+        
         let Token = await JWT.sign({
-            id: user.Id,
+            id: user.id,
             usuario: user.Email,
         }, process.env.SECRETKEY);
         
         return {is_valid: true, sessao: Token}
     }
-
-    static FormularioUsuario = async (
-        Usuario, {
-            Nome = '',
-            Email = '',
-            senhaReset = '',
-            Senha = '',
-        }) => { 
-        
-        Usuario.create({
-            Nome: Nome,
-            Email: Email,
-            senhaReset: senhaReset,
-            Senha: Senha,})
-            .then( () => {
-                console.log(`Usuário ${Nome} cadastrado!`);
-            })
-            .catch((error) => {
-                console.log(`${Nome} : ${error.errors[0].message}`);
-            });
-        
-    }
-
+    
+    //Só exemplo
     static FormularioProduto = async (
         Produto, {
             id = null,
@@ -62,6 +45,7 @@ class forms {
             Foto = '',
         }) => {
         if (id == null){
+            //INSERT PRODUTO
             Produto.create({
                 Nome: Nome,
                 Descricao: Descricao,
@@ -76,6 +60,7 @@ class forms {
                     return error.errors[0].message;
                 });
         } else {
+            //UPDATE PRODUTO
             Produto.update(
                 { 
                     Nome: Nome,
@@ -95,6 +80,5 @@ class forms {
         }
     }
 }
-
 
 export default forms;

@@ -5,22 +5,22 @@ const UserIsAuthentic = async (req, res, next) => {
     let auth = null;
     
     try {
-        auth = req.cookies.Token;    
+        auth = req.cookies.sessao;    
     } catch (error) {
         return res.json({return : 'Não Autenticado'})
     }
 
     if ( typeof(auth) == 'undefined' || auth == '' || auth == null){
-        res.clearCookie('Token');
+        res.clearCookie('sessao');
         return res.json({return : 'Não Autenticado'})
 
     } else {
         try {
-            Token = await JWT.verify(auth, process.env.SECRETKEY);
+            let Token = JWT.verify(auth, process.env.SECRETKEY);
             req.user = await Token.id;
             next();
         } catch (err) {
-            res.clearCookie('Token');
+            res.clearCookie('sessao');
             return res.json({return : 'Não Autenticado'})
             
         }

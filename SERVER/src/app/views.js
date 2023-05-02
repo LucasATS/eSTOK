@@ -1,4 +1,5 @@
-import adicionarDadosTest, { BuscarUsuario } from "./DAO";
+import adicionarDadosTest from "./DAO";
+import query from './consultas';
 import forms from "./validar";
 import models from "./models";
 
@@ -22,16 +23,15 @@ class views {
         res.sendFile('index.html',{ root: this.PATH + '/web/private' });
     };
 
-    //Link logoff
+    //logoff da conta
     sair = async (req, res) => {
-        res.clearCookie('Token');
+        res.clearCookie('sessao');
         res.redirect('/operador');
     };
 
     //Login
     entrar = async (req, res) => {
         let { email, senha } = req.body;
-        console.log(email,senha);
         let form = await forms.FormularioAuthentic((await this.modelos).Usuario, {
             Email: email,
             Senha: senha
@@ -43,38 +43,18 @@ class views {
         } else {
             res.json({return : 'Usuário e/ou senha incorreto(s)'})
         }
+    };
+
+    //Teste (só acessa se logado)
+    forTest = async (req, res) => {
+
+        let user = await query.getUser((await this.modelos).Usuario,
+        { id: req.user });
+
+        res.json({return : `logado como ${user.Nome}`})
 
     };
 
-    //Testes
-    cadastra = async (req, res) => {
-        let cad = await forms.FormularioProduto((await this.modelos).Produto,{
-            Nome: 'Blusa',
-            Descricao: 'Regata com estampa',
-        } )
-        
-        if (cad == 'success') {
-            res.send("produto: " + "Blusa cadastrada");
-        } else {
-            res.send(cad);
-        }
-        
-    };
-
-    //Testes
-    atualiza = async (req, res) => {
-        let cad = await forms.FormularioProduto((await this.modelos).Produto,{
-            id: 1,
-            Nome: 'Blusa',
-            Descricao: 'Regata com estampa',
-        } )
-        
-        if (cad == 'success') {
-            res.send("produto: " + "Blusa atualizada");
-        } else {
-            res.send(cad);
-        }
-    };
 }
 
 export default views;

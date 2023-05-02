@@ -15,7 +15,7 @@ class urls {
         this.server.get("/auth/logoff", views.sair);
         
         //Requer estar Logado
-        this.server.get("/meus-produtos", UserIsAuthentic, views.homeOperador);
+        this.server.get("/meus-produtos", UserIsAuthentic, views.forTest);
     }
 }
 
