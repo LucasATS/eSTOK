@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import RoutesURL from '../../modules/_shared/constants/Routes.enum';
 import { useAuth } from '../../modules/auth/contexts/AuthProvider';
+import Header from '../Header';
 
 interface Props {
   children: React.ReactNode;
@@ -41,19 +42,17 @@ const MainLayout: React.FC<Props> = ({ children }) => {
       >
         <div className="text-white w-full md:w-60 lg:w-80 md:h-full bg-sky-600 shadow-lg md:fixed z-50 md:z-0">
           <div className="flex flex-row md:flex-col items-center md:items-start">
-            <div className="md:flex flex-col hidden md:w-full mt-14 gap-5">
+            <div className="md:flex flex-col hidden md:w-full mt-14 gap-7">
               <div className="flex justify-center">
                 <img src={'/images/e-stok.svg'} alt="logo" />
               </div>
               <div className="flex justify-center">
                 <img src={'/images/mask-group.svg'} alt="logo" />
               </div>
-              <div className="flex flex-col mb-4">
-                {/* <div className="flex items-center gap-20">
-                  <span className="capitalize">
-                    {user?.name.split(' ').shift()?.toLocaleLowerCase()}
-                  </span>
-                </div> */}
+              <div className="flex items-center justify-center">
+                <span className="capitalize font-medium">
+                  {/* {user?.name.split(' ').shift()?.toLocaleLowerCase()} */} Leonardo vieira
+                </span>
               </div>
               <div className="flex flex-col mr-10">
                 <Link to={RoutesURL.HOME}>
@@ -97,8 +96,9 @@ const MainLayout: React.FC<Props> = ({ children }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col bg-neutral-100 w-full h-full lg:ml-80 md:ml-60 overflow-y-auto">
-          {children}
+        <div className="flex flex-col lg:ml-80 md:ml-60 overflow-y-auto">
+          <Header />
+          <div className="flex flex-col bg-neutral-100 h-screen">{children}</div>
         </div>
       </div>
     </>
