@@ -1,7 +1,9 @@
+import TitleCard from '../../components/TitleCard';
+
 const Produto = () => {
   return (
     <div>
-      <div>Dashboard</div>
+      <TitleCard text="Produto" />
     </div>
   );
 };
