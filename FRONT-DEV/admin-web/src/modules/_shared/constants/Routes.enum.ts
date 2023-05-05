@@ -1,6 +1,7 @@
 enum RoutesURL {
-  HOME = '/home',
-  LOGIN = '/login'
+  HOME = '/',
+  LOGIN = '/login',
+  PRODUTO = '/produto'
 }
 
 export default RoutesURL;

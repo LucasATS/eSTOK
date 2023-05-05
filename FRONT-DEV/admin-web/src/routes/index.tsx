@@ -1,3 +1,4 @@
+// import Loading from '../components/Loading';
 import { useAuth } from '../modules/auth/contexts/AuthProvider';
 import AppRoutes from './AppRoutes';
 import AuthRoutes from './AuthRoutes';
