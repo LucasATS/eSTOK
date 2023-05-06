@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .primary {
+    @apply bg-blue-600 text-white;
+  }
+
+  .primary:hover {
+    @apply bg-sky-700 text-white bg-opacity-90;
+  }
+
+  .secondary {
+    @apply bg-stone-700 text-white;
+  }
+
+  .secondary:hover {
+    @apply bg-stone-800 text-white bg-opacity-90;
+  }
+
+  .default {
+    @apply bg-neutral-100 text-white;
+  }
+
+  .default:hover {
+    @apply bg-neutral-100 text-white bg-opacity-90;
+  }
+
+  .clean {
+    @apply bg-white text-teal-500;
+  }
+
+  .clean:hover {
+    @apply bg-gray-200 text-teal-600 bg-opacity-90;
+  }
+
+  .error {
+    @apply bg-red-400 text-white;
+  }
+
+  .error:hover {
+    @apply bg-red-500 text-white bg-opacity-90;
+  }
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat';
+  scroll-behavior: smooth;
+}
+
+#root,
+body,
+html {
+  height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-font-feature-settings: 'lnum';
+  -moz-font-feature-settings: 'lnum';
+  font-feature-settings: 'lnum';
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #bdbdbd;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(156, 156, 156);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(155, 155, 155);
+}
+
+/* Cor do texto do autocomplete */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px rgb(238, 238, 238) inset !important;
+  -webkit-text-fill-color: rgb(141, 140, 140) !important;
+}
+
+/* Remover setas do input type number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
