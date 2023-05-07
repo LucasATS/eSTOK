@@ -4,18 +4,18 @@
     },
     "builds": [
         {
-            "src": "dist/main.js",
+            "src": "src/main.js",
             "use": "@vercel/node"
         },
         {
-            "src": "dist/**",
+            "src": "**",
             "use": "@vercel/static"
         }
     ],
     "routes": [
         {
             "src": "/(.+)",
-            "dest": "dist/main.js"
+            "dest": "src/main.js"
         }
     ]
 }
