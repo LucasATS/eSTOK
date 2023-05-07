@@ -10,7 +10,7 @@ const appConfig = async (server, PATH) => {
   new urls(server, views);
 
   //LIBERA A PASTA STATIC E DISPONIBILIZA COMO PUBLICA
-  server.use('/static', express.static(PATH + '/static'));
+  server.use('/static', express.static(PATH + '/web/static'));
 
   //INICIA SERVIDOR
   server.listen(process.env.PORT, process.env.HOST, () =>
