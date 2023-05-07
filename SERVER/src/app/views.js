@@ -1,53 +1,60 @@
-import adicionarDadosTest, { BuscarUsuario } from "./DAO";
+import adicionarDadosTest from "./DAO";
+import query from './consultas';
 import forms from "./validar";
 import models from "./models";
 
 class views {
-    constructor() {
+    constructor(dirPath) {
         // INICIA O MODELS
         this.modelos = models.init(true);
         adicionarDadosTest(this.modelos);
+
+        //ADD VAR PATH
+        this.PATH = dirPath;
     }
 
     //Página /
     home = async (req, res) => {
-        res.send("eStok - no ar :D");
+        res.sendFile('index.html',{ root: this.PATH + '/web/public' });
     };
 
-    //Página /teste
-    teste = async (req, res) => {
-        let user = await BuscarUsuario((await this.modelos).Usuario, {
-            id: 1
+    //Página Operador
+    homeOperador = async (req, res) => {
+        res.sendFile('index.html',{ root: this.PATH + '/web/private' });
+    };
+
+    //logoff da conta
+    sair = async (req, res) => {
+        res.clearCookie('sessao');
+        res.redirect('/operador');
+    };
+
+    //Login
+    entrar = async (req, res) => {
+        let { email, senha } = req.body;
+        let form = await forms.FormularioAuthentic((await this.modelos).Usuario, {
+            Email: email,
+            Senha: senha
         });
-        console.log('>>>>',user.Nome);
-        res.send("Usuário: " + user.Nome);
-    };
-    cadastra = async (req, res) => {
-        let cad = await forms.FormularioProduto((await this.modelos).Produto,{
-            Nome: 'Blusa',
-            Descricao: 'Regata com estampa',
-        } )
-        
-        if (cad == 'success') {
-            res.send("produto: " + "Blusa cadastrada");
+
+        if (form.is_valid){
+            res.cookie('sessao', form.sessao);
+            res.json({return : 'Autorizado'})
         } else {
-            res.send(cad);
-        }
-        
-    };
-    atualiza = async (req, res) => {
-        let cad = await forms.FormularioProduto((await this.modelos).Produto,{
-            id: 1,
-            Nome: 'Blusa',
-            Descricao: 'Regata com estampa',
-        } )
-        
-        if (cad == 'success') {
-            res.send("produto: " + "Blusa atualizada");
-        } else {
-            res.send(cad);
+            res.json({return : 'Usuário e/ou senha incorreto(s)'})
         }
     };
+
+    //Teste (só acessa se logado)
+    forTest = async (req, res) => {
+
+        let user = await query.getUser((await this.modelos).Usuario,
+        { id: req.user });
+
+        res.json({return : `logado como ${user.Nome}`})
+
+    };
+
 }
 
-export default new views();
+export default views;

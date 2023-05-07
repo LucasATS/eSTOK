@@ -1,3 +1,4 @@
+
 const ValidarCEP = cep => {
     // Remove caracteres não-numéricos
     cep = cep.replace(/[^\d]/g, "");

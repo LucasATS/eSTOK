@@ -1,31 +1,42 @@
 import { Op } from "sequelize";
+const JWT = require('jsonwebtoken');
+import 'dotenv/config';
 
 class forms {
 
-    static FormularioUsuario = async (
-        Usuario, {
-            Nome = '',
+    static FormularioAuthentic = async (Usuario,
+        {
             Email = '',
-            senhaReset = '',
             Senha = '',
-        }) => { 
+        }) => {
         
-        Usuario.create({
-            Nome: Nome,
-            Email: Email,
-            senhaReset: senhaReset,
-            Senha: Senha,})
-            .then( () => {
-                console.log(`Usuário ${Nome} cadastrado!`);
-            })
-            .catch((error) => {
-                console.log(`${Nome} : ${error.errors[0].message}`);
-            });
-        
-        
-        
-    }
+        if (!Email, !Senha){
+            return { is_valid: false }
+        }
 
+        const user = await Usuario.findOne({
+            attributes: ['id', 'Email', 'Senha'],
+            where: {
+                [Op.and]: [
+                    { Email },
+                    { Senha },
+                ]
+            }
+        });
+
+        if (!user){
+            return { is_valid: false }
+        }
+        
+        let Token = await JWT.sign({
+            id: user.id,
+            usuario: user.Email,
+        }, process.env.SECRETKEY);
+        
+        return {is_valid: true, sessao: Token}
+    }
+    
+    //Só exemplo
     static FormularioProduto = async (
         Produto, {
             id = null,
@@ -34,6 +45,7 @@ class forms {
             Foto = '',
         }) => {
         if (id == null){
+            //INSERT PRODUTO
             Produto.create({
                 Nome: Nome,
                 Descricao: Descricao,
@@ -48,6 +60,7 @@ class forms {
                     return error.errors[0].message;
                 });
         } else {
+            //UPDATE PRODUTO
             Produto.update(
                 { 
                     Nome: Nome,
@@ -66,8 +79,6 @@ class forms {
                 });
         }
     }
-
 }
-
 
 export default forms;

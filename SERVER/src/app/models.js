@@ -29,7 +29,7 @@ class models {
     const Usuario = sequelize.define('Usuarios', {
       Nome: { type: DataTypes.STRING(127), allowNull: false },
       Email: { type: DataTypes.STRING(127), allowNull: false, unique: true },
-      senhaReset: { type: DataTypes.BOOLEAN(), allowNull: false, defaultValue: true },
+      SenhaReset: { type: DataTypes.BOOLEAN(), allowNull: false, defaultValue: true },
       Senha: { type: DataTypes.STRING(127), allowNull: false },
     }, config);
 
