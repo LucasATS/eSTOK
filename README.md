@@ -45,7 +45,7 @@ Após feito todas as instalações, rode o servidor usando
 
 > -   cd server
 > -   npm install
-> -   npm run runserver
+> -   npm run server
 
 <!--
 ## __❤ AGRADECIMENTOS__
