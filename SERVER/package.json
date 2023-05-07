@@ -10,7 +10,7 @@
     "server": "nodemon --exec babel-node src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d dist",
-    "start": "node --exec babel-node src/main.js"
+    "start": "node dist/main.js"
   },
   "dependencies": {
     "@babel/cli": "^7.21.5",
