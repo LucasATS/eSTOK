@@ -9,11 +9,12 @@ interface Props {
   name: string;
   label?: string;
   options: OptionSelect[];
+  placeholder?: string;
 }
 
 type SelectProps = JSX.IntrinsicElements['select'] & Props;
 
-const SelectForm = ({ name, label, options, ...rest }: SelectProps) => {
+const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps) => {
   const selectRef = useRef<HTMLSelectElement>(null);
   const { fieldName, defaultValue = '', registerField, error, clearError } = useField(name);
   const [valueSelect, setValueSelect] = useState(defaultValue);
@@ -42,10 +43,10 @@ const SelectForm = ({ name, label, options, ...rest }: SelectProps) => {
   }, [valueSelect]);
 
   return (
-    <div className="text-sm">
+    <div className="text-sm w-full">
       <Listbox value={valueSelect} onChange={setValueSelect}>
         {({ open }) => (
-          <div className="relative mt-2 z-10">
+          <div className="relative mt-2 z-10 w-full">
             <Listbox.Label
               className={`py-1 font-medium bg-neutral-200 ${
                 error ? 'text-red-500' : 'text-[#B0B0B1]'
@@ -63,7 +64,7 @@ const SelectForm = ({ name, label, options, ...rest }: SelectProps) => {
                   error ? 'text-red-500' : 'text-[#B0B0B1]'
                 }`}
               >
-                {valueSelect.label || 'Selecione'}
+                {valueSelect.label || placeholder}
               </span>
               <span className="inset-y-0 flex pr-2 pointer-events-none items-center">
                 <img src={iconApi + 'chevron-solid.svg'} className="w-4 h-4" aria-hidden="true" />

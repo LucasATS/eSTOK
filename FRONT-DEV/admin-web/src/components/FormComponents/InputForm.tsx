@@ -39,7 +39,7 @@ const InputForm = ({
   };
 
   return (
-    <div className={`flex flex-col mt-2 text-sm ${className || ''}`}>
+    <div className={`flex flex-col mt-2 text-sm w-full ${className || ''}`}>
       <label
         htmlFor={name}
         className={labelStyle || `py-1 font-medium ${error ? ' text-red-500' : 'text-[#B0B0B1]'}`}
@@ -67,7 +67,7 @@ const InputForm = ({
           ${
             error
               ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'text-[#B0B0B1] bg-neutral-200 focus:border-neutral-300 focus:ring-neutral-400'
+              : 'text-[#B0B0B1] bg-neutral-200 focus:border-sky-600'
           }
               `
           }
