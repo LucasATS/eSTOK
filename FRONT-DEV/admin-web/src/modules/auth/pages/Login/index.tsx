@@ -2,7 +2,7 @@ import { FormHandles } from '@unform/core';
 import { useRef } from 'react';
 import { Form } from 'react-router-dom';
 import Button from '../../../../components/Button';
-import InputForm from '../../../../components/Form/InputForm';
+import InputForm from '../../../../components/FormComponents/InputForm';
 import { LoginCredentials, useAuth } from '../../contexts/AuthProvider';
 
 const Login = () => {
@@ -30,7 +30,7 @@ const Login = () => {
             <InputForm name="email" type="email" label="E-mail" placeholder="email@example.com" />
             <div className="mb-4"></div>
             <InputForm name="password" type="password" label="Senha" placeholder="Senha" />
-            <Button variant="primary">Acessar</Button>
+            <Button variant="primary" buttonText="Acessar" />
           </div>
         </Form>
       </div>
