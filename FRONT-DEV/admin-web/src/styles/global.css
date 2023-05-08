@@ -20,7 +20,7 @@
   }
 
   .default {
-    @apply bg-neutral-100 text-white;
+    @apply bg-neutral-200 text-white;
   }
 
   .default:hover {
