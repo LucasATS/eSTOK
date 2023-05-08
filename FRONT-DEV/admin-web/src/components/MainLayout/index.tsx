@@ -44,10 +44,10 @@ const MainLayout: React.FC<Props> = ({ children }) => {
           <div className="flex flex-row md:flex-col items-center md:items-start">
             <div className="md:flex flex-col hidden md:w-full mt-14 gap-7">
               <div className="flex justify-center">
-                <img src={'/images/e-stok.svg'} alt="logo" />
+                <img src={'https://e-stok.onrender.com/static/SVG/e-stok.svg'} alt="logo" />
               </div>
               <div className="flex justify-center">
-                <img src={'/images/mask-group.svg'} alt="logo" />
+                <img src={'https://e-stok.onrender.com/static/SVG/mask-group.svg'} alt="logo" />
               </div>
               <div className="flex items-center justify-center">
                 <span className="capitalize font-medium">

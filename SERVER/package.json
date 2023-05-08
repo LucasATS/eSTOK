@@ -1,14 +1,13 @@
 {
   "name": "estok-server",
-  "version": "1.0.0",
+  "version": "23.05.07",
   "description": "eSTOK",
   "main": "src/main.js",
-  "keywords": [],
+  "keywords": ["STOK", "ESTOQUE", "ESTOK"],
   "author": "TURMA 2023 TADS - INSTED",
   "license": "ISC",
   "scripts": {
     "server": "nodemon --exec babel-node src/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d dist",
     "start": "node dist/main.js"
   },

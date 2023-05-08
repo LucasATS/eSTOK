@@ -20,10 +20,15 @@
     }
   },
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "crlf"
+      }
+    ],
     "react/jsx-uses-react": "off",
     "react/jsx-uses-vars": "error",
     "react/react-in-jsx-scope": "off",
-    "prettier/prettier": "error",
     "semi": ["error", "always"],
     "space-before-function-paren": [
       "error",

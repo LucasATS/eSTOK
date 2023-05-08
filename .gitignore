@@ -1,3 +1,4 @@
 node_modules
 SQL.db
 *.sqlite
+SERVER/dist
