@@ -42,15 +42,15 @@ const InputForm = ({
     <div className={`flex flex-col mt-2 text-sm ${className || ''}`}>
       <label
         htmlFor={name}
-        className={labelStyle || `py-1 font-medium ${error ? ' text-red-500' : 'text-gray-500'}`}
+        className={labelStyle || `py-1 font-medium ${error ? ' text-red-500' : 'text-[#B0B0B1]'}`}
       >
         {label}
       </label>
       <div
-        className={`relative border rounded ${
+        className={`relative rounded-[30px] ${
           error
             ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-            : 'text-gray-500 border-gray-200 focus:border-teal-600 focus:ring-teal-600'
+            : 'text-[#B0B0B1] bg-neutral-200'
         }`}
       >
         <input
@@ -63,11 +63,11 @@ const InputForm = ({
           disabled={disabled}
           className={
             inputStyle ||
-            `w-full rounded focus:ring-1 p-2 focus:outline-none
+            `w-full rounded-[30px] focus:ring-1 p-2 focus:outline-none
           ${
             error
               ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'text-gray-500 border-gray-200 focus:border-teal-600 focus:ring-teal-600'
+              : 'text-[#B0B0B1] bg-neutral-200 focus:border-neutral-300 focus:ring-neutral-400'
           }
               `
           }
@@ -77,12 +77,12 @@ const InputForm = ({
           (isVisible ? (
             <EyeOffIcon
               onClick={toggleVisibility}
-              className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-gray-500 items-center cursor-pointer"
+              className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-[#B0B0B1] items-center cursor-pointer"
             />
           ) : (
             <EyeIcon
               onClick={toggleVisibility}
-              className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-gray-500 items-center cursor-pointer"
+              className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-[#B0B0B1] items-center cursor-pointer"
             />
           ))} */}
       </div>
