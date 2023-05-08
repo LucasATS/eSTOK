@@ -23,7 +23,7 @@
     "prettier/prettier": [
       "error",
       {
-        "endOfLine": "crlf"
+        "endOfLine": "auto"
       }
     ],
     "react/jsx-uses-react": "off",
