@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import iconApi from '../../modules/_shared/services/iconApi';
-import PageAction from './components/PageAction';
-import PageInfo from './components/PageInfo';
-import PageItem from './components/PageItem';
+import { useEffect, useState } from "react";
+import iconApi from "../../modules/_shared/services/iconApi";
+import PageAction from "./components/PageAction";
+import PageInfo from "./components/PageInfo";
+import PageItem from "./components/PageItem";
 
 type PaginateProps = {
   totalItems?: number;
@@ -19,13 +19,23 @@ const Pagination = (props: PaginateProps) => {
   const [pager, setPager] = useState(pagerInit);
 
   useEffect(() => {
-    const pagerInit = getPager(props.totalItems, props.page, props.pageSize, props.maxPages);
+    const pagerInit = getPager(
+      props.totalItems,
+      props.page,
+      props.pageSize,
+      props.maxPages
+    );
     setPager(pagerInit);
   }, [props.totalItems, props.maxPages, props.page]);
 
   function setPage(page: number) {
     if (page < 1 || page > pager.totalPages) return;
-    const newPager = getPager(props.totalItems, page, props.pageSize, props.maxPages);
+    const newPager = getPager(
+      props.totalItems,
+      page,
+      props.pageSize,
+      props.maxPages
+    );
     setPager(newPager);
 
     if (props.onChangePage) {
@@ -33,7 +43,12 @@ const Pagination = (props: PaginateProps) => {
     }
   }
 
-  function getPager(totalItems = 0, currentPage = 1, pageSize = 10, maxPages = 5) {
+  function getPager(
+    totalItems = 0,
+    currentPage = 1,
+    pageSize = 10,
+    maxPages = 5
+  ) {
     const totalPages = Math.ceil(totalItems / pageSize);
 
     if (currentPage < 1) {
@@ -62,7 +77,9 @@ const Pagination = (props: PaginateProps) => {
       }
     }
 
-    const pages = Array.from(Array(endPage + 1 - startPage).keys()).map((i) => startPage + i);
+    const pages = Array.from(Array(endPage + 1 - startPage).keys()).map(
+      (i) => startPage + i
+    );
 
     return {
       totalItems: totalItems,
@@ -71,13 +88,13 @@ const Pagination = (props: PaginateProps) => {
       totalPages: totalPages,
       startPage: startPage,
       endPage: endPage,
-      pages: pages
+      pages: pages,
     };
   }
 
   const formatNumber = (number?: number): string => {
     if (number) {
-      return String(number).replace(/(.)(?=(\d{3})+$)/g, '$1.');
+      return String(number).replace(/(.)(?=(\d{3})+$)/g, "$1.");
     }
     return String(number);
   };
@@ -97,7 +114,7 @@ const Pagination = (props: PaginateProps) => {
             onClick={() => setPage(pager.currentPage - 1)}
             content={
               <img
-                src={iconApi + 'chevron-left.svg'}
+                src={iconApi + "chevron-left.svg"}
                 className="sm:w-4 sm:h-4 w-6 h-6 text-gray-500"
               />
             }
@@ -118,7 +135,7 @@ const Pagination = (props: PaginateProps) => {
               onClick={() => setPage(pager.totalPages)}
               content={
                 <img
-                  src={iconApi + 'chevron-left.svg'}
+                  src={iconApi + "chevron-left.svg"}
                   className="w-4 h-4 text-gray-500 rotate-180"
                 />
               }

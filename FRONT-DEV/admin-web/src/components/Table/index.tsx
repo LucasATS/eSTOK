@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import Dropdown from '../Dropdown';
+import { useState } from "react";
+import Dropdown from "../Dropdown";
 
 export interface TableColumn {
   columnName?: string;
@@ -24,7 +24,7 @@ const Table = ({ columns, values, menuItems }: TableProps) => {
   const [itemActive, setItemActive] = useState<any>();
 
   const getObjectValueByColumn = (column: TableColumn, value: any) => {
-    const keys = column.key.split('.');
+    const keys = column.key.split(".");
     let valueToReturn: any;
 
     if (keys.length > 1) {
@@ -80,13 +80,20 @@ const Table = ({ columns, values, menuItems }: TableProps) => {
           {values?.map((value: any) => (
             <tr key={value.id} className="hover:bg-gray-100 transition-all">
               {columns?.map((column, index) => (
-                <td key={index} className="p-3 text-gray-500 first:pl-5 last:pr-5">
+                <td
+                  key={index}
+                  className="p-3 text-gray-500 first:pl-5 last:pr-5"
+                >
                   {getObjectValueByColumn(column, value)}
                 </td>
               ))}
               {menuItems && (
                 <td className="first:w-72 last:w-2 p-3 text-gray-500">
-                  <Dropdown menuItens={menuItems} onClick={handleClickItemMenu} size="default">
+                  <Dropdown
+                    menuItens={menuItems}
+                    onClick={handleClickItemMenu}
+                    size="default"
+                  >
                     <div
                       className="w-4 h-4 cursor-pointer text-gray-700"
                       onClick={() => handleClickOpenMenu(value.id)}
@@ -102,7 +109,9 @@ const Table = ({ columns, values, menuItems }: TableProps) => {
       </table>
       {values?.length == 0 && (
         <div className="flex w-full justify-center py-10">
-          <span className="text-sm font-semibold text-gray-600">Nenhum registro encontrado</span>
+          <span className="text-sm font-semibold text-gray-600">
+            Nenhum registro encontrado
+          </span>
         </div>
       )}
     </div>

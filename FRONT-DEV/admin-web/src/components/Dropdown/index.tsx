@@ -1,11 +1,11 @@
-import { Menu } from '@headlessui/react';
-import React, { ReactNode } from 'react';
-import { Action } from '../Table';
+import { Menu } from "@headlessui/react";
+import React, { ReactNode } from "react";
+import { Action } from "../Table";
 
 type Props = {
   menuItens?: Action[];
   onClick: (value: any) => void;
-  size: 'default' | 'medium';
+  size: "default" | "medium";
   children?: ReactNode;
 };
 

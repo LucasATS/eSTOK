@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Pagination from '../../../../components/Paginate';
-import { Paginate } from '../../../_shared/types/api.types';
-import Produto from '../../models/Produto';
-import CreateProduct from './components/CreateProduct';
-import ProductTable from './components/ProductTable/index';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Pagination from "../../../../components/Paginate";
+import { Paginate } from "../../../_shared/types/api.types";
+import Produto from "../../models/Produto";
+import CreateProduct from "./components/CreateProduct";
+import ProductTable from "./components/ProductTable/index";
 
 const ListProduct = () => {
   const [productIdActive, setProductIdActive] = useState<number>();

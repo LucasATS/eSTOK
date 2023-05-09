@@ -1,5 +1,5 @@
-import { useField } from '@unform/core';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useField } from "@unform/core";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 interface Props {
   label?: string;
@@ -9,7 +9,7 @@ interface Props {
   placeholder?: string;
   maxLength?: number;
 }
-type TextareaProps = JSX.IntrinsicElements['textarea'] & Props;
+type TextareaProps = JSX.IntrinsicElements["textarea"] & Props;
 
 const TextareaForm: React.FC<TextareaProps> = ({
   label,
@@ -22,8 +22,11 @@ const TextareaForm: React.FC<TextareaProps> = ({
   ...rest
 }) => {
   const textareaRef = useRef(null);
-  const { fieldName, defaultValue, registerField, error, clearError } = useField(name);
-  const [content, setContent] = useState(defaultValue?.toString().slice(0, maxLength));
+  const { fieldName, defaultValue, registerField, error, clearError } =
+    useField(name);
+  const [content, setContent] = useState(
+    defaultValue?.toString().slice(0, maxLength)
+  );
 
   const setFormattedContent = useCallback(
     (text: string) => {
@@ -37,7 +40,7 @@ const TextareaForm: React.FC<TextareaProps> = ({
     registerField({
       name: fieldName,
       ref: textareaRef.current,
-      path: 'value'
+      path: "value",
     });
   }, [fieldName, registerField]);
 
@@ -50,7 +53,9 @@ const TextareaForm: React.FC<TextareaProps> = ({
       {label && (
         <label
           htmlFor={name}
-          className={`text-sm py-1 font-medium ${error ? ' text-red-500' : 'text-stone-800'}`}
+          className={`text-sm py-1 font-medium ${
+            error ? " text-red-500" : "text-stone-800"
+          }`}
         >
           {label}
         </label>
@@ -67,8 +72,8 @@ const TextareaForm: React.FC<TextareaProps> = ({
         className={`w-full bg-[#E9E9E9] px-3 py-2 text-sm border rounded-xl focus:outline-none focus:ring-1 resize-none
           ${
             error
-              ? 'text-gray-700 border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'text-[#B0B0B1] focus:border-teal-600'
+              ? "text-gray-700 border-red-500 focus:border-red-500 focus:ring-red-500"
+              : "text-[#B0B0B1] focus:border-teal-600"
           }
         `}
         {...rest}
@@ -77,13 +82,17 @@ const TextareaForm: React.FC<TextareaProps> = ({
       </textarea>
       <div
         className={`flex sm:flex-wrap gap-4 lg:flex-row w-full ${
-          error ? 'justify-between' : 'justify-end'
+          error ? "justify-between" : "justify-end"
         }`}
       >
-        {error && <span className="text-red-500 justify-end text-xs mt-1 ml-1">{error}</span>}
+        {error && (
+          <span className="text-red-500 justify-end text-xs mt-1 ml-1">
+            {error}
+          </span>
+        )}
         <p
           className={`flex text-xs justify-end mt-1 ml-1
-            ${error ? 'text-red-500' : ''}
+            ${error ? "text-red-500" : ""}
           `}
         >
           {content ? content?.length : 0}/{maxLength}

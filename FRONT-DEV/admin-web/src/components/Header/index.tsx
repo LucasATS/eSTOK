@@ -1,4 +1,4 @@
-import TitleCard from '../TitleCard';
+import TitleCard from "../TitleCard";
 
 const Header = () => {
   return (

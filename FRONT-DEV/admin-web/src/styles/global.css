@@ -48,7 +48,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   scroll-behavior: smooth;
 }
 
@@ -64,9 +64,9 @@ html {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-font-feature-settings: 'lnum';
-  -moz-font-feature-settings: 'lnum';
-  font-feature-settings: 'lnum';
+  -webkit-font-feature-settings: "lnum";
+  -moz-font-feature-settings: "lnum";
+  font-feature-settings: "lnum";
 }
 
 ::-webkit-scrollbar {
@@ -101,6 +101,6 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
 }

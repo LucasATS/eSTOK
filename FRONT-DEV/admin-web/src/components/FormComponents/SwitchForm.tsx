@@ -18,13 +18,13 @@ const SwitchForm = ({ text, onChange, value }: ConfigModalProps) => {
       >
         <div
           className={`${
-            value ? 'bg-sky-600' : 'bg-[#929293]'
+            value ? "bg-sky-600" : "bg-[#929293]"
           } inline-flex h-4 w-10 items-center rounded-full`}
           onChange={handleClick}
         >
           <span
             className={`${
-              value ? 'translate-x-[26px]' : 'translate-x-0.5'
+              value ? "translate-x-[26px]" : "translate-x-0.5"
             } inline-block h-3 w-3 transform rounded-full bg-white transition`}
             onChange={handleClick}
           />

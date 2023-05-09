@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 export interface User {
   name: string;
@@ -29,7 +29,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const signIn = async (login: LoginCredentials) => {
-    setUser({ name: 'Bárbara', email: 'teste@teste.com' });
+    setUser({ name: "Bárbara", email: "teste@teste.com" });
   };
 
   const signOut = () => {
@@ -37,7 +37,9 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ signed: !!user, user, signIn, signOut, loading }}>
+    <AuthContext.Provider
+      value={{ signed: !!user, user, signIn, signOut, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );
