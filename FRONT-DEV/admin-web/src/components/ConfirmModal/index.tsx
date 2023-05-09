@@ -1,6 +1,6 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-import Button from "../Button";
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
+import Button from '../Button';
 
 interface ModalButton {
   onClick?: () => void;
@@ -22,7 +22,7 @@ const ConfirmModal = ({
   modalText,
   onClose,
   cancelButton,
-  closeOnConfirm,
+  closeOnConfirm
 }: ConfigModalProps) => {
   const handleCancel = () => {
     if (cancelButton?.onClick) {
@@ -42,11 +42,7 @@ const ConfirmModal = ({
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog
-        as="div"
-        className="fixed inset-0 z-10 overflow-y-auto"
-        onClose={onClose}
-      >
+      <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={onClose}>
         <div className="min-h-screen px-4">
           <Transition.Child
             as={Fragment}
@@ -60,10 +56,7 @@ const ConfirmModal = ({
             <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
           </Transition.Child>
 
-          <span
-            className="inline-block h-screen align-middle"
-            aria-hidden="true"
-          >
+          <span className="inline-block h-screen align-middle" aria-hidden="true">
             &#8203;
           </span>
           <Transition.Child
@@ -88,19 +81,11 @@ const ConfirmModal = ({
                       {modalText}
                     </div>
                     <div className="flex items-center justify-end p-6 space-x-3 rounded-b ">
-                      <Button
-                        variant="default"
-                        type="button"
-                        onClick={handleCancel}
-                      >
-                        {cancelButton?.buttonText || "Cancelar"}
+                      <Button variant="default" type="button" onClick={handleCancel}>
+                        {cancelButton?.buttonText || 'Cancelar'}
                       </Button>
-                      <Button
-                        variant="primary"
-                        type="button"
-                        onClick={handleConfirm}
-                      >
-                        {confirmButton.buttonText || "Confirmar"}
+                      <Button variant="primary" type="button" onClick={handleConfirm}>
+                        {confirmButton.buttonText || 'Confirmar'}
                       </Button>
                     </div>
                   </div>

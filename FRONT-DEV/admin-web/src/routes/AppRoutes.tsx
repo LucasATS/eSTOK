@@ -1,10 +1,10 @@
-import React from "react";
-import { Routes } from "react-router";
-import { HashRouter, Route } from "react-router-dom";
-import MainLayout from "../components/MainLayout";
-import RoutesURL from "../modules/_shared/constants/RoutesURL.enum";
-import Home from "../modules/home";
-import ListProduct from "../modules/produto/pages/ListProduct";
+import React from 'react';
+import { Routes } from 'react-router';
+import { HashRouter, Route } from 'react-router-dom';
+import MainLayout from '../components/MainLayout';
+import RoutesURL from '../modules/_shared/constants/RoutesURL.enum';
+import Home from '../modules/home';
+import ListProduct from '../modules/produto/pages/ListProduct';
 
 const AppRoutes: React.FC = () => {
   return (

@@ -1,4 +1,4 @@
-import { Toaster } from "react-hot-toast";
+import { Toaster } from 'react-hot-toast';
 
 const ToastCustom = () => {
   return (
@@ -7,33 +7,33 @@ const ToastCustom = () => {
         reverseOrder={false}
         position="top-right"
         toastOptions={{
-          className: "",
+          className: '',
           duration: 3000,
           style: {
-            borderRadius: "2px",
-            fontSize: "15px",
+            borderRadius: '2px',
+            fontSize: '15px'
           },
           success: {
             duration: 3000,
             style: {
-              background: "rgb(220 252 231)",
-              color: "rgb(21 128 61)",
-            },
+              background: 'rgb(220 252 231)',
+              color: 'rgb(21 128 61)'
+            }
           },
           error: {
             duration: 3000,
             style: {
-              background: "rgb(254 226 226)",
-              color: "rgb(185 28 28)",
-            },
-          },
+              background: 'rgb(254 226 226)',
+              color: 'rgb(185 28 28)'
+            }
+          }
         }}
         containerStyle={{
           top: 40,
           left: 20,
           bottom: 20,
           right: 20,
-          borderRadius: "0",
+          borderRadius: '0'
         }}
       ></Toaster>
     </div>

@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 interface Props {
   onClick?: () => void;
-  type?: "submit" | "button" | "reset";
-  variant?: "primary" | "secondary" | "default" | "clean" | "error";
+  type?: 'submit' | 'button' | 'reset';
+  variant?: 'primary' | 'secondary' | 'default' | 'clean' | 'error';
   buttonText?: string;
   children?: React.ReactNode;
   styles?: string;
@@ -15,7 +15,7 @@ const Button: React.FC<Props> = ({
   onClick,
   styles,
   type,
-  variant = "default",
+  variant = 'default'
 }) => {
   return (
     <button

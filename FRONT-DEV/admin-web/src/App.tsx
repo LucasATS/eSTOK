@@ -1,5 +1,5 @@
-import AuthProvider from "./modules/auth/contexts/AuthProvider";
-import AppRoutes from "./routes/AppRoutes";
+import AuthProvider from './modules/auth/contexts/AuthProvider';
+import AppRoutes from './routes/AppRoutes';
 
 const App = () => {
   return (

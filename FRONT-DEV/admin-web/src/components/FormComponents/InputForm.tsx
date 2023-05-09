@@ -1,6 +1,6 @@
 // import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
-import { useField } from "@unform/core";
-import { useRef, useState } from "react";
+import { useField } from '@unform/core';
+import { useRef, useState } from 'react';
 
 interface Props {
   type: string;
@@ -12,7 +12,7 @@ interface Props {
   disabled?: boolean;
 }
 
-type InputProps = JSX.IntrinsicElements["input"] & Props;
+type InputProps = JSX.IntrinsicElements['input'] & Props;
 
 const InputForm = ({
   onChange,
@@ -27,8 +27,7 @@ const InputForm = ({
   ...rest
 }: InputProps) => {
   const [isVisible, setIsVisible] = useState(false);
-  const { fieldName, defaultValue, registerField, error, clearError } =
-    useField(name);
+  const { fieldName, defaultValue, registerField, error, clearError } = useField(name);
   const inputRef = useRef(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,25 +39,22 @@ const InputForm = ({
   };
 
   return (
-    <div className={`flex flex-col mt-2 text-sm w-full ${className || ""}`}>
+    <div className={`flex flex-col mt-2 text-sm w-full ${className || ''}`}>
       <label
         htmlFor={name}
-        className={
-          labelStyle ||
-          `py-1 font-medium ${error ? " text-red-500" : "text-[#B0B0B1]"}`
-        }
+        className={labelStyle || `py-1 font-medium ${error ? ' text-red-500' : 'text-[#B0B0B1]'}`}
       >
         {label}
       </label>
       <div
         className={`relative rounded-[30px] ${
           error
-            ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-            : "text-[#B0B0B1] bg-neutral-200"
+            ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+            : 'text-[#B0B0B1] bg-neutral-200'
         }`}
       >
         <input
-          type={isVisible ? "text" : type}
+          type={isVisible ? 'text' : type}
           name={name}
           placeholder={placeholder}
           defaultValue={defaultValue}
@@ -70,8 +66,8 @@ const InputForm = ({
             `w-full rounded-[30px] focus:ring-1 p-2 focus:outline-none
           ${
             error
-              ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-              : "text-[#B0B0B1] bg-neutral-200 focus:border-sky-600"
+              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+              : 'text-[#B0B0B1] bg-neutral-200 focus:border-sky-600'
           }
               `
           }

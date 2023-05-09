@@ -1,7 +1,7 @@
-import { Listbox, Transition } from "@headlessui/react";
-import { useField } from "@unform/core";
-import { useEffect, useRef, useState } from "react";
-import iconApi from "../../modules/_shared/services/iconApi";
+import { Listbox, Transition } from '@headlessui/react';
+import { useField } from '@unform/core';
+import { useEffect, useRef, useState } from 'react';
+import iconApi from '../../modules/_shared/services/iconApi';
 
 export type OptionSelect = { value: any; label: string; unavailable?: boolean };
 
@@ -12,23 +12,11 @@ interface Props {
   placeholder?: string;
 }
 
-type SelectProps = JSX.IntrinsicElements["select"] & Props;
+type SelectProps = JSX.IntrinsicElements['select'] & Props;
 
-const SelectForm = ({
-  name,
-  label,
-  options,
-  placeholder,
-  ...rest
-}: SelectProps) => {
+const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps) => {
   const selectRef = useRef<HTMLSelectElement>(null);
-  const {
-    fieldName,
-    defaultValue = "",
-    registerField,
-    error,
-    clearError,
-  } = useField(name);
+  const { fieldName, defaultValue = '', registerField, error, clearError } = useField(name);
   const [valueSelect, setValueSelect] = useState(defaultValue);
 
   useEffect(() => {
@@ -45,8 +33,8 @@ const SelectForm = ({
         }
       },
       clearValue: () => {
-        setValueSelect("");
-      },
+        setValueSelect('');
+      }
     });
   }, [fieldName, registerField, valueSelect, setValueSelect]);
 
@@ -61,31 +49,25 @@ const SelectForm = ({
           <div className="relative mt-2 z-10 w-full">
             <Listbox.Label
               className={`py-1 font-medium bg-neutral-200 ${
-                error ? "text-red-500" : "text-[#B0B0B1]"
+                error ? 'text-red-500' : 'text-[#B0B0B1]'
               }`}
             >
               {label}
             </Listbox.Label>
             <Listbox.Button
               className={`flex text-[#B0B0B1] bg-neutral-200 justify-between items-center group rounded-[30px] border focus:ring-1 p-2 w-full focus:outline-none ${
-                error
-                  ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                  : ""
+                error ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
               }`}
             >
               <span
                 className={`block truncate font-medium ${
-                  error ? "text-red-500" : "text-[#B0B0B1]"
+                  error ? 'text-red-500' : 'text-[#B0B0B1]'
                 }`}
               >
                 {valueSelect.label || placeholder}
               </span>
               <span className="inset-y-0 flex pr-2 pointer-events-none items-center">
-                <img
-                  src={iconApi + "chevron-solid.svg"}
-                  className="w-4 h-4"
-                  aria-hidden="true"
-                />
+                <img src={iconApi + 'chevron-solid.svg'} className="w-4 h-4" aria-hidden="true" />
               </span>
             </Listbox.Button>
             <Transition
@@ -102,7 +84,7 @@ const SelectForm = ({
                   <Listbox.Option
                     key={option.value}
                     className={({ active }) =>
-                      `${active ? "text-sky-600" : "text[#B0B0B1]"}
+                      `${active ? 'text-sky-600' : 'text[#B0B0B1]'}
                         cursor-pointer select-none relative p-2 hover:bg-neutral-200`
                     }
                     value={option}
@@ -111,7 +93,7 @@ const SelectForm = ({
                       <>
                         <span
                           className={`block truncate font-medium ${
-                            selected ? "text-sky-600" : ""
+                            selected ? 'text-sky-600' : ''
                           }  `}
                         >
                           {option.label}

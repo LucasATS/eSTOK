@@ -1,4 +1,4 @@
-import TitleCard from "../../components/TitleCard";
+import TitleCard from '../../components/TitleCard';
 
 const Home = () => {
   return (

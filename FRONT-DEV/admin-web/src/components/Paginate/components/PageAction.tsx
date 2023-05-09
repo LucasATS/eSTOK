@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type Props = {
   isDisabled: boolean;
@@ -10,9 +10,7 @@ const PageAction = (props: Props) => {
   return (
     <span
       className={`p-1 rounded flex items-center transition-all ${
-        props.isDisabled
-          ? "bg-gray-300 cursor-not-allowed"
-          : "cursor-pointer hover:bg-gray-200"
+        props.isDisabled ? 'bg-gray-300 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-200'
       }`}
       onClick={props.onClick}
     >
