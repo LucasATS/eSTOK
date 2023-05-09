@@ -80,9 +80,11 @@ const MainLayout: React.FC<Props> = ({ children }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col lg:ml-72 md:ml-56 overflow-y-auto">
-          <Header />
-          <div className="flex flex-col bg-neutral-200 h-screen">{children}</div>
+        <div className="flex flex-col bg-neutral-200 overflow-y-auto">
+          <div className="bg-white">
+            <Header />
+          </div>
+          <div className="flex flex-col lg:ml-72 md:ml-56 h-screen">{children}</div>
         </div>
       </div>
     </>
