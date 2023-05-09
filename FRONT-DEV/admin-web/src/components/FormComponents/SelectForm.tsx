@@ -1,7 +1,7 @@
 import { Listbox, Transition } from '@headlessui/react';
 import { useField } from '@unform/core';
-import { useEffect, useRef, useState } from 'react';
-import iconApi from '../../modules/_shared/services/iconApi';
+import { ChevronDownOutline } from 'heroicons-react';
+import { useEffect, useState } from 'react';
 
 export type OptionSelect = { value: any; label: string; unavailable?: boolean };
 
@@ -15,7 +15,6 @@ interface Props {
 type SelectProps = JSX.IntrinsicElements['select'] & Props;
 
 const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps) => {
-  const selectRef = useRef<HTMLSelectElement>(null);
   const { fieldName, defaultValue = '', registerField, error, clearError } = useField(name);
   const [valueSelect, setValueSelect] = useState(defaultValue);
 
@@ -67,7 +66,10 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
                 {valueSelect.label || placeholder}
               </span>
               <span className="inset-y-0 flex pr-2 pointer-events-none items-center">
-                <img src={iconApi + 'chevron-solid.svg'} className="w-4 h-4" aria-hidden="true" />
+                <ChevronDownOutline
+                  className={`w-4 h-4 ${open ? 'transform rotate-180' : ''}`}
+                  aria-hidden="true"
+                />
               </span>
             </Listbox.Button>
             <Transition
