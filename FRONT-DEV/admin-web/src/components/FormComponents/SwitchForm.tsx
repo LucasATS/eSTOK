@@ -25,7 +25,7 @@ const SwitchForm = ({ text, onChange, value }: ConfigModalProps) => {
           <span
             className={`${
               value ? 'translate-x-[26px]' : 'translate-x-0.5'
-            } inline-block h-3 w-3 transform rounded-full bg-white transition`}
+            } inline-block h-3 w-3 transform rounded-full bg-white hover:bg-gray-200 transition`}
             onChange={handleClick}
           />
         </div>
