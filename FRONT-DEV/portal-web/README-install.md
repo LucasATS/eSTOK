@@ -6,5 +6,5 @@
 > - Instale os pacotes com `npm install`.
 > - Execute `npm start` para iniciar o servidor.
 > - Para formatar o projeto com as configurações do Prettier, rode: `npx prettier --write .`
-> - Para facilitar no seu desenvolvimento aconselho você a baixar as seguintes extensões:
+> - Para facilitar no seu desenvolvimento aconselho você a baixar as seguintes extensões.
 >   ![extensoes1](../../.github/extensoes1.png) ![extensoes2](../../.github/extensoes2.png)
