@@ -24,7 +24,7 @@ var urls = /*#__PURE__*/function () {
       this.server.get("/", views.home);
 
       //Links Administrador
-      this.server.get("/operador", views.homeOperador);
+      this.server.get("/admin", views.homeAdmin);
       this.server.post("/auth/login", views.entrar);
       this.server.get("/auth/logoff", views.sair);
 
