@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import Pagination from '../../../../components/Paginate';
 import { Paginate } from '../../../_shared/types/api.types';
 import Produto from '../../models/Produto';
-import CreateProduct from './components/CreateProduct';
 import ProductTable from './components/ProductTable/index';
 
 const ListProduct = () => {
@@ -25,9 +24,6 @@ const ListProduct = () => {
 
   return (
     <div className="flex flex-col mx-8">
-      <div className="flex bg-white mt-6 rounded-[30px] p-6 w-full">
-        <CreateProduct />
-      </div>
       <div className="flex bg-white mt-6 rounded-[30px] p-6 w-full">
         <ProductTable
           onClickEditProduto={handleClickEditProduct}

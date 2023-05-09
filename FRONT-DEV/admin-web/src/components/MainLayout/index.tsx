@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import RoutesURL from '../../modules/_shared/constants/RoutesURL.enum';
 import iconApi from '../../modules/_shared/services/iconApi';
 import { useAuth } from '../../modules/auth/contexts/AuthProvider';
-import Header from '../Header';
+import Header from './components/Header';
 
 interface Props {
   children: React.ReactNode;
