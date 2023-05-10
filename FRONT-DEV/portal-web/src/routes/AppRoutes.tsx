@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import { MainLayout } from '../components/MainLayout';
 import RoutesStore from '../modules/_shared/constants/RoutesStore.enum';
 import { Home } from '../modules/home/pages';
+import { Product } from '../modules/product/pages';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ const AppRoutes: React.FC = () => {
       <MainLayout>
         <Routes>
           <Route index path={RoutesStore.HOME} element={<Home />} />
-          <Route path={RoutesStore.PRODUCT} />
+          <Route path={RoutesStore.PRODUCT} element={<Product />} />
         </Routes>
       </MainLayout>
     </HashRouter>
