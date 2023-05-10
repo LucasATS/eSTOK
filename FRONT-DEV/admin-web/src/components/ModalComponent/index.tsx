@@ -11,7 +11,7 @@ export const ModalComponent: React.FC<Props> = ({ children, isOpen, onClose }: P
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={onClose}>
-        <div className="min-h-screen px-4">
+        <div className="min-h-screen">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -36,8 +36,8 @@ export const ModalComponent: React.FC<Props> = ({ children, isOpen, onClose }: P
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="flex overflow-y-auto overflow-x-hidden fixed top-4 z-50 justify-center items-center h-full md:h-full inset-0">
-              <div className="relative px-4 w-full max-w-2xl h-auto mx-3">{children}</div>
+            <div className="flex overflow-y-auto overflow-x-hidden fixed py-8 z-50 justify-center items-center h-full md:h-full inset-0">
+              <div className="relative px-4 w-full max-w-2xl h-auto m-auto">{children}</div>
             </div>
           </Transition.Child>
         </div>

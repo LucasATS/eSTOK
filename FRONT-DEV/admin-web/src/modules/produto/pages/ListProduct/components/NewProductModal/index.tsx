@@ -99,8 +99,8 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
   return (
     <ModalComponent isOpen={isOpen} onClose={onClose}>
       <Form ref={formRef} onSubmit={handleAddNewAggregatedHolerite} className="flex justify-center">
-        <div className="relative bg-white rounded-lg shadow w-full sm-w-3/5">
-          <div className="flex items-start py-2 px-4 rounded-t border-b">
+        <div className="relative bg-white rounded-lg shadow w-full">
+          <div className="flex items-start py-1 px-4 rounded-t border-b">
             <TitleCard text="Cadastrar Produto" />
           </div>
           <div className="p-6 space-y-3">
@@ -115,49 +115,45 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
               label="selecionar um arquivo .png ou .jpeg"
               acceptFiles={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
             />
-            <div className="flex flex-row items-center w-full gap-4">
-              <InputForm name="productName" type="text" placeholder="Nome do produto" />
+            <InputForm name="productName" type="text" placeholder="Nome do produto" />
+            <div className="flex md:flex-row flex-col gap-3">
               <SelectForm name="category" placeholder="Categoria" options={selectOptionsCategory} />
               <SelectForm name="unit" placeholder="Unidade de medida" options={selectOptionsUnit} />
             </div>
+            <div className="flex md:flex-row flex-col gap-3">
+              <SelectForm
+                name="productType"
+                placeholder="Tipo de produto"
+                options={selectOptionsProductType}
+              />
 
-            <div className="flex flex-row w-full gap-4">
-              <div className="flex flex-col gap-2 w-full">
-                <div className="flex flex-row gap-9 w-full">
-                  <SelectForm
-                    name="productType"
-                    placeholder="Tipo de produto"
-                    options={selectOptionsProductType}
-                  />
-                  <SwitchForm
-                    text="Fundibilidade"
-                    onChange={handleCastabilityActive}
-                    value={castabilityIsActive}
-                  />
-                </div>
-                <div className="flex flex-row gap-3 w-full">
-                  <SelectForm
-                    name="productSize"
-                    placeholder="Tamanho do produto"
-                    options={selectOptionsProductSize}
-                  />
-                  <SwitchForm
-                    text="Estocável"
-                    onChange={handleStockableActive}
-                    value={stockableIsActive}
-                  />
-                </div>
-              </div>
-              <div className="flex items-center justify-center w-full">
-                <TextareaForm
-                  placeholder="Descrição do produto"
-                  name="description"
-                  cols={2}
-                  rows={4}
-                  maxLength={1000}
-                />
-              </div>
+              <SwitchForm
+                text="Fundibilidade"
+                onChange={handleCastabilityActive}
+                value={castabilityIsActive}
+              />
             </div>
+
+            <div className="flex md:flex-row flex-col gap-3">
+              <SelectForm
+                name="productSize"
+                placeholder="Tamanho do produto"
+                options={selectOptionsProductSize}
+              />
+              <SwitchForm
+                text="Estocável"
+                onChange={handleStockableActive}
+                value={stockableIsActive}
+              />
+            </div>
+
+            <TextareaForm
+              placeholder="Descrição do produto"
+              name="description"
+              cols={2}
+              rows={4}
+              maxLength={1000}
+            />
           </div>
 
           <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">

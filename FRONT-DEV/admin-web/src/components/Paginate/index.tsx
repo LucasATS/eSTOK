@@ -1,4 +1,4 @@
-import { ChevronLeftOutline, ChevronRightOutline } from 'heroicons-react';
+import { ChevronLeft, ChevronRight } from 'heroicons-react';
 import { useEffect, useState } from 'react';
 import PageAction from './components/PageAction';
 import PageInfo from './components/PageInfo';
@@ -95,7 +95,7 @@ const Pagination = (props: PaginateProps) => {
           <PageAction
             isDisabled={pager.currentPage === 1 || pager.currentPage === 0}
             onClick={() => setPage(pager.currentPage - 1)}
-            content={<ChevronLeftOutline className="sm:w-4 sm:h-4 w-6 h-6 text-gray-500" />}
+            content={<ChevronLeft className="sm:w-4 sm:h-4 w-6 h-6 text-gray-500" />}
           />
 
           {pager.pages.map((page, index) => (
@@ -107,13 +107,11 @@ const Pagination = (props: PaginateProps) => {
             />
           ))}
 
-          <div className="sm:contents hidden">
-            <PageAction
-              isDisabled={pager.currentPage === pager.totalPages}
-              onClick={() => setPage(pager.totalPages)}
-              content={<ChevronRightOutline className="w-4 h-4 text-gray-500" />}
-            />
-          </div>
+          <PageAction
+            isDisabled={pager.currentPage === pager.totalPages}
+            onClick={() => setPage(pager.currentPage + 1)}
+            content={<ChevronRight className="sm:w-4 sm:h-4 w-6 h-6 text-gray-500" />}
+          />
         </div>
       </div>
     </div>

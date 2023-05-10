@@ -10,7 +10,7 @@ const SwitchForm = ({ text, onChange, value }: ConfigModalProps) => {
   };
 
   return (
-    <div className="flex flex-row w-full items-center">
+    <div className="flex flex-row w-full md:justify-start justify-center gap-1 items-center">
       <span className="text-[#444444] font-medium">{text}</span>
       <div
         className="md:w-14 md:h-7 w-12 h-6 flex items-center rounded-full p-1 cursor-pointer"

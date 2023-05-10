@@ -54,7 +54,7 @@ const ListProduct = () => {
     <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
       <div className="flex flex-wrap justify-between items-center">
         <TitleCard text="Produto" />
-        <div className="flex items-center sm:py-5 py-3 gap-3 w-full sm:w-auto justify-end">
+        <div className="flex md:px-4 w-auto justify-end">
           <Button
             buttonText="Novo"
             variant="primary"
