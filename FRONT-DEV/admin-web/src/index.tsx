@@ -3,5 +3,4 @@ import App from './App';
 import './styles/global.css';
 
 const root = ReactDOM.createRoot(document.getElementById('admin-root') as HTMLElement);
-
 root.render(<App />);

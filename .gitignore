@@ -1,3 +1,5 @@
 node_modules
 SQL.db
 *.sqlite
+DESKTOP-DEV
+/dist/.env

@@ -19,7 +19,7 @@ class views {
     };
 
     //Página Operador
-    homeOperador = async (req, res) => {
+    homeAdmin = async (req, res) => {
         res.sendFile('index.html',{ root: this.PATH + '/web/private' });
     };
 

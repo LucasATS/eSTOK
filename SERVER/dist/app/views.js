@@ -42,7 +42,7 @@ var views = /*#__PURE__*/_createClass(function views(dirPath) {
     };
   }());
   //Página Operador
-  _defineProperty(this, "homeOperador", /*#__PURE__*/function () {
+  _defineProperty(this, "homeAdmin", /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
