@@ -4,11 +4,11 @@
 
 @layer components {
   .primary {
-    @apply bg-blue-600 text-white;
+    @apply bg-sky-600 text-white;
   }
 
   .primary:hover {
-    @apply bg-sky-700 text-white bg-opacity-90;
+    @apply bg-sky-700 text-gray-50 bg-opacity-90;
   }
 
   .secondary {
@@ -16,7 +16,7 @@
   }
 
   .secondary:hover {
-    @apply bg-stone-800 text-white bg-opacity-90;
+    @apply bg-stone-800 text-gray-50 bg-opacity-90;
   }
 
   .default {
@@ -24,7 +24,7 @@
   }
 
   .default:hover {
-    @apply bg-neutral-100 text-white bg-opacity-90;
+    @apply bg-neutral-100 text-gray-50 bg-opacity-90;
   }
 
   .cancel {
@@ -32,15 +32,15 @@
   }
 
   .cancel:hover {
-    @apply bg-gray-500 text-white bg-opacity-90;
+    @apply bg-gray-500 text-gray-50 bg-opacity-90;
   }
 
   .clean {
-    @apply bg-white text-teal-500;
+    @apply bg-white text-sky-500;
   }
 
   .clean:hover {
-    @apply bg-gray-200 text-teal-600 bg-opacity-90;
+    @apply bg-gray-200 text-sky-600 bg-opacity-90;
   }
 
   .error {
