@@ -3,13 +3,13 @@ import DAO from "./DAO";
 class query {
 
     //testes
-    static userStatus_1 = async (model) => {
+    static userStatus_1 = async (models) => {
 
-        const user = await this.modelos.Usuario({
+        const user = (await models).Usuario({
             raw: true,
             attributes: ['nome', 'email', 'senha'],
             include: [
-                {   model: models.Status,
+                {   model: (await models).Status,
                     required: true,
                     attributes:['descricao']
                 }
