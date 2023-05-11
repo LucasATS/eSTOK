@@ -13,7 +13,7 @@ var sequelize = null;
 class models {
 
   constructor() {
-    // CONEXÃO - SQLITE
+    // CONEXÃO - MySQL
     sequelize = new Sequelize(
       process.env.DATABASE,
       process.env.USER,
