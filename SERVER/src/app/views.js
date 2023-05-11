@@ -1,6 +1,6 @@
-import adicionarDadosTest from "./DAO";
-import query from './consultas';
-import forms from "./validar";
+import DAO, {adicionarDadosTest} from "./DAO";
+import query from './querys';
+import forms from "./forms";
 import models from "./models";
 
 class views {
@@ -33,6 +33,7 @@ class views {
     entrar = async (req, res) => {
         let { email, senha } = req.body;
         let form = await forms.FormularioAuthentic((await this.modelos).Usuario, {
+            login: login,
             email: email,
             senha: senha
         });
@@ -48,10 +49,9 @@ class views {
     //Teste (só acessa se logado)
     forTest = async (req, res) => {
 
-        let user = await query.getUser((await this.modelos).Usuario,
+        let user = await DAO.get((await this.modelos).Usuario,
         { id: req.user });
-
-        res.json({return : `logado como ${user.nome}`})
+        res.json({return : `logado(a) como ${user.nome}`})
 
     };
 
