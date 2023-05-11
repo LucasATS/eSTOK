@@ -47,6 +47,27 @@ const adicionarDadosTest = async (models) => {
     // console.log('Usuários: ', nomes);
 }
 
+class DAO {
+    static get = async ( model , fields ) => {
+        
+        const keys  = Object.keys(fields);
+
+        const data = await model.findOne({
+            where: { [Op.and]: keys }
+        });
+        
+        return data;
+        
+    }
+
+    static save = async ( model , fields ) => {
+        
+    }
+    static filter = async ( model , fields ) => {
+    }
+    static all = async ( model , conditions ) => {
+    }
+}
 
 const criarStatus = async (
     Status, {
