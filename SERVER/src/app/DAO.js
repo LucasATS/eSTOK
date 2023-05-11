@@ -49,11 +49,9 @@ const adicionarDadosTest = async (models) => {
 
 class DAO {
     static get = async ( model , fields ) => {
-        
-        const keys  = Object.keys(fields);
 
         const data = await model.findOne({
-            where: { [Op.and]: keys }
+            where: fields
         });
         
         return data;
@@ -62,11 +60,49 @@ class DAO {
 
     static save = async ( model , fields ) => {
         
+        const id = fields.id;
+        delete fields.id;
+
+        if ( !id ){
+
+             //INSERT MODEL
+             model.create( fields ) 
+                 .then( () => { 
+                     console.log(`Insert in ${model} realized!`); 
+                     return 'sucess'; 
+                 }) 
+                 .catch((error) => { 
+                     console.log(`Error in INSERT ${model} : ${error.errors[0].message}`); 
+                     return error.errors[0].message; 
+                 }); 
+
+         } else { 
+
+             //UPDATE MODEL
+             model.update( 
+                 fields , 
+                 { where: { id: id } } 
+             ) 
+                 .then( () => { 
+                     console.log(`Update in ${model} realized!`); 
+                     return "success"; 
+                 }) 
+                 .catch((error) => { 
+                     console.log(`Error in UPDATE ${model} : ${error.errors[0].message}`); 
+                     return error.errors[0].message; 
+                 }); 
+
+         }
     }
+
     static filter = async ( model , fields ) => {
+        
     }
+
     static all = async ( model , conditions ) => {
+        
     }
+
 }
 
 const criarStatus = async (
