@@ -6,7 +6,7 @@ class query {
         }) => {
 
         const user = await Usuario.findOne({
-            attributes: ['Nome', 'Email', 'SenhaReset'],
+            attributes: ['nome', 'email', 'senha'],
             where: {
                 Id: id
             }

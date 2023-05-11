@@ -33,8 +33,8 @@ class views {
     entrar = async (req, res) => {
         let { email, senha } = req.body;
         let form = await forms.FormularioAuthentic((await this.modelos).Usuario, {
-            Email: email,
-            Senha: senha
+            email: email,
+            senha: senha
         });
 
         if (form.is_valid){
@@ -51,7 +51,7 @@ class views {
         let user = await query.getUser((await this.modelos).Usuario,
         { id: req.user });
 
-        res.json({return : `logado como ${user.Nome}`})
+        res.json({return : `logado como ${user.nome}`})
 
     };
 
