@@ -6,20 +6,20 @@ class forms {
 
     static FormularioAuthentic = async (Usuario,
         {
-            Email = '',
-            Senha = '',
+            email = '',
+            senha = '',
         }) => {
         
-        if (!Email, !Senha){
+        if (!email, !senha){
             return { is_valid: false }
         }
 
         const user = await Usuario.findOne({
-            attributes: ['id', 'Email', 'Senha'],
+            attributes: ['id', 'email', 'senha'],
             where: {
                 [Op.and]: [
-                    { Email },
-                    { Senha },
+                    { email },
+                    { senha },
                 ]
             }
         });
@@ -30,7 +30,7 @@ class forms {
         
         let Token = await JWT.sign({
             id: user.id,
-            usuario: user.Email,
+            usuario: user.email,
         }, process.env.SECRETKEY);
         
         return {is_valid: true, sessao: Token}

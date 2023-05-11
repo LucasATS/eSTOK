@@ -2,15 +2,27 @@ import { Op } from "sequelize";
 
 // AQUI SERVE APENAS DE EXEMPLO PARA TESTES
 const adicionarDadosTest = async (models) => {
-    await criarUsuario((await models).Usuario, {
-        Nome: 'Thalia',
-        Email: 'Gaikko@email.com',
-        Senha: 'senha123',
+
+    await criarStatus((await models).Status, {
+        descricao: ' teste teste',
     });
+
     await criarUsuario((await models).Usuario, {
-        Nome: 'Gaikko',
-        Email: 'Gaikko@email.com',
-        Senha: 'senha123',
+        cpf: '00000000002',
+        nome: 'Gaikko',
+        login: 'Gaikko',
+        email: 'Gaikko@email.com',
+        senha: 'senha123',
+        id_status: 1
+    });
+    
+    await criarUsuario((await models).Usuario, {
+        cpf: '00000000001',
+        nome: 'Thalia',
+        login: 'LTS',
+        email: 'Thalia@email.com',
+        senha: 'senha123',
+        id_status: 1
     });
 
     // let user = await BuscarUsuario((await models).Usuario, {
@@ -35,30 +47,70 @@ const adicionarDadosTest = async (models) => {
     // console.log('Usuários: ', nomes);
 }
 
+
+/**
+cpf: { type: DataTypes.STRING(11), allowNull: false, unique: true },
+      nome: { type: DataTypes.STRING(127), allowNull: false },
+      login: { type: DataTypes.STRING(25), allowNull: false, unique: true },
+      email: { type: DataTypes.STRING(127), allowNull: false, unique: true },
+      senha_reset: { type: DataTypes.BOOLEAN(), allowNull: false, defaultValue: true },
+      senha: { type: DataTypes.STRING(127), allowNull: false },
+      id_status: {
+        type: DataTypes.INTEGER, references: {
+          model: Status,
+          key: 'id'
+        }
+      },
+ */
+
+const criarStatus = async (
+    Status, {
+        descricao = '',
+    }) => {
+
+    // VALIDA SE JÁ EXISTE UM CADASTRADO
+    // REGRAS: APENAS UM EMAIL, CPF e TELEFONE POR USUÁRIO    
+    
+    Status.create({
+        descricao: descricao
+        })
+        .then( () => {
+            console.log(`Status ${descricao} cadastrado!`);
+        })
+        .catch((error) => {
+            console.log(`${descricao} : ${error}`);
+        });
+}
+
 const criarUsuario = async (
     Usuario, {
-        Nome = '',
-        Email = '',
-        senhaReset = '',
-        Senha = '',
+        cpf = '',
+        nome = '',
+        login = '',
+        email = '',
+        senha = '',
+        id_status = ''
     }) => {
 
     // VALIDA SE JÁ EXISTE UM CADASTRADO
     // REGRAS: APENAS UM EMAIL, CPF e TELEFONE POR USUÁRIO    
     
     Usuario.create({
-        Nome: Nome,
-        Email: Email,
-        senhaReset: senhaReset,
-        Senha: Senha,})
+        cpf : cpf,
+        nome: nome,
+        login: login,
+        email: email,
+        senha: senha,
+        id_status: id_status,
+        })
         .then( () => {
-            console.log(`Usuário ${Nome} cadastrado!`);
+            console.log(`Usuário ${nome} cadastrado!`);
         })
         .catch((error) => {
-            console.log(`${Nome} : ${error.errors[0].message}`);
+            console.log(`${nome} : ${error}`);
         });
 }
-
+ /*
 const BuscarUsuario = async (
     Usuario, {
         id = null,
@@ -97,6 +149,6 @@ const BuscarVariosUsuarios = async (
     });
     return users
 }
-
+*/
 export default adicionarDadosTest;
-export { criarUsuario, BuscarUsuario, BuscarVariosUsuarios };
+export { criarUsuario };
