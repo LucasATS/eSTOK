@@ -13,8 +13,8 @@ const appConfig = async (server, PATH) => {
   server.use(bodyParser.json());
 
   //CAPTURA AS URLS
-  const urls = require('./urls').default;
-  const views = require('./views').default;
+  const urls = require('../app/urls').default;
+  const views = require('../app/views').default;
   new urls(server, new views(PATH));
 
   //LIBERA A PASTA STATIC E DISPONIBILIZA COMO PUBLICA

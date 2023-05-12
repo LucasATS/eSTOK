@@ -1,7 +1,7 @@
 import DAO, {adicionarDadosTest} from "./DAO";
 import query from './querys';
 import forms from "./forms";
-import models from "./models";
+import models from "../models/models";
 
 class views {
     constructor(dirPath) {
@@ -52,7 +52,7 @@ class views {
         let user = await DAO.get((await this.modelos).Usuario,
         { id: req.user });
         res.json({return : `logado(a) como ${user.nome}`})
-
+        console.log(query.userStatus_1(this.modelos))
     };
 
 }

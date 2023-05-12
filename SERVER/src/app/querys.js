@@ -5,7 +5,7 @@ class query {
     //testes
     static userStatus_1 = async (models) => {
 
-        const user = (await models).Usuario({
+        const user = DAO.all((await models).Usuario, {
             raw: true,
             attributes: ['nome', 'email', 'senha'],
             include: [
