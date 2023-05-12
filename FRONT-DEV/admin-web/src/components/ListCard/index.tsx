@@ -19,10 +19,6 @@ interface Props {
 const ListCard = ({ itemsLabel, values, menuItems }: Props) => {
   const [itemActive, setItemActive] = useState<any>();
 
-  const handleClickItemMenu = (onClick: (currentSelected: any) => void) => {
-    if (itemActive) onClick(itemActive);
-  };
-
   const handleClickOpenMenu = (item: any) => {
     setItemActive(item);
   };
@@ -66,7 +62,7 @@ const ListCard = ({ itemsLabel, values, menuItems }: Props) => {
           </div>
           {menuItems && (
             <div className="absolute top-0 right-0 p-3 mr-1 mt-1">
-              <Dropdown menuItens={menuItems} onClick={handleClickItemMenu} size="default">
+              <Dropdown menuItens={menuItems}>
                 <DotsVertical
                   className="w-5 h-5 cursor-pointer text-gray-700"
                   onClick={() => handleClickOpenMenu(value.id)}

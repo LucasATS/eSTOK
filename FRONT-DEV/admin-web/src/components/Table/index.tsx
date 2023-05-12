@@ -86,7 +86,7 @@ const Table = ({ columns, values, menuItems }: TableProps) => {
               ))}
               {menuItems && (
                 <td className="first:w-72 last:w-2 p-3 text-gray-500">
-                  <Dropdown menuItens={menuItems} onClick={handleClickItemMenu} size="default">
+                  <Dropdown menuItens={menuItems}>
                     <div
                       className="w-4 h-4 cursor-pointer text-gray-700"
                       onClick={() => handleClickOpenMenu(value.id)}
