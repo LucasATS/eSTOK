@@ -3,7 +3,11 @@
   "version": "23.05.07",
   "description": "eSTOK",
   "main": "src/main.js",
-  "keywords": ["STOK", "ESTOQUE", "ESTOK"],
+  "keywords": [
+    "STOK",
+    "ESTOQUE",
+    "ESTOK"
+  ],
   "author": "TURMA 2023 TADS - INSTED",
   "license": "ISC",
   "scripts": {

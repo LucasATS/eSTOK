@@ -1,7 +1,7 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: true,
 });
 exports.ValidarCPF = exports.ValidarCEP = void 0;
 exports.validarSenha = validarSenha;
@@ -42,7 +42,7 @@ var ValidarCPF = function ValidarCPF(cpf) {
   for (var i = 0; i < 9; i++) {
     soma += parseInt(cpf.charAt(i)) * (10 - i);
   }
-  var resto = 11 - soma % 11;
+  var resto = 11 - (soma % 11);
   var digito1 = resto === 10 || resto === 11 ? 0 : resto;
   if (digito1 !== parseInt(cpf.charAt(9))) {
     return false;
@@ -53,7 +53,7 @@ var ValidarCPF = function ValidarCPF(cpf) {
   for (var _i = 0; _i < 10; _i++) {
     soma += parseInt(cpf.charAt(_i)) * (11 - _i);
   }
-  resto = 11 - soma % 11;
+  resto = 11 - (soma % 11);
   var digito2 = resto === 10 || resto === 11 ? 0 : resto;
   if (digito2 !== parseInt(cpf.charAt(10))) {
     return false;
@@ -65,13 +65,24 @@ var ValidarCPF = function ValidarCPF(cpf) {
 
 // ISSO PODE SER PUXADO DE UMA TABLE DO BD
 exports.ValidarCPF = ValidarCPF;
-var wordlistPass = ['123456', '123', 'Teste123*', 'senha', 'password', 'qwerty', 'abc123', 'admin', 'iloveyou', 'welcome'];
+var wordlistPass = [
+  "123456",
+  "123",
+  "Teste123*",
+  "senha",
+  "password",
+  "qwerty",
+  "abc123",
+  "admin",
+  "iloveyou",
+  "welcome",
+];
 function validarSenha(senha) {
   // Verifica se a senha tem pelo menos 8 caracteres
   if (senha.length < 8) {
     return {
       valido: false,
-      mensagem: 'A senha deve conter pelo menos 8 caracteres.'
+      mensagem: "A senha deve conter pelo menos 8 caracteres.",
     };
   }
 
@@ -79,7 +90,8 @@ function validarSenha(senha) {
   if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/.test(senha)) {
     return {
       valido: false,
-      mensagem: 'A senha deve conter pelo menos uma letra minúscula, uma Maiúscula, número e um caractere especial.'
+      mensagem:
+        "A senha deve conter pelo menos uma letra minúscula, uma Maiúscula, número e um caractere especial.",
     };
   }
 
@@ -87,7 +99,7 @@ function validarSenha(senha) {
   if (/(.)\1{2,}/.test(senha)) {
     return {
       valido: false,
-      mensagem: 'A senha contem mais de 2 caracteres consecutivos idênticos.'
+      mensagem: "A senha contem mais de 2 caracteres consecutivos idênticos.",
     };
   }
 
@@ -103,13 +115,13 @@ function validarSenha(senha) {
   if (wordlistPass.includes(senha.toLowerCase())) {
     return {
       valido: false,
-      mensagem: 'A senha é facilmente adivinhável.'
+      mensagem: "A senha é facilmente adivinhável.",
     };
   }
 
   // Se chegou aqui, a senha é válida
   return {
     valido: true,
-    mensagem: 'A senha é segura.'
+    mensagem: "A senha é segura.",
   };
 }

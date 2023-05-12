@@ -5,6 +5,7 @@ import MainLayout from '../components/MainLayout';
 import RoutesURL from '../modules/_shared/constants/RoutesURL.enum';
 import Home from '../modules/home';
 import ListProduct from '../modules/produto/pages/ListProduct';
+import Categoria from '../modules/categoria/pages';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const AppRoutes: React.FC = () => {
         <Routes>
           <Route index path={RoutesURL.HOME} Component={Home} />
           <Route path={RoutesURL.LIST_PRODUCT} Component={ListProduct} />
+          <Route path={RoutesURL.CATEGORIA} Component={Categoria} />
         </Routes>
       </MainLayout>
     </HashRouter>
