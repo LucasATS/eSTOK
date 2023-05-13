@@ -1,11 +1,11 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 interface Props {
   onClick?: () => void;
   type?: 'submit' | 'button' | 'reset';
-  variant?: 'primary' | 'secondary' | 'default' | 'cancel' | 'clean' | 'error';
+  variant?: 'primary' | 'secondary' | 'default' | 'clean' | 'error';
   buttonText?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
   styles?: string;
 }
 

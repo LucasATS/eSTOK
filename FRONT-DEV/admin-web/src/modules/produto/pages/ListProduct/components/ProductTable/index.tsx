@@ -1,6 +1,5 @@
-import { Pencil, Trash } from 'heroicons-react';
-import ListCard from '../../../../../../components/ListCard';
 import Table from '../../../../../../components/Table';
+import iconApi from '../../../../../_shared/services/iconApi';
 import Produto from '../../../../models/Produto';
 
 type Props = {
@@ -12,11 +11,11 @@ type Props = {
 const ProductTable = ({ onClickEditProduto, onClickDeleteProduto, product }: Props) => {
   return (
     <>
-      <div className="lg:flex hidden">
+      <div className="flex w-full">
         <Table
           columns={[
             {
-              columnName: 'Id',
+              columnName: 'Id do Produto',
               key: 'idProduto'
             },
             {
@@ -48,7 +47,12 @@ const ProductTable = ({ onClickEditProduto, onClickDeleteProduto, product }: Pro
               key: '',
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
-                  <Trash className="w-6 h-6" onClick={() => onClickDeleteProduto(itemActive)} />
+                  <img
+                    src={iconApi + 'trash.svg'}
+                    alt="trash"
+                    className="w-6 h-6"
+                    onClick={() => onClickDeleteProduto(itemActive)}
+                  />
                 </div>
               )
             },
@@ -57,60 +61,12 @@ const ProductTable = ({ onClickEditProduto, onClickDeleteProduto, product }: Pro
               key: '',
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
-                  <Pencil className="w-6 h-6" onClick={() => onClickEditProduto(itemActive.id)} />
-                </div>
-              )
-            }
-          ]}
-          values={product}
-        />
-      </div>
-      <div className="flex lg:hidden">
-        <ListCard
-          itemsLabel={[
-            {
-              label: 'Id',
-              key: 'idProduto'
-            },
-            {
-              label: 'Produto',
-              key: 'produto'
-            },
-            {
-              label: 'Categoria',
-              key: 'categoria'
-            },
-            {
-              label: 'Estocável',
-              key: 'estocável'
-            },
-            {
-              label: 'Fundibilidade',
-              key: 'fundibilidade'
-            },
-            {
-              label: 'Quantidade',
-              key: 'quantidade'
-            },
-            {
-              label: 'Preço',
-              key: 'preço'
-            },
-            {
-              label: '',
-              key: '',
-              component: (value, itemActive) => (
-                <div className="flex justify-end space-x-2">
-                  <Trash className="w-6 h-6" onClick={() => onClickDeleteProduto(itemActive)} />
-                </div>
-              )
-            },
-            {
-              label: '',
-              key: '',
-              component: (value, itemActive) => (
-                <div className="flex justify-end space-x-2">
-                  <Pencil className="w-6 h-6" onClick={() => onClickEditProduto(itemActive.id)} />
+                  <img
+                    src={iconApi + 'edit.svg'}
+                    alt="edit"
+                    className="w-6 h-6"
+                    onClick={() => onClickEditProduto(itemActive.id)}
+                  />
                 </div>
               )
             }

@@ -50,7 +50,7 @@ const InputForm = ({
         className={`relative rounded-[30px] ${
           error
             ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-            : 'text-[#B0B0B1] bg-gray-100 hover:bg-gray-200'
+            : 'text-[#B0B0B1] bg-neutral-200'
         }`}
       >
         <input
@@ -67,7 +67,7 @@ const InputForm = ({
           ${
             error
               ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'text-[#B0B0B1] bg-gray-100 hover:bg-gray-200 focus:border-sky-600'
+              : 'text-[#B0B0B1] bg-neutral-200 focus:border-sky-600'
           }
               `
           }
