@@ -20,7 +20,7 @@ interface SelectOption {
 
 const selectProductType: SelectOption[] = [{ id: 'teste', value: 'teste', label: 'oi' }];
 
-export const ModalConfirm = ({ isOpen, onClose }: ModalConfig) => {
+export const PurchaseConfirmModal = ({ isOpen, onClose }: ModalConfig) => {
   const formRef = useRef<FormHandles>(null);
 
   const handleAddNewBuy = () => {
