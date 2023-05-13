@@ -68,7 +68,7 @@ const TextareaForm: React.FC<TextareaProps> = ({
           ${
             error
               ? 'text-gray-700 border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'text-[#B0B0B1] focus:border-teal-600'
+              : 'bg-gray-100 hover:bg-gray-200 focus:border-sky-600'
           }
         `}
         {...rest}
