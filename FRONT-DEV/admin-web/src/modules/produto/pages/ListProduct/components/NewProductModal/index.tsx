@@ -11,32 +11,13 @@ import SwitchForm from '../../../../../../components/FormComponents/SwitchForm';
 import TextareaForm from '../../../../../../components/FormComponents/TextAreaForm';
 import { ModalComponent } from '../../../../../../components/ModalComponent';
 import TitleCard from '../../../../../../components/TitleCard';
-
-interface SelectOption {
-  id: string;
-  value: string;
-  label: string;
-}
-
-const selectOptionsCategory: SelectOption[] = [
-  { id: 'camiseta-feminina', value: 'feminine', label: 'Camiseta feminina' },
-  { id: 'camiseta-masculina', value: 'masculine', label: 'Camiseta masculina' }
-];
-
-const selectOptionsUnit: SelectOption[] = [
-  { id: 'camiseta-feminina', value: 'feminine', label: 'Camiseta feminina' },
-  { id: 'camiseta-masculina', value: 'masculine', label: 'Camiseta masculina' }
-];
-
-const selectOptionsProductType: SelectOption[] = [
-  { id: 'camiseta-feminina', value: 'feminine', label: 'Camiseta feminina' },
-  { id: 'camiseta-masculina', value: 'masculine', label: 'Camiseta masculina' }
-];
-
-const selectOptionsProductSize: SelectOption[] = [
-  { id: 'camiseta-feminina', value: 'feminine', label: 'Camiseta feminina' },
-  { id: 'camiseta-masculina', value: 'masculine', label: 'Camiseta masculina' }
-];
+import { clearForm } from '../../../../../_shared/helpers/ClearForm';
+import {
+  selectOptionsCategory,
+  selectOptionsProductSize,
+  selectOptionsProductType,
+  selectOptionsUnit
+} from '../../../../constants/SelectOptions';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -57,16 +38,13 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
   const handleAddNewAggregatedHolerite = async () => {
     console.log('criado ou atualizado');
     onConfirm();
+    onClose();
     clearForm();
   };
 
   const handleCancel = () => {
     onClose();
     clearForm();
-  };
-
-  const clearForm = () => {
-    formRef.current?.reset();
   };
 
   const handleCastabilityActive = (value: boolean) => {
