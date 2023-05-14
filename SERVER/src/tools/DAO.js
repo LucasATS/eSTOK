@@ -1,4 +1,3 @@
-import models from "../models/models";
 
 // AQUI SERVE APENAS DE EXEMPLO PARA TESTES
 const adicionarDadosTest = async (models) => {

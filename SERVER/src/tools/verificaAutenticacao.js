@@ -27,4 +27,4 @@ const UserIsAuthentic = async (req, res, next) => {
     }
 }
 
-export { UserIsAuthentic };
+export default UserIsAuthentic ;

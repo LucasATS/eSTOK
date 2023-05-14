@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import bodyParser from 'body-parser';
+import db from './db';
 
 const cookie = require('cookie-parser');
 
@@ -13,12 +14,14 @@ const appConfig = async (server, PATH) => {
   server.use(bodyParser.json());
 
   //CAPTURA AS URLS
-  const urls = require('../app/urls').default;
-  const views = require('../app/views').default;
-  new urls(server, new views(PATH));
+  const urls = require('../urls').default;
+  new urls(server);
 
   //LIBERA A PASTA STATIC E DISPONIBILIZA COMO PUBLICA
   server.use('/static', express.static(PATH + '/web/static'));
+
+  //Conecta Banco
+  db.sync({ force: force }); 
 
   //INICIA SERVIDOR
   server.listen(process.env.PORT, process.env.HOST, () =>
