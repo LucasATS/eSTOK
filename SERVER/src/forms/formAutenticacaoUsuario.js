@@ -3,7 +3,7 @@ import 'dotenv/config';
 import { Op } from "sequelize";
 import modelUsuarios from '../models/modelUsuarios';
 
-export default FormularioAuthentic = async (
+const FormularioAuthentic = async (
     {
         email = '',
         login = '',
@@ -35,3 +35,5 @@ export default FormularioAuthentic = async (
     
     return {is_valid: true, sessao: Token}
 }
+
+export default FormularioAuthentic;
