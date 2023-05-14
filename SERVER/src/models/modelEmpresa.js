@@ -1,4 +1,6 @@
+import { DataTypes } from 'sequelize';
 import db from '../settings/db';
+import Status from './modelStatus';
 
 const Empresa = db.define('empresa', {
     razao_social: { type: DataTypes.STRING(255), allowNull: false },

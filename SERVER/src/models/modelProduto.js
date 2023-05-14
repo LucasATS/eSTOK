@@ -1,3 +1,4 @@
+import { DataTypes } from 'sequelize';
 import db from '../settings/db';
 
 const Produto = db.define('Produtos', {

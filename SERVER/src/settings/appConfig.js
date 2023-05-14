@@ -21,7 +21,7 @@ const appConfig = async (server, PATH) => {
   server.use('/static', express.static(PATH + '/web/static'));
 
   //Conecta Banco
-  db.sync({ force: force }); 
+  db.sync({ force: false }); 
 
   //INICIA SERVIDOR
   server.listen(process.env.PORT, process.env.HOST, () =>

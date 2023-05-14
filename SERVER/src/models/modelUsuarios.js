@@ -1,6 +1,8 @@
+import { DataTypes } from 'sequelize';
 import db from '../settings/db';
+import Status from './modelStatus';
 
-export default Usuario = db.define('Usuarios', {
+const Usuario = db.define('Usuarios', {
     cpf: { type: DataTypes.STRING(11), allowNull: false, unique: true },
     nome: { type: DataTypes.STRING(127), allowNull: false },
     login: { type: DataTypes.STRING(25), allowNull: false, unique: true },
@@ -14,3 +16,5 @@ export default Usuario = db.define('Usuarios', {
       }
     },
 }, {});
+
+export default Usuario;
