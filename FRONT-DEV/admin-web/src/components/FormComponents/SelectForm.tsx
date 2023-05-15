@@ -45,7 +45,7 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
     <div className="text-sm w-full">
       <Listbox value={valueSelect} onChange={setValueSelect}>
         {({ open }) => (
-          <div className="relative mt-2 z-10 w-full">
+          <div className="mt-2 z-10 w-full">
             <Listbox.Label
               className={`py-1 font-medium hover:bg-gray-200 bg-gray-100 ${
                 error ? 'text-red-500' : 'text-[#B0B0B1]'
