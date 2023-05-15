@@ -1,4 +1,4 @@
-import formAuthenticUser from "../../forms/formAutenticacaoUsuario";
+import formAuthenticUser from "../forms/formAutenticacaoUsuario";
 
 const login = async (req, res) => {
     let { login, senha } = req.body;
