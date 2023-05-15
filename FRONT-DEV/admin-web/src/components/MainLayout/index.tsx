@@ -5,7 +5,6 @@ import { Link, useLocation } from 'react-router-dom';
 import RoutesURL from '../../modules/_shared/constants/RoutesURL.enum';
 import iconApi from '../../modules/_shared/services/iconApi';
 import { useAuth } from '../../modules/auth/contexts/AuthProvider';
-import Header from './components/Header';
 
 interface Props {
   children: React.ReactNode;
@@ -42,21 +41,17 @@ const MainLayout: React.FC<Props> = ({ children }) => {
           registrationPage ? 'max-h-screen h-auto lg:bg-default' : 'h-screen'
         } `}
       >
-        <div className="text-white w-full md:w-56 lg:w-72 md:h-full bg-sky-600 rounded-r-[30px] shadow-lg md:fixed z-50 md:z-0">
+        <div className="text-white w-full md:w-56 lg:w-72 md:h-full bg-sky-600 rounded-br-[40px] shadow-lg md:fixed z-50 md:z-0">
           <div className="flex flex-row md:flex-col items-center md:items-start">
             <div className="md:flex flex-col hidden md:w-full mt-14 gap-7">
               <div className="flex justify-center">
                 <img src={iconApi + 'e-stok.svg'} alt="logo" />
-              </div>
-              <div className="flex justify-center">
-                <img src={iconApi + 'mask-group.svg'} alt="user-picture" />
               </div>
               <div className="flex items-center justify-center">
                 <span className="capitalize font-medium">
                   {/* {user?.name.split(' ').shift()?.toLocaleLowerCase()} */} Leonardo vieira
                 </span>
               </div>
-              {/* ROTAS DO MENU */}
               <div className="flex flex-col mr-10">
                 <Link to={RoutesURL.HOME}>
                   <div className="px-4 py-2 flex gap-2 items-center cursor-pointer w-full font-medium text-base hover:bg-sky-700 hover:rounded-r-[20px] transition-all ease-in-out rounded-sm">
@@ -87,9 +82,6 @@ const MainLayout: React.FC<Props> = ({ children }) => {
           </div>
         </div>
         <div className="flex flex-col bg-neutral-200 overflow-y-auto">
-          <div className="bg-white">
-            <Header />
-          </div>
           <div className="flex flex-col lg:ml-72 md:ml-56 h-screen">{children}</div>
         </div>
       </div>

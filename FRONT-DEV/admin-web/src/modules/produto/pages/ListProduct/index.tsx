@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../../components/Button';
 import Dropdown from '../../../../components/Dropdown';
+import Header from '../../../../components/MainLayout/components/Header';
 import Pagination from '../../../../components/Paginate';
 import { Action } from '../../../../components/Table';
-import TitleCard from '../../../../components/TitleCard';
 import RoutesURL from '../../../_shared/constants/RoutesURL.enum';
 import { PaginateDto } from '../../../_shared/dto/PaginateDto';
 import { Paginate } from '../../../_shared/types/api.types';
@@ -60,10 +60,13 @@ const ListProduct = () => {
   }, [paginationActive]);
 
   return (
-    <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
-      <div className="flex flex-wrap justify-between items-center">
-        <TitleCard text="Produto" />
-        <div className="flex md:px-4 w-auto gap-3 justify-end">
+    <div className="w-full flex flex-col">
+      <div className="w-full bg-white justify-start items-start">
+        <Header mainText="Produto" />
+      </div>
+      <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
+        {/* <div className="flex flex-wrap justify-between items-center"> */}
+        <div className="flex flex-row md:px-4 w-auto gap-3 justify-end items-end">
           <Dropdown menuItens={menuItens} text="Cadastros" variant="clean" />
           <Button
             buttonText="Novo"
@@ -72,25 +75,26 @@ const ListProduct = () => {
             onClick={handleClickNewProduct}
           />
         </div>
-      </div>
-      <div className="flex flex-col gap-2 mt-5">
-        <ProductTable
-          onClickEditProduto={handleClickEditProduct}
-          onClickDeleteProduto={() => handleClickDeleteProduct}
+        {/* </div> */}
+        <div className="flex flex-col gap-2 mt-5">
+          <ProductTable
+            onClickEditProduto={handleClickEditProduct}
+            onClickDeleteProduto={() => handleClickDeleteProduct}
+          />
+          <Pagination
+            currentPage={productsPaginate?.results.length}
+            page={productsPaginate?.currentPage}
+            pageSize={productsPaginate?.limit}
+            totalItems={productsPaginate?.totalItems}
+            onChangePage={onChangePage}
+          />
+        </div>
+        <NewProductModal
+          isOpen={openNewProductModal}
+          onClose={handleCloseNewProduct}
+          onConfirm={handleNewProduct}
         />
-        <Pagination
-          currentPage={productsPaginate?.results.length}
-          page={productsPaginate?.currentPage}
-          pageSize={productsPaginate?.limit}
-          totalItems={productsPaginate?.totalItems}
-          onChangePage={onChangePage}
-        />
       </div>
-      <NewProductModal
-        isOpen={openNewProductModal}
-        onClose={handleCloseNewProduct}
-        onConfirm={handleNewProduct}
-      />
     </div>
   );
 };
