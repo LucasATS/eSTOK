@@ -7,7 +7,8 @@ const sequelize = new Sequelize(
     process.env.PASS,
     {
       host: process.env.HOST,             //banco local
-      dialect: 'mysql'             // CONFIGURADO PARA MySQL
+      dialect: 'mysql',                   // CONFIGURADO PARA MySQL
+      logging: false           
 });
 
 // CONEXÃO - SQLITE

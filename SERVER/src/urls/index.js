@@ -55,6 +55,10 @@ class urls {
 
         this.server.post("/admin/api/estoque/movimentacao-entrada", UserIsAuthentic, require('../views-admin/viewMovimentacaoEntrada.js').default);
         this.server.post("/admin/api/estoque/movimentacao-saida", UserIsAuthentic, require('../views-admin/viewMovimentacaoSaida.js').default);
+
+        //para executar dados de teste
+        this.server.get("/for-tests", require('../views-admin/_viewDadosTeste.js').default);
+
     }
 }
 

@@ -9,10 +9,11 @@ const login = async (req, res) => {
     });
 
     if (form.is_valid){
+        
         res.cookie('sessao', form.sessao);
-        res.json({return : 'Autorizado'})
+        res.json({data : 'Autorizado'})
     } else {
-        res.json({return : 'Usuário e/ou senha incorreto(s)'})
+        res.json({data : 'Usuário e/ou senha incorreto(s)'})
     }
 };
 

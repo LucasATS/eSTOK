@@ -1,7 +1,7 @@
 // RESPONSÁVEL PELO CONTROLE DE TODOS OS APPS
 
 import express from "express";
-import appConfig from './settings/appConfig';
+import appConfig from './settings/config';
 
 const PATH = __dirname;
 const server = express();
