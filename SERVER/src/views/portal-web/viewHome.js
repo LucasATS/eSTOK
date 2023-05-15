@@ -1,7 +1,7 @@
 import { indexPortalWeb } from "../templates";
 
-const home = async (req, res) => {
+const view = async (req, res) => {
     res.sendFile('index.html',{ root: indexPortalWeb});
 };
 
-export default home;
+export default view;
