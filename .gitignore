@@ -1,5 +1,5 @@
-node_modules
-SQL.db
+*node_modules
+*.db
 *.sqlite
 DESKTOP-DEV
 *.env
