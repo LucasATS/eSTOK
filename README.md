@@ -24,8 +24,16 @@
 > -   npm install dotenv
 > -   npm install nodemon
 > -   npm install express
+> -   npm install cookie-parser
+> -   npm install cookie-parser
+> -   npm install body-parser
+> -   npm install jsonwebtoken
 
 ## **✨ Como executar**
+
+### Crie um servidor mySql
+    CREATE DATABASE IF NOT EXISTS `estok` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+    USE `estok`;
 
 <!-- -   [Backend](./server/README.md) -->
 
@@ -38,6 +46,7 @@
 > -   npm install sequelize
 > -   npm install sequelize-cli
 > -   npm install sqlite3
+> -   npm install mysql2
 
 ## **📂 PLAY**
 
