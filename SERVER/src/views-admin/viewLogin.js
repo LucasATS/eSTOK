@@ -11,9 +11,9 @@ const login = async (req, res) => {
     if (form.is_valid){
         
         res.cookie('sessao', form.sessao);
-        res.json({data : 'Autorizado'})
+        res.status(200).json({data : 'Autorizado'})
     } else {
-        res.json({data : 'Usuário e/ou senha incorreto(s)'})
+        res.status(401).json({data : 'Usuário e/ou senha incorreto(s)'})
     }
 };
 

@@ -4,7 +4,7 @@ import Usuario from '../models/modelUsuarios';
 
 const view = async (req, res) => {
     adicionarDadosTest(Status, Usuario);
-    res.json({data : 'dados Adicionados'});
+    res.status(201).json({data : 'dados Adicionados'});
 };
 
 export default view;

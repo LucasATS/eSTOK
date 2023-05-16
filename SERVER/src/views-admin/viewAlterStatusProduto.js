@@ -1,7 +1,7 @@
 // Ativa ou desativa Produto
 
 const view = async (req, res) => {
-    res.json({data : 'API em construção'});
+    res.status(200).json({data : 'API em construção'});
 };
 
 export default view;
