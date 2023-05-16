@@ -7,6 +7,7 @@ module.exports = {
         primary: '#3E3E3E',
         secondary: '#F1F1F1',
         default: '#D9D9D9',
+        cancel: '#686868',
         error: '#f87171'
       }
     }
