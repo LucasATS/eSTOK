@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import db from '../settings/db';
 import Status from './modelStatus';
 
-const Categoria = db.define('categoria', {
+const Categorias = db.define('categorias', {
     descricao: { type: DataTypes.STRING(50), allowNull: false },
     id_status: {
       type: DataTypes.INTEGER, references: {
@@ -12,4 +12,4 @@ const Categoria = db.define('categoria', {
     },
 }, {});
 
-export default Categoria;
+export default Categorias;
