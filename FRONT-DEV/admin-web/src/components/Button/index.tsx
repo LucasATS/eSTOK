@@ -3,7 +3,7 @@ import React from 'react';
 interface Props {
   onClick?: () => void;
   type?: 'submit' | 'button' | 'reset';
-  variant?: 'primary' | 'secondary' | 'default' | 'clean' | 'error';
+  variant?: 'primary' | 'secondary' | 'default' | 'cancel' | 'clean' | 'error';
   buttonText?: string;
   children?: React.ReactNode;
   styles?: string;
