@@ -1,4 +1,4 @@
-interface Produto {
+interface Product {
   nome: string;
   categoria: string;
   uniMedida: number;
@@ -9,4 +9,4 @@ interface Produto {
   descricao?: string;
 }
 
-export default Produto;
+export default Product;
