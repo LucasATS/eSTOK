@@ -31,6 +31,10 @@
 
 ## **✨ Como executar**
 
+### Crie um servidor mySql
+    CREATE DATABASE IF NOT EXISTS `estok` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+    USE `estok`;
+
 <!-- -   [Backend](./server/README.md) -->
 
 > -   [Administrador eSTOK](./FRONT-DEV/admin-web/README-install.md)
