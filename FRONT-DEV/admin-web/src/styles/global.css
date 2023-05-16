@@ -36,11 +36,11 @@
   }
 
   .clean {
-    @apply bg-white text-teal-500;
+    @apply bg-white text-sky-500;
   }
 
   .clean:hover {
-    @apply bg-gray-200 text-teal-600 bg-opacity-90;
+    @apply bg-gray-200 text-sky-600 bg-opacity-90;
   }
 
   .error {
