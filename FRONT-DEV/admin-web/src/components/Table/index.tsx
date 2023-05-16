@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Dropdown from '../Dropdown';
-
 export interface TableColumn {
   columnName?: string;
   key: string;
@@ -8,25 +7,20 @@ export interface TableColumn {
   component?: (value: any, itemActive: any) => any;
   onClickRow?: (value: any) => void;
 }
-
 export interface Action {
   label: string;
   onClick: (currentSelected: any) => void;
 }
-
 interface TableProps {
   columns?: TableColumn[];
   values?: any;
   menuItems?: Action[];
 }
-
 const Table = ({ columns, values, menuItems }: TableProps) => {
   const [itemActive, setItemActive] = useState<any>();
-
   const getObjectValueByColumn = (column: TableColumn, value: any) => {
     const keys = column.key.split('.');
     let valueToReturn: any;
-
     if (keys.length > 1) {
       let currentValue: any;
       for (const key of keys) {
@@ -36,28 +30,22 @@ const Table = ({ columns, values, menuItems }: TableProps) => {
     } else {
       valueToReturn = value[column.key];
     }
-
     if (column.transform) {
       valueToReturn = column.transform(valueToReturn);
     }
-
     if (column.component) {
       valueToReturn = column.component(valueToReturn, value);
     }
-
     return valueToReturn;
   };
-
   const handleClickItemMenu = (onClick: (currentSelected: any) => void) => {
     if (itemActive) {
       onClick(itemActive);
     }
   };
-
   const handleClickOpenMenu = (item: any) => {
     setItemActive(item);
   };
-
   return (
     <div className="w-full">
       <table className="sm:table hidden border-collapse table-auto w-full text-sm ">
@@ -86,7 +74,7 @@ const Table = ({ columns, values, menuItems }: TableProps) => {
               ))}
               {menuItems && (
                 <td className="first:w-72 last:w-2 p-3 text-gray-500">
-                  <Dropdown menuItens={menuItems} onClick={handleClickItemMenu} size="default">
+                  <Dropdown menuItens={menuItems}>
                     <div
                       className="w-4 h-4 cursor-pointer text-gray-700"
                       onClick={() => handleClickOpenMenu(value.id)}
@@ -108,5 +96,4 @@ const Table = ({ columns, values, menuItems }: TableProps) => {
     </div>
   );
 };
-
 export default Table;
