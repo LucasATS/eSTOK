@@ -75,7 +75,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
                   </div>
                 </Link>
 
-                <Link to={RoutesURL.LIST_PRODUCT}>
+                <Link to={RoutesURL.LIST_REPORT}>
                   <div className="px-4 py-2 flex gap-2 items-center cursor-pointer w-full font-medium text-base hover:bg-sky-700 hover:rounded-r-[20px] transition-all ease-in-out rounded-sm">
                     <OfficeBuilding className="w-6 h-6" />
                     Relatório
