@@ -65,7 +65,6 @@ const ListProduct = () => {
         <Header mainText="Produto" />
       </div>
       <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
-        {/* <div className="flex flex-wrap justify-between items-center"> */}
         <div className="flex flex-row md:px-4 w-auto gap-3 justify-end items-end">
           <Dropdown menuItens={menuItens} text="Cadastros" variant="clean" />
           <Button
@@ -75,7 +74,6 @@ const ListProduct = () => {
             onClick={handleClickNewProduct}
           />
         </div>
-        {/* </div> */}
         <div className="flex flex-col gap-2 mt-5">
           <ProductTable
             onClickEditProduto={handleClickEditProduct}

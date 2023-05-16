@@ -1,5 +1,5 @@
-import { ChevronLeft, ChevronRight } from 'heroicons-react';
 import { useEffect, useState } from 'react';
+import iconApi from '../../modules/_shared/services/iconApi';
 import PageAction from './components/PageAction';
 import PageInfo from './components/PageInfo';
 import PageItem from './components/PageItem';
@@ -95,7 +95,12 @@ const Pagination = (props: PaginateProps) => {
           <PageAction
             isDisabled={pager.currentPage === 1 || pager.currentPage === 0}
             onClick={() => setPage(pager.currentPage - 1)}
-            content={<ChevronLeft className="sm:w-4 sm:h-4 w-6 h-6 text-gray-500" />}
+            content={
+              <img
+                src={iconApi + 'chevron-left.svg'}
+                className="sm:w-4 sm:h-4 w-6 h-6 text-gray-500"
+              />
+            }
           />
 
           {pager.pages.map((page, index) => (
@@ -107,11 +112,18 @@ const Pagination = (props: PaginateProps) => {
             />
           ))}
 
-          <PageAction
-            isDisabled={pager.currentPage === pager.totalPages}
-            onClick={() => setPage(pager.currentPage + 1)}
-            content={<ChevronRight className="sm:w-4 sm:h-4 w-6 h-6 text-gray-500" />}
-          />
+          <div className="sm:contents hidden">
+            <PageAction
+              isDisabled={pager.currentPage === pager.totalPages}
+              onClick={() => setPage(pager.totalPages)}
+              content={
+                <img
+                  src={iconApi + 'chevron-left.svg'}
+                  className="w-4 h-4 text-gray-500 rotate-180"
+                />
+              }
+            />
+          </div>
         </div>
       </div>
     </div>

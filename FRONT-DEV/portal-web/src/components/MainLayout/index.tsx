@@ -1,7 +1,7 @@
-import { Home, ShoppingBag } from 'heroicons-react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import RoutesStore from '../../modules/_shared/constants/RoutesStore.enum';
+import { iconApi } from '../../modules/_shared/services/iconApi';
 import { Header } from './components/Header';
 
 interface Props {
@@ -40,14 +40,14 @@ export const MainLayout: React.FC<Props> = ({ children }) => {
               <div className="flex flex-col mr-10">
                 <Link to={RoutesStore.HOME}>
                   <div className="px-4 py-2 flex gap-2 items-center cursor-pointer w-full font-medium text-base hover:bg-primary hover:rounded-r-[20px] transition-all ease-in-out rounded-sm">
-                    <Home className="w-6 h-6 text-white" />
+                    <img src={iconApi + 'home.svg'} alt="home" className="w-6 h-6 text-white" />
                     Home
                   </div>
                 </Link>
 
                 <Link to={RoutesStore.PRODUCT}>
                   <div className="px-4 py-2 flex gap-2 items-center cursor-pointer w-full font-medium text-base hover:bg-primary hover:rounded-r-[20px] transition-all ease-in-out rounded-sm">
-                    <ShoppingBag className="w-6 h-6 text-white" />
+                    <img src={iconApi + 'bag.svg'} alt="bag" className="w-6 h-6 text-white" />
                     Produto
                   </div>
                 </Link>

@@ -1,7 +1,7 @@
 import { Listbox, Transition } from '@headlessui/react';
 import { useField } from '@unform/core';
-import { ChevronDownOutline } from 'heroicons-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import iconApi from '../../modules/_shared/services/iconApi';
 
 export type OptionSelect = { value: any; label: string; unavailable?: boolean };
 
@@ -15,6 +15,7 @@ interface Props {
 type SelectProps = JSX.IntrinsicElements['select'] & Props;
 
 const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps) => {
+  const selectRef = useRef<HTMLSelectElement>(null);
   const { fieldName, defaultValue = '', registerField, error, clearError } = useField(name);
   const [valueSelect, setValueSelect] = useState(defaultValue);
 
@@ -45,16 +46,16 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
     <div className="text-sm w-full">
       <Listbox value={valueSelect} onChange={setValueSelect}>
         {({ open }) => (
-          <div className="mt-2 z-10 w-full">
+          <div className="relative mt-2 z-10 w-full">
             <Listbox.Label
-              className={`py-1 font-medium hover:bg-gray-200 bg-gray-100 ${
+              className={`py-1 font-medium bg-neutral-200 ${
                 error ? 'text-red-500' : 'text-[#B0B0B1]'
               }`}
             >
               {label}
             </Listbox.Label>
             <Listbox.Button
-              className={`flex text-[#B0B0B1] hover:bg-gray-200 bg-gray-100 focus:border-sky-600 justify-between items-center group rounded-[30px]  focus:ring-1 p-2 w-full focus:outline-none ${
+              className={`flex text-[#B0B0B1] bg-neutral-200 justify-between items-center group rounded-[30px] border focus:ring-1 p-2 w-full focus:outline-none ${
                 error ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
               }`}
             >
@@ -66,10 +67,7 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
                 {valueSelect.label || placeholder}
               </span>
               <span className="inset-y-0 flex pr-2 pointer-events-none items-center">
-                <ChevronDownOutline
-                  className={`w-4 h-4 ${open ? 'transform rotate-180' : ''}`}
-                  aria-hidden="true"
-                />
+                <img src={iconApi + 'chevron-solid.svg'} className="w-4 h-4" aria-hidden="true" />
               </span>
             </Listbox.Button>
             <Transition
@@ -81,13 +79,13 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Listbox.Options className="absolute w-full mt-1 overflow-auto text-base bg-gray-100 shadow-lg max-h-40 ring-1 ring-opacity-5 focus:outline-none">
+              <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-neutral-200 shadow-lg max-h-40 ring-1 ring-opacity-5 focus:outline-none">
                 {options.map((option) => (
                   <Listbox.Option
                     key={option.value}
                     className={({ active }) =>
                       `${active ? 'text-sky-600' : 'text[#B0B0B1]'}
-                        cursor-pointer select-none relative p-2 hover:bg-gray-200`
+                        cursor-pointer select-none relative p-2 hover:bg-neutral-200`
                     }
                     value={option}
                   >

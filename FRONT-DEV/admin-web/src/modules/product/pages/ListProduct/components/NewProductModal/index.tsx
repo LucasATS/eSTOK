@@ -138,7 +138,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
           </div>
 
           <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
-            <Button variant="cancel" type="button" onClick={handleCancel}>
+            <Button type="button" onClick={handleCancel}>
               Cancelar
             </Button>
             <Button
