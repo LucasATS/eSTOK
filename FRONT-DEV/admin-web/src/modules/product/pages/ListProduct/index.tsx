@@ -8,14 +8,14 @@ import { Action } from '../../../../components/Table';
 import RoutesURL from '../../../_shared/constants/RoutesURL.enum';
 import { PaginateDto } from '../../../_shared/dto/PaginateDto';
 import { Paginate } from '../../../_shared/types/api.types';
-import Produto from '../../models/Produto';
+import Product from '../../models/Product';
 import { NewProductModal } from './components/NewProductModal';
 import ProductTable from './components/ProductTable/index';
 
 const ListProduct = () => {
   const [productIdActive, setProductIdActive] = useState<number>();
   const [paginationActive, setPaginationActive] = useState<PaginateDto>({});
-  const [productsPaginate, setProductsPaginate] = useState<Paginate<Produto>>();
+  const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>();
   const [openNewProductModal, setOpenNewProductModal] = useState(false);
   const navigate = useNavigate();
 
@@ -76,8 +76,8 @@ const ListProduct = () => {
         </div>
         <div className="flex flex-col gap-2 mt-5">
           <ProductTable
-            onClickEditProduto={handleClickEditProduct}
-            onClickDeleteProduto={() => handleClickDeleteProduct}
+            onClickEditProduct={handleClickEditProduct}
+            onClickDeleteProduct={() => handleClickDeleteProduct}
           />
           <Pagination
             currentPage={productsPaginate?.results.length}
