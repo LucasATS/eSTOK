@@ -4,7 +4,7 @@ import { Produto } from './modelProduto';
 import { KardexTipo } from './modelKardexTipo';
 
 
- export const Unidade = db.define('unidade', {
+ export const Kardex = db.define('kardex', {
     descricao: { type: DataTypes.STRING(50), allowNull: false },
     id_produto: {
       type: DataTypes.INTEGER, references: {
@@ -20,3 +20,5 @@ import { KardexTipo } from './modelKardexTipo';
       },
     saldo: {type: DataTypes.STRING(11), allowNull: false }
 }, {});
+
+export default Kardex;
