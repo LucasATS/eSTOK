@@ -7,6 +7,7 @@ interface Props {
   buttonText?: string;
   children?: ReactNode;
   styles?: string;
+  className?: string;
 }
 
 const Button: React.FC<Props> = ({
@@ -15,13 +16,16 @@ const Button: React.FC<Props> = ({
   onClick,
   styles,
   type,
-  variant = 'default'
+  variant = 'default',
+  className
 }) => {
   return (
     <button
-      className={`${variant} transition duration-300 hover:bg-opacity-90 font-medium rounded text-base px-4 py-1 text-center block ${
-        styles ? styles : null
-      }`}
+      className={
+        `${variant} transition duration-300 hover:bg-opacity-90 font-medium rounded text-base px-4 py-1 text-center block ${
+          styles ? styles : null
+        }` + className
+      }
       type={type}
       onClick={onClick}
     >

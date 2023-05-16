@@ -16,7 +16,7 @@ const AppRoutes: React.FC = () => {
         </Routes>
       </MainLayout>
     </HashRouter>
-  ) as any;
+  );
 };
 
 export default AppRoutes;
