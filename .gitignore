@@ -2,5 +2,4 @@ node_modules
 SQL.db
 *.sqlite
 DESKTOP-DEV
-/dist/.env
-SERVER/DB.sqlite
+*.env

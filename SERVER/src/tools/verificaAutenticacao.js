@@ -7,12 +7,12 @@ const UserIsAuthentic = async (req, res, next) => {
     try {
         auth = req.cookies.sessao;    
     } catch (error) {
-        return res.json({return : 'Não Autenticado'})
+        return res.status(401).json({data : 'Não Autenticado'})
     }
 
     if ( typeof(auth) == 'undefined' || auth == '' || auth == null){
         res.clearCookie('sessao');
-        return res.json({return : 'Não Autenticado'})
+        return res.status(401).json({data : 'Não Autenticado'})
 
     } else {
         try {
@@ -21,10 +21,10 @@ const UserIsAuthentic = async (req, res, next) => {
             next();
         } catch (err) {
             res.clearCookie('sessao');
-            return res.json({return : 'Não Autenticado'})
+            return res.status(401).json({data : 'Não Autenticado'})
             
         }
     }
 }
 
-export { UserIsAuthentic };
+export default UserIsAuthentic ;
