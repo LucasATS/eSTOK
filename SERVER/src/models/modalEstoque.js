@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import db from '../settings/db';
 import Status from './modelStatus';
 
-const Usuario = db.define('Usuarios', {
+const Estoques = db.define('estoques', {
     id_produto: {
         type: DataTypes.INTEGER, references: {
           model: Status,
@@ -14,4 +14,4 @@ const Usuario = db.define('Usuarios', {
     },
 }, {});
 
-export default Usuario;
+export default Estoques;
