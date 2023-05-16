@@ -20,10 +20,10 @@ const ListProduct = () => {
   const navigate = useNavigate();
 
   const menuItens: Action[] = [
-    { label: 'Categoria', onClick: () => navigate(RoutesURL.HOME) },
-    { label: 'Tipo de Produto', onClick: () => navigate(RoutesURL.HOME) },
-    { label: 'Unidade de Medida', onClick: () => navigate(RoutesURL.HOME) },
-    { label: 'Tamanho de Produto', onClick: () => navigate(RoutesURL.HOME) }
+    { label: 'Categoria', onClick: () => navigate(RoutesURL.HOME) }
+    // { label: 'Tipo de Produto', onClick: () => navigate(RoutesURL.HOME) },
+    // { label: 'Unidade de Medida', onClick: () => navigate(RoutesURL.HOME) },
+    // { label: 'Tamanho de Produto', onClick: () => navigate(RoutesURL.HOME) }
   ];
 
   const loadProduct = async () => {
