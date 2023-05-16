@@ -2,7 +2,9 @@
 
 var _express = _interopRequireDefault(require("express"));
 var _appConfig = _interopRequireDefault(require("./app/appConfig"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 // RESPONSÁVEL PELO CONTROLE DE TODOS OS APPS
 
 var PATH = __dirname;

@@ -25,14 +25,14 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center gap-4 bg-neutral-200 max-h-screen">
-      <div className="bg-white p-12 m-96 rounded-[30px] flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center gap-4 bg-neutral-200 h-screen">
+      <div className="bg-white p-16 xl:mx-96 md:mx-60 mx-14 rounded-[30px] flex flex-col justify-center items-center">
         <Form
           ref={formRef}
           onSubmit={handleLogin}
-          className="w-full flex flex-col justify-center items-center mx-9 gap-6"
+          className="w-full flex flex-col justify-center items-center xl:px-4 px-0 gap-6"
         >
-          <div className="flex flex-col justify-center items-center p-4">
+          <div className="flex flex-col justify-center items-center">
             <img src={iconApi + 'e-stok.svg'} alt="logo" />
             <TitleCard text="Login" />
           </div>

@@ -8,44 +8,44 @@
 
 ## **📚 INSTALAÇÃO**
 
-> -   git clone https://github.com/LucasATS/eStoK.git
-> -   Use NVM windowns para realizar o controle de versões do node [🔗 DOWNLOAD NVM ](https://github.com/coreybutler/nvm-windows/releases)
-> -   nvm install 18.16.0
-> -   nvm use 18.16.0
-> -   certifique-se de que esta com a versão 18.16.0
-> -   node -v
+> - git clone https://github.com/LucasATS/eStoK.git
+> - Use NVM windowns para realizar o controle de versões do node [🔗 DOWNLOAD NVM ](https://github.com/coreybutler/nvm-windows/releases)
+> - nvm install 18.16.0
+> - nvm use 18.16.0
+> - certifique-se de que esta com a versão 18.16.0
+> - node -v
 
 ### 🔧 Configuração
 
-> -   cd server
-> -   npm install @babel/node
-> -   npm install @babel/core @babel/cli @babel/preset-env
-> -   npm install @babel/plugin-transform-async-to-generator
-> -   npm install dotenv
-> -   npm install nodemon
-> -   npm install express
+> - cd server
+> - npm install @babel/node
+> - npm install @babel/core @babel/cli @babel/preset-env
+> - npm install @babel/plugin-transform-async-to-generator
+> - npm install dotenv
+> - npm install nodemon
+> - npm install express
 
 ## **✨ Como executar**
 
 <!-- -   [Backend](./server/README.md) -->
 
-> -   [Administrador eSTOK](./FRONT-DEV/admin-web/README-install.md)
-> -   [Loja eSTOK](./FRONT-DEV/portal-web/README-install.md)
+> - [Administrador eSTOK](./FRONT-DEV/admin-web/README-install.md)
+> - [Loja eSTOK](./FRONT-DEV/portal-web/README-install.md)
 
 ### 🎲 Banco de dados
 
-> -   cd server
-> -   npm install sequelize
-> -   npm install sequelize-cli
-> -   npm install sqlite3
+> - cd server
+> - npm install sequelize
+> - npm install sequelize-cli
+> - npm install sqlite3
 
 ## **📂 PLAY**
 
 Após feito todas as instalações, rode o servidor usando
 
-> -   cd server
-> -   npm install
-> -   npm run server
+> - cd server
+> - npm install
+> - npm run server
 
 <!--
 ## __❤ AGRADECIMENTOS__

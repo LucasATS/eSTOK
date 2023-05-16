@@ -1,5 +1,4 @@
-import { Archive, Home, Logout } from 'heroicons-react';
-// import { ChartBar, DocumentText, OfficeBuilding } from 'heroicons-react';
+import { Archive, ChartBar, DocumentText, Home, Logout, OfficeBuilding } from 'heroicons-react';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import RoutesURL from '../../modules/_shared/constants/RoutesURL.enum';
@@ -12,7 +11,7 @@ interface Props {
 
 const MainLayout: React.FC<Props> = ({ children }) => {
   const [registrationPage, setRegistrationPage] = useState(false);
-  const { signOut, user } = useAuth();
+  const { signOut } = useAuth();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -47,11 +46,6 @@ const MainLayout: React.FC<Props> = ({ children }) => {
               <div className="flex justify-center">
                 <img src={iconApi + 'e-stok.svg'} alt="logo" />
               </div>
-              <div className="flex items-center justify-center">
-                <span className="capitalize font-medium">
-                  {user?.name.split(' ').shift()?.toLocaleLowerCase()}
-                </span>
-              </div>
               <div className="flex flex-col mr-10">
                 <Link to={RoutesURL.HOME}>
                   <div className="px-4 py-2 flex gap-2 items-center cursor-pointer w-full font-medium text-base hover:bg-sky-700 hover:rounded-r-[20px] transition-all ease-in-out rounded-sm">
@@ -66,9 +60,27 @@ const MainLayout: React.FC<Props> = ({ children }) => {
                     Produto
                   </div>
                 </Link>
-                {/* <ChartBar />
-                <DocumentText />
-                <OfficeBuilding /> */}
+
+                <Link to={RoutesURL.LIST_PRODUCT}>
+                  <div className="px-4 py-2 flex gap-2 items-center cursor-pointer w-full font-medium text-base hover:bg-sky-700 hover:rounded-r-[20px] transition-all ease-in-out rounded-sm">
+                    <ChartBar className="w-6 h-6" />
+                    Estoque
+                  </div>
+                </Link>
+
+                <Link to={RoutesURL.LIST_PRODUCT}>
+                  <div className="px-4 py-2 flex gap-2 items-center cursor-pointer w-full font-medium text-base hover:bg-sky-700 hover:rounded-r-[20px] transition-all ease-in-out rounded-sm">
+                    <DocumentText className="w-6 h-6" />
+                    Venda
+                  </div>
+                </Link>
+
+                <Link to={RoutesURL.LIST_PRODUCT}>
+                  <div className="px-4 py-2 flex gap-2 items-center cursor-pointer w-full font-medium text-base hover:bg-sky-700 hover:rounded-r-[20px] transition-all ease-in-out rounded-sm">
+                    <OfficeBuilding className="w-6 h-6" />
+                    Relatório
+                  </div>
+                </Link>
               </div>
 
               <span className="border-t-[1px] w-full"></span>
