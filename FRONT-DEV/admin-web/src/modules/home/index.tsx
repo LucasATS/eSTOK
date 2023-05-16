@@ -2,8 +2,8 @@ import TitleCard from '../../components/TitleCard';
 
 const Home = () => {
   return (
-    <div>
-      <TitleCard text="Home" />
+    <div className="flex justify-center items-center h-full">
+      <TitleCard text="Em desenvolvimento" />
     </div>
   );
 };
