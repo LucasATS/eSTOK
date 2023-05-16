@@ -6,7 +6,6 @@ import Button from '../../../components/Button';
 import InputForm from '../../../components/FormComponents/InputForm';
 import TitleCard from '../../../components/TitleCard';
 import RoutesURL from '../../_shared/constants/RoutesURL.enum';
-import iconApi from '../../_shared/services/iconApi';
 import { LoginCredentials, useAuth } from '../contexts/AuthProvider';
 
 const Login = () => {
@@ -33,7 +32,7 @@ const Login = () => {
           className="w-full flex flex-col justify-center items-center xl:px-4 px-0 gap-6"
         >
           <div className="flex flex-col justify-center items-center">
-            <img src={iconApi + 'e-stok.svg'} alt="logo" />
+            <img src="./public/images/e-stok.svg" alt="logo" />
             <TitleCard text="Login" />
           </div>
           <div className="flex flex-col w-full gap-4">
