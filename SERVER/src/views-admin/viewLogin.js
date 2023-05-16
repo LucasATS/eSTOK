@@ -9,7 +9,6 @@ const login = async (req, res) => {
     });
 
     if (form.is_valid){
-        
         res.cookie('sessao', form.sessao);
         res.status(200).json({data : 'Autorizado'})
     } else {

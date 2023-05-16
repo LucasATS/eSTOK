@@ -11,13 +11,4 @@ const sequelize = new Sequelize(
       logging: false           
 });
 
-// CONEXÃO - SQLITE
-/*
-const sequelize = new Sequelize({
-  dialect: 'sqlite',             // CONFIGURADO PARA SQLite
-  storage: process.env.DATABASE, // PUXA A INFORMAÇÃO DATABASE DO ENV
-  logging: false,                // SERVE PARA ELE NÃO FICAR PRINTANDO O TEMPO TODO
-});
-*/
-
 export default sequelize;

@@ -52,7 +52,7 @@ class DAO {
         if ( !id ){
 
             //INSERT MODEL
-            model.create( fields ) 
+            return model.create( fields ) 
                 .then( () => { 
                     console.log(`Insert in ${model.name} realized!`); 
                     return 'sucess'; 
@@ -65,7 +65,7 @@ class DAO {
          } else { 
 
             //UPDATE MODEL
-            model.update( 
+            return model.update( 
                 fields , 
                 { where: { id: id } } 
             ) 
@@ -81,16 +81,21 @@ class DAO {
          }
     }
 
-    static filter = async ( model , fields ) => {
-    
+    static filter = async ( model , fields, fieldsout = null ) => {
+        
         const keys = Object.keys(fields);
         for (const key of keys) {
             fields[key] = `%${fields[key]}%`
         }
-        
-        const data = await model.findAll({
-            where: { fields }
-        });
+        const conditions = {
+            where: fields
+        }
+
+        if (fieldsout != null){
+            conditions['attributes'] = fieldsout;
+        }
+
+        const data = await model.findAll(conditions);
 
         return data
     }
