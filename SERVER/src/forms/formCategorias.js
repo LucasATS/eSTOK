@@ -1,7 +1,7 @@
 const JWT = require('jsonwebtoken');
 import 'dotenv/config';
 import { Op } from "sequelize";
-import modelCategoria from '../models/modalCategoria';
+import modelCategorias from '../models/modalCategorias';
 import DAO from '../tools/DAO';
 
 const form = async (
@@ -13,7 +13,7 @@ const form = async (
         return { is_valid: false , message: 'Descrição é obrigatório'}
     }
 
-    const resp =  await DAO.save(modelCategoria,{descricao: descricao})
+    const resp =  await DAO.save(modelCategorias,{descricao: descricao})
 
     if (resp == 'sucess'){
         return { is_valid: true , message: 'Categoria cadastrada com sucesso!'}
