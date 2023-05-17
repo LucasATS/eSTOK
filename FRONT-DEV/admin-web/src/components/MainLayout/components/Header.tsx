@@ -1,10 +1,13 @@
 import TitleCard from '../../TitleCard';
 
-const Header = () => {
+interface Props {
+  mainText: string;
+}
+
+const Header = ({ mainText }: Props) => {
   return (
-    <div className="flex justify-between px-6 py-3 items-center bg-white">
-      <TitleCard text="Dashboard" />
-      <div>FILTRO</div>
+    <div className="flex px-6 py-3 items-start justify-start text-start w-full">
+      <TitleCard text={mainText} />
     </div>
   );
 };

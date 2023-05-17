@@ -17,6 +17,7 @@
 
 ### 🔧 Configuração
 
+<<<<<<< HEAD
 > - cd server
 > - npm install @babel/node
 > - npm install @babel/core @babel/cli @babel/preset-env
@@ -24,6 +25,19 @@
 > - npm install dotenv
 > - npm install nodemon
 > - npm install express
+=======
+> -   cd server
+> -   npm install @babel/node
+> -   npm install @babel/core @babel/cli @babel/preset-env
+> -   npm install @babel/plugin-transform-async-to-generator
+> -   npm install dotenv
+> -   npm install nodemon
+> -   npm install express
+> -   npm install cookie-parser
+> -   npm install cookie-parser
+> -   npm install body-parser
+> -   npm install jsonwebtoken
+>>>>>>> 954d418c9a36c07c7b4c269026804c02dee5dac5
 
 ## **✨ Como executar**
 
@@ -38,10 +52,18 @@
 
 ### 🎲 Banco de dados
 
+<<<<<<< HEAD
 > - cd server
 > - npm install sequelize
 > - npm install sequelize-cli
 > - npm install sqlite3
+=======
+> -   cd server
+> -   npm install sequelize
+> -   npm install sequelize-cli
+> -   npm install sqlite3
+> -   npm install mysql2
+>>>>>>> 954d418c9a36c07c7b4c269026804c02dee5dac5
 
 ## **📂 PLAY**
 

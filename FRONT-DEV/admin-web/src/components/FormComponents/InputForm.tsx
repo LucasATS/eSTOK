@@ -1,5 +1,6 @@
 // import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
 import { useField } from '@unform/core';
+import { Eye, EyeOff } from 'heroicons-react';
 import { useRef, useState } from 'react';
 
 interface Props {
@@ -39,7 +40,7 @@ const InputForm = ({
   };
 
   return (
-    <div className={`flex flex-col mt-2 text-sm w-full ${className || ''}`}>
+    <div className={`flex flex-col text-sm w-full ${className || ''}`}>
       <label
         htmlFor={name}
         className={labelStyle || `py-1 font-medium ${error ? ' text-red-500' : 'text-[#B0B0B1]'}`}
@@ -50,7 +51,7 @@ const InputForm = ({
         className={`relative rounded-[30px] ${
           error
             ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-            : 'text-[#B0B0B1] bg-neutral-200'
+            : 'text-[#B0B0B1] bg-gray-100 hover:bg-gray-200'
         }`}
       >
         <input
@@ -67,24 +68,24 @@ const InputForm = ({
           ${
             error
               ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'text-[#B0B0B1] bg-neutral-200 focus:border-sky-600'
+              : 'text-[#B0B0B1] bg-gray-100 hover:bg-gray-200 focus:border-sky-600'
           }
               `
           }
           {...rest}
         />
-        {/* {type === 'password' &&
+        {type === 'password' &&
           (isVisible ? (
-            <EyeOffIcon
+            <EyeOff
               onClick={toggleVisibility}
               className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-[#B0B0B1] items-center cursor-pointer"
             />
           ) : (
-            <EyeIcon
+            <Eye
               onClick={toggleVisibility}
               className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-[#B0B0B1] items-center cursor-pointer"
             />
-          ))} */}
+          ))}
       </div>
       {error && <span className="text-red-500 text-xs mt-1 ml-1">{error}</span>}
     </div>
