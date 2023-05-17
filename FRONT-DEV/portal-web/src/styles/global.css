@@ -27,12 +27,12 @@
     @apply bg-neutral-300 text-white bg-opacity-90;
   }
 
-  .clean {
-    @apply bg-white text-teal-500;
+  .cancel {
+    @apply bg-white text-stone-400;
   }
 
-  .clean:hover {
-    @apply bg-gray-200 text-teal-600 bg-opacity-90;
+  .cancel:hover {
+    @apply bg-gray-200 text-stone-600 bg-opacity-90;
   }
 
   .error {

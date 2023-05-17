@@ -1,65 +1,34 @@
-import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import RoutesStore from '../../modules/_shared/constants/RoutesStore.enum';
-import { iconApi } from '../../modules/_shared/services/iconApi';
-import { Header } from './components/Header';
+import { useState } from 'react';
+import { Card } from '../Card';
 
 interface Props {
   children: React.ReactNode;
 }
 
 export const MainLayout: React.FC<Props> = ({ children }) => {
-  const [registrationPage, setRegistrationPage] = useState(false);
-  const { pathname } = useLocation();
-
-  const getPathName = () => {
-    if (pathname === RoutesStore.HOME) {
-      setRegistrationPage(true);
-    } else {
-      setRegistrationPage(false);
-    }
-  };
-
-  useEffect(() => {
-    getPathName();
-  }, [pathname]);
+  const [open, setOpen] = useState(false);
 
   return (
-    <>
-      <div
-        className={`flex flex-col w-full ${
-          registrationPage ? 'max-h-screen h-auto lg:bg-default' : 'h-screen'
-        } `}
-      >
-        <div className="text-white w-auto md:w-60 lg:w-80 md:h-full bg-primary shadow-lg md:fixed z-50 md:z-0">
-          <div className="flex flex-row md:flex-col items-center md:items-start">
-            <div className="md:flex flex-col hidden md:w-full mt-14 gap-7">
-              <div className="flex justify-center">
-                <p>Minha loja</p>
-              </div>
-              <div className="flex flex-col mr-10">
-                <Link to={RoutesStore.HOME}>
-                  <div className="px-4 py-2 flex gap-2 items-center cursor-pointer w-full font-medium text-base hover:bg-primary hover:rounded-r-[20px] transition-all ease-in-out rounded-sm">
-                    <img src={iconApi + 'home.svg'} alt="home" className="w-6 h-6 text-white" />
-                    Home
-                  </div>
-                </Link>
-
-                <Link to={RoutesStore.PRODUCT}>
-                  <div className="px-4 py-2 flex gap-2 items-center cursor-pointer w-full font-medium text-base hover:bg-primary hover:rounded-r-[20px] transition-all ease-in-out rounded-sm">
-                    <img src={iconApi + 'bag.svg'} alt="bag" className="w-6 h-6 text-white" />
-                    Produto
-                  </div>
-                </Link>
+    <div className="flex">
+      <div className="flex flex-col w-full h-screen">
+        <div className="w-full shadow-lg bg-primary">
+          <div className="xl:max-w-6xl mx-auto">
+            <div className="flex flex-row xl:px-0 md:px-10 px-6 py-2 items-center flex-wrap">
+              <div className="grow flex flex-row gap-2 items-center">
+                <div className="w-28 py-2">
+                  <img src="./public/logo192.png" className="w-full h-auto" />
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex flex-col lg:ml-80 md:ml-60 overflow-y-auto">
-          <Header />
-          <div className="flex flex-col bg-white h-screen">{children}</div>
+        <div className="grow w-full xl:max-w-6xl mx-auto xl:px-0 bg-white lg:mt-12 rounded-sm lg:max-w-5xl px-4">
+          {children}
         </div>
       </div>
-    </>
+      <div className="bg-secondary w-auto p-4">
+        <Card />
+      </div>
+    </div>
   );
 };
