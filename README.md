@@ -24,10 +24,6 @@
 > -   npm install dotenv
 > -   npm install nodemon
 > -   npm install express
-> -   npm install cookie-parser
-> -   npm install cookie-parser
-> -   npm install body-parser
-> -   npm install jsonwebtoken
 
 ## **✨ Como executar**
 
@@ -46,7 +42,6 @@
 > -   npm install sequelize
 > -   npm install sequelize-cli
 > -   npm install sqlite3
-> -   npm install mysql2
 
 ## **📂 PLAY**
 
