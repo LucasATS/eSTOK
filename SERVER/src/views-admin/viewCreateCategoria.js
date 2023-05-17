@@ -1,4 +1,4 @@
-import formCategoria from '../forms/formCategoria';
+import formCategoria from '../forms/formCategorias';
 
 const view = async (req, res) => {
 

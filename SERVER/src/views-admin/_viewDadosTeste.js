@@ -1,5 +1,5 @@
 import { adicionarDadosTest } from '../tools/DAO';
-import Status from '../models/modelStatus';
+import Status from '../models/modelStatus_Cads';
 import Usuario from '../models/modelUsuarios';
 
 const view = async (req, res) => {

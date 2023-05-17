@@ -1,4 +1,4 @@
-import modelCategoria from '../models/modalCategoria';
+import modelCategoria from '../models/modalCategorias';
 import DAO from '../tools/DAO';
 
 const view = async (req, res) => {

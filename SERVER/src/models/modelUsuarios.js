@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import db from '../settings/db';
-import Status from './modelStatus';
+import Status from './modelStatus_Cads';
 
 const Usuarios = db.define('Usuarios', {
     cpf: { type: DataTypes.STRING(11), allowNull: false, unique: true },
