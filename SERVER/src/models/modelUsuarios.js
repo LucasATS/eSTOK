@@ -17,4 +17,13 @@ const Usuarios = db.define('Usuarios', {
     },
 }, {});
 
+Usuarios.login = async (login, senha) => {
+  return await db.query("call `sp_login`(?,?);", {
+    model: this,
+    mapToModel: true,
+    replacements: [login, senha]
+  });
+}
+
+
 export default Usuarios;

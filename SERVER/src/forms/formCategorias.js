@@ -1,4 +1,4 @@
-import modelCategorias from '../models/modalCategorias';
+import modelCategorias from '../models/modelCategorias';
 import DAO from '../tools/DAO';
 
 const form = async ( body ) => {

@@ -12,15 +12,9 @@ const FormularioAuthentic = async ( body ) => {
         return { is_valid: false }
     }
 
-    const user = await modelUsuarios.findOne({
-        attributes: ['id', 'email', 'senha'],
-        where: { senha : senha,
-            [Op.or]: [
-                { login },
-                { email },
-            ]
-        }
-    });
+    const user = await modelUsuarios.login(login, senha);
+
+    console.log(user);
 
     if (!user){
         return { is_valid: false }
