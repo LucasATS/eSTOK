@@ -3,13 +3,11 @@ import 'dotenv/config';
 import { Op } from "sequelize";
 import modelUsuarios from '../models/modelUsuarios';
 
-const FormularioAuthentic = async (
-    {
-        email = '',
-        login = '',
-        senha = '',
-    }) => {
+const FormularioAuthentic = async ( body ) => {
     
+    const { login, senha } = body;
+    const email = login;
+
     if (!senha || !(email || login)){
         return { is_valid: false }
     }

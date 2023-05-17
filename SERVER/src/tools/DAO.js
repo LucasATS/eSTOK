@@ -2,13 +2,6 @@
 
 // AQUI SERVE APENAS DE EXEMPLO PARA TESTES
 const adicionarDadosTest = async (Status, Usuario) => {
-
-    //CRIA STATUS
-    await DAO.save(Status,
-        {
-            descricao: ' teste teste',
-        }
-    );
     
     //CRIA USUARIO Gaikko
     await DAO.save(Usuario, {

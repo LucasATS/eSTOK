@@ -1,14 +1,10 @@
-const JWT = require('jsonwebtoken');
-import 'dotenv/config';
-import { Op } from "sequelize";
 import modelCategorias from '../models/modalCategorias';
 import DAO from '../tools/DAO';
 
-const form = async (
-    {
-        descricao
-    }) => {
+const form = async ( body ) => {
     
+    let { descricao } = body;
+
     if (!descricao){
         return { is_valid: false , message: 'Descrição é obrigatório'}
     }
