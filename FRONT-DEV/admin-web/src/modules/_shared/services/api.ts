@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://e-stok.onrender.com/static/SVG/'
+  baseURL: process.env.REACT_APP_API_URL
 });
 
 export default api;

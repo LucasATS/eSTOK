@@ -2,31 +2,26 @@ import { DotsVertical } from 'heroicons-react';
 import { useState } from 'react';
 import Dropdown from '../Dropdown';
 import { Action } from '../Table';
-
 export interface LabelProps {
   label: string;
   key: string;
   transform?: (value: any) => any;
   component?: (value: any, itemActive: any) => any;
 }
-
 interface Props {
   itemsLabel: LabelProps[];
   values?: any[];
   menuItems?: Action[];
 }
-
 const ListCard = ({ itemsLabel, values, menuItems }: Props) => {
   const [itemActive, setItemActive] = useState<any>();
 
   const handleClickOpenMenu = (item: any) => {
     setItemActive(item);
   };
-
   const getValueByItem = (item: LabelProps, value: any) => {
     const keys = item.key.split('.');
     let valueToReturn: any;
-
     if (keys.length > 1) {
       let currentValue: any;
       for (const key of keys) {
@@ -36,18 +31,14 @@ const ListCard = ({ itemsLabel, values, menuItems }: Props) => {
     } else {
       valueToReturn = value[item.key];
     }
-
     if (item.transform) {
       valueToReturn = item.transform(valueToReturn);
     }
-
     if (item.component) {
       valueToReturn = item.component(valueToReturn, value);
     }
-
     return valueToReturn;
   };
-
   return (
     <div className="relative flex flex-col gap-2 w-full">
       {values?.map((value, index) => (
@@ -80,5 +71,4 @@ const ListCard = ({ itemsLabel, values, menuItems }: Props) => {
     </div>
   );
 };
-
 export default ListCard;

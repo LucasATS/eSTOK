@@ -11,7 +11,6 @@ interface Props {
   options: OptionSelect[];
   placeholder?: string;
 }
-
 type SelectProps = JSX.IntrinsicElements['select'] & Props;
 
 const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps) => {
@@ -36,11 +35,9 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
       }
     });
   }, [fieldName, registerField, valueSelect, setValueSelect]);
-
   useEffect(() => {
     clearError();
   }, [valueSelect]);
-
   return (
     <div className="text-sm w-full">
       <Listbox value={valueSelect} onChange={setValueSelect}>
@@ -112,5 +109,4 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
     </div>
   );
 };
-
 export default SelectForm;

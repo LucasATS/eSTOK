@@ -3,13 +3,17 @@
   "version": "23.05.07",
   "description": "eSTOK",
   "main": "src/main.js",
-  "keywords": ["STOK", "ESTOQUE", "ESTOK"],
+  "keywords": [
+    "STOK",
+    "ESTOQUE",
+    "ESTOK"
+  ],
   "author": "TURMA 2023 TADS - INSTED",
   "license": "ISC",
   "scripts": {
     "server": "nodemon --exec babel-node src/main.js",
     "build": "babel src -d dist",
-    "start": "node dist/main.js"
+    "startdist": "node dist/main.js"
   },
   "dependencies": {
     "@babel/cli": "^7.21.5",
@@ -22,8 +26,9 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
+    "mysql2": "^3.3.1",
     "nodemon": "^2.0.22",
-    "sequelize": "^6.31.0",
+    "sequelize": "^6.31.1",
     "sequelize-cli": "^6.6.0",
     "sqlite3": "^5.1.6"
   }

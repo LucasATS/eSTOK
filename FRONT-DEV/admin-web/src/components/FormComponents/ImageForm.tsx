@@ -1,6 +1,6 @@
 // import { PhotographIcon, TrashIcon } from '@heroicons/react/solid';
 
-import iconApi from '../../modules/_shared/services/iconApi';
+import { iconApi } from '../../modules/_shared/services/iconApi';
 
 interface ImageDetailType {
   file?: File;

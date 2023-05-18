@@ -23,7 +23,6 @@ export const ModalComponent: React.FC<Props> = ({ children, isOpen, onClose }: P
           >
             <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
           </Transition.Child>
-
           <span className="inline-block h-screen align-middle" aria-hidden="true">
             &#8203;
           </span>
