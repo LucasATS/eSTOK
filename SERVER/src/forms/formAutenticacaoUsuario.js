@@ -12,20 +12,19 @@ const FormularioAuthentic = async ( body ) => {
         return { is_valid: false }
     }
 
-    const user = await modelUsuarios.login(login, senha);
+    const user = (await modelUsuarios.login(login, senha))[0];
 
     console.log(user);
 
-    if (!user){
-        return { is_valid: false }
+    if (!user.login){
+        return { is_valid: false, msg: user.Msg}
     }
     
-    let Token = await JWT.sign({
-        id: user.id,
-        usuario: user.email,
+    const Token = await JWT.sign({
+        usuario: user.login,
     }, process.env.SECRETKEY);
     
-    return {is_valid: true, sessao: Token}
+    return {is_valid: true, sessao: Token, msg: user.Msg}
 }
 
 export default FormularioAuthentic;
