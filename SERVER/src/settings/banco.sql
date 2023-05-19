@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Maio-2023 às 03:12
+-- Tempo de geração: 19-Maio-2023 às 03:22
 -- Versão do servidor: 10.4.24-MariaDB
 -- versão do PHP: 7.4.29
 
@@ -41,20 +41,21 @@ END$$
 
 DROP PROCEDURE IF EXISTS `sp_login`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_login` (IN `login_e` VARCHAR(25) CHARSET utf8mb4, IN `senha_e` VARCHAR(225) CHARSET utf8mb4)   BEGIN
-	DECLARE contador INT(11);
-    SELECT COUNT(*) INTO contador FROM usuarios u WHERE BINARY u.login = login_e;
-    IF contador > 0 THEN
-    SELECT id, login, email FROM Usuarios u
-    WHERE 
+    DECLARE login_ee VARCHAR(25);
+
+    SELECT login INTO login_ee FROM Usuarios u
+    WHERE
         (
-            u.login COLLATE utf8mb4_general_ci = login_e OR 
-            u.email COLLATE utf8mb4_general_ci = login_e
+            BINARY u.login COLLATE utf8mb4_general_ci = login_e OR 
+            BINARY u.email COLLATE utf8mb4_general_ci = login_e
         ) AND
-        u.senha COLLATE utf8mb4_general_ci = senha_e AND
-        u.id_status = 1 LIMIT 1;
-     ELSE
-     SELECT contador AS 'Cont', 'Usuário ou Senha não encontrado!' AS Msg;
-     END IF;
+        BINARY u.senha COLLATE utf8mb4_general_ci = senha_e AND
+        u.id_status = 1  LIMIT 1;
+    IF login_ee IS NOT NULL THEN
+        SELECT login_ee as login, 'Usuário Autenticado!' AS Msg;
+    ELSE
+        SELECT null as login, 'Usuário ou Senha não encontrado!' AS Msg;
+    END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_produtos`$$
