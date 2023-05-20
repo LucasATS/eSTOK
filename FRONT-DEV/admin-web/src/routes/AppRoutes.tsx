@@ -7,7 +7,7 @@ import Home from '../modules/home';
 import ListProduct from '../modules/product/pages/ListProduct';
 import ListReport from '../modules/report/pages';
 import ListSale from '../modules/sale/pages';
-import ListStock from '../modules/stock/pages';
+import { ListStock } from '../modules/stock/pages';
 
 const AppRoutes: React.FC = () => {
   return (

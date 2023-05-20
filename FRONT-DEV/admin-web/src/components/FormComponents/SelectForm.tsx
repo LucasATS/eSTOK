@@ -42,7 +42,7 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
     <div className="text-sm w-full">
       <Listbox value={valueSelect} onChange={setValueSelect}>
         {({ open }) => (
-          <div className="relative mt-2 z-10 w-full">
+          <div className="mt-2 z-10 w-full">
             <Listbox.Label
               className={`py-1 font-medium hover:bg-gray-200 bg-gray-100 ${
                 error ? 'text-red-500' : 'text-[#B0B0B1]'
@@ -78,7 +78,7 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Listbox.Options className="absolute w-full mt-1 overflow-auto text-base bg-gray-100 shadow-lg max-h-40 ring-1 ring-opacity-5 focus:outline-none">
+              <Listbox.Options className=" w-full mt-1 overflow-auto text-base bg-gray-100 shadow-lg max-h-40 ring-1 ring-opacity-5 focus:outline-none">
                 {options.map((option) => (
                   <Listbox.Option
                     key={option.value}
