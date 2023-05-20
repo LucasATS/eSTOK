@@ -1,6 +1,7 @@
 import { ChartBar, DocumentText, Home, Logout, OfficeBuilding, ShoppingBag } from 'heroicons-react';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import logo from '../../assets/e-stok.svg';
 import RoutesURL from '../../modules/_shared/constants/RoutesURL.enum';
 import { useAuth } from '../../modules/auth/contexts/AuthProvider';
 
@@ -43,7 +44,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
           <div className="flex flex-row md:flex-col items-center md:items-start">
             <div className="md:flex flex-col hidden md:w-full mt-14 gap-7">
               <div className="flex justify-center">
-                <img src="../public/images/e-stok.svg" alt="logo" />
+                <img src={logo} alt="logo" />
               </div>
               <div className="flex flex-col mr-10">
                 <Link to={RoutesURL.HOME}>

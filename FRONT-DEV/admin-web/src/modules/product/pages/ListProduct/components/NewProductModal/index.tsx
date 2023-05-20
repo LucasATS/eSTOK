@@ -34,7 +34,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
 
   const { id } = useParams<ParamsProps>();
 
-  const handleAddNewAggregatedHolerite = async () => {
+  const handleAddProduct = async () => {
     console.log('criado ou atualizado');
     onConfirm();
     onClose();
@@ -79,7 +79,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
 
   return (
     <ModalComponent isOpen={isOpen} onClose={onClose}>
-      <Form ref={formRef} onSubmit={handleAddNewAggregatedHolerite} className="flex justify-center">
+      <Form ref={formRef} onSubmit={handleAddProduct} className="flex justify-center">
         <div className="relative bg-white rounded-lg shadow w-full">
           <div className="flex items-start py-1 px-4 rounded-t border-b">
             <TitleCard text="Cadastrar Produto" />
@@ -144,7 +144,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
             <Button
               variant="primary"
               type="button"
-              onClick={handleAddNewAggregatedHolerite}
+              onClick={handleAddProduct}
               buttonText="Salvar"
             />
           </div>
