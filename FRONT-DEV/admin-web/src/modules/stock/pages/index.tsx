@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/Button';
 import Header from '../../../components/MainLayout/components/Header';
 import { NewStockModal } from './components/NewStockModal';
-import { TableEstoque } from './components/TableEstoque';
+import { StockTable } from './components/StockTable';
 
 export const ListStock = () => {
   const [stockIdActive, setStockIdActive] = useState<number>();
@@ -40,10 +40,7 @@ export const ListStock = () => {
           <Button buttonText="Novo" variant="primary" type="button" onClick={handleClickNewStock} />
         </div>
         <div className="flex flex-col gap-2 mt-5">
-          <TableEstoque
-            onClickDeleteStock={handleClickDeleteStock}
-            onClickEditStock={handleClickEditStock}
-          />
+          <StockTable />
         </div>
         <NewStockModal
           isOpen={openNewStockModal}

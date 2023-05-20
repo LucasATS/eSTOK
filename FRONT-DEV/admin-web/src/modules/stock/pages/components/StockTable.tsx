@@ -1,15 +1,12 @@
-import { Pencil, Trash } from 'heroicons-react';
 import ListCard from '../../../../components/ListCard';
 import Table from '../../../../components/Table';
 import Stock from '../../models/Stock';
 
 type Props = {
-  Stock?: Stock[];
-  onClickDeleteStock: (item: number) => void;
-  onClickEditStock: (stockId: number) => void;
+  stock?: Stock[];
 };
 
-export const TableEstoque = ({ onClickEditStock, onClickDeleteStock, Stock }: Props) => {
+export const StockTable = ({ stock }: Props) => {
   return (
     <>
       <div className="lg:flex hidden">
@@ -33,7 +30,7 @@ export const TableEstoque = ({ onClickEditStock, onClickDeleteStock, Stock }: Pr
             },
             {
               columnName: 'Preço',
-              key: 'preço'
+              key: 'preco'
             },
             {
               columnName: 'Data Compra',
@@ -42,27 +39,9 @@ export const TableEstoque = ({ onClickEditStock, onClickDeleteStock, Stock }: Pr
             {
               columnName: 'Data Vencimento',
               key: 'datavencimento'
-            },
-            {
-              columnName: '',
-              key: '',
-              component: (value, itemActive) => (
-                <div className="flex justify-end space-x-2">
-                  <Trash className="w-6 h-6" onClick={() => onClickDeleteStock(itemActive)} />
-                </div>
-              )
-            },
-            {
-              columnName: '',
-              key: '',
-              component: (value, itemActive) => (
-                <div className="flex justify-end space-x-2">
-                  <Pencil className="w-6 h-6" onClick={() => onClickEditStock(itemActive.id)} />
-                </div>
-              )
             }
           ]}
-          values={Stock}
+          values={stock}
         />
       </div>
       <div className="flex lg:hidden">
@@ -94,7 +73,7 @@ export const TableEstoque = ({ onClickEditStock, onClickDeleteStock, Stock }: Pr
             },
             {
               label: 'Preço',
-              key: 'preço'
+              key: 'preco'
             },
             {
               label: 'Data Compra',
@@ -103,27 +82,9 @@ export const TableEstoque = ({ onClickEditStock, onClickDeleteStock, Stock }: Pr
             {
               label: 'Data Vencimento',
               key: 'datavencimento'
-            },
-            {
-              label: '',
-              key: '',
-              component: (value, itemActive) => (
-                <div className="flex justify-end space-x-2">
-                  <Trash className="w-6 h-6" onClick={() => onClickDeleteStock(itemActive)} />
-                </div>
-              )
-            },
-            {
-              label: '',
-              key: '',
-              component: (value, itemActive) => (
-                <div className="flex justify-end space-x-2">
-                  <Pencil className="w-6 h-6" onClick={() => onClickEditStock(itemActive.id)} />
-                </div>
-              )
             }
           ]}
-          values={Stock}
+          values={stock}
         />
       </div>
     </>
