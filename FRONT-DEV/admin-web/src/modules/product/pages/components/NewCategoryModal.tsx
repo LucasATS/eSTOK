@@ -1,10 +1,10 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRef } from 'react';
-import Button from '../../../../../../components/Button';
-import InputForm from '../../../../../../components/FormComponents/InputForm';
-import { ModalComponent } from '../../../../../../components/ModalComponent';
-import TitleCard from '../../../../../../components/TitleCard';
+import Button from '../../../../components/Button';
+import InputForm from '../../../../components/FormComponents/InputForm';
+import { ModalComponent } from '../../../../components/ModalComponent';
+import TitleCard from '../../../../components/TitleCard';
 
 interface ConfigModalProps {
   isOpen: boolean;
