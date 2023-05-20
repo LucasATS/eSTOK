@@ -1,15 +1,15 @@
 import { Pencil, Trash } from 'heroicons-react';
-import Table from '../../../../components/Table';
 import ListCard from '../../../../components/ListCard';
-import Product from '../../../product/models/Product';
+import Table from '../../../../components/Table';
+import Stock from '../../models/Stock';
 
 type Props = {
-  product?: Product[];
-  onClickDeleteProduct: (item: number) => void;
-  onClickEditProduct: (productId: number) => void;
+  Stock?: Stock[];
+  onClickDeleteStock: (item: number) => void;
+  onClickEditStock: (stockId: number) => void;
 };
 
-export const TableEstoque = ({ onClickEditProduct, onClickDeleteProduct, product }: Props) => {
+export const TableEstoque = ({ onClickEditStock, onClickDeleteStock, Stock }: Props) => {
   return (
     <>
       <div className="lg:flex hidden">
@@ -48,7 +48,7 @@ export const TableEstoque = ({ onClickEditProduct, onClickDeleteProduct, product
               key: '',
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
-                  <Trash className="w-6 h-6" onClick={() => onClickDeleteProduct(itemActive)} />
+                  <Trash className="w-6 h-6" onClick={() => onClickDeleteStock(itemActive)} />
                 </div>
               )
             },
@@ -57,12 +57,12 @@ export const TableEstoque = ({ onClickEditProduct, onClickDeleteProduct, product
               key: '',
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
-                  <Pencil className="w-6 h-6" onClick={() => onClickEditProduct(itemActive.id)} />
+                  <Pencil className="w-6 h-6" onClick={() => onClickEditStock(itemActive.id)} />
                 </div>
               )
             }
           ]}
-          values={product}
+          values={Stock}
         />
       </div>
       <div className="flex lg:hidden">
@@ -109,7 +109,7 @@ export const TableEstoque = ({ onClickEditProduct, onClickDeleteProduct, product
               key: '',
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
-                  <Trash className="w-6 h-6" onClick={() => onClickDeleteProduct(itemActive)} />
+                  <Trash className="w-6 h-6" onClick={() => onClickDeleteStock(itemActive)} />
                 </div>
               )
             },
@@ -118,12 +118,12 @@ export const TableEstoque = ({ onClickEditProduct, onClickDeleteProduct, product
               key: '',
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
-                  <Pencil className="w-6 h-6" onClick={() => onClickEditProduct(itemActive.id)} />
+                  <Pencil className="w-6 h-6" onClick={() => onClickEditStock(itemActive.id)} />
                 </div>
               )
             }
           ]}
-          values={product}
+          values={Stock}
         />
       </div>
     </>
