@@ -1,8 +1,8 @@
+import { useState } from 'react';
 import Button from '../../../components/Button';
 import Header from '../../../components/MainLayout/components/Header';
-import AddProduto from './components/AddProduto';
-import VendasTable from './components/VendasTable';
-import { useState } from 'react';
+import NewSaleModal from './components/NewSaleModal';
+import SaleTable from './components/SaleTable';
 
 const ListSale = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +10,7 @@ const ListSale = () => {
   const handleClickNewSale = () => {
     setIsOpen(true);
   };
+
   // const handleNewSale = () => {
   // };
 
@@ -27,9 +28,9 @@ const ListSale = () => {
           <Button buttonText="Novo" variant="primary" type="button" onClick={handleClickNewSale} />
         </div>
         <div className="flex flex-col gap-2 mt-5">
-          <VendasTable />
+          <SaleTable />
         </div>
-        <AddProduto isOpen={isOpen} onClose={handleCloseNewSale} onConfirm={handleClickNewSale} />
+        <NewSaleModal isOpen={isOpen} onClose={handleCloseNewSale} onConfirm={handleClickNewSale} />
       </div>
     </div>
   );

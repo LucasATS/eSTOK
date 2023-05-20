@@ -1,12 +1,12 @@
-import { Form } from '@unform/web';
-import Button from '../../../../../components/Button';
-import InputForm from '../../../../../components/FormComponents/InputForm';
-import TitleCard from '../../../../../components/TitleCard';
-import SelectForm from '../../../../../components/FormComponents/SelectForm';
-import { ModalComponent } from '../../../../../components/ModalComponent';
-import { useRef } from 'react';
 import { FormHandles } from '@unform/core';
-import { selectOptionsStates, selectOptionsProduct } from '../../../constants/SelectOptions';
+import { Form } from '@unform/web';
+import { useRef } from 'react';
+import Button from '../../../../components/Button';
+import InputForm from '../../../../components/FormComponents/InputForm';
+import SelectForm from '../../../../components/FormComponents/SelectForm';
+import { ModalComponent } from '../../../../components/ModalComponent';
+import TitleCard from '../../../../components/TitleCard';
+import { selectOptionsProduct, selectOptionsStates } from '../../constants/SelectOptions';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -14,7 +14,7 @@ interface ConfigModalProps {
   onConfirm: () => void;
 }
 
-const AddProduto = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
+const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
   const formRef = useRef<FormHandles>(null);
 
   const hangleAddProduto = async () => {
@@ -91,4 +91,4 @@ const AddProduto = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
   );
 };
 
-export default AddProduto;
+export default NewSaleModal;

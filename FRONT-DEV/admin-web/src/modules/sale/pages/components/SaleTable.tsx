@@ -1,9 +1,12 @@
-import { Trash, Pencil } from 'heroicons-react';
-import ListCard from '../../../../../components/ListCard';
-import Table from '../../../../../components/Table';
-import TitleCard from '../../../../../components/TitleCard';
+import ListCard from '../../../../components/ListCard';
+import Table from '../../../../components/Table';
+import Sale from '../../models/Sale';
 
-const VendasTable = () => {
+type Props = {
+  sale?: Sale[];
+};
+
+const SaleTable = ({ sale }: Props) => {
   return (
     <>
       <div className="lg:flex hidden">
@@ -38,6 +41,7 @@ const VendasTable = () => {
               key: 'dataCompra'
             }
           ]}
+          values={sale}
         />
       </div>
       <div className="flex lg:hidden">
@@ -72,10 +76,11 @@ const VendasTable = () => {
               key: 'dataCompra'
             }
           ]}
+          values={sale}
         />
       </div>
     </>
   );
 };
 
-export default VendasTable;
+export default SaleTable;
