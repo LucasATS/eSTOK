@@ -6,19 +6,16 @@ import TitleCard from '../../../../../components/TitleCard';
 const VendasTable = () => {
   return (
     <>
-      <div className="flex items-start py-1 px-4 rounded-t border-b">
-        <TitleCard text="Cadastrar venda" />
-      </div>
       <div className="lg:flex hidden">
         <Table
           columns={[
             {
-              columnName: 'id da venda',
-              key: 'idVendas'
+              columnName: 'Id',
+              key: 'idVenda'
             },
             {
               columnName: 'Cliente',
-              key: 'clientes'
+              key: 'cliente'
             },
             {
               columnName: 'Categoria',
@@ -34,7 +31,7 @@ const VendasTable = () => {
             },
             {
               columnName: 'Preço',
-              key: 'preço'
+              key: 'preco'
             },
             {
               columnName: 'Data da Compra',
@@ -47,12 +44,12 @@ const VendasTable = () => {
         <ListCard
           itemsLabel={[
             {
-              label: 'id da venda',
-              key: 'idVendas'
+              label: 'Id',
+              key: 'idVenda'
             },
             {
               label: 'Cliente',
-              key: 'clientes'
+              key: 'cliente'
             },
             {
               label: 'Categoria',
@@ -68,7 +65,7 @@ const VendasTable = () => {
             },
             {
               label: 'Preço',
-              key: 'preço'
+              key: 'preco'
             },
             {
               label: 'Data da Compra',
