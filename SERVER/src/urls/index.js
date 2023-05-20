@@ -42,7 +42,7 @@ class urls {
         this.server.get("/admin/auth/logout", require('../views-admin/viewLogout.js').default); // ok
 
         //Links admin-web - POST - AUTENTICADO
-        this.server.post("/admin/api/produtos/create", UserIsAuthentic, require('../views-admin/viewCreateProduto.js').default);
+        this.server.post("/admin/api/produtos/create",UserIsAuthentic, require('../views-admin/viewCreateProduto.js').default);
         this.server.post("/admin/api/produtos/altera-status", UserIsAuthentic, require('../views-admin/viewAlterStatusProduto.js').default);
 
         this.server.post("/admin/api/categorias/create", UserIsAuthentic, require('../views-admin/viewCreateCategoria.js').default); //ok
