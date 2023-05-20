@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../../../components/Button';
-import Dropdown from '../../../../components/Dropdown';
-import Header from '../../../../components/MainLayout/components/Header';
-import Pagination from '../../../../components/Paginate';
-import { Action } from '../../../../components/Table';
-import { PaginateDto } from '../../../_shared/dto/PaginateDto';
-import { Paginate } from '../../../_shared/types/api.types';
-import Product from '../../models/Product';
+import Button from '../../../components/Button';
+import Dropdown from '../../../components/Dropdown';
+import Header from '../../../components/MainLayout/components/Header';
+import Pagination from '../../../components/Paginate';
+import { Action } from '../../../components/Table';
+import { PaginateDto } from '../../_shared/dto/PaginateDto';
+import { Paginate } from '../../_shared/types/api.types';
+import Product from '../models/Product';
 import NewCategoryModal from './components/NewCategoryModal';
 import { NewProductModal } from './components/NewProductModal';
-import ProductTable from './components/ProductTable/index';
+import ProductTable from './components/ProductTable';
 
 const ListProduct = () => {
   const [productIdActive, setProductIdActive] = useState<number>();
@@ -84,10 +84,7 @@ const ListProduct = () => {
           />
         </div>
         <div className="flex flex-col gap-2 mt-5">
-          <ProductTable
-            onClickEditProduct={handleClickEditProduct}
-            onClickDeleteProduct={() => handleClickDeleteProduct}
-          />
+          <ProductTable />
           <Pagination
             currentPage={productsPaginate?.results.length}
             page={productsPaginate?.currentPage}
