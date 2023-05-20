@@ -4,7 +4,7 @@ import { HashRouter, Route } from 'react-router-dom';
 import MainLayout from '../components/MainLayout';
 import RoutesURL from '../modules/_shared/constants/RoutesURL.enum';
 import Home from '../modules/home';
-import ListProduct from '../modules/product/pages/ListProduct';
+import ListProduct from '../modules/product/pages';
 import ListReport from '../modules/report/pages';
 import ListSale from '../modules/sale/pages';
 import { ListStock } from '../modules/stock/pages';
