@@ -1,14 +1,12 @@
-import { Pencil, Trash } from 'heroicons-react';
-import ListCard from '../../../../../../components/ListCard';
-import Table from '../../../../../../components/Table';
-import Product from '../../../../models/Product';
+import ListCard from '../../../../components/ListCard';
+import Table from '../../../../components/Table';
+import Product from '../../models/Product';
 
 type Props = {
   product?: Product[];
-  onClickDeleteProduct: (item: number) => void;
-  onClickEditProduct: (productId: number) => void;
 };
-const ProductTable = ({ onClickEditProduct, onClickDeleteProduct, product }: Props) => {
+
+const ProductTable = ({ product }: Props) => {
   return (
     <>
       <div className="lg:flex hidden">
@@ -41,24 +39,6 @@ const ProductTable = ({ onClickEditProduct, onClickDeleteProduct, product }: Pro
             {
               columnName: 'Preço',
               key: 'preço'
-            },
-            {
-              columnName: '',
-              key: '',
-              component: (value, itemActive) => (
-                <div className="flex justify-end space-x-2">
-                  <Trash className="w-6 h-6" onClick={() => onClickDeleteProduct(itemActive)} />
-                </div>
-              )
-            },
-            {
-              columnName: '',
-              key: '',
-              component: (value, itemActive) => (
-                <div className="flex justify-end space-x-2">
-                  <Pencil className="w-6 h-6" onClick={() => onClickEditProduct(itemActive.id)} />
-                </div>
-              )
             }
           ]}
           values={product}
@@ -94,24 +74,6 @@ const ProductTable = ({ onClickEditProduct, onClickDeleteProduct, product }: Pro
             {
               label: 'Preço',
               key: 'preço'
-            },
-            {
-              label: '',
-              key: '',
-              component: (value, itemActive) => (
-                <div className="flex justify-end space-x-2">
-                  <Trash className="w-6 h-6" onClick={() => onClickDeleteProduct(itemActive)} />
-                </div>
-              )
-            },
-            {
-              label: '',
-              key: '',
-              component: (value, itemActive) => (
-                <div className="flex justify-end space-x-2">
-                  <Pencil className="w-6 h-6" onClick={() => onClickEditProduct(itemActive.id)} />
-                </div>
-              )
             }
           ]}
           values={product}
