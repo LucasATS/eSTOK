@@ -36,7 +36,7 @@ const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
       <Form ref={formRef} onSubmit={handleAddNewCategoria} className="flex justify-center">
         <div className="relative bg-white rounded-lg shadow w-full">
           <div className="flex items-start py-1 px-4 rounded-t border-b">
-            <TitleCard text="Cadastrar categoria" />
+            <TitleCard text="Cadastrar Categoria" />
           </div>
           <div className="p-6 space-y-3">
             <InputForm name="nomeCategoria" type="text" placeholder="Nome da Categoria" />
@@ -49,7 +49,7 @@ const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
               variant="primary"
               type="button"
               onClick={handleAddNewCategoria}
-              buttonText="Salvar"
+              buttonText="Cadastrar"
             />
           </div>
         </div>

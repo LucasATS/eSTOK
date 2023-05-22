@@ -36,7 +36,7 @@ export const NewStockModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) 
       <Form ref={formRef} onSubmit={handleAddNewAggregatedHolerite} className="flex justify-center">
         <div className="relative bg-white rounded-lg shadow w-full">
           <div className="flex items-start py-1 px-4 rounded-t border-b">
-            <TitleCard text="Adicionar produto no estoque" />
+            <TitleCard text="Cadastrar Estoque" />
           </div>
           <div className="p-6 space-y-3">
             <SelectForm

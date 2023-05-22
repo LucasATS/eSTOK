@@ -46,10 +46,7 @@ export const StockTable = ({ stock }: Props) => {
               key: '',
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
-                  <DocumentDownloadOutline
-                    className="w-5 cursor-pointer text-red-600 hover:text-red-500"
-                    // onClick={() => onClickDeleteHolerites(itemActive.id)}
-                  />
+                  <DocumentDownloadOutline className="w-5 cursor-pointer text-secondary hover:text-secondary" />
                 </div>
               )
             }
