@@ -45,9 +45,9 @@ export const NewStockModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) 
               options={selectOptionsProductType}
             />
             <InputForm name="productName" type="text" placeholder="Preço do produto" />
-            <InputForm name="productName" type="text" placeholder="quantidade" />
-            <InputForm name="productName" type="text" placeholder="Data da compra" />
-            <InputForm name="productName" type="text" placeholder="Data do vencimento" />
+            <InputForm name="quantity" type="text" placeholder="Quantidade" />
+            <InputForm name="datePurchase" type="text" placeholder="Data da compra" />
+            <InputForm name="dateDue" type="text" placeholder="Data do vencimento" />
           </div>
 
           <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">

@@ -48,7 +48,7 @@ const InputForm = ({
         {label}
       </label>
       <div
-        className={`relative rounded-[30px] ${
+        className={` rounded-[30px] ${
           error
             ? 'border-error focus:border-error focus:ring-error'
             : 'text-[#B0B0B1] bg-gray-100 hover:bg-gray-200'
