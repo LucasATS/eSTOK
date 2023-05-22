@@ -1,3 +1,4 @@
+import { DocumentDownloadOutline } from 'heroicons-react';
 import ListCard from '../../../../components/ListCard';
 import Table from '../../../../components/Table';
 import Stock from '../../models/Stock';
@@ -39,6 +40,18 @@ export const StockTable = ({ stock }: Props) => {
             {
               columnName: 'Data Vencimento',
               key: 'datavencimento'
+            },
+            {
+              columnName: '',
+              key: '',
+              component: (value, itemActive) => (
+                <div className="flex justify-end space-x-2">
+                  <DocumentDownloadOutline
+                    className="w-5 cursor-pointer text-red-600 hover:text-red-500"
+                    // onClick={() => onClickDeleteHolerites(itemActive.id)}
+                  />
+                </div>
+              )
             }
           ]}
           values={stock}

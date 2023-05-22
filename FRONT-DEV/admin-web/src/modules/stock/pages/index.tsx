@@ -1,3 +1,4 @@
+import { DocumentDownloadOutline } from 'heroicons-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/Button';
@@ -38,6 +39,9 @@ export const ListStock = () => {
       <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
         <div className="flex flex-row md:px-4 w-auto gap-3 justify-end items-end">
           <Button buttonText="Novo" variant="primary" type="button" onClick={handleClickNewStock} />
+          <div className="flex justify-end space-x-2">
+            <DocumentDownloadOutline className="w-5 cursor-pointer text-secondary hover:text-secondary" />
+          </div>
         </div>
         <div className="flex flex-col gap-2 mt-5">
           <StockTable />
