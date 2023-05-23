@@ -9,13 +9,13 @@ import {
   selectOptionsPeriodType,
   selectOptionsProductType,
   selectOptionsReportType
-} from '../constants/SelectOption';
+} from '../../_shared/constants/SelectOption';
 
 export const CreateReport = () => {
   const formRef = useRef<FormHandles>(null);
 
   const handleAddNewAggregatedHolerite = async () => {
-    console.log('criado ou atualizado');
+    console.log('criado');
     clearForm();
   };
 

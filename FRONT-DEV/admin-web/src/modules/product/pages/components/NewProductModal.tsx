@@ -16,7 +16,7 @@ import {
   selectOptionsProductSize,
   selectOptionsProductType,
   selectOptionsUnit
-} from '../../constants/SelectOptions';
+} from '../../../_shared/constants/SelectOption';
 
 interface ConfigModalProps {
   isOpen: boolean;

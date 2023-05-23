@@ -6,7 +6,7 @@ import InputForm from '../../../../components/FormComponents/InputForm';
 import SelectForm from '../../../../components/FormComponents/SelectForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
-import { selectOptionsProductType } from '../../../product/constants/SelectOptions';
+import { selectOptionsProductType } from '../../../_shared/constants/SelectOption';
 
 interface ConfigModalProps {
   isOpen: boolean;

@@ -4,6 +4,11 @@ export interface SelectOption {
   label: string;
 }
 
+export const selectOptionsProductType: SelectOption[] = [
+  { id: 'productType', value: 'productType', label: 'Tipo de Produto 1' },
+  { id: 'productType', value: 'productType', label: 'Tipo de Produto 2' }
+];
+
 export const selectOptionsStates: SelectOption[] = [
   { id: 'acre', value: 'acre', label: 'AC' },
   { id: 'alagoas', value: 'alagoas', label: 'AL' },
@@ -35,6 +40,31 @@ export const selectOptionsStates: SelectOption[] = [
 ];
 
 export const selectOptionsProduct: SelectOption[] = [
-  { id: 'feminino', value: 'feminino', label: 'Feminino' },
-  { id: 'masculino', value: 'masculino', label: 'Masculino' }
+  { id: 'product', value: 'product', label: 'Produto 1' },
+  { id: 'product', value: 'product', label: 'Produto 2' }
+];
+
+export const selectOptionsReportType: SelectOption[] = [
+  { id: 'reportType', value: 'reportType', label: 'Tipo de Relatório 1' },
+  { id: 'reportType', value: 'reportType', label: 'Tipo de Relatório 2' }
+];
+
+export const selectOptionsPeriodType: SelectOption[] = [
+  { id: 'periodType', value: 'periodType', label: 'Tipo de Período 1' },
+  { id: 'periodType', value: 'periodType', label: 'Tipo de Período 2' }
+];
+
+export const selectOptionsCategory: SelectOption[] = [
+  { id: 'category', value: 'category', label: 'Categoria 1' },
+  { id: 'category', value: 'category', label: 'Categoria 2' }
+];
+
+export const selectOptionsUnit: SelectOption[] = [
+  { id: 'unit', value: 'unit', label: 'Unidade 1' },
+  { id: 'unit', value: 'unit', label: 'Unidade 2' }
+];
+
+export const selectOptionsProductSize: SelectOption[] = [
+  { id: 'productSize', value: 'productSize', label: 'Tamanho do Produto 1' },
+  { id: 'productSize', value: 'productSize', label: 'Tamanho do Produto 2' }
 ];
