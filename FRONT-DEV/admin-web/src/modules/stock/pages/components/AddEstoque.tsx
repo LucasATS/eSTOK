@@ -1,11 +1,11 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
+import { useRef } from 'react';
+import Button from '../../../../components/Button';
+import InputForm from '../../../../components/FormComponents/InputForm';
+import SelectForm from '../../../../components/FormComponents/SelectForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
-import SelectForm from '../../../../components/FormComponents/SelectForm';
-import InputForm from '../../../../components/FormComponents/InputForm';
-import Button from '../../../../components/Button';
-import { useRef } from 'react';
 import { selectOptionsProductType } from '../../../product/constants/SelectOptions';
 
 interface ConfigModalProps {
