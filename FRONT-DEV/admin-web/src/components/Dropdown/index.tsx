@@ -13,7 +13,7 @@ const Dropdown = ({ variant, text, menuItens, children }: Props) => {
   return (
     <Menu as="div" className="relative inline-block w-[136px]">
       <Menu.Button
-        className={`${variant} relative cursor-pointer w-full list-item text-base font-medium px-4 py-1 rounded hover:text-sky-600 hover:bg-primary hover:bg-opacity-20 transition-all ease-in-out`}
+        className={`${variant} relative cursor-pointer w-full list-item text-base font-medium px-4 py-1 rounded hover:text-primary hover:bg-primary hover:bg-opacity-20 transition-all ease-in-out`}
       >
         <div className="flex flex-row items-center justify-center gap-2 w-full">
           {text || children}

@@ -2,6 +2,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../../assets/e-stok.png';
 import Button from '../../../components/Button';
 import InputForm from '../../../components/FormComponents/InputForm';
 import TitleCard from '../../../components/TitleCard';
@@ -32,7 +33,7 @@ const Login = () => {
           className="w-full flex flex-col justify-center items-center xl:px-4 px-0 gap-6"
         >
           <div className="flex flex-col justify-center items-center">
-            <img src="./public/images/e-stok.svg" alt="logo" />
+            <img src={logo} alt="logo" />
             <TitleCard text="Login" />
           </div>
           <div className="flex flex-col w-full gap-4">
