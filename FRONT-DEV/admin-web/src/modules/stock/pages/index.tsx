@@ -1,36 +1,33 @@
-import { useEffect, useState } from 'react';
-import Header from '../../../components/MainLayout/components/Header';
-import { AddEstoque } from './components/AddEstoque';
-import { TableEstoque } from './components/TableEstoque';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/Button';
-import { NewProductModal } from '../../product/pages/ListProduct/components/NewProductModal';
+import Header from '../../../components/MainLayout/components/Header';
+import { NewStockModal } from './components/NewStockModal';
+import { StockTable } from './components/StockTable';
 
 export const ListStock = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [productIdActive, setProductIdActive] = useState<number>();
-  const [openNewProductModal, setOpenNewProductModal] = useState(false);
+  const [stockIdActive, setStockIdActive] = useState<number>();
+  const [openNewStockModal, setOpenNewStockModal] = useState(false);
   const navigate = useNavigate();
 
   const handleNewStock = () => {
-    setIsOpen(true);
-  };
-  const handleClickDeleteProduct = (id: number) => {
-    setProductIdActive(id);
+    setOpenNewStockModal(true);
   };
 
-  const handleClickEditProduct = (productId: number) => {
-    navigate(`/product/${productId}`);
-  };
-  const handleNewProduct = () => {
-    loadProduct();
+  const handleClickDeleteStock = (id: number) => {
+    setStockIdActive(id);
   };
 
-  const handleClickNewProduct = () => {
-    setOpenNewProductModal(true);
+  const handleClickEditStock = (stockId: number) => {
+    navigate(`/stock/${stockId}`);
   };
-  const handleCloseNewProduct = () => {
-    setOpenNewProductModal(false);
+
+  const handleClickNewStock = () => {
+    setOpenNewStockModal(true);
+  };
+
+  const handleCloseNewStock = () => {
+    setOpenNewStockModal(false);
   };
 
   return (
@@ -40,29 +37,17 @@ export const ListStock = () => {
       </div>
       <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
         <div className="flex flex-row md:px-4 w-auto gap-3 justify-end items-end">
-          <Button
-            buttonText="Novo"
-            variant="primary"
-            type="button"
-            onClick={handleClickNewProduct}
-          />
+          <Button buttonText="Novo" variant="primary" type="button" onClick={handleClickNewStock} />
         </div>
         <div className="flex flex-col gap-2 mt-5">
-          <AddEstoque isOpen={isOpen} onClose={() => setIsOpen(false)} onConfirm={handleNewStock} />
-          <TableEstoque
-            onClickDeleteProduct={handleClickDeleteProduct}
-            onClickEditProduct={handleClickEditProduct}
-          />
-          <AddEstoque
-            isOpen={openNewProductModal}
-            onClose={handleCloseNewProduct}
-            onConfirm={handleNewProduct}
-          />
+          <StockTable />
         </div>
+        <NewStockModal
+          isOpen={openNewStockModal}
+          onClose={handleCloseNewStock}
+          onConfirm={handleNewStock}
+        />
       </div>
     </div>
   );
 };
-function loadProduct() {
-  throw new Error('Function not implemented.');
-}

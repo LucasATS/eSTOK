@@ -43,14 +43,14 @@ const InputForm = ({
     <div className={`flex flex-col text-sm w-full ${className || ''}`}>
       <label
         htmlFor={name}
-        className={labelStyle || `py-1 font-medium ${error ? ' text-red-500' : 'text-[#B0B0B1]'}`}
+        className={labelStyle || `py-1 font-medium ${error ? ' text-error' : 'text-[#B0B0B1]'}`}
       >
         {label}
       </label>
       <div
-        className={`relative rounded-[30px] ${
+        className={` rounded-[30px] ${
           error
-            ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+            ? 'border-error focus:border-error focus:ring-error'
             : 'text-[#B0B0B1] bg-gray-100 hover:bg-gray-200'
         }`}
       >
@@ -67,8 +67,8 @@ const InputForm = ({
             `w-full rounded-[30px] focus:ring-1 p-2 focus:outline-none
           ${
             error
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'text-[#B0B0B1] bg-gray-100 hover:bg-gray-200 focus:border-sky-600'
+              ? 'border-error focus:border-error focus:ring-error'
+              : 'text-[#B0B0B1] bg-gray-100 hover:bg-gray-200 focus:border-primary'
           }
               `
           }
@@ -87,7 +87,7 @@ const InputForm = ({
             />
           ))}
       </div>
-      {error && <span className="text-red-500 text-xs mt-1 ml-1">{error}</span>}
+      {error && <span className="text-error text-xs mt-1 ml-1">{error}</span>}
     </div>
   );
 };

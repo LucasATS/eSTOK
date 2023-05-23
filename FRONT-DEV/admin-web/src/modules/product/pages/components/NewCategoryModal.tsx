@@ -1,10 +1,10 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import { ModalComponent } from '../../../../../components/ModalComponent';
-import TitleCard from '../../../../../components/TitleCard';
 import { useRef } from 'react';
-import InputForm from '../../../../../components/FormComponents/InputForm';
-import Button from '../../../../../components/Button';
+import Button from '../../../../components/Button';
+import InputForm from '../../../../components/FormComponents/InputForm';
+import { ModalComponent } from '../../../../components/ModalComponent';
+import TitleCard from '../../../../components/TitleCard';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -12,7 +12,7 @@ interface ConfigModalProps {
   onConfirm: () => void;
 }
 
-const NewCategoriaModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
+const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
   const formRef = useRef<FormHandles>(null);
 
   const handleAddNewCategoria = () => {
@@ -36,13 +36,12 @@ const NewCategoriaModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => 
       <Form ref={formRef} onSubmit={handleAddNewCategoria} className="flex justify-center">
         <div className="relative bg-white rounded-lg shadow w-full">
           <div className="flex items-start py-1 px-4 rounded-t border-b">
-            <TitleCard text="Cadastrar categoria" />
+            <TitleCard text="Cadastrar Categoria" />
           </div>
-          <div className="flex-col mx-4">
+          <div className="p-6 space-y-3">
             <InputForm name="nomeCategoria" type="text" placeholder="Nome da Categoria" />
           </div>
-          <br></br>
-          <div className="flex md:px-4 justify-between py-4 px-1">
+          <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
             <Button variant="cancel" type="button" onClick={handleCancel}>
               Cancelar
             </Button>
@@ -50,7 +49,7 @@ const NewCategoriaModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => 
               variant="primary"
               type="button"
               onClick={handleAddNewCategoria}
-              buttonText="Salvar"
+              buttonText="Cadastrar"
             />
           </div>
         </div>
@@ -59,4 +58,4 @@ const NewCategoriaModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => 
   );
 };
 
-export default NewCategoriaModal;
+export default NewCategoryModal;
