@@ -5,8 +5,8 @@ export interface SelectOption {
 }
 
 export const selectOptionsProductType: SelectOption[] = [
-  { id: 'productType', value: 'productType', label: 'Tipo de Produto 1' },
-  { id: 'productType', value: 'productType', label: 'Tipo de Produto 2' }
+  { id: 'productType', value: 'productType', label: 'Depreciado' },
+  { id: 'productType', value: 'productType', label: 'Vencido' }
 ];
 
 export const selectOptionsStates: SelectOption[] = [
