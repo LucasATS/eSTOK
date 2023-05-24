@@ -7,7 +7,6 @@ import { DropzoneForm } from '../../../../components/FormComponents/DropzoneForm
 import { ImageForm } from '../../../../components/FormComponents/ImageForm';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import SelectForm from '../../../../components/FormComponents/SelectForm';
-import SwitchForm from '../../../../components/FormComponents/SwitchForm';
 import TextareaForm from '../../../../components/FormComponents/TextAreaForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
@@ -107,24 +106,10 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
                 placeholder="Tipo de produto"
                 options={selectOptionsProductType}
               />
-
-              <SwitchForm
-                text="Fundibilidade"
-                onChange={handleCastabilityActive}
-                value={castabilityIsActive}
-              />
-            </div>
-
-            <div className="flex md:flex-row flex-col gap-3">
               <SelectForm
                 name="productSize"
                 placeholder="Tamanho do produto"
                 options={selectOptionsProductSize}
-              />
-              <SwitchForm
-                text="Estocável"
-                onChange={handleStockableActive}
-                value={stockableIsActive}
               />
             </div>
 
