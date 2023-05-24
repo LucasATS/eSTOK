@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import logo from '../../assets/e-stok.svg';
 import { Card } from '../Card';
 
 interface Props {
@@ -16,7 +17,7 @@ export const MainLayout: React.FC<Props> = ({ children }) => {
             <div className="flex flex-row xl:px-0 md:px-10 px-6 py-2 items-center flex-wrap">
               <div className="grow flex flex-row gap-2 items-center">
                 <div className="w-28 py-2">
-                  <img src="./public/logo192.png" className="w-full h-auto" />
+                  <img src={logo} className="w-full h-auto" />
                 </div>
               </div>
             </div>
