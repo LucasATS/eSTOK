@@ -1,25 +1,25 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Button from '../../../components/Button';
 import Header from '../../../components/MainLayout/components/Header';
+import Pagination from '../../../components/Paginate';
+import { PaginateDto } from '../../_shared/dto/PaginateDto';
+import { Paginate } from '../../_shared/types/api.types';
+import Stock from '../models/Stock';
 import { NewStockModal } from './components/NewStockModal';
 import { StockTable } from './components/StockTable';
 
 export const ListStock = () => {
   const [stockIdActive, setStockIdActive] = useState<number>();
   const [openNewStockModal, setOpenNewStockModal] = useState(false);
-  const navigate = useNavigate();
+  const [paginationActive, setPaginationActive] = useState<PaginateDto>({});
+  const [stocksPaginate, setStocksPaginate] = useState<Paginate<Stock>>();
+
+  const loadStock = () => {
+    // setStocksPaginate()
+  };
 
   const handleNewStock = () => {
-    setOpenNewStockModal(true);
-  };
-
-  const handleClickDeleteStock = (id: number) => {
-    setStockIdActive(id);
-  };
-
-  const handleClickEditStock = (stockId: number) => {
-    navigate(`/stock/${stockId}`);
+    loadStock();
   };
 
   const handleClickNewStock = () => {
@@ -29,6 +29,15 @@ export const ListStock = () => {
   const handleCloseNewStock = () => {
     setOpenNewStockModal(false);
   };
+
+  const onChangePage = async (page: number) => {
+    setPaginationActive((old) => ({ ...old, page }));
+    console.log('Próxima página');
+  };
+
+  useEffect(() => {
+    loadStock();
+  }, [paginationActive]);
 
   return (
     <div className="w-full flex flex-col">
@@ -41,6 +50,13 @@ export const ListStock = () => {
         </div>
         <div className="flex flex-col gap-2 mt-5">
           <StockTable />
+          <Pagination
+            currentPage={stocksPaginate?.results.length}
+            page={stocksPaginate?.currentPage}
+            pageSize={stocksPaginate?.limit}
+            totalItems={stocksPaginate?.totalItems}
+            onChangePage={onChangePage}
+          />
         </div>
         <NewStockModal
           isOpen={openNewStockModal}
