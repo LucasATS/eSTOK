@@ -1,7 +1,6 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import Button from '../../../../components/Button';
 import { DropzoneForm } from '../../../../components/FormComponents/DropzoneForm';
 import { ImageForm } from '../../../../components/FormComponents/ImageForm';
@@ -23,15 +22,9 @@ interface ConfigModalProps {
   onConfirm: () => void;
 }
 
-type ParamsProps = { id: string };
-
 export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
   const formRef = useRef<FormHandles>(null);
-  const [castabilityIsActive, setCastabilityIsActive] = useState(false);
-  const [stockableIsActive, setStockableIsActive] = useState(false);
   const [file, setFile] = useState<File>();
-
-  const { id } = useParams<ParamsProps>();
 
   const handleAddProduct = async () => {
     console.log('criado ou atualizado');
@@ -47,24 +40,6 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
 
   const clearForm = () => {
     formRef.current?.reset();
-  };
-
-  const handleCastabilityActive = (value: boolean) => {
-    if (value) {
-      setCastabilityIsActive(true);
-    } else {
-      setCastabilityIsActive(false);
-    }
-    setCastabilityIsActive(value);
-  };
-
-  const handleStockableActive = (value: boolean) => {
-    if (value) {
-      setStockableIsActive(true);
-    } else {
-      setStockableIsActive(false);
-    }
-    setStockableIsActive(value);
   };
 
   const handleProductImage = (file: File) => {
