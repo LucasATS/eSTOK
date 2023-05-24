@@ -1,10 +1,10 @@
 interface Sale {
-  cliente: string;
-  categoria: string;
-  produtos: string;
-  unidades: number;
-  preco: number;
-  dataCompra: Date;
+  client: string;
+  category: string;
+  products: string;
+  quantity: number;
+  price: number;
+  datePurchase: Date;
 }
 
 export default Sale;
