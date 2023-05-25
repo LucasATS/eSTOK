@@ -72,9 +72,7 @@ const TextAreaForm: React.FC<TextareaProps> = ({
           }
         `}
         {...rest}
-      >
-        {children}
-      </textarea>
+      />
       <div
         className={`flex sm:flex-wrap gap-4 lg:flex-row w-full ${
           error ? 'justify-between' : 'justify-end'
