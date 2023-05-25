@@ -50,7 +50,7 @@ const TextAreaForm: React.FC<TextareaProps> = ({
       {label && (
         <label
           htmlFor={name}
-          className={`text-sm py-1 font-medium ${error ? ' text-error' : 'text-secondary'}`}
+          className={`text-sm py-1 font-medium ${error ? ' text-error' : 'text-stone-600'}`}
         >
           {label}
         </label>

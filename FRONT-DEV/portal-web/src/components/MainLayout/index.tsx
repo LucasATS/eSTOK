@@ -12,7 +12,7 @@ export const MainLayout: React.FC<Props> = ({ children }) => {
   return (
     <div className="flex">
       <div className="flex flex-col w-full h-screen">
-        <div className="w-full shadow-lg bg-primary">
+        <div className="w-full shadow-lg bg-zinc-800">
           <div className="xl:max-w-6xl mx-auto">
             <div className="flex flex-row xl:px-0 md:px-10 px-6 py-2 items-center flex-wrap">
               <div className="grow flex flex-row gap-2 items-center">
@@ -27,7 +27,7 @@ export const MainLayout: React.FC<Props> = ({ children }) => {
           {children}
         </div>
       </div>
-      <div className="bg-secondary w-auto p-4">
+      <div className="bg-stone-300 w-auto p-4">
         <Cart />
       </div>
     </div>
