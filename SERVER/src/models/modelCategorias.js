@@ -12,4 +12,21 @@ const Categorias = db.define('categorias', {
     },
 }, {});
 
+Categorias.vw_categorias = async (id_satus) => {
+  return await db.query("SELECT * FROM vw_categorias WHERE id_status = (?)", {
+    model: this,
+    mapToModel: true,
+    replacements: [id_satus]
+  });
+}
+
+Categorias.sp_categorias = async (descricao) => {
+  return await db.query("call `sp_categorias`(?);", {
+    model: this,
+    mapToModel: true,
+    replacements: [descricao]
+  });
+}
+
+
 export default Categorias;

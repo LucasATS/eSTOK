@@ -15,4 +15,6 @@ const Empresas = db.define('empresas', {
     },
 }, {});
 
+
+
 export default Empresas;
