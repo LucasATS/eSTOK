@@ -47,7 +47,7 @@ export const ViewProductModal = ({ isOpen, onClose }: ModalConfig) => {
               </div>
               <div className="flex flex-col">
                 <TitleCard text="Blusa de Cetim" />
-                <div className="flex flex-col">
+                <div className="flex flex-col gap-3">
                   <p>Tecido: Não elástico</p>
                   <p>Material: Tecido</p>
                   <p>Composição: 95% Poliéster, 5% Elastano</p>
@@ -57,7 +57,7 @@ export const ViewProductModal = ({ isOpen, onClose }: ModalConfig) => {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
+          <div className="flex items-center justify-end p-5 space-x-3 rounded-b border-t border-gray-200">
             <Button
               buttonText="Adicionar ao carrinho"
               variant="primary"
