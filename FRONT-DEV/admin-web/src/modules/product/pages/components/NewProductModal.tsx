@@ -6,7 +6,7 @@ import { DropzoneForm } from '../../../../components/FormComponents/DropzoneForm
 import { ImageForm } from '../../../../components/FormComponents/ImageForm';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import SelectForm from '../../../../components/FormComponents/SelectForm';
-import TextareaForm from '../../../../components/FormComponents/TextAreaForm';
+import TextAreaForm from '../../../../components/FormComponents/TextAreaForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
 import {
@@ -88,7 +88,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
               />
             </div>
 
-            <TextareaForm
+            <TextAreaForm
               placeholder="Descrição do produto"
               name="description"
               cols={2}

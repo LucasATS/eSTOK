@@ -14,7 +14,7 @@ interface Props {
 
 type SelectProps = JSX.IntrinsicElements['select'] & Props;
 
-const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps) => {
+const SelectForm = ({ name, label, options, placeholder, className, ...rest }: SelectProps) => {
   const { fieldName, defaultValue = '', registerField, error, clearError } = useField(name);
   const [valueSelect, setValueSelect] = useState(defaultValue);
 
@@ -42,30 +42,30 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
   }, [valueSelect]);
 
   return (
-    <div className="text-sm w-full">
+    <div className={`flex flex-col mt-4 text-sm ${className || ''}`}>
       <Listbox value={valueSelect} onChange={setValueSelect}>
         {({ open }) => (
-          <div className="relative mt-2 z-10 w-full">
+          <div className="relative z-10">
             <Listbox.Label
-              className={`py-1 font-medium hover:bg-gray-200 bg-gray-100 ${
-                error ? 'text-red-500' : 'text-[#B0B0B1]'
-              }`}
+              className={`py-1 font-medium ${error ? ' text-red-500' : 'text-[#8d8d8f]'}`}
             >
               {label}
             </Listbox.Label>
             <Listbox.Button
-              className={`flex text-[#B0B0B1] hover:bg-gray-200 bg-gray-100 focus:border-sky-600 justify-between items-center group rounded-[30px]  focus:ring-1 p-2 w-full focus:outline-none ${
-                error ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+              className={`flex justify-between gap-2 items-center group rounded-[30px] focus:ring-1 p-2 w-full focus:outline-none ${
+                error
+                  ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                  : 'text-[#8d8d8f] bg-gray-200 hover:bg-gray-300'
               }`}
             >
               <span
                 className={`block truncate font-medium ${
-                  error ? 'text-red-500' : 'text-[#B0B0B1]'
+                  error ? 'text-red-500' : 'text-[#8d8d8f]'
                 }`}
               >
                 {valueSelect.label || placeholder}
               </span>
-              <span className="inset-y-0 flex pr-2 pointer-events-none items-center">
+              <span className="inset-y-0 flex pointer-events-none items-center">
                 <ChevronDownOutline
                   className={`w-4 h-4 ${open ? 'transform rotate-180' : ''}`}
                   aria-hidden="true"
@@ -86,7 +86,7 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
                   <Listbox.Option
                     key={option.value}
                     className={({ active }) =>
-                      `${active ? 'text-sky-600' : 'text[#B0B0B1]'}
+                      `${active ? 'text-sky-600' : 'text[#8d8d8f]'}
                         cursor-pointer select-none relative p-2 hover:bg-gray-200`
                     }
                     value={option}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import logo from '../../assets/e-stok.svg';
-import { Card } from '../Card';
+import { Cart } from '../../modules/Cart/pages';
 
 interface Props {
   children: React.ReactNode;
@@ -28,7 +28,7 @@ export const MainLayout: React.FC<Props> = ({ children }) => {
         </div>
       </div>
       <div className="bg-secondary w-auto p-4">
-        <Card />
+        <Cart />
       </div>
     </div>
   );

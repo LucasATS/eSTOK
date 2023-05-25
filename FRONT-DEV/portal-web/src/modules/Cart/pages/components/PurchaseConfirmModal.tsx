@@ -4,8 +4,10 @@ import { useRef } from 'react';
 import Button from '../../../../components/Button/Button';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import SelectForm from '../../../../components/FormComponents/SelectForm';
+import TextAreaForm from '../../../../components/FormComponents/TextAreaForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
+import { selectOptionsStates } from '../../../_shared/constants/SelectOption';
 
 interface ModalConfig {
   isOpen: boolean;
@@ -46,20 +48,37 @@ export const PurchaseConfirmModal = ({ isOpen, onClose }: ModalConfig) => {
             <TitleCard text="Confirmar Compra" />
           </div>
           <div className="p-6 space-y-3">
-            <InputForm name="clientName" placeholder="Nome do Cliente" />
-            <InputForm name="email" placeholder="E-mail" />
-            <InputForm name="address" placeholder="Endereço" />
-            <InputForm name="neighborhood" placeholder="Bairro" />
-            <SelectForm
-              name="productType"
-              placeholder="Tipo de produto"
-              options={selectProductType}
+            <div className="flex flex-row gap-2 items-center justify-center">
+              <InputForm name="clientName" placeholder="Nome do Cliente" />
+              <InputForm name="email" placeholder="E-mail" />
+            </div>
+            <div className="flex flex-row gap-2 items-center justify-center">
+              <InputForm name="fone" placeholder="Telefone" />
+              <SelectForm
+                options={selectOptionsStates}
+                className="w-auto flex justify-center items-center"
+                name="uf"
+                placeholder="UF"
+              />
+              <InputForm name="city" placeholder="Cidade" />
+            </div>
+            <div className="flex flex-row gap-2 items-center justify-center">
+              <InputForm name="address" placeholder="Endereço" />
+              <InputForm name="neighborhood" placeholder="Bairro" />
+            </div>
+            <TextAreaForm
+              cols={1}
+              rows={1}
+              maxLength={200}
+              name="observation"
+              placeholder="Observação"
             />
-            <div className="flex flex-row items-center gap-1">
+
+            <div className="flex flex-row gap-2">
               <p>Tipo de pagamento:</p>
               <p className="underline font-bold">Cartão de crédito</p>
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-row gap-2 items-center justify-center">
               <InputForm name="cartName" placeholder="Nome no cartão" />
               <InputForm name="cartNumber" placeholder="Número do cartão" />
               <InputForm name="expirationDate" type="date" placeholder="Data de Vencimento" />
