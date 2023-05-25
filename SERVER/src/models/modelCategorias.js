@@ -12,11 +12,11 @@ const Categorias = db.define('categorias', {
     },
 }, {});
 
-Categorias.vw_categorias = async (id_satus) => {
+Categorias.vw_categorias = async (id_status) => {
   return await db.query("SELECT * FROM vw_categorias WHERE id_status = (?)", {
     model: this,
     mapToModel: true,
-    replacements: [id_satus]
+    replacements: [id_status]
   });
 }
 
