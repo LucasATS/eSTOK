@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23-Maio-2023 às 16:19
+-- Tempo de geração: 26-Maio-2023 às 18:55
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -54,9 +54,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categorias` (IN `descricao_e` VA
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_entradas`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_entradas` (IN `id_produto_e` INT, IN `quantidade_e` INT, IN `unitario_e` DECIMAL(15,4), IN `validade_e` DATE, IN `lote_e` VARCHAR(10) CHARSET utf8mb4, IN `data_compra_e` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_entradas` (IN `id_produto_e` INT, IN `quantidade_e` INT, IN `unitario_e` DECIMAL(15,4), IN `total_e` DECIMAL(15,4), IN `validade_e` DATE, IN `lote_e` VARCHAR(10) CHARSET utf8mb4, IN `data_compra_e` DATE)   BEGIN
 
-        INSERT INTO entradas (id_produto, quantidade, unitario, validade, lote, data_compra) values (id_produto_e, quantidade_e, unitario_e, validade_e, lote_e, data_compra_e);
+        INSERT INTO entradas (id_produto, quantidade, unitario, total, validade, lote, data_compra) values (id_produto_e, quantidade_e, unitario_e, total_e, validade_e, lote_e, data_compra_e);
 
 END$$
 
@@ -200,6 +200,7 @@ CREATE TABLE `entradas` (
   `id_produto` int(11) NOT NULL,
   `quantidade` int(11) NOT NULL,
   `unitario` decimal(15,4) NOT NULL,
+  `total` decimal(15,4) NOT NULL,
   `kar_tipo` int(11) NOT NULL DEFAULT 1,
   `validade` date NOT NULL,
   `lote` varchar(10) DEFAULT NULL,
@@ -212,11 +213,12 @@ CREATE TABLE `entradas` (
 -- Extraindo dados da tabela `entradas`
 --
 
-INSERT INTO `entradas` (`id`, `id_produto`, `quantidade`, `unitario`, `kar_tipo`, `validade`, `lote`, `data_compra`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 15, 85.0000, 1, '2023-05-10', 'LOTE1', '2023-05-20', '2023-05-21 09:24:47', '2023-05-21 09:24:47'),
-(2, 1, 15, 85.0000, 1, '2023-05-10', 'LOTE1', '2023-05-20', '2023-05-21 09:25:08', '2023-05-21 09:25:08'),
-(3, 1, 15, 85.0000, 1, '2023-05-10', 'LOTE1', '2023-05-20', '2023-05-21 09:34:27', '2023-05-21 09:34:27'),
-(4, 1, 15, 85.0000, 1, '2023-05-10', 'LOTE2', '2023-05-20', '2023-05-21 09:35:01', '2023-05-21 09:35:01');
+INSERT INTO `entradas` (`id`, `id_produto`, `quantidade`, `unitario`, `total`, `kar_tipo`, `validade`, `lote`, `data_compra`, `createdAt`, `updatedAt`) VALUES
+(1, 1, 15, 85.0000, 1275.0000, 1, '2023-05-10', 'LOTE1', '2023-05-20', '2023-05-21 09:24:47', '2023-05-21 09:24:47'),
+(2, 1, 15, 85.0000, 1275.0000, 1, '2023-05-10', 'LOTE1', '2023-05-20', '2023-05-21 09:25:08', '2023-05-21 09:25:08'),
+(3, 1, 15, 85.0000, 1275.0000, 1, '2023-05-10', 'LOTE1', '2023-05-20', '2023-05-21 09:34:27', '2023-05-21 09:34:27'),
+(4, 1, 15, 85.0000, 1275.0000, 1, '2023-05-10', 'LOTE2', '2023-05-20', '2023-05-21 09:35:01', '2023-05-21 09:35:01'),
+(5, 1, 50, 85.0000, 4250.0000, 1, '2023-06-10', 'LOTE3', '2023-05-26', '2023-05-26 12:40:19', '2023-05-26 12:40:19');
 
 --
 -- Acionadores `entradas`
@@ -250,7 +252,7 @@ CREATE TABLE `estoques` (
 --
 
 INSERT INTO `estoques` (`id`, `id_produto`, `quantidade`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 60, '2023-05-21 09:24:47', '2023-05-21 09:24:47');
+(1, 1, 110, '2023-05-21 09:24:47', '2023-05-21 09:24:47');
 
 -- --------------------------------------------------------
 
@@ -301,7 +303,8 @@ CREATE TABLE `lotes` (
 
 INSERT INTO `lotes` (`id`, `id_produto`, `lote`, `qtde_lote`, `validade`, `id_status`, `createdAt`, `updatedAt`) VALUES
 (1, 1, 'LOTE1', 45, '2023-05-10 00:00:00', 1, '2023-05-21 09:24:47', '2023-05-21 09:24:47'),
-(2, 1, 'LOTE2', 15, '2023-05-10 00:00:00', 1, '2023-05-21 09:35:01', '2023-05-21 09:35:01');
+(2, 1, 'LOTE2', 15, '2023-05-10 00:00:00', 1, '2023-05-21 09:35:01', '2023-05-21 09:35:01'),
+(3, 1, 'LOTE3', 50, '2023-06-10 00:00:00', 1, '2023-05-26 12:40:19', '2023-05-26 12:40:19');
 
 -- --------------------------------------------------------
 
@@ -470,7 +473,8 @@ CREATE TABLE `vendas` (
 INSERT INTO `vendas` (`id`, `kar_tipo`, `cliente`, `email`, `telefone`, `endereco`, `bairro`, `uf`, `cidade`, `nome_cartao`, `numero_cartao`, `dt_vencimento`, `cvv`, `createdAt`, `updatedAt`) VALUES
 (1, 3, 'Cliente Teste', 'cliente@cliente.com', '67998724201', 'rua medrado, 33', 'Centro Oeste', 'MS', 'Campo Grande', 'Gaikko A DA S Pinto', '1234567890123456', '2023-12-01', 213, '2023-05-21 10:27:48', '2023-05-21 10:27:48'),
 (2, 3, 'Cliente Teste', 'cliente@cliente.com', '(67)99872-4201', 'rua medrado, 33', 'Centro Oeste', 'MS', 'Campo Grande', 'gaikooalcoausientanldisnatesngoapstendtamsidh', '1234567890123412', '2023-12-01', 213, '2023-05-21 10:28:06', '2023-05-21 10:28:06'),
-(3, 3, 'teste', 'rosellyv1@gmail.com', '67992431520', 'jgdfjhgfjhgf', 'hgfjhfjhgfh', 'rd', 'Campo Grande', 'Roselly Acosta Caldeira', '56467932165654', '2023-01-01', 236, '2023-05-21 11:05:01', '2023-05-21 11:05:01');
+(3, 3, 'teste', 'rosellyv1@gmail.com', '67992431520', 'jgdfjhgfjhgf', 'hgfjhfjhgfh', 'rd', 'Campo Grande', 'Roselly Acosta Caldeira', '56467932165654', '2023-01-01', 236, '2023-05-21 11:05:01', '2023-05-21 11:05:01'),
+(4, 3, 'teste', 'rosellyv1@gmail.com', '67992431520', 'jgdfjhgfjhgf', 'hgfjhfjhgfh', 'rd', 'Campo Grande', 'Roselly Acosta Caldeira', '56467932165654', '2023-01-01', 1, '2023-05-23 11:10:08', '2023-05-23 11:10:08');
 
 -- --------------------------------------------------------
 
@@ -526,6 +530,24 @@ CREATE TABLE `vw_empresa` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura stand-in para vista `vw_entradas_cadastro`
+-- (Veja abaixo para a view atual)
+--
+DROP VIEW IF EXISTS `vw_entradas_cadastro`;
+CREATE TABLE `vw_entradas_cadastro` (
+`ID` varchar(12)
+,`Porduto` varchar(276)
+,`Categoria` varchar(50)
+,`Quantidade` decimal(32,0)
+,`Custo` decimal(15,4)
+,`Data Compra` date
+,`Vencimento` date
+,`Lotes` varchar(10)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura stand-in para vista `vw_estoque_por_lotes`
 -- (Veja abaixo para a view atual)
 --
@@ -535,6 +557,18 @@ CREATE TABLE `vw_estoque_por_lotes` (
 ,`Código` int(11)
 ,`produto` varchar(50)
 ,`Lote` varchar(10)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para vista `vw_kardex_tipos`
+-- (Veja abaixo para a view atual)
+--
+DROP VIEW IF EXISTS `vw_kardex_tipos`;
+CREATE TABLE `vw_kardex_tipos` (
+`ID` int(11)
+,`Descrição` varchar(50)
 );
 
 -- --------------------------------------------------------
@@ -555,20 +589,16 @@ CREATE TABLE `vw_lotes` (
 -- --------------------------------------------------------
 
 --
--- Estrutura stand-in para vista `vw_produtos`
+-- Estrutura stand-in para vista `vw_produtos_cadastro`
 -- (Veja abaixo para a view atual)
 --
-DROP VIEW IF EXISTS `vw_produtos`;
-CREATE TABLE `vw_produtos` (
-`ID` int(11)
-,`Nome` varchar(50)
-,`Descrição` varchar(225)
+DROP VIEW IF EXISTS `vw_produtos_cadastro`;
+CREATE TABLE `vw_produtos_cadastro` (
+`ID` varchar(12)
+,`Produto` varchar(276)
 ,`Categoria` varchar(50)
 ,`Tipo do Produto` varchar(100)
 ,`Unidade` varchar(50)
-,`fungibilidade` tinyint(1)
-,`estocavel` tinyint(1)
-,`Status` varchar(30)
 );
 
 -- --------------------------------------------------------
@@ -586,11 +616,11 @@ CREATE TABLE `vw_status_cads` (
 -- --------------------------------------------------------
 
 --
--- Estrutura stand-in para vista `vw_tipo_produto`
+-- Estrutura stand-in para vista `vw_tipo_produtos`
 -- (Veja abaixo para a view atual)
 --
-DROP VIEW IF EXISTS `vw_tipo_produto`;
-CREATE TABLE `vw_tipo_produto` (
+DROP VIEW IF EXISTS `vw_tipo_produtos`;
+CREATE TABLE `vw_tipo_produtos` (
 `ID` int(11)
 ,`Descrição` varchar(100)
 ,`Status` varchar(30)
@@ -632,12 +662,32 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Estrutura para vista `vw_entradas_cadastro`
+--
+DROP TABLE IF EXISTS `vw_entradas_cadastro`;
+
+DROP VIEW IF EXISTS `vw_entradas_cadastro`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_entradas_cadastro`  AS SELECT concat('#',`e`.`id_produto`) AS `ID`, concat(`p`.`nome`,' ',`p`.`descricao`) AS `Porduto`, `c`.`descricao` AS `Categoria`, sum(`e`.`quantidade`) AS `Quantidade`, `e`.`unitario` AS `Custo`, `e`.`data_compra` AS `Data Compra`, `e`.`validade` AS `Vencimento`, `e`.`lote` AS `Lotes` FROM ((`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) GROUP BY `e`.`lote` ;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para vista `vw_estoque_por_lotes`
 --
 DROP TABLE IF EXISTS `vw_estoque_por_lotes`;
 
 DROP VIEW IF EXISTS `vw_estoque_por_lotes`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_estoque_por_lotes`  AS SELECT sum(`e`.`quantidade`) AS `Soma`, `e`.`id_produto` AS `Código`, `p`.`nome` AS `produto`, `e`.`lote` AS `Lote` FROM (`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) GROUP BY `e`.`lote` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para vista `vw_kardex_tipos`
+--
+DROP TABLE IF EXISTS `vw_kardex_tipos`;
+
+DROP VIEW IF EXISTS `vw_kardex_tipos`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_kardex_tipos`  AS SELECT `kt`.`id` AS `ID`, `kt`.`descricao` AS `Descrição` FROM `kardex_tipos` AS `kt` ORDER BY `kt`.`id` ASC ;
 
 -- --------------------------------------------------------
 
@@ -652,12 +702,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Estrutura para vista `vw_produtos`
+-- Estrutura para vista `vw_produtos_cadastro`
 --
-DROP TABLE IF EXISTS `vw_produtos`;
+DROP TABLE IF EXISTS `vw_produtos_cadastro`;
 
-DROP VIEW IF EXISTS `vw_produtos`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_produtos`  AS SELECT `p`.`id` AS `ID`, `p`.`nome` AS `Nome`, `p`.`descricao` AS `Descrição`, `c`.`descricao` AS `Categoria`, `tp`.`descricao` AS `Tipo do Produto`, `u`.`descricao` AS `Unidade`, `p`.`fungibilidade` AS `fungibilidade`, `p`.`estocavel` AS `estocavel`, `sc`.`descricao` AS `Status` FROM ((((`produtos` `p` join `status_cads` `sc` on(`p`.`id_status` = `sc`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) join `tipo_produtos` `tp` on(`p`.`id_tp_produto` = `tp`.`id`)) join `unidades` `u` on(`p`.`id_unidade` = `u`.`id`)) ORDER BY `p`.`nome` ASC ;
+DROP VIEW IF EXISTS `vw_produtos_cadastro`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_produtos_cadastro`  AS SELECT concat('#',`p`.`id`) AS `ID`, concat(`p`.`nome`,' ',`p`.`descricao`) AS `Produto`, `c`.`descricao` AS `Categoria`, `tp`.`descricao` AS `Tipo do Produto`, `u`.`descricao` AS `Unidade` FROM ((((`produtos` `p` join `status_cads` `sc` on(`p`.`id_status` = `sc`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) join `tipo_produtos` `tp` on(`p`.`id_tp_produto` = `tp`.`id`)) join `unidades` `u` on(`p`.`id_unidade` = `u`.`id`)) ORDER BY `p`.`nome` ASC ;
 
 -- --------------------------------------------------------
 
@@ -672,12 +722,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Estrutura para vista `vw_tipo_produto`
+-- Estrutura para vista `vw_tipo_produtos`
 --
-DROP TABLE IF EXISTS `vw_tipo_produto`;
+DROP TABLE IF EXISTS `vw_tipo_produtos`;
 
-DROP VIEW IF EXISTS `vw_tipo_produto`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_tipo_produto`  AS SELECT `tp`.`id` AS `ID`, `tp`.`descricao` AS `Descrição`, `sc`.`descricao` AS `Status` FROM (`tipo_produtos` `tp` join `status_cads` `sc` on(`tp`.`id_status` = `sc`.`id`)) ORDER BY `tp`.`id` ASC ;
+DROP VIEW IF EXISTS `vw_tipo_produtos`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_tipo_produtos`  AS SELECT `tp`.`id` AS `ID`, `tp`.`descricao` AS `Descrição`, `sc`.`descricao` AS `Status` FROM (`tipo_produtos` `tp` join `status_cads` `sc` on(`tp`.`id_status` = `sc`.`id`)) ORDER BY `tp`.`id` ASC ;
 
 -- --------------------------------------------------------
 
@@ -815,7 +865,7 @@ ALTER TABLE `empresas`
 -- AUTO_INCREMENT de tabela `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `estoques`
@@ -833,7 +883,7 @@ ALTER TABLE `kardex_tipos`
 -- AUTO_INCREMENT de tabela `lotes`
 --
 ALTER TABLE `lotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
@@ -857,7 +907,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `vendas`
 --
 ALTER TABLE `vendas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `vendas_itens`
