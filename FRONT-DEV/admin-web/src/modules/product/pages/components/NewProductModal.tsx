@@ -1,14 +1,12 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import Button from '../../../../components/Button';
 import { DropzoneForm } from '../../../../components/FormComponents/DropzoneForm';
 import { ImageForm } from '../../../../components/FormComponents/ImageForm';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import SelectForm from '../../../../components/FormComponents/SelectForm';
-import SwitchForm from '../../../../components/FormComponents/SwitchForm';
-import TextareaForm from '../../../../components/FormComponents/TextAreaForm';
+import TextAreaForm from '../../../../components/FormComponents/TextAreaForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
 import {
@@ -16,7 +14,7 @@ import {
   selectOptionsProductSize,
   selectOptionsProductType,
   selectOptionsUnit
-} from '../../constants/SelectOptions';
+} from '../../../_shared/constants/SelectOption';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -24,15 +22,9 @@ interface ConfigModalProps {
   onConfirm: () => void;
 }
 
-type ParamsProps = { id: string };
-
 export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
   const formRef = useRef<FormHandles>(null);
-  const [castabilityIsActive, setCastabilityIsActive] = useState(false);
-  const [stockableIsActive, setStockableIsActive] = useState(false);
   const [file, setFile] = useState<File>();
-
-  const { id } = useParams<ParamsProps>();
 
   const handleAddProduct = async () => {
     console.log('criado ou atualizado');
@@ -48,24 +40,6 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
 
   const clearForm = () => {
     formRef.current?.reset();
-  };
-
-  const handleCastabilityActive = (value: boolean) => {
-    if (value) {
-      setCastabilityIsActive(true);
-    } else {
-      setCastabilityIsActive(false);
-    }
-    setCastabilityIsActive(value);
-  };
-
-  const handleStockableActive = (value: boolean) => {
-    if (value) {
-      setStockableIsActive(true);
-    } else {
-      setStockableIsActive(false);
-    }
-    setStockableIsActive(value);
   };
 
   const handleProductImage = (file: File) => {
@@ -107,28 +81,14 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
                 placeholder="Tipo de produto"
                 options={selectOptionsProductType}
               />
-
-              <SwitchForm
-                text="Fundibilidade"
-                onChange={handleCastabilityActive}
-                value={castabilityIsActive}
-              />
-            </div>
-
-            <div className="flex md:flex-row flex-col gap-3">
               <SelectForm
                 name="productSize"
                 placeholder="Tamanho do produto"
                 options={selectOptionsProductSize}
               />
-              <SwitchForm
-                text="Estocável"
-                onChange={handleStockableActive}
-                value={stockableIsActive}
-              />
             </div>
 
-            <TextareaForm
+            <TextAreaForm
               placeholder="Descrição do produto"
               name="description"
               cols={2}

@@ -7,8 +7,6 @@ interface Props {
   cols: number;
   rows: number;
   placeholder?: string;
-  labelStyle?: string;
-  inputStyle?: string;
   maxLength?: number;
 }
 type TextareaProps = JSX.IntrinsicElements['textarea'] & Props;
@@ -20,9 +18,6 @@ const TextAreaForm: React.FC<TextareaProps> = ({
   rows,
   placeholder,
   maxLength,
-  inputStyle,
-  labelStyle,
-  className,
   children,
   ...rest
 }) => {
@@ -51,44 +46,39 @@ const TextAreaForm: React.FC<TextareaProps> = ({
   }, [!defaultValue]);
 
   return (
-    <div className={`flex flex-col mt-2 text-sm w-full ${className || ''}`}>
-      {/* {label && ( */}
-      <label
-        htmlFor={name}
-        className={labelStyle || `py-1 font-medium ${error ? ' text-red-500' : 'text-[#8d8d8f]'}`}
-      >
-        {label}
-      </label>
-      {/* )} */}
-      <div
-        className={`relative rounded-[30px]  ${
-          error
-            ? ' border-red-500 focus:border-red-500 focus:ring-red-500'
-            : ' text-[#8d8d8f] bg-gray-200 hover:bg-gray-300'
-        }`}
-      >
-        <textarea
-          name={name}
-          defaultValue={defaultValue}
-          ref={textareaRef}
-          cols={cols}
-          rows={rows}
-          placeholder={placeholder}
-          maxLength={maxLength}
-          onChange={(event) => setFormattedContent(event.target.value)}
-          className={
-            inputStyle ||
-            `w-full rounded-[30px] focus:ring-1 p-2 focus:outline-none
+    <div className="flex flex-col py-2 w-full">
+      {label && (
+        <label
+          htmlFor={name}
+          className={`text-sm py-1 font-medium ${error ? ' text-error' : 'text-stone-600'}`}
+        >
+          {label}
+        </label>
+      )}
+      <textarea
+        id={name}
+        defaultValue={defaultValue}
+        ref={textareaRef}
+        cols={cols}
+        rows={rows}
+        placeholder={placeholder}
+        maxLength={maxLength}
+        onChange={(event) => setFormattedContent(event.target.value)}
+        className={`w-full bg-[#E9E9E9] px-3 py-2 text-sm border rounded-xl focus:outline-none focus:ring-1 resize-none
           ${
             error
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'text-[#8d8d8f] bg-gray-200 hover:bg-gray-300 focus:border-gray-300'
+              ? 'text-gray-700 border-error focus:border-error focus:ring-error'
+              : 'bg-gray-100 hover:bg-gray-200 focus:border-sky-600'
           }
-              `
-          }
-          {...rest}
-        />
-        {error && <span className="text-red-500 text-xs mt-1 ml-1">{error}</span>}
+        `}
+        {...rest}
+      />
+      <div
+        className={`flex sm:flex-wrap gap-4 lg:flex-row w-full ${
+          error ? 'justify-between' : 'justify-end'
+        }`}
+      >
+        {error && <span className="text-error justify-end text-xs mt-1 ml-1">{error}</span>}
         <p
           className={`flex text-xs justify-end mt-1 ml-1
             ${error ? 'text-error' : ''}

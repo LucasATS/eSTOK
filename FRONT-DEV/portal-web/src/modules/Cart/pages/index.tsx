@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Button from '../Button/Button';
+import Button from '../../../components/Button/Button';
 import { PurchaseConfirmModal } from './components/PurchaseConfirmModal';
 
-export const Card = () => {
+export const Cart = () => {
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
 
   const handleClickNewBuy = () => {

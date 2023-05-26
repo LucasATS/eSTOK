@@ -4,7 +4,7 @@
 
 @layer components {
   .primary {
-    @apply bg-zinc-800 text-white;
+    @apply bg-zinc-700 text-white;
   }
 
   .primary:hover {
@@ -12,7 +12,7 @@
   }
 
   .secondary {
-    @apply bg-stone-700 text-white;
+    @apply bg-stone-600 text-white;
   }
 
   .secondary:hover {

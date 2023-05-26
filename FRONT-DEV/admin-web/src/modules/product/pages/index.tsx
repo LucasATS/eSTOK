@@ -51,14 +51,6 @@ const ListProduct = () => {
     setOpenNewCategoryModal(false);
   };
 
-  const handleClickDeleteProduct = (id: number) => {
-    setProductIdActive(id);
-  };
-
-  const handleClickEditProduct = (productId: number) => {
-    navigate(`/product/${productId}`);
-  };
-
   const onChangePage = async (page: number) => {
     setPaginationActive((old) => ({ ...old, page }));
     console.log('Próxima página');

@@ -35,8 +35,8 @@ const MainLayout: React.FC<Props> = ({ children }) => {
 
   return (
     <div
-      className={`flex flex-row justify-between h-screen
-      `}
+      className="flex flex-row justify-between h-screen bg-neutral-200
+      "
     >
       <div className="flex w-auto md:w-56 lg:w-72 text-white bg-sky-600 rounded-br-[40px] shadow-lg justify-center px-4">
         <div className="flex flex-row md:flex-col w-full">
