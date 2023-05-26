@@ -15,6 +15,16 @@ const Empresas = db.define('empresas', {
     },
 }, {});
 
+Empresas.vw_empresas = async (id_status) => {
+  return await db.query("SELECT * FROM vw_empresas WHERE id_status = (?)", {
+    model: this,
+    mapToModel: true,
+    replacements: [id_status]
+  });
+}
+
+
+
 
 
 export default Empresas;
