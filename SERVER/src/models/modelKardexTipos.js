@@ -5,4 +5,4 @@ import db from '../settings/db';
     descricao: { type: DataTypes.STRING(50), allowNull: false },
 }, {});
 
-export default KardexTipo
+export default KardexTipos
