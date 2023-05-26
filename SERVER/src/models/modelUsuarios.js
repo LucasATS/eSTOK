@@ -26,4 +26,5 @@ Usuarios.login = async (login, senha) => {
 }
 
 
+
 export default Usuarios;
