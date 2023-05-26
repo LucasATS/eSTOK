@@ -1,4 +1,3 @@
-// import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
 import { useField } from '@unform/core';
 import { Eye, EyeOff } from 'heroicons-react';
 import { useRef, useState } from 'react';
