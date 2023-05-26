@@ -1,11 +1,10 @@
 interface Stock {
-  idProduto: string;
-  produto: string;
-  categoria: string;
-  quantidade: number;
-  preco: number;
-  datacompra: Date;
-  datavencimento: Date;
+  product: string;
+  category: string;
+  quantity: number;
+  price: number;
+  datePurchase: Date;
+  dateExpiration: Date;
 }
 
 export default Stock;

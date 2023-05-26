@@ -33,8 +33,3 @@ export const selectOptionsStates: SelectOption[] = [
   { id: 'sergipe', value: 'sergipe', label: 'SE' },
   { id: 'tocantis', value: 'tocantis', label: 'TO' }
 ];
-
-export const selectOptionsProduct: SelectOption[] = [
-  { id: 'feminino', value: 'feminino', label: 'Feminino' },
-  { id: 'masculino', value: 'masculino', label: 'Masculino' }
-];

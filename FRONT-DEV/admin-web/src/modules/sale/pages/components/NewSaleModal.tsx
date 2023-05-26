@@ -6,7 +6,7 @@ import InputForm from '../../../../components/FormComponents/InputForm';
 import SelectForm from '../../../../components/FormComponents/SelectForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
-import { selectOptionsProduct, selectOptionsStates } from '../../constants/SelectOptions';
+import { selectOptionsProduct, selectOptionsStates } from '../../../_shared/constants/SelectOption';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -17,7 +17,8 @@ interface ConfigModalProps {
 const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
   const formRef = useRef<FormHandles>(null);
 
-  const hangleAddProduto = async () => {
+  const handleAddSale = async () => {
+    console.log('criado ou atualizado');
     onConfirm();
     onClose();
     clearForm();
@@ -34,7 +35,7 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
 
   return (
     <ModalComponent isOpen={isOpen} onClose={onClose}>
-      <Form ref={formRef} onSubmit={hangleAddProduto}>
+      <Form ref={formRef} onSubmit={handleAddSale}>
         <div className="relative bg-white rounded-lg shadow w-full">
           <div className="flex items-start py-1 px-4 rounded-t border-b">
             <TitleCard text="Cadastrar Venda" />
@@ -83,7 +84,12 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
             <Button type="button" variant="cancel" onClick={handleCancel}>
               Cancelar
             </Button>
-            <Button variant="primary" type="button" buttonText="Cadastrar" />
+            <Button
+              variant="primary"
+              type="button"
+              buttonText="Cadastrar"
+              onClick={handleAddSale}
+            />
           </div>
         </div>
       </Form>

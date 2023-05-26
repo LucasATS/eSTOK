@@ -14,31 +14,24 @@ const ProductTable = ({ product }: Props) => {
           columns={[
             {
               columnName: 'Id',
-              key: 'idProduto'
+              key: 'idProduct'
             },
             {
               columnName: 'Produto',
-              key: 'produto'
+              key: 'name'
             },
             {
               columnName: 'Categoria',
-              key: 'categoria'
+              key: 'category'
+            },
+
+            {
+              columnName: 'Tipo de Produto',
+              key: 'productType'
             },
             {
-              columnName: 'Estocável',
-              key: 'estocável'
-            },
-            {
-              columnName: 'Fundibilidade',
-              key: 'fundibilidade'
-            },
-            {
-              columnName: 'Quantidade',
-              key: 'quantidade'
-            },
-            {
-              columnName: 'Preço',
-              key: 'preço'
+              columnName: 'Unidade de Medida',
+              key: 'unit'
             }
           ]}
           values={product}
@@ -49,31 +42,23 @@ const ProductTable = ({ product }: Props) => {
           itemsLabel={[
             {
               label: 'Id',
-              key: 'idProduto'
+              key: 'idProduct'
             },
             {
               label: 'Produto',
-              key: 'produto'
+              key: 'name'
             },
             {
               label: 'Categoria',
-              key: 'categoria'
+              key: 'category'
             },
             {
-              label: 'Estocável',
-              key: 'estocável'
+              label: 'Tipo de Produto',
+              key: 'productType'
             },
             {
-              label: 'Fundibilidade',
-              key: 'fundibilidade'
-            },
-            {
-              label: 'Quantidade',
-              key: 'quantidade'
-            },
-            {
-              label: 'Preço',
-              key: 'preço'
+              label: 'Unidade de Medida',
+              key: 'unit'
             }
           ]}
           values={product}

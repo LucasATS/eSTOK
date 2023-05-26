@@ -15,41 +15,38 @@ export const StockTable = ({ stock }: Props) => {
           columns={[
             {
               columnName: 'Id',
-              key: 'idProduto'
+              key: 'idProduct'
             },
             {
               columnName: 'Produto',
-              key: 'produto'
+              key: 'product'
             },
             {
               columnName: 'Categoria',
-              key: 'categoria'
+              key: 'category'
             },
             {
               columnName: 'Quantidade',
-              key: 'quantidade'
+              key: 'quantity'
             },
             {
               columnName: 'Preço',
-              key: 'preco'
+              key: 'price'
             },
             {
-              columnName: 'Data Compra',
-              key: 'datacompra'
+              columnName: 'Data da Compra',
+              key: 'datePurchase'
             },
             {
-              columnName: 'Data Vencimento',
-              key: 'datavencimento'
+              columnName: 'Data do Vencimento',
+              key: 'dateExpiration'
             },
             {
               columnName: '',
               key: '',
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
-                  <DocumentDownloadOutline
-                    className="w-5 cursor-pointer text-red-600 hover:text-red-500"
-                    // onClick={() => onClickDeleteHolerites(itemActive.id)}
-                  />
+                  <DocumentDownloadOutline className="w-5 cursor-pointer text-secondary hover:text-secondary" />
                 </div>
               )
             }
@@ -62,39 +59,40 @@ export const StockTable = ({ stock }: Props) => {
           itemsLabel={[
             {
               label: 'Id',
-              key: 'idProduto'
+              key: 'idProduct'
             },
             {
               label: 'Produto',
-              key: 'produto'
+              key: 'product'
             },
             {
               label: 'Categoria',
-              key: 'categoria'
-            },
-            {
-              label: 'Estocável',
-              key: 'estocável'
-            },
-            {
-              label: 'Fundibilidade',
-              key: 'fundibilidade'
+              key: 'category'
             },
             {
               label: 'Quantidade',
-              key: 'quantidade'
+              key: 'quantity'
             },
             {
               label: 'Preço',
-              key: 'preco'
+              key: 'price'
             },
             {
-              label: 'Data Compra',
-              key: 'datacompra'
+              label: 'Data da Compra',
+              key: 'datePurchase'
             },
             {
-              label: 'Data Vencimento',
-              key: 'datavencimento'
+              label: 'Data do Vencimento',
+              key: 'dateExpiration'
+            },
+            {
+              label: '',
+              key: '',
+              component: (value, itemActive) => (
+                <div className="flex justify-end space-x-2">
+                  <DocumentDownloadOutline className="w-5 cursor-pointer text-secondary hover:text-secondary" />
+                </div>
+              )
             }
           ]}
           values={stock}

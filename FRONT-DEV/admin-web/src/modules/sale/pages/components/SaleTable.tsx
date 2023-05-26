@@ -14,31 +14,31 @@ const SaleTable = ({ sale }: Props) => {
           columns={[
             {
               columnName: 'Id',
-              key: 'idVenda'
+              key: 'idSale'
             },
             {
               columnName: 'Cliente',
-              key: 'cliente'
+              key: 'client'
             },
             {
               columnName: 'Categoria',
-              key: 'categoria'
+              key: 'category'
             },
             {
               columnName: 'Produtos',
-              key: 'produtos'
+              key: 'products'
             },
             {
-              columnName: 'Unidades',
-              key: 'unidades'
+              columnName: 'Quantidade',
+              key: 'quantity'
             },
             {
               columnName: 'Preço',
-              key: 'preco'
+              key: 'price'
             },
             {
               columnName: 'Data da Compra',
-              key: 'dataCompra'
+              key: 'datePurchase'
             }
           ]}
           values={sale}
