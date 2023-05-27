@@ -10,4 +10,4 @@ Status_Cads.vw_status_cads = async () => {
       model: this,
       mapToModel: true
     });
-  }
+}

@@ -1,15 +1,15 @@
 import { DataTypes } from 'sequelize';
 import db from '../settings/db';
-import Status from './modelStatus_Cads';
+import { Status_Cads } from './modelStatus_Cads';
 
-const Empresas = db.define('empresas', {
+export const Empresas = db.define('empresas', {
     razao_social: { type: DataTypes.STRING(255), allowNull: false },
     nome_fantasia: { type: DataTypes.STRING(255), allowNull: false },
     telefone: { type: DataTypes.STRING(14), allowNull: false },
     email: { type: DataTypes.STRING(255), allowNull: false },
     id_status: {
       type: DataTypes.INTEGER, references: {
-        model: Status,
+        model: Status_Cads,
         key: 'id',
       }
     },
@@ -22,9 +22,3 @@ Empresas.vw_empresas = async (id_status) => {
     replacements: [id_status]
   });
 }
-
-
-
-
-
-export default Empresas;

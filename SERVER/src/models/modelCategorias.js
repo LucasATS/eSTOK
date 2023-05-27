@@ -1,19 +1,19 @@
 import { DataTypes } from 'sequelize';
 import db from '../settings/db';
-import Status from './modelStatus_Cads';
+import { Status_Cads } from './modelStatus_Cads';
 
-const Categorias = db.define('categorias', {
+export const Categorias = db.define('categorias', {
     descricao: { type: DataTypes.STRING(50), allowNull: false, unique: true },
     id_status: {
       type: DataTypes.INTEGER, references: {
-        model: Status,
+        model: Status_Cads,
         key: 'id'
       }
     },
 }, {});
 
 Categorias.vw_categorias = async (id_status) => {
-  return await db.query("SELECT * FROM vw_categorias WHERE id_status = (?)", {
+  return await db.query("SELECT * FROM vw_categorias vw WHERE vw.Status = (?)", {
     model: this,
     mapToModel: true,
     replacements: [id_status]
@@ -27,6 +27,3 @@ Categorias.sp_categorias = async (descricao) => {
     replacements: [descricao]
   });
 }
-
-
-export default Categorias;

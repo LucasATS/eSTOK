@@ -1,5 +1,5 @@
 import DAO from '../tools/DAO';
-import modelProduto from "../models/modelProduto";
+import modelProduto from "../models/modelProdutos";
 
 const FormularioProduto = async (body) => {
 
