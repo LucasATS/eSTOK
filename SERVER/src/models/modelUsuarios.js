@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import db from '../settings/db';
 import { Status_Cads } from './modelStatus_Cads';
 
-export const Usuarios = db.define('Usuarios', {
+export const Usuarios = db.define('usuarios', {
     cpf: { type: DataTypes.STRING(11), allowNull: false, unique: true },
     nome: { type: DataTypes.STRING(127), allowNull: false },
     login: { type: DataTypes.STRING(25), allowNull: false, unique: true },
