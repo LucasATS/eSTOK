@@ -9,7 +9,12 @@ const sequelize = new Sequelize(
       host: process.env.HOST_DB,          //banco local
       port: process.env.PORT_DB,      
       dialect: 'mysql',                   // CONFIGURADO PARA MySQL
-      logging: false           
+      logging: false,
+      define: {
+        charset: 'utf8',
+        collate: 'utf8_general_ci', 
+        timestamps: true
+      },          
 });
 
 export default sequelize;

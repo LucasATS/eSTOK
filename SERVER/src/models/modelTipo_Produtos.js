@@ -22,9 +22,9 @@ Tipo_Produtos.vw_tipo_produto = async (id_status) => {
 }
 
 Tipo_Produtos.sp_tipo_produto = async (descricao, id_status) => {
-  return await db.query("call `sp_tipo_produto`(?,?);", {
+  return (await db.query("call `sp_tipo_produto`(?,?);", {
     model: this,
     mapToModel: true,
     replacements: [descricao, id_status]
-  });
+  }))[0];
 }

@@ -27,9 +27,9 @@ Produtos.vw_produtos = async (id_status) => {
 
 Produtos.sp_produtos = async (
   nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel, id_status ) => {
-  return await db.query("call `sp_produtos`(?, ?, ?, ?, ?, ?, ?, ?, ?);", {
+  return (await db.query("call `sp_produtos`(?, ?, ?, ?, ?, ?, ?, ?, ?);", {
     model: this,
     mapToModel: true,
     replacements: [nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel, id_status]
-  });
+  }))[0];
 }

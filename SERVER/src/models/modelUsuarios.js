@@ -18,10 +18,10 @@ export const Usuarios = db.define('usuarios', {
 }, {});
 
 Usuarios.sp_login = async (login, senha) => {
-  return await db.query("call `sp_login`(?,?);", {
+  return (await db.query("call `sp_login`(?,?);", {
     model: this,
     mapToModel: true,
     replacements: [login, senha]
-  });
+  }))[0];
 }
 

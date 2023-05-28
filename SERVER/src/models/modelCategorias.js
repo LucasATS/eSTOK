@@ -20,10 +20,10 @@ Categorias.vw_categorias = async (id_status) => {
   });
 }
 
-Categorias.sp_categorias = async (descricao) => {
-  return await db.query("call `sp_categorias`(?);", {
+Categorias.sp_categorias = async (descricao, id_status) => {
+  return (await db.query("call `sp_categorias`(?, ?);", {
     model: this,
     mapToModel: true,
-    replacements: [descricao]
-  });
+    replacements: [descricao, id_status]
+  }))[0];
 }

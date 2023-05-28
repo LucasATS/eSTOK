@@ -12,9 +12,7 @@ const FormularioAuthentic = async ( body ) => {
         return { is_valid: false }
     }
 
-    const user = (await Usuarios.sp_login(login, senha))[0];
-
-    console.log(user);
+    const user = await Usuarios.sp_login(login, senha);
 
     if (!user.login){
         return { is_valid: false, msg: user.Msg}

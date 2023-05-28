@@ -21,9 +21,9 @@ Unidades.vw_unidades = async (id_satus) => {
 }
 
 Unidades.sp_unidades = async (id_uni, descricao, id_satus) => {
-  return await db.query("call `sp_unidades`(?,?,?);", {
+  return (await db.query("call `sp_unidades`(?,?,?);", {
     model: this,
     mapToModel: true,
     replacements: [id_uni, descricao, id_satus]
-  });
+  }))[0];
 }
