@@ -1,18 +1,14 @@
 import formAuthenticUser from "../forms/formAutenticacaoUsuario";
 
 const login = async (req, res) => {
-    let { login, senha } = req.body;
-    let form = await formAuthenticUser({
-        login: login,
-        email: login,
-        senha: senha
-    });
+    
+    let form = await formAuthenticUser(req.body);
 
     if (form.is_valid){
         res.cookie('sessao', form.sessao);
-        res.status(200).json({data : 'Autorizado'})
+        res.status(200).json({data : form.msg})
     } else {
-        res.status(401).json({data : 'Usuário e/ou senha incorreto(s)'})
+        res.status(401).json({data : form.msg})
     }
 };
 

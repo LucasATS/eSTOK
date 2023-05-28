@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 import db from '../settings/db';
-import Status from './modelStatus_Cads';
+import { Status_Cads } from './modelStatus_Cads';
 
-const Usuarios = db.define('Usuarios', {
+export const Usuarios = db.define('usuarios', {
     cpf: { type: DataTypes.STRING(11), allowNull: false, unique: true },
     nome: { type: DataTypes.STRING(127), allowNull: false },
     login: { type: DataTypes.STRING(25), allowNull: false, unique: true },
@@ -11,10 +11,17 @@ const Usuarios = db.define('Usuarios', {
     senha: { type: DataTypes.STRING(127), allowNull: false },
     id_status: {
       type: DataTypes.INTEGER, references: {
-        model: Status,
+        model: Status_Cads,
         key: 'id'
       }
     },
 }, {});
 
-export default Usuarios;
+Usuarios.sp_login = async (login, senha) => {
+  return (await db.query("call `sp_login`(?,?);", {
+    model: this,
+    mapToModel: true,
+    replacements: [login, senha]
+  }))[0];
+}
+

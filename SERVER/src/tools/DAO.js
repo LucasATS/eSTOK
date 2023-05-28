@@ -2,13 +2,6 @@
 
 // AQUI SERVE APENAS DE EXEMPLO PARA TESTES
 const adicionarDadosTest = async (Status, Usuario) => {
-
-    //CRIA STATUS
-    await DAO.save(Status,
-        {
-            descricao: ' teste teste',
-        }
-    );
     
     //CRIA USUARIO Gaikko
     await DAO.save(Usuario, {
@@ -47,7 +40,6 @@ class DAO {
         //CAPTURA ID E REMOVE DE FIELDS
         const id = fields.id;
         delete fields.id;
-
         // SE NÃO HOUVER ID EXECUTA INSERT DO CONTRARIO UPDATE
         if ( !id ){
 
@@ -84,13 +76,15 @@ class DAO {
     static filter = async ( model , fields, fieldsout = null ) => {
         
         const keys = Object.keys(fields);
+        
         for (const key of keys) {
-            fields[key] = `%${fields[key]}%`
+            fields[key] = `${fields[key]}`
         }
+        
         const conditions = {
             where: fields
         }
-
+        
         if (fieldsout != null){
             conditions['attributes'] = fieldsout;
         }

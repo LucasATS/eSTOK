@@ -1,11 +1,11 @@
 import { DataTypes } from 'sequelize';
 import db from '../settings/db';
-import Status from './modelStatus_Cads';
+import { Status_Cads } from './modelStatus_Cads';
 
-const Estoques = db.define('estoques', {
+export const Estoques = db.define('estoques', {
     id_produto: {
         type: DataTypes.INTEGER, references: {
-          model: Status,
+          model: Status_Cads,
           key: 'id'
         },
     saldo: { type: DataTypes.STRING(11), allowNull: false },
@@ -14,4 +14,3 @@ const Estoques = db.define('estoques', {
     },
 }, {});
 
-export default Estoques;

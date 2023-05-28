@@ -2,11 +2,7 @@ import formCategoria from '../forms/formCategorias';
 
 const view = async (req, res) => {
 
-    let { descricao } = req.body;
-
-    let form = await formCategoria({
-        descricao: descricao
-    });
+    let form = await formCategoria(req.body);
 
     if (form.is_valid){
         res.status(200).json({data : {status: 'ok', message: form.message}})
