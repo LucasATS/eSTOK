@@ -1,4 +1,4 @@
-import AuthProvider from './modules/auth/contexts/prodiver';
+import AuthProvider from './modules/auth/contexts/AuthProvider';
 import Routes from './routes';
 import AppRoutes from './routes/AppRoutes';
 

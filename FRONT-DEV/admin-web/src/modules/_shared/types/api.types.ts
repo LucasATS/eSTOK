@@ -1,4 +1,4 @@
-import { User } from '../../auth/contexts/prodiver';
+import { User } from '../../auth/contexts/AuthProvider';
 
 export interface Report {
   name: string;

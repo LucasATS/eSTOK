@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../../assets/e-stok.svg';
 import RoutesURL from '../../modules/_shared/constants/RoutesURL.enum';
-import { useAuth } from '../../modules/auth/contexts/prodiver';
+import { useAuth } from '../../modules/auth/contexts/AuthProvider';
 
 interface Props {
   children: React.ReactNode;

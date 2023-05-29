@@ -7,11 +7,11 @@ import Button from '../../../components/Button';
 import InputForm from '../../../components/FormComponents/InputForm';
 import TitleCard from '../../../components/TitleCard';
 import {
-    getFieldErrors,
-    manageApiErrorMessages,
-    manageApiErrorResponse
+  getFieldErrors,
+  manageApiErrorMessages,
+  manageApiErrorResponse
 } from '../../_shared/helpers/handleApiErrorResponse';
-import { LoginCredentials, useAuth } from '../contexts/prodiver';
+import { LoginCredentials, useAuth } from '../contexts/AuthProvider';
 
 const Login = () => {
   const { signIn } = useAuth();
