@@ -1,5 +1,5 @@
 import DAO from '../tools/DAO';
-import modelProduto from "../models/modelProdutos";
+import modelProduto, { Produtos } from "../models/modelProdutos";
 
 const FormularioProduto = async (body) => {
 
@@ -23,13 +23,9 @@ const FormularioProduto = async (body) => {
         return { is_valid: false, message: 'Produto ja existe no estoque' }
     }
 
-    const resp = await DAO.save(modelProduto, body)
+    const resp = await Produtos.sp_produtos(descricao)
 
-    if (resp == 'sucess') {
-        return { is_valid: true, message: 'Produto cadastrado com sucesso!' }
-    } else {
-        return { is_valid: false, message: resp }
-    }
+    return { is_valid: true, message: resp.Msg }
 
 }
 

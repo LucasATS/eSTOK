@@ -3,13 +3,13 @@ import db from '../settings/db';
 import { Status_Cads } from './modelStatus_Cads';
 
 export const Categorias = db.define('categorias', {
-    descricao: { type: DataTypes.STRING(50), allowNull: false, unique: true },
-    id_status: {
-      type: DataTypes.INTEGER, references: {
-        model: Status_Cads,
-        key: 'id'
-      }
-    },
+  descricao: { type: DataTypes.STRING(50), allowNull: false, unique: true },
+  id_status: {
+    type: DataTypes.INTEGER, references: {
+      model: Status_Cads,
+      key: 'id'
+    }
+  },
 }, {});
 
 Categorias.vw_categorias = async (status_cat) => {
