@@ -1,5 +1,5 @@
 import Loading from '../components/Loading';
-import { useAuth } from '../modules/auth/contexts/AuthProvider';
+import { useAuth } from '../modules/auth/contexts/prodiver';
 import AppRoutes from './AppRoutes';
 import AuthRoutes from './AuthRoutes';
 

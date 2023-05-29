@@ -1,6 +1,6 @@
 import api from '../../_shared/services/api';
 import { Result } from '../../_shared/types/api.types';
-import { LoginCredentials } from '../contexts/AuthProvider';
+import { LoginCredentials } from '../contexts/prodiver';
 
 class AuthService {
   public async signIn(login: LoginCredentials): Promise<Result<LoginCredentials>> {
