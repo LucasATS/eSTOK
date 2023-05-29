@@ -12,18 +12,16 @@ export const Categorias = db.define('categorias', {
     },
 }, {});
 
-Categorias.vw_categorias = async (id_status) => {
-  return await db.query("SELECT * FROM vw_categorias vw WHERE vw.Status = (?)"/*o valor de referencia sera Literal Ativou ou Inativo valores numericos nao retornam informações */, {
-    model: this,
-    mapToModel: true,
-    replacements: [id_status]
+Categorias.vw_categorias = async (status_cat) => {
+  return await db.query("SELECT * FROM vw_categorias vw WHERE vw.Status = (?)"/*o valor de referencia sera Literal Ativo ou Inativo valores numericos nao retornam informações */, {
+    replacements: [status_cat]
   });
 }
 
-Categorias.sp_categorias = async (descricao, id_status) => {
-  return (await db.query("call `sp_categorias`(?, ?);", {
+Categorias.sp_categorias = async (descricao) => {
+  return (await db.query("call `sp_categorias`(?, 1);", {
     model: this,
     mapToModel: true,
-    replacements: [descricao, id_status]
+    replacements: [descricao]
   }))[0];
 }

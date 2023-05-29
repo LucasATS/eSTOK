@@ -1,15 +1,12 @@
 import { Categorias } from '../models/modelCategorias';
-import DAO from '../tools/DAO';
 
 const view = async (req, res) => {
     
-    const data = await DAO.filter(
-        Categorias, 
-        {}, 
-        ['id', 'descricao']
-    );
+    const data = await Categorias.vw_categorias("Ativo");
 
     res.status(200).json({data : data});
+
+    console.log(data);
 };
 
 export default view;
