@@ -1,0 +1,12 @@
+DELETE FROM categorias WHERE id >= 3;
+ALTER TABLE categorias AUTO_INCREMENT = 2;
+
+DELETE FROM entradas;
+ALTER TABLE categorias AUTO_INCREMENT = 1;
+
+DELETE FROM estoques;
+ALTER TABLE categorias AUTO_INCREMENT = 1;
+
+DELETE FROM lotes;
+ALTER TABLE lotes AUTO_INCREMENT = 1;
+

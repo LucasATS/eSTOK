@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26-Maio-2023 às 18:55
+-- Tempo de geração: 29-Maio-2023 às 18:20
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -28,7 +28,7 @@ DELIMITER $$
 -- Procedimentos
 --
 DROP PROCEDURE IF EXISTS `sp_atualiza_estoque`$$
-CREATE PROCEDURE `sp_atualiza_estoque` (IN `id_produto_e` INT, IN `qtde_compra_e` INT, IN `unitario_e` DECIMAL(15,4), IN `lote_e` VARCHAR(10) CHARSET utf8mb4, IN `data_compra_e` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_atualiza_estoque` (IN `id_produto_e` INT, IN `qtde_compra_e` INT, IN `unitario_e` DECIMAL(15,4), IN `lote_e` VARCHAR(10), IN `data_compra_e` DATE)   BEGIN
     DECLARE contador int(11);
 
     SELECT count(*) into contador FROM estoques WHERE id_produto = id_produto_e;
@@ -41,10 +41,17 @@ CREATE PROCEDURE `sp_atualiza_estoque` (IN `id_produto_e` INT, IN `qtde_compra_e
     
 END$$
 
+DROP PROCEDURE IF EXISTS `sp_atualiza_status`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_atualiza_status` (IN `tabela` VARCHAR(50), IN `id_status_e` INT, IN `campo` VARCHAR(50), IN `chave_id` INT)   BEGIN
+
+	UPDATE tabela a set a.id_status = id_status_e WHERE a.campo = chave_id;
+
+END$$
+
 DROP PROCEDURE IF EXISTS `sp_categorias`$$
-CREATE PROCEDURE `sp_categorias` (IN `descricao_e` VARCHAR(50) CHARSET utf8mb4, IN `id_status_e` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categorias` (IN `descricao_e` VARCHAR(50), IN `id_status_e` INT)   BEGIN
   DECLARE contador INT(11);
-    SELECT COUNT(*) INTO contador FROM categorias c WHERE c.descricao LIKE concat ('%', descricao_e, '%');
+    SELECT COUNT(*) INTO contador FROM categorias c WHERE c.descricao = descricao_e;
     IF contador = 0 THEN
     INSERT INTO categorias (descricao, id_status) VALUES (descricao_e, id_status_e);
     SELECT c.id AS 'ID', c.descricao AS 'Categoria', 'Categoria cadastrada com sucesso!' AS Msg FROM categorias c WHERE c.descricao = descricao_e;
@@ -54,23 +61,23 @@ CREATE PROCEDURE `sp_categorias` (IN `descricao_e` VARCHAR(50) CHARSET utf8mb4, 
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_entradas`$$
-CREATE PROCEDURE `sp_entradas` (IN `id_produto_e` INT, IN `quantidade_e` INT, IN `unitario_e` DECIMAL(15,4), IN `total_e` DECIMAL(15,4), IN `validade_e` DATE, IN `lote_e` VARCHAR(10) CHARSET utf8mb4, IN `data_compra_e` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_entradas` (IN `id_produto_e` INT, IN `quantidade_e` INT, IN `unitario_e` DECIMAL(15,4), IN `total_e` DECIMAL(15,4), IN `validade_e` DATE, IN `lote_e` VARCHAR(10), IN `data_compra_e` DATE)   BEGIN
 
         INSERT INTO entradas (id_produto, quantidade, unitario, total, validade, lote, data_compra) values (id_produto_e, quantidade_e, unitario_e, total_e, validade_e, lote_e, data_compra_e);
 
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_login`$$
-CREATE PROCEDURE `sp_login` (IN `login_e` VARCHAR(25) CHARSET utf8mb4, IN `senha_e` VARCHAR(225) CHARSET utf8mb4)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_login` (IN `login_e` VARCHAR(25), IN `senha_e` VARCHAR(225))   BEGIN
     DECLARE login_ee VARCHAR(25);
 
-    SELECT login INTO login_ee FROM usuarios u
+    SELECT login INTO login_ee FROM Usuarios u
     WHERE
         (
-            BINARY u.login COLLATE utf8mb4_general_ci = login_e OR 
-            BINARY u.email COLLATE utf8mb4_general_ci = login_e
+            BINARY u.login = login_e OR 
+            BINARY u.email = login_e
         ) AND
-        BINARY u.senha COLLATE utf8mb4_general_ci = senha_e AND
+        BINARY u.senha = senha_e AND
         u.id_status = 1  LIMIT 1;
     IF login_ee IS NOT NULL THEN
         SELECT login_ee as login, 'Usuário Autenticado!' AS Msg;
@@ -80,7 +87,7 @@ CREATE PROCEDURE `sp_login` (IN `login_e` VARCHAR(25) CHARSET utf8mb4, IN `senha
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_lotes`$$
-CREATE PROCEDURE `sp_lotes` (IN `id_produto_e` INT, IN `lote_e` VARCHAR(10) CHARSET utf8mb4, IN `qtde_lote_e` INT, IN `validade_e` DATE, IN `id_status` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_lotes` (IN `id_produto_e` INT, IN `lote_e` VARCHAR(10) CHARSET utf8mb4, IN `qtde_lote_e` INT, IN `validade_e` DATE, IN `id_status` INT)   BEGIN
 
 	DECLARE status_lote INT(11);
     DECLARE lote_existe INT(11);
@@ -95,7 +102,7 @@ CREATE PROCEDURE `sp_lotes` (IN `id_produto_e` INT, IN `lote_e` VARCHAR(10) CHAR
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_produtos`$$
-CREATE PROCEDURE `sp_produtos` (IN `nome_e` VARCHAR(50) CHARSET utf8mb4, IN `descricao_e` VARCHAR(225) CHARSET utf8mb4, IN `id_categoria_e` INT, IN `id_tp_produto_e` INT, IN `id_unidade_e` CHAR(3) CHARSET utf8mb4, IN `foto_e` BLOB, IN `fungibilidade_e` BOOLEAN, IN `estocavel_e` BOOLEAN, IN `id_status_e` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_produtos` (IN `nome_e` VARCHAR(50) CHARSET utf8mb4, IN `descricao_e` VARCHAR(225) CHARSET utf8mb4, IN `id_categoria_e` INT, IN `id_tp_produto_e` INT, IN `id_unidade_e` CHAR(3) CHARSET utf8mb4, IN `foto_e` BLOB, IN `fungibilidade_e` BOOLEAN, IN `estocavel_e` BOOLEAN, IN `id_status_e` INT)   BEGIN
     DECLARE contador INT(11);
     SELECT COUNT(*) INTO contador FROM produtos p WHERE p.nome LIKE concat ( '%', nome_e, '%');/*verifica se o produto ja existe pelo nome SENAO insere*/
     IF contador = 0 THEN /*insere descrição caso nao exista SENAO retorna o cadastro existente*/
@@ -106,8 +113,23 @@ CREATE PROCEDURE `sp_produtos` (IN `nome_e` VARCHAR(50) CHARSET utf8mb4, IN `des
     END IF;
 END$$
 
+DROP PROCEDURE IF EXISTS `sp_produtos_precos`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_produtos_precos` (IN `id_produto_e` INT, IN `preco_e` DECIMAL(15,4))   BEGIN
+    DECLARE contador int(11);
+
+    SELECT count(*) into contador FROM produtos_precos WHERE id_produto = id_produto_e;
+    
+    IF contador = 0 THEN
+	INSERT INTO produtos_precos (id_produto, preco) VALUES (id_produto_e, preco_e);
+    
+    ELSE
+    UPDATE produtos_precos pp SET pp.preco = preco_e WHERE pp.id_produto = id_produto_e;
+    
+    END IF;
+END$$
+
 DROP PROCEDURE IF EXISTS `sp_tipo_produtos`$$
-CREATE PROCEDURE `sp_tipo_produtos` (IN `descricao_e` VARCHAR(100) CHARSET utf8mb4, IN `id_status_e` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tipo_produtos` (IN `descricao_e` VARCHAR(100) CHARSET utf8mb4, IN `id_status_e` INT)   BEGIN
   DECLARE contador INT(11);
     SELECT COUNT(*) INTO contador FROM tipo_produtos tp WHERE tp.descricao LIKE concat ('%', descricao_e, '%');
     IF contador = 0 THEN
@@ -119,7 +141,7 @@ CREATE PROCEDURE `sp_tipo_produtos` (IN `descricao_e` VARCHAR(100) CHARSET utf8m
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_unidades`$$
-CREATE PROCEDURE `sp_unidades` (IN `id_uni_e` CHAR(6) CHARSET utf8mb4, IN `descricao_e` VARCHAR(50) CHARSET utf8mb4, IN `id_status_e` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_unidades` (IN `id_uni_e` CHAR(6) CHARSET utf8mb4, IN `descricao_e` VARCHAR(50) CHARSET utf8mb4, IN `id_status_e` INT)   BEGIN
   DECLARE contador INT(11);
     SELECT COUNT(*) INTO contador FROM unidades u WHERE u.id = id_uni_e ;
     IF contador = 0 THEN
@@ -131,7 +153,7 @@ CREATE PROCEDURE `sp_unidades` (IN `id_uni_e` CHAR(6) CHARSET utf8mb4, IN `descr
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_vendas`$$
-CREATE PROCEDURE `sp_vendas` (IN `kar_tipo_e` INT, IN `cliente_e` VARCHAR(255) CHARSET utf8mb4, IN `email_e` VARCHAR(255) CHARSET utf8mb4, IN `telefone_e` VARCHAR(14), IN `endereco_e` VARCHAR(255), IN `bairro_e` VARCHAR(150), IN `uf_e` CHAR(2), IN `cidade_e` VARCHAR(150), IN `nome_cartao_e` VARCHAR(46), IN `numero_cartao_e` VARCHAR(16), IN `dt_vencimento_e` DATE, IN `cvv_e` INT(3))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_vendas` (IN `kar_tipo_e` INT, IN `cliente_e` VARCHAR(255) CHARSET utf8mb4, IN `email_e` VARCHAR(255) CHARSET utf8mb4, IN `telefone_e` VARCHAR(14), IN `endereco_e` VARCHAR(255), IN `bairro_e` VARCHAR(150), IN `uf_e` CHAR(2), IN `cidade_e` VARCHAR(150), IN `nome_cartao_e` VARCHAR(46), IN `numero_cartao_e` VARCHAR(16), IN `dt_vencimento_e` DATE, IN `cvv_e` INT(3))   BEGIN
 
 INSERT INTO vendas (kar_tipo, cliente, email, telefone, endereco, bairro, uf, cidade, nome_cartao, numero_cartao, dt_vencimento, cvv) 
 VALUES (kar_tipo_e, cliente_e, email_e, telefone_e, endereco_e, bairro_e, uf_e, cidade_e, nome_cartao_e, numero_cartao_e, dt_vencimento_e, cvv_e);
@@ -210,17 +232,6 @@ CREATE TABLE `entradas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `entradas`
---
-
-INSERT INTO `entradas` (`id`, `id_produto`, `quantidade`, `unitario`, `total`, `kar_tipo`, `validade`, `lote`, `data_compra`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 15, 85.0000, 1275.0000, 1, '2023-05-10', 'LOTE1', '2023-05-20', '2023-05-21 09:24:47', '2023-05-21 09:24:47'),
-(2, 1, 15, 85.0000, 1275.0000, 1, '2023-05-10', 'LOTE1', '2023-05-20', '2023-05-21 09:25:08', '2023-05-21 09:25:08'),
-(3, 1, 15, 85.0000, 1275.0000, 1, '2023-05-10', 'LOTE1', '2023-05-20', '2023-05-21 09:34:27', '2023-05-21 09:34:27'),
-(4, 1, 15, 85.0000, 1275.0000, 1, '2023-05-10', 'LOTE2', '2023-05-20', '2023-05-21 09:35:01', '2023-05-21 09:35:01'),
-(5, 1, 50, 85.0000, 4250.0000, 1, '2023-06-10', 'LOTE3', '2023-05-26', '2023-05-26 12:40:19', '2023-05-26 12:40:19');
-
---
 -- Acionadores `entradas`
 --
 DROP TRIGGER IF EXISTS `trg_entradas_produtos_AI`;
@@ -228,6 +239,18 @@ DELIMITER $$
 CREATE TRIGGER `trg_entradas_produtos_AI` AFTER INSERT ON `entradas` FOR EACH ROW BEGIN
       CALL sp_atualiza_estoque (NEW.id_produto, NEW.quantidade, NEW.unitario, NEW.lote, NEW.data_compra);
       CALL sp_lotes (new.id_produto, new.lote, new.quantidade, new.validade, 1 );
+      CALL sp_produtos_precos (NEW.id_produto, NEW.unitario);
+END
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `trg_entradas_produtos_BU`;
+DELIMITER $$
+CREATE TRIGGER `trg_entradas_produtos_BU` BEFORE UPDATE ON `entradas` FOR EACH ROW BEGIN
+
+      CALL sp_atualiza_estoque (NEW.id_produto, NEW.quantidade, NEW.unitario, NEW.lote, NEW.data_compra);
+      CALL sp_lotes (new.id_produto, new.lote, new.quantidade, new.validade, 1 );
+      CALL sp_produtos_precos (NEW.id_produto, NEW.unitario);
+
 END
 $$
 DELIMITER ;
@@ -246,13 +269,6 @@ CREATE TABLE `estoques` (
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Extraindo dados da tabela `estoques`
---
-
-INSERT INTO `estoques` (`id`, `id_produto`, `quantidade`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 110, '2023-05-21 09:24:47', '2023-05-21 09:24:47');
 
 -- --------------------------------------------------------
 
@@ -297,15 +313,6 @@ CREATE TABLE `lotes` (
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `lotes`
---
-
-INSERT INTO `lotes` (`id`, `id_produto`, `lote`, `qtde_lote`, `validade`, `id_status`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 'LOTE1', 45, '2023-05-10 00:00:00', 1, '2023-05-21 09:24:47', '2023-05-21 09:24:47'),
-(2, 1, 'LOTE2', 15, '2023-05-10 00:00:00', 1, '2023-05-21 09:35:01', '2023-05-21 09:35:01'),
-(3, 1, 'LOTE3', 50, '2023-06-10 00:00:00', 1, '2023-05-26 12:40:19', '2023-05-26 12:40:19');
-
 -- --------------------------------------------------------
 
 --
@@ -338,7 +345,31 @@ INSERT INTO `produtos` (`id`, `nome`, `descricao`, `id_categoria`, `id_tp_produt
 (3, 'Produto 2', 'Roupas 1', 1, 1, 'DIV', '', 1, 1, 1, '2023-05-15 11:14:05', '2023-05-15 11:14:05'),
 (4, 'Produto 3', 'Chinelos', 1, 1, 'DIV', '', 1, 1, 1, '2023-05-15 11:15:57', '2023-05-15 11:15:57'),
 (5, 'Produto 4', 'Sapatos', 1, 1, 'CX1', '', 1, 1, 2, '2023-05-15 11:23:59', '2023-05-15 11:23:59'),
-(6, 'Produto 6', 'Roupas 1', 2, 1, 'DIV', '', 1, 1, 2, '2023-05-17 10:38:05', '2023-05-17 10:38:05');
+(6, 'Produto 6', 'Roupas 1', 2, 1, 'DIV', '', 1, 1, 2, '2023-05-17 10:38:05', '2023-05-17 10:38:05'),
+(7, 'Produto 7', 'Diversos 7', 2, 1, 'CX1', '', 1, 1, 1, '2023-05-29 12:17:27', '2023-05-29 12:17:27');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `produtos_precos`
+--
+
+DROP TABLE IF EXISTS `produtos_precos`;
+CREATE TABLE `produtos_precos` (
+  `id` int(11) NOT NULL,
+  `id_produto` int(11) NOT NULL,
+  `preco` decimal(15,4) NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `produtos_precos`
+--
+
+INSERT INTO `produtos_precos` (`id`, `id_produto`, `preco`, `createdAt`, `updatedAt`) VALUES
+(1, 2, 25.5000, '2023-05-29 08:15:56', '2023-05-29 08:15:56'),
+(2, 1, 85.5000, '2023-05-29 08:18:36', '2023-05-29 08:18:36');
 
 -- --------------------------------------------------------
 
@@ -517,11 +548,11 @@ CREATE TABLE `vw_categorias` (
 -- --------------------------------------------------------
 
 --
--- Estrutura stand-in para vista `vw_empresa`
+-- Estrutura stand-in para vista `vw_empresas`
 -- (Veja abaixo para a view atual)
 --
-DROP VIEW IF EXISTS `vw_empresa`;
-CREATE TABLE `vw_empresa` (
+DROP VIEW IF EXISTS `vw_empresas`;
+CREATE TABLE `vw_empresas` (
 `nome_fantasia` varchar(255)
 ,`Telefone` varchar(20)
 ,`email` varchar(255)
@@ -647,17 +678,17 @@ CREATE TABLE `vw_unidades` (
 DROP TABLE IF EXISTS `vw_categorias`;
 
 DROP VIEW IF EXISTS `vw_categorias`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_categorias`  AS SELECT `c`.`id` AS `ID`, `c`.`descricao` AS `Descrição`, `sc`.`descricao` AS `Status` FROM (`categorias` `c` join `status_cads` `sc` on(`c`.`id_status` = `sc`.`id`)) ORDER BY `c`.`descricao` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_categorias`  AS SELECT `c`.`id` AS `ID`, `c`.`descricao` AS `Descrição`, `sc`.`descricao` AS `Status` FROM (`categorias` `c` join `status_cads` `sc` on(`c`.`id_status` = `sc`.`id`)) ORDER BY `c`.`descricao` ASC ;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para vista `vw_empresa`
+-- Estrutura para vista `vw_empresas`
 --
-DROP TABLE IF EXISTS `vw_empresa`;
+DROP TABLE IF EXISTS `vw_empresas`;
 
-DROP VIEW IF EXISTS `vw_empresa`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_empresa`  AS SELECT `e`.`nome_fantasia` AS `nome_fantasia`, `e`.`Telefone` AS `Telefone`, `e`.`email` AS `email` FROM `empresas` AS `e` WHERE `e`.`id_status` = 1 ;
+DROP VIEW IF EXISTS `vw_empresas`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_empresas`  AS SELECT `e`.`nome_fantasia` AS `nome_fantasia`, `e`.`Telefone` AS `Telefone`, `e`.`email` AS `email` FROM `empresas` AS `e` WHERE `e`.`id_status` = 1 ;
 
 -- --------------------------------------------------------
 
@@ -667,7 +698,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_empresa`  AS SELECT `e`
 DROP TABLE IF EXISTS `vw_entradas_cadastro`;
 
 DROP VIEW IF EXISTS `vw_entradas_cadastro`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_entradas_cadastro`  AS SELECT concat('#',`e`.`id_produto`) AS `ID`, concat(`p`.`nome`,' ',`p`.`descricao`) AS `Porduto`, `c`.`descricao` AS `Categoria`, sum(`e`.`quantidade`) AS `Quantidade`, `e`.`unitario` AS `Custo`, `e`.`data_compra` AS `Data Compra`, `e`.`validade` AS `Vencimento`, `e`.`lote` AS `Lotes` FROM ((`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) GROUP BY `e`.`lote` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_entradas_cadastro`  AS SELECT concat('#',`e`.`id_produto`) AS `ID`, concat(`p`.`nome`,' ',`p`.`descricao`) AS `Porduto`, `c`.`descricao` AS `Categoria`, sum(`e`.`quantidade`) AS `Quantidade`, `e`.`unitario` AS `Custo`, `e`.`data_compra` AS `Data Compra`, `e`.`validade` AS `Vencimento`, `e`.`lote` AS `Lotes` FROM ((`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) WHERE `p`.`id_status` = 1 GROUP BY `e`.`lote` ;
 
 -- --------------------------------------------------------
 
@@ -677,7 +708,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_entradas_cadastro`  AS 
 DROP TABLE IF EXISTS `vw_estoque_por_lotes`;
 
 DROP VIEW IF EXISTS `vw_estoque_por_lotes`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_estoque_por_lotes`  AS SELECT sum(`e`.`quantidade`) AS `Soma`, `e`.`id_produto` AS `Código`, `p`.`nome` AS `produto`, `e`.`lote` AS `Lote` FROM (`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) GROUP BY `e`.`lote` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_estoque_por_lotes`  AS SELECT sum(`e`.`quantidade`) AS `Soma`, `e`.`id_produto` AS `Código`, `p`.`nome` AS `produto`, `e`.`lote` AS `Lote` FROM (`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) GROUP BY `e`.`lote` ORDER BY `e`.`id_produto` ASC ;
 
 -- --------------------------------------------------------
 
@@ -687,7 +718,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_estoque_por_lotes`  AS 
 DROP TABLE IF EXISTS `vw_kardex_tipos`;
 
 DROP VIEW IF EXISTS `vw_kardex_tipos`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_kardex_tipos`  AS SELECT `kt`.`id` AS `ID`, `kt`.`descricao` AS `Descrição` FROM `kardex_tipos` AS `kt` ORDER BY `kt`.`id` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_kardex_tipos`  AS SELECT `kt`.`id` AS `ID`, `kt`.`descricao` AS `Descrição` FROM `kardex_tipos` AS `kt` ORDER BY `kt`.`id` ASC ;
 
 -- --------------------------------------------------------
 
@@ -697,7 +728,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_kardex_tipos`  AS SELEC
 DROP TABLE IF EXISTS `vw_lotes`;
 
 DROP VIEW IF EXISTS `vw_lotes`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_lotes`  AS SELECT `l`.`id_produto` AS `Código`, `p`.`nome` AS `Nome do Produto`, `l`.`lote` AS `Lote`, `l`.`qtde_lote` AS `Qunatidade Lote`, `l`.`validade` AS `Validade` FROM (`lotes` `l` join `produtos` `p` on(`l`.`id_produto` = `p`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_lotes`  AS SELECT `l`.`id_produto` AS `Código`, `p`.`nome` AS `Nome do Produto`, `l`.`lote` AS `Lote`, `l`.`qtde_lote` AS `Qunatidade Lote`, `l`.`validade` AS `Validade` FROM (`lotes` `l` join `produtos` `p` on(`l`.`id_produto` = `p`.`id`)) ;
 
 -- --------------------------------------------------------
 
@@ -707,7 +738,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_lotes`  AS SELECT `l`.`
 DROP TABLE IF EXISTS `vw_produtos_cadastro`;
 
 DROP VIEW IF EXISTS `vw_produtos_cadastro`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_produtos_cadastro`  AS SELECT concat('#',`p`.`id`) AS `ID`, concat(`p`.`nome`,' ',`p`.`descricao`) AS `Produto`, `c`.`descricao` AS `Categoria`, `tp`.`descricao` AS `Tipo do Produto`, `u`.`descricao` AS `Unidade` FROM ((((`produtos` `p` join `status_cads` `sc` on(`p`.`id_status` = `sc`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) join `tipo_produtos` `tp` on(`p`.`id_tp_produto` = `tp`.`id`)) join `unidades` `u` on(`p`.`id_unidade` = `u`.`id`)) ORDER BY `p`.`nome` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_produtos_cadastro`  AS SELECT concat('#',`p`.`id`) AS `ID`, concat(`p`.`nome`,' ',`p`.`descricao`) AS `Produto`, `c`.`descricao` AS `Categoria`, `tp`.`descricao` AS `Tipo do Produto`, `u`.`descricao` AS `Unidade` FROM ((((`produtos` `p` join `status_cads` `sc` on(`p`.`id_status` = `sc`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) join `tipo_produtos` `tp` on(`p`.`id_tp_produto` = `tp`.`id`)) join `unidades` `u` on(`p`.`id_unidade` = `u`.`id`)) ORDER BY `p`.`nome` ASC ;
 
 -- --------------------------------------------------------
 
@@ -717,7 +748,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_produtos_cadastro`  AS 
 DROP TABLE IF EXISTS `vw_status_cads`;
 
 DROP VIEW IF EXISTS `vw_status_cads`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_status_cads`  AS SELECT `sc`.`id` AS `ID`, `sc`.`descricao` AS `Descrição` FROM `status_cads` AS `sc` ORDER BY `sc`.`descricao` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_status_cads`  AS SELECT `sc`.`id` AS `ID`, `sc`.`descricao` AS `Descrição` FROM `status_cads` AS `sc` ORDER BY `sc`.`descricao` ASC ;
 
 -- --------------------------------------------------------
 
@@ -727,7 +758,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_status_cads`  AS SELECT
 DROP TABLE IF EXISTS `vw_tipo_produtos`;
 
 DROP VIEW IF EXISTS `vw_tipo_produtos`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_tipo_produtos`  AS SELECT `tp`.`id` AS `ID`, `tp`.`descricao` AS `Descrição`, `sc`.`descricao` AS `Status` FROM (`tipo_produtos` `tp` join `status_cads` `sc` on(`tp`.`id_status` = `sc`.`id`)) ORDER BY `tp`.`id` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_tipo_produtos`  AS SELECT `tp`.`id` AS `ID`, `tp`.`descricao` AS `Descrição`, `sc`.`descricao` AS `Status` FROM (`tipo_produtos` `tp` join `status_cads` `sc` on(`tp`.`id_status` = `sc`.`id`)) ORDER BY `tp`.`id` ASC ;
 
 -- --------------------------------------------------------
 
@@ -737,7 +768,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_tipo_produtos`  AS SELE
 DROP TABLE IF EXISTS `vw_unidades`;
 
 DROP VIEW IF EXISTS `vw_unidades`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_unidades`  AS SELECT `u`.`id` AS `Abreviação`, `u`.`descricao` AS `Descrição`, `sc`.`descricao` AS `Status` FROM (`unidades` `u` join `status_cads` `sc` on(`u`.`id_status` = `sc`.`id`)) ORDER BY `u`.`descricao` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_unidades`  AS SELECT `u`.`id` AS `Abreviação`, `u`.`descricao` AS `Descrição`, `sc`.`descricao` AS `Status` FROM (`unidades` `u` join `status_cads` `sc` on(`u`.`id_status` = `sc`.`id`)) ORDER BY `u`.`descricao` ASC ;
 
 --
 -- Índices para tabelas despejadas
@@ -797,6 +828,13 @@ ALTER TABLE `produtos`
   ADD KEY `fk_id_status_produto` (`id_status`),
   ADD KEY `fk_id_categoria_produto` (`id_categoria`),
   ADD KEY `fk_id_unidade_produto` (`id_unidade`);
+
+--
+-- Índices para tabela `produtos_precos`
+--
+ALTER TABLE `produtos_precos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_produto_prod_precos` (`id_produto`);
 
 --
 -- Índices para tabela `status_cads`
@@ -865,13 +903,13 @@ ALTER TABLE `empresas`
 -- AUTO_INCREMENT de tabela `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `estoques`
 --
 ALTER TABLE `estoques`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `kardex_tipos`
@@ -883,13 +921,19 @@ ALTER TABLE `kardex_tipos`
 -- AUTO_INCREMENT de tabela `lotes`
 --
 ALTER TABLE `lotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `produtos_precos`
+--
+ALTER TABLE `produtos_precos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `tipo_produtos`
@@ -959,6 +1003,12 @@ ALTER TABLE `produtos`
   ADD CONSTRAINT `fk_id_status_produto` FOREIGN KEY (`id_status`) REFERENCES `status_cads` (`id`),
   ADD CONSTRAINT `fk_id_tp_prod_produto` FOREIGN KEY (`id_tp_produto`) REFERENCES `tipo_produtos` (`id`),
   ADD CONSTRAINT `fk_id_unidade_produto` FOREIGN KEY (`id_unidade`) REFERENCES `unidades` (`id`);
+
+--
+-- Limitadores para a tabela `produtos_precos`
+--
+ALTER TABLE `produtos_precos`
+  ADD CONSTRAINT `fk_id_produto_prod_precos` FOREIGN KEY (`id_produto`) REFERENCES `produtos` (`id`);
 
 --
 -- Limitadores para a tabela `tipo_produtos`
