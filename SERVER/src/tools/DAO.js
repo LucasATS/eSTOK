@@ -47,7 +47,7 @@ class DAO {
             return model.create( fields ) 
                 .then( () => { 
                     console.log(`Insert in ${model.name} realized!`); 
-                    return 'sucess'; 
+                    return 'success'; 
                 }) 
                 .catch((error) => { 
                     console.log(`Error in INSERT ${model.name} : ${error}`); 

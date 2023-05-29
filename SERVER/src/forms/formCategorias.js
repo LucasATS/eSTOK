@@ -11,7 +11,7 @@ const form = async ( body ) => {
 
     const resp =  await DAO.save(Categorias,{descricao: descricao, id_status: 1})
 
-    if (resp == 'sucess'){
+    if (resp == 'success'){
         return { is_valid: true , message: 'Categoria cadastrada com sucesso!'}
     } else {
         return { is_valid: false , message: resp}

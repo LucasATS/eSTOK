@@ -13,7 +13,7 @@ export const Categorias = db.define('categorias', {
 }, {});
 
 Categorias.vw_categorias = async (id_status) => {
-  return await db.query("SELECT * FROM vw_categorias vw WHERE vw.Status = (?)", {
+  return await db.query("SELECT * FROM vw_categorias vw WHERE vw.Status = (?)"/*o valor de referencia sera Literal Ativou ou Inativo valores numericos nao retornam informações */, {
     model: this,
     mapToModel: true,
     replacements: [id_status]
