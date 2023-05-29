@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 29-Maio-2023 às 18:20
+-- Tempo de geração: 30-Maio-2023 às 01:41
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -64,6 +64,7 @@ DROP PROCEDURE IF EXISTS `sp_entradas`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_entradas` (IN `id_produto_e` INT, IN `quantidade_e` INT, IN `unitario_e` DECIMAL(15,4), IN `total_e` DECIMAL(15,4), IN `validade_e` DATE, IN `lote_e` VARCHAR(10), IN `data_compra_e` DATE)   BEGIN
 
         INSERT INTO entradas (id_produto, quantidade, unitario, total, validade, lote, data_compra) values (id_produto_e, quantidade_e, unitario_e, total_e, validade_e, lote_e, data_compra_e);
+        SELECT e.id_produto AS 'ID', ' de ', e.quantidade AS 'Quantidade', 'Produtos Foram Adicionadas com Sucesso!' AS Msg FROM entradas e WHERE e.id_produto = id_produto_e;
 
 END$$
 
@@ -87,7 +88,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_login` (IN `login_e` VARCHAR(25)
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_lotes`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_lotes` (IN `id_produto_e` INT, IN `lote_e` VARCHAR(10) CHARSET utf8mb4, IN `qtde_lote_e` INT, IN `validade_e` DATE, IN `id_status` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_lotes` (IN `id_produto_e` INT, IN `lote_e` VARCHAR(10), IN `qtde_lote_e` INT, IN `validade_e` DATE, IN `id_status` INT)   BEGIN
 
 	DECLARE status_lote INT(11);
     DECLARE lote_existe INT(11);
@@ -368,8 +369,8 @@ CREATE TABLE `produtos_precos` (
 --
 
 INSERT INTO `produtos_precos` (`id`, `id_produto`, `preco`, `createdAt`, `updatedAt`) VALUES
-(1, 2, 25.5000, '2023-05-29 08:15:56', '2023-05-29 08:15:56'),
-(2, 1, 85.5000, '2023-05-29 08:18:36', '2023-05-29 08:18:36');
+(1, 2, 15.2500, '2023-05-29 08:15:56', '2023-05-29 08:15:56'),
+(2, 1, 15.2500, '2023-05-29 08:18:36', '2023-05-29 08:18:36');
 
 -- --------------------------------------------------------
 
@@ -497,16 +498,6 @@ CREATE TABLE `vendas` (
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `vendas`
---
-
-INSERT INTO `vendas` (`id`, `kar_tipo`, `cliente`, `email`, `telefone`, `endereco`, `bairro`, `uf`, `cidade`, `nome_cartao`, `numero_cartao`, `dt_vencimento`, `cvv`, `createdAt`, `updatedAt`) VALUES
-(1, 3, 'Cliente Teste', 'cliente@cliente.com', '67998724201', 'rua medrado, 33', 'Centro Oeste', 'MS', 'Campo Grande', 'Gaikko A DA S Pinto', '1234567890123456', '2023-12-01', 213, '2023-05-21 10:27:48', '2023-05-21 10:27:48'),
-(2, 3, 'Cliente Teste', 'cliente@cliente.com', '(67)99872-4201', 'rua medrado, 33', 'Centro Oeste', 'MS', 'Campo Grande', 'gaikooalcoausientanldisnatesngoapstendtamsidh', '1234567890123412', '2023-12-01', 213, '2023-05-21 10:28:06', '2023-05-21 10:28:06'),
-(3, 3, 'teste', 'rosellyv1@gmail.com', '67992431520', 'jgdfjhgfjhgf', 'hgfjhfjhgfh', 'rd', 'Campo Grande', 'Roselly Acosta Caldeira', '56467932165654', '2023-01-01', 236, '2023-05-21 11:05:01', '2023-05-21 11:05:01'),
-(4, 3, 'teste', 'rosellyv1@gmail.com', '67992431520', 'jgdfjhgfjhgf', 'hgfjhfjhgfh', 'rd', 'Campo Grande', 'Roselly Acosta Caldeira', '56467932165654', '2023-01-01', 1, '2023-05-23 11:10:08', '2023-05-23 11:10:08');
-
 -- --------------------------------------------------------
 
 --
@@ -523,14 +514,6 @@ CREATE TABLE `vendas_itens` (
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Extraindo dados da tabela `vendas_itens`
---
-
-INSERT INTO `vendas_itens` (`id`, `id_venda`, `kar_tipo`, `id_produto`, `quantidade`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 3, 1, 1, '2023-05-21 10:36:31', '2023-05-21 10:36:31'),
-(2, 2, 4, 2, 2, '2023-05-21 10:36:31', '2023-05-21 10:36:31');
 
 -- --------------------------------------------------------
 
@@ -903,13 +886,13 @@ ALTER TABLE `empresas`
 -- AUTO_INCREMENT de tabela `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `estoques`
 --
 ALTER TABLE `estoques`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `kardex_tipos`
@@ -951,13 +934,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `vendas`
 --
 ALTER TABLE `vendas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `vendas_itens`
 --
 ALTER TABLE `vendas_itens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restrições para despejos de tabelas
