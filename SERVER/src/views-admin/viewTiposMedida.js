@@ -1,15 +1,12 @@
-import modelUnidades from '../models/modelUnidades';
-import DAO from '../tools/DAO';
+import { Unidades } from "../models/modelUnidades";
 
 const view = async (req, res) => {
 
-    const data = await DAO.filter(
-        modelUnidades,
-        {},
-        ['id', 'descricao']
-    );
+    const data = await Unidades.vw_unidades("Ativo");
 
     res.status(200).json({ data: data });
+
+    console.log(data);
 };
 
 export default view;
