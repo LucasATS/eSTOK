@@ -2,21 +2,21 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Button from '../../../../../../components/Button';
-import { DropzoneForm } from '../../../../../../components/FormComponents/DropzoneForm';
-import { ImageForm } from '../../../../../../components/FormComponents/ImageForm';
-import InputForm from '../../../../../../components/FormComponents/InputForm';
-import SelectForm from '../../../../../../components/FormComponents/SelectForm';
-import SwitchForm from '../../../../../../components/FormComponents/SwitchForm';
-import TextareaForm from '../../../../../../components/FormComponents/TextAreaForm';
-import { ModalComponent } from '../../../../../../components/ModalComponent';
-import TitleCard from '../../../../../../components/TitleCard';
+import Button from '../../../../components/Button';
+import { DropzoneForm } from '../../../../components/FormComponents/DropzoneForm';
+import { ImageForm } from '../../../../components/FormComponents/ImageForm';
+import InputForm from '../../../../components/FormComponents/InputForm';
+import SelectForm from '../../../../components/FormComponents/SelectForm';
+import SwitchForm from '../../../../components/FormComponents/SwitchForm';
+import TextareaForm from '../../../../components/FormComponents/TextAreaForm';
+import { ModalComponent } from '../../../../components/ModalComponent';
+import TitleCard from '../../../../components/TitleCard';
 import {
   selectOptionsCategory,
   selectOptionsProductSize,
   selectOptionsProductType,
   selectOptionsUnit
-} from '../../../../constants/SelectOptions';
+} from '../../constants/SelectOptions';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -34,7 +34,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
 
   const { id } = useParams<ParamsProps>();
 
-  const handleAddNewAggregatedHolerite = async () => {
+  const handleAddProduct = async () => {
     console.log('criado ou atualizado');
     onConfirm();
     onClose();
@@ -79,7 +79,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
 
   return (
     <ModalComponent isOpen={isOpen} onClose={onClose}>
-      <Form ref={formRef} onSubmit={handleAddNewAggregatedHolerite} className="flex justify-center">
+      <Form ref={formRef} onSubmit={handleAddProduct} className="flex justify-center">
         <div className="relative bg-white rounded-lg shadow w-full">
           <div className="flex items-start py-1 px-4 rounded-t border-b">
             <TitleCard text="Cadastrar Produto" />
@@ -144,8 +144,8 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
             <Button
               variant="primary"
               type="button"
-              onClick={handleAddNewAggregatedHolerite}
-              buttonText="Salvar"
+              onClick={handleAddProduct}
+              buttonText="Cadastrar"
             />
           </div>
         </div>
