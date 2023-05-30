@@ -1,4 +1,3 @@
-import DAO from '../tools/DAO';
 import modelProduto, { Produtos } from "../models/modelProdutos";
 
 const FormularioProduto = async (body) => {
@@ -23,7 +22,7 @@ const FormularioProduto = async (body) => {
         return { is_valid: false, message: 'Produto ja existe no estoque' }
     }
 
-    const resp = await Produtos.sp_produtos(descricao)
+    const resp = await Produtos.sp_produtos(Descricao)
 
     return { is_valid: true, message: resp.Msg }
 

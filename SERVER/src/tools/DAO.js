@@ -1,29 +1,3 @@
-
-
-// AQUI SERVE APENAS DE EXEMPLO PARA TESTES
-const adicionarDadosTest = async (Status, Usuario) => {
-    
-    //CRIA USUARIO Gaikko
-    await DAO.save(Usuario, {
-        cpf: '00000000002',
-        nome: 'Gaikko',
-        login: 'Gaikko',
-        email: 'Gaikko@email.com',
-        senha: 'senha123',
-        id_status: 1
-    });
-    
-    //CRIA USUARIO Thalia
-    await DAO.save(Usuario, {
-        cpf: '00000000001',
-        nome: 'Thalia',
-        login: 'LTS',
-        email: 'Thalia@email.com',
-        senha: 'senha123',
-        id_status: 1
-    });
-}
-
 class DAO {
     static get = async ( model , fields ) => {
 
@@ -78,11 +52,11 @@ class DAO {
         const keys = Object.keys(fields);
         
         for (const key of keys) {
-            fields[key] = `${fields[key]}`
+            fields[key] = `%${fields[key]}%`
         }
         
         const conditions = {
-            where: fields
+            where: { [Op.like]: fields }
         }
         
         if (fieldsout != null){

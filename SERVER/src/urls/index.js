@@ -27,7 +27,7 @@ class urls {
 
         this.server.get("/api/admin/categorias", UserIsAuthentic, require('../views-admin/viewCategorias.js').default);
 
-        this.server.get("/api/admin/tipos-de-medidas", UserIsAuthentic, require('../views-admin/viewTiposMedida.js').default);
+        this.server.get("/api/admin/tipos-de-medidas", UserIsAuthentic, require('../views-admin/viewUnidades.js').default);
 
         this.server.get("/api/admin/tipos-de-produto", UserIsAuthentic, require('../views-admin/viewTiposProduto.js').default);
 
@@ -47,7 +47,9 @@ class urls {
 
         this.server.post("/api/admin/categorias/create", UserIsAuthentic, require('../views-admin/viewCreateCategoria.js').default); //ok
 
-        this.server.post("/api/admin/tipos-de-medidas/create", UserIsAuthentic, require('../views-admin/viewCreateTiposMedida.js').default);
+        this.server.post("/api/admin/tipos-de-medidas/create", UserIsAuthentic, require('../views-admin/viewCreateUnidades.js').default);
+
+        this.server.get("/api/admin/tipos-de-produto/create", UserIsAuthentic, require('../views-admin/viewCreateTiposProduto.js').default);
 
         this.server.post("/api/admin/estoque/movimentacao-entrada", UserIsAuthentic, require('../views-admin/viewMovimentacaoEntrada.js').default);
         this.server.post("/api/admin/estoque/movimentacao-saida", UserIsAuthentic, require('../views-admin/viewMovimentacaoSaida.js').default);
