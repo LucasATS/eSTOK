@@ -36,4 +36,37 @@
 
 > - route => "/api/admin/categorias"
 > - method => "GET"
-> - response => {data: [{id, descricao},{id, descricao},{id, descricao}...]}
+> - response => {data: [{ID, Descrição, Status},{ID, Descrição, Status},{ID, Descrição, Status}...]}
+
+## **Unidade de Medidas**
+
+### CREATE
+
+> - route => "/api/admin/tipos-de-medidas/create"
+> - method => "POST"
+> - param => {abreviacao, descricao}
+> - response => {data: "Unidade cadastrada com Sucesso!"} ou {data: "Unidade ja existe na base de dados!"}
+
+### LISTA
+
+> - route => "/api/admin/tipos-de-medidas"
+> - method => "GET"
+> - response => {data: [{Abreviação, Descrição, Status},{Abreviação, Descrição, Status},{Abreviação, Descrição, Status}...]}
+
+## **Tipos de Produto**
+
+### CREATE
+
+> - route => "/api/admin/tipos-de-produto/create"
+> - method => "POST"
+> - param => {abreviacao, descricao}
+> - response => {data: "Tipo de Produto cadastrado com sucesso!"} ou {data: "Tipo de Produto ja existe na base de dados!"}
+
+### LISTA
+
+> - route => "/api/admin/tipos-de-produto"
+> - method => "GET"
+> - response => {data: [{ID, Descrição, Status},{ID, Descrição, Status},{ID, Descrição, Status}...]}
+
+
+
