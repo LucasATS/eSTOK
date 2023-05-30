@@ -78,4 +78,3 @@ class DAO {
 }
 
 export default DAO;
-export { adicionarDadosTest };
