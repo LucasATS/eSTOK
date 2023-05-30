@@ -1,12 +1,12 @@
 // Ativa ou desativa Produto
-import modelProduto from '../models/modelProduto';
+import { Produtos } from '../models/modelProdutos';
 import DAO from '../tools/DAO';
 
 const view = async (req, res) => {
-    let produto = req.body
-    let data= DAO.save(modelProduto, produto)
+    let {id_produto, id_status} = req.body
+    let data= DAO.save(Produtos, {id_status: id_status, id: id_produto })
     if (data) {
-        res.status(200).json({data : 'Produto atualizado com sucesso.'});
+        res.status(200).json({data : 'Status do produto atualizado com sucesso.'});
     }
 };
 
