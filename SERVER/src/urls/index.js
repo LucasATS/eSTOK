@@ -56,9 +56,6 @@ class urls {
 
         this.server.post("/api/admin/venda", UserIsAuthentic, require('../views-admin/viewVenda.js').default);
 
-        //para executar dados de teste
-        this.server.get("/api/for-tests", require('../views-admin/_viewDadosTeste.js').default);
-
     }
 }
 
