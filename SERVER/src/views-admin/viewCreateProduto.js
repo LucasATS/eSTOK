@@ -1,6 +1,14 @@
+import formProduto from '../forms/formProduto'
 
 const view = async (req, res) => {
-    res.status(200).json({data : 'API em construção'});
+    console.log(req.body);
+    let form = await formProduto(req.body);
+
+    if(form.is_valid){
+        res.status(200).json({data : {status: 'ok', message: form.message}})
+    } else {
+        res.status(200).json({data : {status: 'erro', motivo: form.message}})
+    }
 };
 
 export default view;

@@ -1,12 +1,10 @@
 interface Product {
-  nome: string;
-  categoria: string;
-  uniMedida: number;
-  tipoProduto: string;
-  fundibilidade: boolean;
-  estocavel: boolean;
+  name: string;
+  category: string;
+  unit: number;
+  productType: string;
   tamanho: number;
-  descricao?: string;
+  description?: string;
 }
 
 export default Product;

@@ -1,26 +1,39 @@
-import { DocumentDownloadOutline } from 'heroicons-react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Button from '../../../components/Button';
 import Header from '../../../components/MainLayout/components/Header';
+import Pagination from '../../../components/Paginate';
+import { PaginateDto } from '../../_shared/dto/PaginateDto';
+import { Paginate } from '../../_shared/types/api.types';
+import Stock from '../models/Stock';
+import { LowStock } from './components/LowStock';
 import { NewStockModal } from './components/NewStockModal';
 import { StockTable } from './components/StockTable';
 
 export const ListStock = () => {
   const [stockIdActive, setStockIdActive] = useState<number>();
   const [openNewStockModal, setOpenNewStockModal] = useState(false);
-  const navigate = useNavigate();
+  const [openStockWriteOff, setopenStockWriteOff] = useState(false);
+  const [paginationActive, setPaginationActive] = useState<PaginateDto>({});
+  const [stocksPaginate, setStocksPaginate] = useState<Paginate<Stock>>();
+
+  const loadStock = () => {
+    // setStocksPaginate()
+  };
 
   const handleNewStock = () => {
-    setOpenNewStockModal(true);
+    loadStock();
   };
 
-  const handleClickDeleteStock = (id: number) => {
-    setStockIdActive(id);
+  const handleStockWriteOff = () => {
+    loadStock();
   };
 
-  const handleClickEditStock = (stockId: number) => {
-    navigate(`/stock/${stockId}`);
+  const handleClickStockWriteOff = () => {
+    setopenStockWriteOff(true);
+  };
+
+  const handleCloseStockWriteOff = () => {
+    setopenStockWriteOff(false);
   };
 
   const handleClickNewStock = () => {
@@ -31,6 +44,15 @@ export const ListStock = () => {
     setOpenNewStockModal(false);
   };
 
+  const onChangePage = async (page: number) => {
+    setPaginationActive((old) => ({ ...old, page }));
+    console.log('Próxima página');
+  };
+
+  useEffect(() => {
+    loadStock();
+  }, [paginationActive]);
+
   return (
     <div className="w-full flex flex-col">
       <div className="w-full bg-white justify-start items-start">
@@ -38,14 +60,26 @@ export const ListStock = () => {
       </div>
       <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
         <div className="flex flex-row md:px-4 w-auto gap-3 justify-end items-end">
+          <Button type="button" variant="primary" onClick={handleClickStockWriteOff}>
+            Baixa
+          </Button>
           <Button buttonText="Novo" variant="primary" type="button" onClick={handleClickNewStock} />
-          <div className="flex justify-end space-x-2">
-            <DocumentDownloadOutline className="w-5 cursor-pointer text-secondary hover:text-secondary" />
-          </div>
         </div>
         <div className="flex flex-col gap-2 mt-5">
           <StockTable />
+          <Pagination
+            currentPage={stocksPaginate?.results.length}
+            page={stocksPaginate?.currentPage}
+            pageSize={stocksPaginate?.limit}
+            totalItems={stocksPaginate?.totalItems}
+            onChangePage={onChangePage}
+          />
         </div>
+        <LowStock
+          isOpen={openStockWriteOff}
+          onClose={handleCloseStockWriteOff}
+          onConfirm={handleStockWriteOff}
+        />
         <NewStockModal
           isOpen={openNewStockModal}
           onClose={handleCloseNewStock}

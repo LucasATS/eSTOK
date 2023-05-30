@@ -76,7 +76,7 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Listbox.Options className="fixed w-full mt-1 overflow-auto text-base bg-gray-100 shadow-lg max-h-40 ring-1 ring-opacity-5 focus:outline-none">
+              <Listbox.Options className="absolute z-20 w-full mt-1 overflow-auto text-base bg-gray-100 shadow-lg max-h-40 ring-1 ring-opacity-5 focus:outline-none">
                 {options.map((option) => (
                   <Listbox.Option
                     key={option.value}

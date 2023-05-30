@@ -35,7 +35,7 @@ const InputForm = ({
     <div className={`flex flex-col mt-2 text-sm w-full ${className || ''}`}>
       <label
         htmlFor={name}
-        className={labelStyle || `py-1 font-medium ${error ? ' text-red-500' : 'text-[#B0B0B1]'}`}
+        className={labelStyle || `py-1 font-medium ${error ? ' text-red-500' : 'text-[#8d8d8f]'}`}
       >
         {label}
       </label>
@@ -43,7 +43,7 @@ const InputForm = ({
         className={`relative rounded-[30px] ${
           error
             ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-            : 'text-[#B0B0B1] bg-gray-100 hover:bg-gray-200'
+            : 'text-[#8d8d8f] bg-gray-200 hover:bg-gray-300'
         }`}
       >
         <input
@@ -60,7 +60,7 @@ const InputForm = ({
           ${
             error
               ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'text-[#B0B0B1] bg-gray-100 hover:bg-gray-200 focus:border-sky-600'
+              : 'text-[#8d8d8f] bg-gray-200 hover:bg-gray-300 focus:border-gray-300'
           }
               `
           }

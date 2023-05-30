@@ -1,14 +1,32 @@
+import DAO from '../tools/DAO';
+import modelProduto, { Produtos } from "../models/modelProdutos";
 
-import modelProduto from "../models/modelProduto";
+const FormularioProduto = async (body) => {
 
-const FormularioProduto = async (
-    {
-        id = null,
-        Nome = '',
-        Descricao = '',
-        Foto = '',
-    }) => {
-    
+    let { Nome, Descricao } = body;
+
+    if (!Nome) {
+        return { is_valid: false, message: 'Nome é obrigatório' }
+    }
+
+    if (!Descricao) {
+        return { is_valid: false, message: 'Descrição é obrigatório' }
+    }
+
+    let produto = await modelProduto.findOne({
+        where: {
+            Nome: Nome
+        }
+    })
+
+    if(produto.dataValues != undefined){
+        return { is_valid: false, message: 'Produto ja existe no estoque' }
+    }
+
+    const resp = await Produtos.sp_produtos(descricao)
+
+    return { is_valid: true, message: resp.Msg }
+
 }
 
 export default FormularioProduto;

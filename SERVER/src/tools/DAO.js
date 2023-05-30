@@ -40,7 +40,6 @@ class DAO {
         //CAPTURA ID E REMOVE DE FIELDS
         const id = fields.id;
         delete fields.id;
-
         // SE NÃO HOUVER ID EXECUTA INSERT DO CONTRARIO UPDATE
         if ( !id ){
 
@@ -48,7 +47,7 @@ class DAO {
             return model.create( fields ) 
                 .then( () => { 
                     console.log(`Insert in ${model.name} realized!`); 
-                    return 'sucess'; 
+                    return 'success'; 
                 }) 
                 .catch((error) => { 
                     console.log(`Error in INSERT ${model.name} : ${error}`); 
@@ -77,13 +76,15 @@ class DAO {
     static filter = async ( model , fields, fieldsout = null ) => {
         
         const keys = Object.keys(fields);
+        
         for (const key of keys) {
-            fields[key] = `%${fields[key]}%`
+            fields[key] = `${fields[key]}`
         }
+        
         const conditions = {
             where: fields
         }
-
+        
         if (fieldsout != null){
             conditions['attributes'] = fieldsout;
         }

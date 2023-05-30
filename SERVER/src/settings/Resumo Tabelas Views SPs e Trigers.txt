@@ -1,0 +1,48 @@
+Models
+
+categorias,
+empresas,
+entradas,
+estoques,
+kardex_tipos,
+lotes,
+produtos,
+produtos_precos
+status_cads,
+tipo_produtos,
+unidades,
+usuarios,
+vendas***,
+vendas_itens***
+***models de vendas nao serao implementadas nesta entrega ficara para proxima entrega dia 2/6
+
+storage procedures
+
+sp_atualiza_estoque - atualiza o estoque de acordo com a movimentação
+sp_categorias - insere a categoria
+sp_entradas - insere o registro de movimentação de entradas
+sp_login - valida se os dados inseridos no front-end existem no banco e estao corretos
+sp_lotes - insere o lotes com suas respectivas validades
+sp_produtos - insere os produtos no banco
+sp_produtos_precos - insere ou atualiza os precos dos produtos
+sp_tipo_produtos - insere tipos de produtos no banco - já esta com valores DEFAUT (1 - Diversos, 2 - Bem Durável, 3 - Uso e Consumo)
+sp_unidades - insere unidades de medida pra selecionar no cadastro de produtos a chave primaria não e (INT - AI) e sim CHAR (6). EXEMPLO CX25 - "Caixa com 25"
+sp_vendas - em implementação***
+
+triggers
+
+trg_entradas_produtos_AI - chama as sp de atualiza estoque lotes e precos
+trg_entradas_produtos_BU - atualiza as sp de atualiza estoque lote e precos
+
+views - sem a condição WHERE
+
+vw_categorias - mostra as categorias
+vw_empresas - mostra a empresa ja cadastrada como DEFAULT
+vw_entradas_cadastro - view preparada para front-end (tela cadastra estoque - prototipo)
+vw_estoque_por_lotes - visualiza os estoques agrupados por lotes
+vw_kardex_tipos - visualiza os tipos de movimentações que sao usadas nas tabelas entradas, vendas e baixa
+vw_lotes - visualiza os lotes e vencimentos por produtos
+vw_produtos_cadastro - view preparada para o front-end (tela de cadastra produto - prototipo)
+vw_status_cads - visualiza os status cadastrados
+vw_tipo_produtos - visualiza os tipos DEFAULT ja cadastrados
+vw_unidades - visualiza as unidades cadastradas
