@@ -3,13 +3,11 @@ import DAO from '../tools/DAO';
 
 const view = async (req, res) => {
 
-    const data = await DAO.filter(
-        Tipo_Produtos,
-        {},
-        ['id', 'descricao']
-    );
+    const data = await Tipo_Produtos.vw_tipo_produto("Ativo");
 
     res.status(200).json({ data: data });
+
+    console.log(data);
 };
 
 export default view;
