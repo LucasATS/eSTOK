@@ -2,28 +2,20 @@ import modelProduto, { Produtos } from "../models/modelProdutos";
 
 const FormularioProduto = async (body) => {
 
-    let { Nome, Descricao } = body;
+    console.log(body);
+    let { nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel, id_status } = body;
 
-    if (!Nome) {
+
+    if (!nome) {
         return { is_valid: false, message: 'Nome é obrigatório' }
     }
 
-    if (!Descricao) {
+    if (!descricao) {
         return { is_valid: false, message: 'Descrição é obrigatório' }
     }
 
-    let produto = await modelProduto.findOne({
-        where: {
-            Nome: Nome
-        }
-    })
-
-    if(produto.dataValues != undefined){
-        return { is_valid: false, message: 'Produto ja existe no estoque' }
-    }
-
-    const resp = await Produtos.sp_produtos(Descricao)
-
+    const resp = await Produtos.sp_produtos(nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel, id_status)
+    
     return { is_valid: true, message: resp.Msg }
 
 }
