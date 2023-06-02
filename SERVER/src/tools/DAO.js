@@ -81,8 +81,8 @@ class DAO {
     static atualizaStatus = async (model, chave, Ativo = true) => {
         let strTabela = model.tableName;
         let id_status = Ativo ? 1 : 2;
-        bancoDeDados.query("UPDATE (?) SET id_status = (?) WHERE id = (?)", {
-            replacements: [strTabela, id_status, chave]
+        return await bancoDeDados.query(`UPDATE (${strTabela}) SET id_status = (?) WHERE id = (?)`, {
+            replacements: [id_status, chave]
         })
     }
 

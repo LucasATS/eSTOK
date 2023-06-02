@@ -1,12 +1,13 @@
-// Ativa ou desativa Produto
-import { Produtos } from '../models/modelProdutos';
-import DAO from '../tools/DAO';
+import formStatusProduto from "../forms/formAlteraStatusProduto";
 
 const view = async (req, res) => {
-    let {id_produto, id_status} = req.body
-    let data= DAO.save(Produtos, {id_status: id_status, id: id_produto })
-    if (data) {
-        res.status(200).json({data : 'Status do produto atualizado com sucesso.'});
+
+    let form = await formStatusProduto(req.body);
+
+    if (form.is_valid) {
+        res.status(200).json({ data: { status: 'ok', message: form.message } })
+    } else {
+        res.status(200).json({ data: { status: 'erro', motivo: form.message } })
     }
 };
 

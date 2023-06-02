@@ -8,7 +8,11 @@ const form = async (body) => {
         return { is_valid: false, message: 'Dados Obrigatórios' }
     }
 
-    const resp = await Entradas.sp_entradas(id_produto, quantidade, unitario, total, validade, lote, data_compra)
+    if ((quantidade * unitario) != total) {
+        return { is_valid: false, message: 'Valor Total está incorreto, por favor informe o total correto!' }
+    }
+
+    const resp = await Entradas.sp_entradas(Number(id_produto), Number(quantidade), Number(unitario), Number(total), validade, lote, data_compra)
 
     return { is_valid: true, message: resp.Msg }
 

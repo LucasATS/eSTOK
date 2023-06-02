@@ -49,14 +49,14 @@ CREATE PROCEDURE `sp_atualiza_status` (IN `tabela_e` VARCHAR(50), IN `id_status_
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_categorias`$$
-CREATE PROCEDURE `sp_categorias` (IN `descricao_e` VARCHAR(50), IN `id_status_e` INT)   BEGIN
+CREATE PROCEDURE `sp_categorias` (IN `descricao_e` VARCHAR(50) CHARSET utf8mb4, IN `id_status_e` INT)   BEGIN
   DECLARE contador INT(11);
-    SELECT COUNT(*) INTO contador FROM categorias c WHERE c.descricao = descricao_e;
+    SELECT COUNT(*) INTO contador FROM categorias c WHERE c.descricao COLLATE utf8mb4_general_ci = descricao_e;
     IF contador = 0 THEN
     INSERT INTO categorias (descricao, id_status) VALUES (descricao_e, id_status_e);
-    SELECT c.id AS 'ID', c.descricao AS 'Categoria', 'Categoria cadastrada com sucesso!' AS Msg FROM categorias c WHERE c.descricao = descricao_e;
+    SELECT c.id AS 'ID', c.descricao AS 'Categoria', 'Categoria cadastrada com sucesso!' AS Msg FROM categorias c WHERE c.descricao COLLATE utf8mb4_general_ci = descricao_e;
     ELSE
-    SELECT c.id AS 'ID', c.descricao AS 'Descrição', 'Categoria ja existe na base de dados!' AS Msg FROM categorias c WHERE c.descricao = descricao_e;
+    SELECT c.id AS 'ID', c.descricao AS 'Descrição', 'Categoria ja existe na base de dados!' AS Msg FROM categorias c WHERE c.descricao COLLATE utf8mb4_general_ci = descricao_e;
     END IF;
 END$$
 
@@ -132,24 +132,24 @@ END$$
 DROP PROCEDURE IF EXISTS `sp_tipo_produtos`$$
 CREATE PROCEDURE `sp_tipo_produtos` (IN `descricao_e` VARCHAR(100) CHARSET utf8mb4, IN `id_status_e` INT)   BEGIN
   DECLARE contador INT(11);
-    SELECT COUNT(*) INTO contador FROM tipo_produtos tp WHERE tp.descricao LIKE concat ('%', descricao_e, '%');
+    SELECT COUNT(*) INTO contador FROM tipo_produtos tp WHERE tp.descricao COLLATE utf8mb4_general_ci LIKE concat ('%', descricao_e, '%');
     IF contador = 0 THEN
     INSERT INTO tipo_produtos (descricao, id_status) VALUES (descricao_e, id_status_e);
-    SELECT tp.id AS 'ID', tp.descricao AS 'Categoria', 'Tipo de Produto cadastrado com sucesso!' AS Msg FROM tipo_produtos tp WHERE tp.descricao = descricao_e;
+    SELECT tp.id AS 'ID', tp.descricao AS 'Categoria', 'Tipo de Produto cadastrado com sucesso!' AS Msg FROM tipo_produtos tp WHERE tp.descricao COLLATE utf8mb4_general_ci = descricao_e;
     ELSE
-    SELECT tp.id AS 'ID', tp.descricao AS 'Descrição', 'Tipo de Produto ja existe na base de dados!' AS Msg FROM tipo_produtos tp WHERE tp.descricao = descricao_e;
+    SELECT tp.id AS 'ID', tp.descricao AS 'Descrição', 'Tipo de Produto ja existe na base de dados!' AS Msg FROM tipo_produtos tp WHERE tp.descricao COLLATE utf8mb4_general_ci = descricao_e;
     END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_unidades`$$
 CREATE PROCEDURE `sp_unidades` (IN `id_uni_e` CHAR(6) CHARSET utf8mb4, IN `descricao_e` VARCHAR(50) CHARSET utf8mb4, IN `id_status_e` INT)   BEGIN
   DECLARE contador INT(11);
-    SELECT COUNT(*) INTO contador FROM unidades u WHERE u.id = id_uni_e ;
+    SELECT COUNT(*) INTO contador FROM unidades u WHERE u.id COLLATE utf8mb4_general_ci = id_uni_e ;
     IF contador = 0 THEN
     INSERT INTO unidades (id, descricao, id_status) VALUES (id_uni_e, descricao_e, id_status_e);
-    SELECT u.id AS 'ID', u.descricao AS 'Descrição', 'Unidade cadastrada com Sucesso!' AS Msg FROM unidades u WHERE u.descricao = descricao_e;
+    SELECT u.id AS 'ID', u.descricao AS 'Descrição', 'Unidade cadastrada com Sucesso!' AS Msg FROM unidades u WHERE u.descricao COLLATE utf8mb4_general_ci = descricao_e;
     ELSE
-    SELECT u.id AS 'ID', u.descricao AS 'Descrição', 'Unidade ja existe na base de dados!' AS Msg FROM unidades u WHERE u.descricao = descricao_e;
+    SELECT u.id AS 'ID', u.descricao AS 'Descrição', 'Unidade ja existe na base de dados!' AS Msg FROM unidades u WHERE u.descricao COLLATE utf8mb4_general_ci = descricao_e;
     END IF;
 END$$
 
