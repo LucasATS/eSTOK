@@ -51,52 +51,45 @@ const TextAreaForm: React.FC<TextareaProps> = ({
   }, [!defaultValue]);
 
   return (
-    <div className={`flex flex-col mt-2 text-sm w-full ${className || ''}`}>
-      {/* {label && ( */}
+    <div className={`flex flex-col my-2 text-sm w-full ${className || ''}`}>
       <label
         htmlFor={name}
-        className={labelStyle || `py-1 font-medium ${error ? ' text-red-500' : 'text-[#8d8d8f]'}`}
+        className={
+          labelStyle || `py-1 text-sm font-medium ${error ? ' text-red-500' : 'text-[#8d8d8f]'}`
+        }
       >
         {label}
       </label>
-      {/* )} */}
-      <div
-        className={`relative rounded-[30px]  ${
-          error
-            ? ' border-red-500 focus:border-red-500 focus:ring-red-500'
-            : ' text-[#8d8d8f] bg-gray-200 hover:bg-gray-300'
-        }`}
-      >
-        <textarea
-          name={name}
-          defaultValue={defaultValue}
-          ref={textareaRef}
-          cols={cols}
-          rows={rows}
-          placeholder={placeholder}
-          maxLength={maxLength}
-          onChange={(event) => setFormattedContent(event.target.value)}
-          className={
-            inputStyle ||
-            `w-full rounded-[30px] focus:ring-1 p-2 focus:outline-none
+
+      <textarea
+        name={name}
+        defaultValue={defaultValue}
+        ref={textareaRef}
+        cols={cols}
+        rows={rows}
+        placeholder={placeholder}
+        maxLength={maxLength}
+        onChange={(event) => setFormattedContent(event.target.value)}
+        className={
+          inputStyle ||
+          `relative w-full rounded-[30px] focus:ring-1 px-4 py-2 focus:outline-none
           ${
             error
               ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
               : 'text-[#8d8d8f] bg-gray-200 hover:bg-gray-300 focus:border-gray-300'
           }
               `
-          }
-          {...rest}
-        />
-        {error && <span className="text-red-500 text-xs mt-1 ml-1">{error}</span>}
-        <p
-          className={`flex text-xs justify-end mt-1 ml-1
+        }
+        {...rest}
+      />
+      {error && <span className="text-red-500 text-xs mt-1 ml-1">{error}</span>}
+      <p
+        className={`flex text-xs justify-end mt-1 ml-1
             ${error ? 'text-error' : ''}
           `}
-        >
-          {content ? content?.length : 0}/{maxLength}
-        </p>
-      </div>
+      >
+        {content ? content?.length : 0}/{maxLength}
+      </p>
     </div>
   );
 };
