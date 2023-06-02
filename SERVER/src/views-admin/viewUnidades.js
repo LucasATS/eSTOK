@@ -6,7 +6,6 @@ const view = async (req, res) => {
 
     res.status(200).json({ data: data });
 
-    console.log(data);
 };
 
 export default view;

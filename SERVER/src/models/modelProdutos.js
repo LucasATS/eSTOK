@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 import { Categorias } from './modelCategorias';
 import { Tipo_Produtos } from './modelTipo_Produtos';
 import { Unidades } from './modelUnidades';
@@ -20,7 +20,7 @@ export const Produtos = db.define('produtos', {
       key: 'id'
     }
   },
-  id_id_unidade: {
+  id_unidade: {
     type: DataTypes.INTEGER, references: {
       model: Unidades,
       key: 'id'
@@ -37,18 +37,23 @@ export const Produtos = db.define('produtos', {
   },
 }, {});
 
-Produtos.vw_produtos = async (id_status) => {
-  return await db.query("SELECT * FROM vw_produtos_cadastro vwp WHERE vwp.Status = (?)"/*o valor de referencia sera Literal Ativo ou Inativo valores numericos nao retornam informações */, {
-    model: this,
-    mapToModel: true,
-    replacements: [id_status]
-  });
+Produtos.vw_produtos = async () => {
+  const data = await db.query(
+    "SELECT * FROM vw_produtos_cadastro",
+    {
+      model: this,
+      mapToModel: true,
+      type: QueryTypes.SELECT
+    }
+  );
+  return data;
 }
 
-Produtos.sp_produtos = async (nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel, id_status) => {
+Produtos.sp_produtos = async (nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel) => {
+  
   return (await db.query("call `sp_produtos`(?, ?, ?, ?, ?, ?, ?, ?, ?);", {
     model: this,
     mapToModel: true,
-    replacements: [nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel, id_status]
+    replacements: [nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel, 1]
   }))[0];
 }

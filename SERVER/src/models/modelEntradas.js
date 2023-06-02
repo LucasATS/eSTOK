@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 import db from '../settings/db';
 import { Produtos } from './modelProdutos';
 import { KardexTipos } from './modelKardexTipos';

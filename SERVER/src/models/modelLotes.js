@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 import { Produtos } from './modelProdutos';
 import { Status_Cads } from './modelStatus_Cads';
 import db from '../settings/db';
@@ -22,8 +22,13 @@ export const Lotes = db.define('lotes', {
 }, {});
 
 Lotes.vw_lotes = async () => {
-  return await db.query("SELECT * FROM vw_lotes", {
-  });
+  const data = await db.query(
+    "SELECT * FROM vw_lotes",
+    {
+      type: QueryTypes.SELECT
+    }
+  );
+  return data;
 }
 
 Lotes.sp_lotes = async (id_produto, lote, qtde_lote, validade, id_status) => {

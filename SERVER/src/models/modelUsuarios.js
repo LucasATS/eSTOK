@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 import db from '../settings/db';
 import { Status_Cads } from './modelStatus_Cads';
 

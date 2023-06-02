@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 import db from '../settings/db';
 import { Status_Cads } from './modelStatus_Cads';
 
@@ -14,11 +14,14 @@ export const Unidades = db.define('unidades', {
 }, {});
 
 Unidades.vw_unidades = async (id_satus) => {
-  return await db.query("SELECT * FROM vw_unidades vwu WHERE vwu.status = (?)"/**o valor de referencia sera Literal Ativo ou Inativo valores numericos nao retornam informações */, {
-    model: this,
-    mapToModel: true,
-    replacements: [id_satus]
-  });
+  const data = await db.query(
+    "SELECT * FROM vw_unidades vwu WHERE vwu.status = (?)"/**o valor de referencia sera Literal Ativo ou Inativo valores numericos nao retornam informações */,
+    {
+      type: QueryTypes.SELECT,
+      replacements: [id_satus]
+    }
+  );
+  return data;
 }
 
 Unidades.sp_unidades = async (id_uni, descricao ) => {

@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 import db from '../settings/db';
 
 export const KardexTipos = db.define('kardex_tipos', {

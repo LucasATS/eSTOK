@@ -1,4 +1,6 @@
 import bancoDeDados from '../settings/db';
+import { Op } from 'sequelize';
+
 class DAO {
     static get = async ( model , fields ) => {
 
@@ -53,12 +55,12 @@ class DAO {
         const keys = Object.keys(fields);
         
         for (const key of keys) {
-            fields[key] = `%${fields[key]}%`
+            fields[key] = {[Op.like] : `%${fields[key]}%`};
         }
-        
-        const conditions = {
-            where: { [Op.like]: fields }
-        }
+
+        const conditions = {};
+
+        if (keys.length > 0) conditions['where'] = fields;
         
         if (fieldsout != null){
             conditions['attributes'] = fieldsout;
