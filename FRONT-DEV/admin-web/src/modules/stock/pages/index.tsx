@@ -5,14 +5,14 @@ import Pagination from '../../../components/Paginate';
 import { PaginateDto } from '../../_shared/dto/PaginateDto';
 import { Paginate } from '../../_shared/types/api.types';
 import Stock from '../models/Stock';
+import { LowStock } from './components/LowStock';
 import { NewStockModal } from './components/NewStockModal';
-import { StockOut } from './components/StockOut';
 import { StockTable } from './components/StockTable';
 
 export const ListStock = () => {
   const [stockIdActive, setStockIdActive] = useState<number>();
   const [openNewStockModal, setOpenNewStockModal] = useState(false);
-  const [openStockOut, setopenStockOut] = useState(false);
+  const [openStockWriteOff, setopenStockWriteOff] = useState(false);
   const [paginationActive, setPaginationActive] = useState<PaginateDto>({});
   const [stocksPaginate, setStocksPaginate] = useState<Paginate<Stock>>();
 
@@ -24,16 +24,16 @@ export const ListStock = () => {
     loadStock();
   };
 
-  const handleStockOut = () => {
+  const handleStockWriteOff = () => {
     loadStock();
   };
 
-  const handleClickStockOut = () => {
-    setopenStockOut(true);
+  const handleClickStockWriteOff = () => {
+    setopenStockWriteOff(true);
   };
 
-  const handleCloseStockOut = () => {
-    setopenStockOut(false);
+  const handleCloseStockWriteOff = () => {
+    setopenStockWriteOff(false);
   };
 
   const handleClickNewStock = () => {
@@ -60,7 +60,7 @@ export const ListStock = () => {
       </div>
       <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
         <div className="flex flex-row md:px-4 w-auto gap-3 justify-end items-end">
-          <Button type="button" variant="primary" onClick={handleClickStockOut}>
+          <Button type="button" variant="primary" onClick={handleClickStockWriteOff}>
             Baixa
           </Button>
           <Button buttonText="Novo" variant="primary" type="button" onClick={handleClickNewStock} />
@@ -75,7 +75,11 @@ export const ListStock = () => {
             onChangePage={onChangePage}
           />
         </div>
-        <StockOut isOpen={openStockOut} onClose={handleCloseStockOut} onConfirm={handleStockOut} />
+        <LowStock
+          isOpen={openStockWriteOff}
+          onClose={handleCloseStockWriteOff}
+          onConfirm={handleStockWriteOff}
+        />
         <NewStockModal
           isOpen={openNewStockModal}
           onClose={handleCloseNewStock}

@@ -52,11 +52,11 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   const signIn = async (login: LoginCredentials) => {
     const response = await AuthService.signIn(login);
     const { data } = response;
-    // const { token } = data;
+    const { token } = data;
 
-    // setUser(response.data.user);
-    // saveTokenInLocalStorage(token);
-    // setDefaultHeaderToken(token);
+    setUser(response.data.user);
+    saveTokenInLocalStorage(token);
+    setDefaultHeaderToken(token);
   };
 
   const signOut = () => {

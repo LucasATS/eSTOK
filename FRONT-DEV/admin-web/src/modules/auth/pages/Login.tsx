@@ -1,32 +1,26 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRef } from 'react';
-import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../../assets/e-stok.png';
 import Button from '../../../components/Button';
 import InputForm from '../../../components/FormComponents/InputForm';
 import TitleCard from '../../../components/TitleCard';
-import {
-  getFieldErrors,
-  manageApiErrorMessages,
-  manageApiErrorResponse
-} from '../../_shared/helpers/handleApiErrorResponse';
+import RoutesURL from '../../_shared/constants/RoutesURL.enum';
 import { LoginCredentials, useAuth } from '../contexts/AuthProvider';
 
 const Login = () => {
   const { signIn } = useAuth();
+  const navigate = useNavigate();
   const formRef = useRef<FormHandles>(null);
 
   const handleLogin = async () => {
     try {
-      const singInCredentials = formRef.current?.getData() as LoginCredentials;
-      await signIn(singInCredentials);
-    } catch (resultError) {
-      const fieldsErrors = getFieldErrors(resultError);
-      formRef.current?.setErrors(fieldsErrors);
-      const resultErrorResponse = manageApiErrorResponse(resultError);
-      const resultErrors = manageApiErrorMessages(resultErrorResponse);
-      resultErrors.forEach((resultError) => toast.error(resultError));
+      const signInCredentials = formRef.current?.getData() as LoginCredentials;
+      await signIn(signInCredentials);
+      console.log('entrei');
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -49,6 +43,7 @@ const Login = () => {
           <Button
             variant="primary"
             buttonText="Acessar"
+            onClick={() => navigate(RoutesURL.HOME)}
             className=" flex w-full justify-center rounded-[30px]"
           />
         </Form>
