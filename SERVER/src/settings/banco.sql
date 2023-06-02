@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30-Maio-2023 às 01:41
+-- Tempo de geração: 02-Jun-2023 às 04:20
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -42,9 +42,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_atualiza_estoque` (IN `id_produt
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_atualiza_status`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_atualiza_status` (IN `tabela` VARCHAR(50), IN `id_status_e` INT, IN `campo` VARCHAR(50), IN `chave_id` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_atualiza_status` (IN `tabela_e` VARCHAR(50), IN `id_status_e` INT, IN `campo` VARCHAR(50), IN `chave_id` INT)   BEGIN
 
-	UPDATE tabela a set a.id_status = id_status_e WHERE a.campo = chave_id;
+	UPDATE tabela_e a set a.id_status = id_status_e WHERE a.campo = chave_id;
 
 END$$
 
@@ -370,7 +370,8 @@ CREATE TABLE `produtos_precos` (
 
 INSERT INTO `produtos_precos` (`id`, `id_produto`, `preco`, `createdAt`, `updatedAt`) VALUES
 (1, 2, 15.2500, '2023-05-29 08:15:56', '2023-05-29 08:15:56'),
-(2, 1, 15.2500, '2023-05-29 08:18:36', '2023-05-29 08:18:36');
+(2, 1, 15.2500, '2023-05-29 08:18:36', '2023-05-29 08:18:36'),
+(3, 3, 85.0000, '2023-06-01 21:34:09', '2023-06-01 21:34:09');
 
 -- --------------------------------------------------------
 
@@ -439,6 +440,7 @@ CREATE TABLE `unidades` (
 
 INSERT INTO `unidades` (`id`, `descricao`, `id_status`, `createdAt`, `updatedAt`) VALUES
 ('CX1', 'Caixa', 1, '2023-05-05 14:47:29', '2023-05-05 14:47:29'),
+('CX100', 'Caixa com 100', 1, '2023-06-02 01:50:01', '2023-06-02 01:50:01'),
 ('CX50', 'Caixa com 50', 2, '2023-05-17 10:40:59', '2023-05-17 10:40:59'),
 ('DIV', 'Diversos', 1, '2023-05-15 10:18:35', '2023-05-15 10:18:35'),
 ('LIT', 'Litros', 1, '2023-05-15 10:18:15', '2023-05-15 10:18:15'),
@@ -494,6 +496,7 @@ CREATE TABLE `vendas` (
   `numero_cartao` varchar(16) NOT NULL,
   `dt_vencimento` date NOT NULL,
   `cvv` int(3) NOT NULL,
+  `tipo_venda` int(11) NOT NULL DEFAULT 1,
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -553,7 +556,7 @@ CREATE TABLE `vw_entradas_cadastro` (
 ,`Porduto` varchar(276)
 ,`Categoria` varchar(50)
 ,`Quantidade` decimal(32,0)
-,`Custo` decimal(15,4)
+,`Preço` decimal(15,4)
 ,`Data Compra` date
 ,`Vencimento` date
 ,`Lotes` varchar(10)
@@ -569,7 +572,7 @@ DROP VIEW IF EXISTS `vw_estoque_por_lotes`;
 CREATE TABLE `vw_estoque_por_lotes` (
 `Soma` decimal(32,0)
 ,`Código` int(11)
-,`produto` varchar(50)
+,`Produto` varchar(50)
 ,`Lote` varchar(10)
 );
 
@@ -613,6 +616,7 @@ CREATE TABLE `vw_produtos_cadastro` (
 ,`Categoria` varchar(50)
 ,`Tipo do Produto` varchar(100)
 ,`Unidade` varchar(50)
+,`Status` varchar(30)
 );
 
 -- --------------------------------------------------------
@@ -681,7 +685,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_entradas_cadastro`;
 
 DROP VIEW IF EXISTS `vw_entradas_cadastro`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_entradas_cadastro`  AS SELECT concat('#',`e`.`id_produto`) AS `ID`, concat(`p`.`nome`,' ',`p`.`descricao`) AS `Porduto`, `c`.`descricao` AS `Categoria`, sum(`e`.`quantidade`) AS `Quantidade`, `e`.`unitario` AS `Custo`, `e`.`data_compra` AS `Data Compra`, `e`.`validade` AS `Vencimento`, `e`.`lote` AS `Lotes` FROM ((`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) WHERE `p`.`id_status` = 1 GROUP BY `e`.`lote` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_entradas_cadastro`  AS SELECT concat('#',`e`.`id_produto`) AS `ID`, concat(`p`.`nome`,' ',`p`.`descricao`) AS `Porduto`, `c`.`descricao` AS `Categoria`, sum(`e`.`quantidade`) AS `Quantidade`, `e`.`unitario` AS `Preço`, `e`.`data_compra` AS `Data Compra`, `e`.`validade` AS `Vencimento`, `e`.`lote` AS `Lotes` FROM ((`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) WHERE `p`.`id_status` = 1 GROUP BY `e`.`lote` ;
 
 -- --------------------------------------------------------
 
@@ -691,7 +695,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_estoque_por_lotes`;
 
 DROP VIEW IF EXISTS `vw_estoque_por_lotes`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_estoque_por_lotes`  AS SELECT sum(`e`.`quantidade`) AS `Soma`, `e`.`id_produto` AS `Código`, `p`.`nome` AS `produto`, `e`.`lote` AS `Lote` FROM (`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) GROUP BY `e`.`lote` ORDER BY `e`.`id_produto` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_estoque_por_lotes`  AS SELECT sum(`e`.`quantidade`) AS `Soma`, `e`.`id_produto` AS `Código`, `p`.`nome` AS `Produto`, `e`.`lote` AS `Lote` FROM (`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) GROUP BY `e`.`id_produto`, `p`.`nome`, `e`.`lote` ORDER BY `e`.`id_produto` ASC ;
 
 -- --------------------------------------------------------
 
@@ -721,7 +725,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_produtos_cadastro`;
 
 DROP VIEW IF EXISTS `vw_produtos_cadastro`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_produtos_cadastro`  AS SELECT concat('#',`p`.`id`) AS `ID`, concat(`p`.`nome`,' ',`p`.`descricao`) AS `Produto`, `c`.`descricao` AS `Categoria`, `tp`.`descricao` AS `Tipo do Produto`, `u`.`descricao` AS `Unidade` FROM ((((`produtos` `p` join `status_cads` `sc` on(`p`.`id_status` = `sc`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) join `tipo_produtos` `tp` on(`p`.`id_tp_produto` = `tp`.`id`)) join `unidades` `u` on(`p`.`id_unidade` = `u`.`id`)) ORDER BY `p`.`nome` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_produtos_cadastro`  AS SELECT concat('#',`p`.`id`) AS `ID`, concat(`p`.`nome`,' ',`p`.`descricao`) AS `Produto`, `c`.`descricao` AS `Categoria`, `tp`.`descricao` AS `Tipo do Produto`, `u`.`descricao` AS `Unidade`, `sc`.`descricao` AS `Status` FROM ((((`produtos` `p` join `status_cads` `sc` on(`p`.`id_status` = `sc`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) join `tipo_produtos` `tp` on(`p`.`id_tp_produto` = `tp`.`id`)) join `unidades` `u` on(`p`.`id_unidade` = `u`.`id`)) ORDER BY `p`.`nome` ASC ;
 
 -- --------------------------------------------------------
 
@@ -916,7 +920,7 @@ ALTER TABLE `produtos`
 -- AUTO_INCREMENT de tabela `produtos_precos`
 --
 ALTER TABLE `produtos_precos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `tipo_produtos`

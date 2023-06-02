@@ -38,7 +38,7 @@ export const Produtos = db.define('produtos', {
 }, {});
 
 Produtos.vw_produtos = async (id_status) => {
-  return await db.query("SELECT * FROM vw_produtos vwp WHERE vwp.Status = (?)"/*o valor de referencia sera Literal Ativo ou Inativo valores numericos nao retornam informações */, {
+  return await db.query("SELECT * FROM vw_produtos_cadastro vwp WHERE vwp.Status = (?)"/*o valor de referencia sera Literal Ativo ou Inativo valores numericos nao retornam informações */, {
     model: this,
     mapToModel: true,
     replacements: [id_status]
