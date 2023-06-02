@@ -1,3 +1,4 @@
+import bancoDeDados from '../settings/db';
 class DAO {
     static get = async ( model , fields ) => {
 
@@ -75,6 +76,16 @@ class DAO {
         return data
     }
 
+    static atualizaStatus = async (model, chave, Ativo = true) => {
+        let strTabela = model.tableName;
+        let id_status = Ativo ? 1 : 2;
+        bancoDeDados.query("UPDATE (?) SET id_status = (?) WHERE id = (?)", {
+            replacements: [strTabela, id_status, chave]
+        })
+    }
+
 }
+
+
 
 export default DAO;
