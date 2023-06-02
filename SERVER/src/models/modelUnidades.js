@@ -21,10 +21,10 @@ Unidades.vw_unidades = async (id_satus) => {
   });
 }
 
-Unidades.sp_unidades = async (id_uni, descricao, id_satus) => {
-  return (await db.query("call `sp_unidades`(?,?,?);", {
+Unidades.sp_unidades = async (id_uni, descricao ) => {
+  return (await db.query("call `sp_unidades`(?,?, 1);", {
     model: this,
     mapToModel: true,
-    replacements: [id_uni, descricao, id_satus]
+    replacements: [id_uni, descricao]
   }))[0];
 }
