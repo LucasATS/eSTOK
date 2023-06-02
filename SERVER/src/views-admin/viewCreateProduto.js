@@ -1,7 +1,6 @@
 import formProduto from '../forms/formProduto'
 
 const view = async (req, res) => {
-    console.log(req.body);
     let form = await formProduto(req.body);
 
     if(form.is_valid){

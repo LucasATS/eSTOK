@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, QueryTypes } from 'sequelize';
 import db from '../settings/db';
 
 export const Status_Cads = db.define('status_cads', {
@@ -6,8 +6,11 @@ export const Status_Cads = db.define('status_cads', {
 }, {});
 
 Status_Cads.vw_status_cads = async () => {
-    return await db.query("SELECT * FROM vw_status_cads", {
-      model: this,
-      mapToModel: true
-    });
+  const data = await db.query(
+    "SELECT * FROM vw_status_cads",
+    {
+      type: QueryTypes.SELECT
+    }
+  );
+  return data;
 }

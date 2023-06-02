@@ -1,28 +1,5 @@
-
-
-// AQUI SERVE APENAS DE EXEMPLO PARA TESTES
-const adicionarDadosTest = async (Status, Usuario) => {
-    
-    //CRIA USUARIO Gaikko
-    await DAO.save(Usuario, {
-        cpf: '00000000002',
-        nome: 'Gaikko',
-        login: 'Gaikko',
-        email: 'Gaikko@email.com',
-        senha: 'senha123',
-        id_status: 1
-    });
-    
-    //CRIA USUARIO Thalia
-    await DAO.save(Usuario, {
-        cpf: '00000000001',
-        nome: 'Thalia',
-        login: 'LTS',
-        email: 'Thalia@email.com',
-        senha: 'senha123',
-        id_status: 1
-    });
-}
+import bancoDeDados from '../settings/db';
+import { Op } from 'sequelize';
 
 class DAO {
     static get = async ( model , fields ) => {
@@ -47,7 +24,7 @@ class DAO {
             return model.create( fields ) 
                 .then( () => { 
                     console.log(`Insert in ${model.name} realized!`); 
-                    return 'sucess'; 
+                    return 'success'; 
                 }) 
                 .catch((error) => { 
                     console.log(`Error in INSERT ${model.name} : ${error}`); 
@@ -78,12 +55,12 @@ class DAO {
         const keys = Object.keys(fields);
         
         for (const key of keys) {
-            fields[key] = `${fields[key]}`
+            fields[key] = {[Op.like] : `%${fields[key]}%`};
         }
-        
-        const conditions = {
-            where: fields
-        }
+
+        const conditions = {};
+
+        if (keys.length > 0) conditions['where'] = fields;
         
         if (fieldsout != null){
             conditions['attributes'] = fieldsout;
@@ -101,7 +78,16 @@ class DAO {
         return data
     }
 
+    static atualizaStatus = async (model, chave, Ativo = true) => {
+        let strTabela = model.tableName;
+        let id_status = Ativo ? 1 : 2;
+        return await bancoDeDados.query(`UPDATE (${strTabela}) SET id_status = (?) WHERE id = (?)`, {
+            replacements: [id_status, chave]
+        })
+    }
+
 }
 
+
+
 export default DAO;
-export { adicionarDadosTest };

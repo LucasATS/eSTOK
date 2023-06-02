@@ -1,6 +1,11 @@
+import { Produtos } from '../models/modelProdutos';
 
 const view = async (req, res) => {
-    res.status(200).json({data : 'API em construção'});
+
+    const data = await Produtos.vw_produtos();
+
+    res.status(200).json({ data: data });
+
 };
 
 export default view;
