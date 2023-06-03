@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL
+  // baseURL: window.location.origin //para ambiente de produção
+  baseURL: 'http://localhost:3001' //para ambiente de desenvolvimento
 });
 
 export default api;
