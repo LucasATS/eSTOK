@@ -6,9 +6,9 @@ const login = async (req, res) => {
 
     if (form.is_valid){
         res.cookie('sessao', form.sessao);
-        res.status(200).json({data : form.msg})
+        res.status(200).json({ data: { status: 'ok', message: form.msg } })
     } else {
-        res.status(401).json({data : form.msg})
+        res.status(401).json({ data: { status: 'erro', message: form.msg } })
     }
 };
 
