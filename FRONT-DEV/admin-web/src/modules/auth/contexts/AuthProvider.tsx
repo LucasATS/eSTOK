@@ -11,7 +11,7 @@ export interface User {
 
 export interface LoginCredentials {
   email: string;
-  senha: string;
+  password: string;
 }
 
 export type AuthContextData = {
@@ -20,6 +20,7 @@ export type AuthContextData = {
   loading: boolean;
   signIn(login: LoginCredentials): Promise<void>;
   signOut(): void;
+  setUser(user: User): void;
 };
 
 interface Props {
@@ -45,7 +46,6 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
       }
       setLoading(false);
     }
-
     loadStorageData();
   }, []);
 
@@ -101,7 +101,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ signed: !!user, user, signIn, signOut, loading }}>
+    <AuthContext.Provider value={{ signed: !!user, user, signIn, signOut, loading, setUser }}>
       {children}
     </AuthContext.Provider>
   );
