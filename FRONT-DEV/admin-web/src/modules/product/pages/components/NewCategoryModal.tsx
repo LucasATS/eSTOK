@@ -1,10 +1,13 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRef } from 'react';
+import { toast } from 'react-hot-toast';
 import Button from '../../../../components/Button';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
+import CreateCategoryDto from '../../dto/CreateCategoryDto';
+import ProductService from '../../service/ProductService';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -15,11 +18,25 @@ interface ConfigModalProps {
 const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
   const formRef = useRef<FormHandles>(null);
 
-  const handleAddNewCategoria = () => {
-    console.log('Cadastrado com sucesso');
-    onConfirm();
-    onClose();
-    clearForm();
+  const handleAddNewCategoria = async () => {
+    try {
+      // integração com o service
+      const mainFormData = formRef?.current?.getData();
+      const newCategoryToCreate = {
+        ...mainFormData
+      } as CreateCategoryDto;
+
+      const result = await ProductService.createCategory(newCategoryToCreate);
+
+      toast.success(result.message);
+      console.log(result.message);
+
+      onConfirm();
+      onClose();
+      clearForm();
+    } catch (error) {
+      // para caso haja erro as informações abaixo são para retornar a mensagem de acordo com o erro ocorrido
+    }
   };
 
   const handleCancel = () => {
@@ -39,7 +56,7 @@ const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
             <TitleCard text="Cadastrar Categoria" />
           </div>
           <div className="p-6 space-y-3">
-            <InputForm name="nomeCategoria" type="text" placeholder="Nome da Categoria" />
+            <InputForm name="nameCategory" type="text" placeholder="Nome da Categoria" />
           </div>
           <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
             <Button variant="cancel" type="button" onClick={handleCancel}>
