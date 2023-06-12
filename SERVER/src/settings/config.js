@@ -6,7 +6,19 @@ const cookie = require('cookie-parser');
 
 const express = require('express');
 
+const cors = require('cors');
+
 const appConfig = async (server, PATH) => {
+
+  //CORS ACESSO LIBERADO
+  server.use((req, res, next) => {
+      //CORRINGA (*) PARA TODOS
+      res.header("Access-Control-Allow-Origin", "*");
+      //METODOS GET E POST LIBERADOS
+      res.header("Access-Control-Allow-Methods", 'GET,POST');
+      server.use(cors());
+      next();
+  });
 
   //PARSERS
   server.use(cookie());
