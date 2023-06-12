@@ -1,15 +1,15 @@
 import api from '../../_shared/services/api';
 import { Result } from '../../_shared/types/api.types';
-import CreateCategoryDto from '../dto/CreateCategoryDto';
-import ResultCategoryDto from '../dto/ResultCategoryDto';
+import CreateProductDto from '../dto/CreateProductDto';
+import ResultProductDto from '../dto/ResultProductDto';
 
 class ProductService {
-  public async createCategory(
+  public async createProduct(
     // função para chamar a rota no backend
-    createCategoryDto: CreateCategoryDto
-  ): Promise<Result<ResultCategoryDto>> {
-    console.log(createCategoryDto);
-    const response = await api.post(`/api/admin/categorias/create`, createCategoryDto);
+    createProductDto: CreateProductDto
+  ): Promise<Result<ResultProductDto>> {
+    console.log(createProductDto);
+    const response = await api.post(`/api/admin/categorias/create`, createProductDto);
     return response.data;
   }
 }
