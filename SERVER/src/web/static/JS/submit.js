@@ -10,7 +10,7 @@ async function submit(params, Method, url = "/") {
   }
   const request = {
     method: Method,
-    mode: "same-origin",
+    mode: "cors",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
   };
   if (body) request["body"] = new URLSearchParams(body);
