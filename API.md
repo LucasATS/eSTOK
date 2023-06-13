@@ -18,7 +18,7 @@
 > - method => "GET"
 
 ### Retorno quando não Autenticado (LOGADO)
-		
+
 > - response => {data : 'Não Autenticado'}
 
     obs: Essa response será o retorno de qualquer tentativa de requisição no admin, quando usuario não estiver logado.
@@ -82,7 +82,6 @@
 > - route => "/api/admin/produtos"
 > - method => "GET"
 > - response => {data: [{ID, Produto, Categoria, Tipo do Produto, Unidade, Status},{ID, Produto, Categoria, Tipo do Produto, Unidade, Status},{ID, Produto, Categoria, Tipo do Produto, Unidade, Status}...]}
-
 
 ### ATIVAR/INATIVAR STATUS
 

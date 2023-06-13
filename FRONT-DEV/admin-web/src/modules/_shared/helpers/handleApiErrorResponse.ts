@@ -2,14 +2,14 @@ import { Report, Result } from '../types/api.types';
 
 export function manageApiErrorResponse(errorResponse: any): Result<any> {
   if (errorResponse.response) {
-    const { data: dataResponse, status } = errorResponse.response;
-    const { data, errors, success, message } = dataResponse as Result<any>;
+    const { data: dataResponse, statusCode } = errorResponse.response;
+    const { status, errors, success, message } = dataResponse as Result<any>;
     const responseError = {
-      data,
+      status,
       message,
       success,
       errors,
-      statusCode: status
+      statusCode: statusCode
     } as Result<any>;
 
     return responseError;
@@ -31,16 +31,21 @@ export function manageApiErrorMessages(
 ): string[] {
   const errorMessages: string[] = [];
   const errors = errorResponse.errors;
-  for (const error of errors) {
-    if (namesToIgnore.includes(error.name)) continue;
-    errorMessages.push(error.message);
+
+  if (errors && typeof errors[Symbol.iterator] === 'function') {
+    for (const error of errors) {
+      if (namesToIgnore.includes(error.name)) continue;
+      errorMessages.push(error.message);
+    }
+  } else {
+    throw new Error('Erro inesperado');
   }
 
   return errorMessages;
 }
 
 export function getErrorMessage(errorResponse: Result<any>): string {
-  const errorMessage = errorResponse.data;
+  const errorMessage = errorResponse.message;
   return errorMessage;
 }
 

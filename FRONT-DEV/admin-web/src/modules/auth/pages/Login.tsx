@@ -18,10 +18,14 @@ const Login = () => {
   const formRef = useRef<FormHandles>(null);
 
   const handleLogin = async () => {
+    console.log('antes do try');
+
     try {
       // integração com o service
+
       const singInCredentials = formRef.current?.getData() as LoginCredentials;
       await signIn(singInCredentials);
+      console.log('dentro do try');
     } catch (resultError) {
       // para caso haja erro as informações abaixo são para retornar a mensagem de acordo com o erro ocorrido
       const fieldsErrors = getFieldErrors(resultError);
@@ -48,11 +52,7 @@ const Login = () => {
             <InputForm name="email" type="text" placeholder="Digite o e-mail" />
             <InputForm name="password" type="password" placeholder="Digite a senha" />
           </div>
-          <Button
-            variant="primary"
-            buttonText="Acessar"
-            className=" flex w-full justify-center rounded-[30px]"
-          />
+          <Button variant="primary" buttonText="Acessar" className="flex w-full" />
         </Form>
       </div>
     </div>
