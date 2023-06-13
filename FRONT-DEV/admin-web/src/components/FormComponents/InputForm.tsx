@@ -47,7 +47,7 @@ const InputForm = ({
         {label}
       </label>
       <div
-        className={` rounded-[30px] ${
+        className={`flex flex-row rounded-[30px] ${
           error
             ? 'border-error focus:border-error focus:ring-error'
             : 'text-[#B0B0B1] bg-gray-100 hover:bg-gray-200'
@@ -77,12 +77,12 @@ const InputForm = ({
           (isVisible ? (
             <EyeOff
               onClick={toggleVisibility}
-              className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-[#B0B0B1] items-center cursor-pointer"
+              className="inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-[#B0B0B1] items-center cursor-pointer"
             />
           ) : (
             <Eye
               onClick={toggleVisibility}
-              className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-[#B0B0B1] items-center cursor-pointer"
+              className="inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-[#B0B0B1] items-center cursor-pointer"
             />
           ))}
       </div>
