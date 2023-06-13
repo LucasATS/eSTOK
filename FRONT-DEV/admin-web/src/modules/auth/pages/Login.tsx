@@ -2,10 +2,12 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRef } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../../assets/e-stok.png';
 import Button from '../../../components/Button';
 import InputForm from '../../../components/FormComponents/InputForm';
 import TitleCard from '../../../components/TitleCard';
+import RoutesURL from '../../_shared/constants/RoutesURL.enum';
 import {
   getFieldErrors,
   manageApiErrorMessages,
@@ -16,6 +18,7 @@ import { LoginCredentials, useAuth } from '../contexts/AuthProvider';
 const Login = () => {
   const { signIn } = useAuth();
   const formRef = useRef<FormHandles>(null);
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     console.log('antes do try');
@@ -52,7 +55,12 @@ const Login = () => {
             <InputForm name="email" type="text" placeholder="Digite o e-mail" />
             <InputForm name="password" type="password" placeholder="Digite a senha" />
           </div>
-          <Button variant="primary" buttonText="Acessar" className="flex w-full" />
+          <Button
+            variant="primary"
+            buttonText="Acessar"
+            className="flex w-full"
+            onClick={() => navigate(RoutesURL.HOME)}
+          />
         </Form>
       </div>
     </div>
