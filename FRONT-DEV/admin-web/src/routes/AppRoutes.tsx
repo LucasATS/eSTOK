@@ -19,6 +19,7 @@ const AppRoutes: React.FC = () => {
           <Route path={RoutesURL.LIST_SALE} Component={ListSale} />
           <Route path={RoutesURL.LIST_STOCK} Component={ListStock} />
           <Route path={RoutesURL.LIST_REPORT} Component={CreateReport} />
+          <Route path="*" Component={Home} />
         </Routes>
       </MainLayout>
     </HashRouter>

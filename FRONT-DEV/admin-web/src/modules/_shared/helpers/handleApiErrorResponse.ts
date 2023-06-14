@@ -25,20 +25,13 @@ export function manageApiErrorResponse(errorResponse: any): Result<any> {
   return responseError;
 }
 
-export function manageApiErrorMessages(
-  errorResponse: Result<any>,
-  ...namesToIgnore: string[]
-): string[] {
+export function manageApiErrorMessages(errorResponse: Result<any>, ...namesToIgnore: string[]) {
   const errorMessages: string[] = [];
   const errors = errorResponse.errors;
 
-  if (errors && typeof errors[Symbol.iterator] === 'function') {
-    for (const error of errors) {
-      if (namesToIgnore.includes(error.name)) continue;
-      errorMessages.push(error.message);
-    }
-  } else {
-    throw new Error('Erro inesperado');
+  for (const error of errors) {
+    if (namesToIgnore.includes(error.name)) continue;
+    errorMessages.push(error.message);
   }
 
   return errorMessages;

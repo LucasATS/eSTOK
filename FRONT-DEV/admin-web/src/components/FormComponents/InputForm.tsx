@@ -1,6 +1,6 @@
 import { useField } from '@unform/core';
 import { Eye, EyeOff } from 'heroicons-react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Props {
   type: string;
@@ -16,8 +16,8 @@ type InputProps = JSX.IntrinsicElements['input'] & Props;
 
 const InputForm = ({
   onChange,
-  name,
   type,
+  name,
   placeholder,
   label,
   labelStyle,
@@ -26,17 +26,26 @@ const InputForm = ({
   disabled,
   ...rest
 }: InputProps) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const { fieldName, defaultValue, registerField, error, clearError } = useField(name);
   const inputRef = useRef(null);
+  const { fieldName, defaultValue, registerField, error, clearError } = useField(name);
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) onChange(e);
+    clearError();
   };
 
   const toggleVisibility = () => {
     setIsVisible((visible) => !visible);
   };
+
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+      ref: inputRef.current,
+      path: 'value'
+    });
+  }, [fieldName, registerField]);
 
   return (
     <div className={`flex flex-col text-sm ${className || ''}`}>

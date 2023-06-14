@@ -1,3 +1,5 @@
+import { User } from '../../auth/contexts/AuthProvider';
+
 export interface Report {
   name: string;
   message: string;
@@ -20,6 +22,6 @@ export interface Result<T> {
 }
 
 export interface ResultLogin {
-  login: string;
-  senha: string;
+  user: User;
+  token: string;
 }
