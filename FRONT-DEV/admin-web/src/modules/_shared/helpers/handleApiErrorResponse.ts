@@ -2,14 +2,14 @@ import { Report, Result } from '../types/api.types';
 
 export function manageApiErrorResponse(errorResponse: any): Result<any> {
   if (errorResponse.response) {
-    const { data: dataResponse, statusCode } = errorResponse.response;
-    const { status, errors, success, message } = dataResponse as Result<any>;
+    const { data: dataResponse, status } = errorResponse.response;
+    const { data, errors, success, message } = dataResponse as Result<any>;
     const responseError = {
-      status,
+      data,
       message,
       success,
       errors,
-      statusCode: statusCode
+      statusCode: status
     } as Result<any>;
 
     return responseError;
@@ -25,10 +25,12 @@ export function manageApiErrorResponse(errorResponse: any): Result<any> {
   return responseError;
 }
 
-export function manageApiErrorMessages(errorResponse: Result<any>, ...namesToIgnore: string[]) {
+export function manageApiErrorMessages(
+  errorResponse: Result<any>,
+  ...namesToIgnore: string[]
+): string[] {
   const errorMessages: string[] = [];
   const errors = errorResponse.errors;
-
   for (const error of errors) {
     if (namesToIgnore.includes(error.name)) continue;
     errorMessages.push(error.message);

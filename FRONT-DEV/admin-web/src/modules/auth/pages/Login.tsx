@@ -21,7 +21,6 @@ const Login = () => {
     try {
       // integração com o service
       const singInCredentials = formRef.current?.getData() as LoginCredentials;
-      console.log('2', singInCredentials);
       await signIn(singInCredentials);
     } catch (resultError) {
       // para caso haja erro as informações abaixo são para retornar a mensagem de acordo com o erro ocorrido

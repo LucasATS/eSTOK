@@ -8,6 +8,7 @@ class AuthService {
     const response = await api.post('/api/admin/auth/login', login);
     return response.data;
   };
+
   public signOut = async () => {
     const response = await api.get('/api/admin/auth/logout');
     console.log('signOut service');
