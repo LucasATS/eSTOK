@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { LOCAL_KEY_USER } from '../../_shared/constants/LocalStorage.constants';
+import { LOCAL_KEY_TOKEN, LOCAL_KEY_USER } from '../../_shared/constants/LocalStorage.constants';
 import authService from '../services/auth.service';
 
 export interface User {
@@ -51,10 +51,10 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   const signIn = async (login: LoginCredentials) => {
     const response = await authService.signIn(login);
     const { data } = response;
-    // const { token } = data;
+    const { token } = data;
 
     setUser(login);
-    // saveTokenInLocalStorage(token);
+    saveTokenInLocalStorage(token);
     // setDefaultHeaderToken(token);
   };
 
@@ -88,9 +88,9 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   //   );
   // };
 
-  // const saveTokenInLocalStorage = (token: string) => {
-  //   localStorage.setItem(LOCAL_KEY_TOKEN, JSON.stringify(token));
-  // };
+  const saveTokenInLocalStorage = (token: string) => {
+    localStorage.setItem(LOCAL_KEY_TOKEN, JSON.stringify(token));
+  };
 
   const getAuthItemsFromLocalStorage = () => {
     const storedUser = localStorage.getItem(LOCAL_KEY_USER);
