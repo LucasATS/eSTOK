@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/Button';
 import Dropdown from '../../../components/Dropdown';
 import Header from '../../../components/MainLayout/components/Header';
@@ -8,17 +7,14 @@ import { Action } from '../../../components/Table';
 import { Paginate } from '../../_shared/types/api.types';
 import PaginateProductDto from '../dto/PaginateProductDto';
 import Product from '../models/Product';
-import ProductService from '../service/ProductService';
 import NewCategoryModal from './components/NewCategoryModal';
 import { NewProductModal } from './components/NewProductModal';
 import ProductTable from './components/ProductTable';
 
 const ListProduct = () => {
-  const [productIdActive, setProductIdActive] = useState<number>();
   const [paginationActive, setPaginationActive] = useState<PaginateProductDto>({});
   const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>();
   const [openNewProductModal, setOpenNewProductModal] = useState(false);
-  const navigate = useNavigate();
   const [openNewCategoryModal, setOpenNewCategoryModal] = useState(false);
 
   const menuItens: Action[] = [
@@ -29,11 +25,12 @@ const ListProduct = () => {
   ];
 
   const loadProduct = async () => {
-    const result = await ProductService.paginateProduct({
-      ...paginationActive,
-      limit: 10
-    });
-    setProductsPaginate(result);
+    // const result = await ProductService.paginateProduct({
+    //   ...paginationActive,
+    //   limit: 10
+    // });
+    // console.log('RESULT', result);
+    // setProductsPaginate(result);
   };
 
   const handleNewProduct = () => {
@@ -81,7 +78,7 @@ const ListProduct = () => {
           />
         </div>
         <div className="flex flex-col gap-2 mt-5">
-          <ProductTable />
+          <ProductTable product={productsPaginate?.results} />
           <Pagination
             currentPage={productsPaginate?.results.length}
             page={productsPaginate?.currentPage}

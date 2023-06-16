@@ -1,6 +1,6 @@
 interface ResultCategoryDto {
   id: number;
-  nameCategory: string;
+  descricao: string;
 }
 
 export default ResultCategoryDto;

@@ -20,16 +20,15 @@ const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
 
   const handleAddNewCategoria = async () => {
     try {
-      // integração com o service
       const mainFormData = formRef?.current?.getData();
       const newCategoryToCreate = {
         ...mainFormData
       } as CreateCategoryDto;
 
       const result = await ProductService.createCategory(newCategoryToCreate);
+      // console.log('result', result);
 
       toast.success(result.message);
-      console.log(result.message);
 
       onConfirm();
       onClose();
@@ -56,7 +55,7 @@ const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
             <TitleCard text="Cadastrar Categoria" />
           </div>
           <div className="p-6 space-y-3">
-            <InputForm name="nameCategory" type="text" placeholder="Nome da Categoria" />
+            <InputForm name="descricao" type="text" placeholder="Nome da Categoria" />
           </div>
           <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
             <Button variant="cancel" type="button" onClick={handleCancel}>

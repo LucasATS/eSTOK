@@ -1,16 +1,26 @@
+import queryString from 'query-string';
 import api from '../../_shared/services/api';
-import { Result } from '../../_shared/types/api.types';
+import { Paginate, Result } from '../../_shared/types/api.types';
 import CreateCategoryDto from '../dto/CreateCategoryDto';
+import PaginateCategoryDto from '../dto/PaginateCategoryDto';
 import ResultCategoryDto from '../dto/ResultCategoryDto';
+import Category from '../models/Category';
 
 class CategoryService {
   public async createCategory(
-    // função para chamar a rota no backend
     createCategoryDto: CreateCategoryDto
   ): Promise<Result<ResultCategoryDto>> {
-    console.log(createCategoryDto);
     const response = await api.post(`/api/admin/categorias/create`, createCategoryDto);
+    console.log('response', response.statusText);
     return response.data;
+  }
+
+  public async paginateCategory({
+    ...paginateCategory
+  }: PaginateCategoryDto): Promise<Paginate<Category>> {
+    const queryParams = queryString.stringify(paginateCategory);
+    const response = await api.get(`/api/admin/categorias?${queryParams}`);
+    return response.data.data;
   }
 }
 

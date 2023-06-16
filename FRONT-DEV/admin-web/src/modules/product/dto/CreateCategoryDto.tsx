@@ -1,5 +1,5 @@
 interface CreateCategoryDto {
-  nameCategory: string;
+  descricao: string;
 }
 
 export default CreateCategoryDto;
