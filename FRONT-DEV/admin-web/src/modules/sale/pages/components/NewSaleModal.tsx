@@ -7,6 +7,10 @@ import SelectForm from '../../../../components/FormComponents/SelectForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
 import { selectOptionsProduct, selectOptionsStates } from '../../../_shared/constants/SelectOption';
+import CreateSaleDto from '../../dto/CreateSaleDto';
+
+import SaleService from '../../service/SaleService';
+import toast from 'react-hot-toast';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -18,10 +22,24 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
   const formRef = useRef<FormHandles>(null);
 
   const handleAddSale = async () => {
-    console.log('criado ou atualizado');
-    onConfirm();
-    onClose();
-    clearForm();
+    try {
+      // integração com o service
+      const mainFormData = formRef?.current?.getData();
+      const newSaleToCreate = {
+        ...mainFormData
+      } as CreateSaleDto;
+
+      const result = await SaleService.createSale(newSaleToCreate);
+
+      toast.success(result.message);
+      console.log(result.message);
+
+      onConfirm();
+      onClose();
+      clearForm();
+    } catch (error) {
+      // para caso haja erro as informações abaixo são para retornar a mensagem de acordo com o erro ocorrido
+    }
   };
 
   const handleCancel = () => {
