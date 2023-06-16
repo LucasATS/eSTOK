@@ -71,11 +71,11 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
               acceptFiles={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
             />
             <InputForm name="productName" type="text" placeholder="Nome do produto" />
-            <div className="flex md:flex-row flex-col gap-3">
+            <div className="flex w-full md:flex-row flex-col gap-3">
               <SelectForm name="category" placeholder="Categoria" options={selectOptionsCategory} />
               <SelectForm name="unit" placeholder="Unidade de medida" options={selectOptionsUnit} />
-            </div>
-            <div className="flex md:flex-row flex-col gap-3">
+              {/* </div>
+            <div className="flex md:flex-row flex-col gap-3"> */}
               <SelectForm
                 name="productType"
                 placeholder="Tipo de produto"

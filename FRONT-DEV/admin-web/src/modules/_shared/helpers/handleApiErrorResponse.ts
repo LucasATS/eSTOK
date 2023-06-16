@@ -40,7 +40,7 @@ export function manageApiErrorMessages(
 }
 
 export function getErrorMessage(errorResponse: Result<any>): string {
-  const errorMessage = errorResponse.data;
+  const errorMessage = errorResponse.message;
   return errorMessage;
 }
 

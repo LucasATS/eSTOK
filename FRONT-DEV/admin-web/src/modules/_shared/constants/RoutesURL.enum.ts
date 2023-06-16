@@ -1,5 +1,5 @@
 enum RoutesURL {
-  HOME = '/home',
+  HOME = '/',
   LOGIN = '/login',
   LIST_PRODUCT = '/list-product',
   LIST_SALE = '/list-sale',

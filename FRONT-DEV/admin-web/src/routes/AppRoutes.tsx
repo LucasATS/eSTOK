@@ -9,19 +9,33 @@ import { CreateReport } from '../modules/report/pages';
 import ListSale from '../modules/sale/pages';
 import { ListStock } from '../modules/stock/pages';
 
+interface Props {
+  children: React.ReactNode;
+}
+
+const BaseRoute: React.FC<Props> = ({ children }) => (
+  <HashRouter>
+    <MainLayout>
+      <Routes>{children}</Routes>
+    </MainLayout>
+  </HashRouter>
+);
+
 const AppRoutes: React.FC = () => {
+  // const { user } = useAuth();
+
   return (
-    <HashRouter>
-      <MainLayout>
-        <Routes>
-          <Route index path={RoutesURL.HOME} Component={Home} />
-          <Route path={RoutesURL.LIST_PRODUCT} Component={ListProduct} />
-          <Route path={RoutesURL.LIST_SALE} Component={ListSale} />
-          <Route path={RoutesURL.LIST_STOCK} Component={ListStock} />
-          <Route path={RoutesURL.LIST_REPORT} Component={CreateReport} />
-        </Routes>
-      </MainLayout>
-    </HashRouter>
+    <BaseRoute>
+      {/* {user ? ( */}
+
+      <Route index path={RoutesURL.HOME} Component={Home} />
+      <Route path={RoutesURL.LIST_PRODUCT} Component={ListProduct} />
+      <Route path={RoutesURL.LIST_SALE} Component={ListSale} />
+      <Route path={RoutesURL.LIST_STOCK} Component={ListStock} />
+      <Route path={RoutesURL.LIST_REPORT} Component={CreateReport} />
+      <Route path="*" Component={Home} />
+      {/* ) : ()} */}
+    </BaseRoute>
   );
 };
 

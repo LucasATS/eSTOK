@@ -7,7 +7,7 @@ import InputForm from '../../../../components/FormComponents/InputForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
 import CreateCategoryDto from '../../dto/CreateCategoryDto';
-import ProductService from '../../service/ProductService';
+import ProductService from '../../service/CategoryService';
 
 interface ConfigModalProps {
   isOpen: boolean;

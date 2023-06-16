@@ -15,9 +15,9 @@ const form = async (body) => {
         .then(() => {
             return { is_valid: true, message: "Produto " + strs[(eval(ativar)? 1 : 0)] + " com sucesso!"}
         })
-        //.catch(() => {
-        //    return { is_valid: false, message:"Ocorreu um erro inesperado!"}
-        //});
+        .catch(() => {
+            return { is_valid: false, message:"Ocorreu um erro inesperado!"}
+        });
 
 }
 
