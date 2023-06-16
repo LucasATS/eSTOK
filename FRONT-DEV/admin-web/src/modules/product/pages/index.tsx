@@ -5,16 +5,17 @@ import Dropdown from '../../../components/Dropdown';
 import Header from '../../../components/MainLayout/components/Header';
 import Pagination from '../../../components/Paginate';
 import { Action } from '../../../components/Table';
-import { PaginateDto } from '../../_shared/dto/PaginateDto';
 import { Paginate } from '../../_shared/types/api.types';
+import PaginateProductDto from '../dto/PaginateProductDto';
 import Product from '../models/Product';
+import ProductService from '../service/ProductService';
 import NewCategoryModal from './components/NewCategoryModal';
 import { NewProductModal } from './components/NewProductModal';
 import ProductTable from './components/ProductTable';
 
 const ListProduct = () => {
   const [productIdActive, setProductIdActive] = useState<number>();
-  const [paginationActive, setPaginationActive] = useState<PaginateDto>({});
+  const [paginationActive, setPaginationActive] = useState<PaginateProductDto>({});
   const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>();
   const [openNewProductModal, setOpenNewProductModal] = useState(false);
   const navigate = useNavigate();
@@ -28,7 +29,11 @@ const ListProduct = () => {
   ];
 
   const loadProduct = async () => {
-    // setProductsPaginate();
+    const result = await ProductService.paginateProduct({
+      ...paginationActive,
+      limit: 10
+    });
+    setProductsPaginate(result);
   };
 
   const handleNewProduct = () => {
