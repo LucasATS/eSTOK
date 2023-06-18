@@ -6,7 +6,7 @@ import Button from '../../../../components/Button';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
-import CreateCategoryDto from '../../dto/CreateCategoryDto';
+import CreateCategoryDto from '../../dto/category/CreateCategoryDto';
 import ProductService from '../../service/CategoryService';
 
 interface ConfigModalProps {
