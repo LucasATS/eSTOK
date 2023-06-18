@@ -6,8 +6,13 @@ import Button from '../../../../components/Button';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
+import {
+  getErrorMessage,
+  getFieldErrors,
+  manageApiErrorResponse
+} from '../../../_shared/helpers/handleApiErrorResponse';
 import CreateCategoryDto from '../../dto/category/CreateCategoryDto';
-import ProductService from '../../service/CategoryService';
+import CategoryService from '../../service/CategoryService';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -25,7 +30,7 @@ const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
         ...mainFormData
       } as CreateCategoryDto;
 
-      const result = await ProductService.createCategory(newCategoryToCreate);
+      const result = await CategoryService.createCategory(newCategoryToCreate);
       // console.log('result', result);
 
       toast.success(result.message);
@@ -34,7 +39,7 @@ const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
       onClose();
       clearForm();
     } catch (error) {
-      // para caso haja erro as informações abaixo são para retornar a mensagem de acordo com o erro ocorrido
+      handleErrors(error);
     }
   };
 
@@ -45,6 +50,14 @@ const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
 
   const clearForm = () => {
     formRef.current?.reset();
+  };
+
+  const handleErrors = (resultError: unknown) => {
+    const fieldsErrors = getFieldErrors(resultError);
+    formRef.current?.setErrors(fieldsErrors);
+    const resultErrorReponse = manageApiErrorResponse(resultError);
+    const error = getErrorMessage(resultErrorReponse);
+    toast.error(error);
   };
 
   return (
