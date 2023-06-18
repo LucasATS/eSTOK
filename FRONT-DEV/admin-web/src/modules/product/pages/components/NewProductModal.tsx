@@ -10,6 +10,8 @@ import TextAreaForm from '../../../../components/FormComponents/TextAreaForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
 import CategoryService from '../../service/CategoryService';
+import ProductTypeService from '../../service/ProductTypeService';
+import UnitMeasureService from '../../service/UnitMeasureService';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -40,28 +42,28 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
   };
 
   const getOptionsUnitMeasure = async () => {
-    const { results: unitsMeasure } = await CategoryService.paginateCategory({
+    const { results: unitsMeasure } = await UnitMeasureService.paginateUnitMeasure({
       limit: 200,
       isActive: true
     });
     if (unitsMeasure.length > 0) {
       const optionsUnitsMeasure = unitsMeasure.map((unitMeasure) => ({
         value: unitMeasure.id,
-        label: unitMeasure.descrição
+        label: unitMeasure.name
       }));
       setOptionsUnitMeasure(optionsUnitsMeasure);
     }
   };
 
   const getOptionsProductType = async () => {
-    const { results: productsType } = await CategoryService.paginateCategory({
+    const { results: productsType } = await ProductTypeService.paginateProductType({
       limit: 200,
       isActive: true
     });
     if (productsType.length > 0) {
       const optionsProductsType = productsType.map((productType) => ({
         value: productType.id,
-        label: productType.descrição
+        label: productType.descricao
       }));
       setOptionsProductType(optionsProductsType);
     }
