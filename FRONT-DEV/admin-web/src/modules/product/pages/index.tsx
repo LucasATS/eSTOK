@@ -5,8 +5,11 @@ import Header from '../../../components/MainLayout/components/Header';
 import Pagination from '../../../components/Paginate';
 import { Action } from '../../../components/Table';
 import { Paginate } from '../../_shared/types/api.types';
-import PaginateProductDto from '../dto/PaginateProductDto';
+import PaginateProductDto from '../dto/product/PaginateProductDto';
+import Category from '../models/Category';
 import Product from '../models/Product';
+import CategoryService from '../service/CategoryService';
+import ProductService from '../service/ProductService';
 import NewCategoryModal from './components/NewCategoryModal';
 import { NewProductModal } from './components/NewProductModal';
 import ProductTable from './components/ProductTable';
@@ -16,6 +19,7 @@ const ListProduct = () => {
   const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>();
   const [openNewProductModal, setOpenNewProductModal] = useState(false);
   const [openNewCategoryModal, setOpenNewCategoryModal] = useState(false);
+  const [categoryPaginate, setCategoryPaginate] = useState<Paginate<Category>>();
 
   const menuItens: Action[] = [
     {
@@ -25,20 +29,29 @@ const ListProduct = () => {
   ];
 
   const loadProduct = async () => {
-    // const result = await ProductService.paginateProduct({
-    //   ...paginationActive,
-    //   limit: 10
-    // });
-    // console.log('RESULT', result);
-    // setProductsPaginate(result);
+    const result = await ProductService.paginateProduct({
+      ...paginationActive,
+      limit: 10
+    });
+    console.log('RESULT', result);
+    setProductsPaginate(result);
   };
 
   const handleNewProduct = () => {
     loadProduct();
   };
 
+  const loadCategory = async () => {
+    const result = await CategoryService.paginateCategory({
+      ...paginationActive,
+      limit: 10
+    });
+    console.log('RESULT', result);
+    setCategoryPaginate(result);
+  };
+
   const handleNewCategory = () => {
-    console.log('categoria cadastrada');
+    loadCategory();
   };
 
   const handleClickNewProduct = () => {
@@ -60,6 +73,7 @@ const ListProduct = () => {
 
   useEffect(() => {
     loadProduct();
+    loadCategory();
   }, [paginationActive]);
 
   return (
