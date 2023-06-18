@@ -1,11 +1,11 @@
 interface ResultSaleDto {
-  id: string;
-  client: string;
-  category: string;
-  products: string;
-  quantity: number;
-  price: number;
-  datePurchase: Date;
+  id_produto: string;
+  quantidade: number;
+  unitario: number;
+  total: string;
+  validade: Date;
+  lote: string;
+  data_compra: Date;
 }
 
 export default ResultSaleDto;
