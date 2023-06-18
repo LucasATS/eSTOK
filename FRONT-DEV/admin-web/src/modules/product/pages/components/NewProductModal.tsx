@@ -1,6 +1,7 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import Button from '../../../../components/Button';
 import { DropzoneForm } from '../../../../components/FormComponents/DropzoneForm';
 import { ImageForm } from '../../../../components/FormComponents/ImageForm';
@@ -9,7 +10,16 @@ import SelectForm, { OptionSelect } from '../../../../components/FormComponents/
 import TextAreaForm from '../../../../components/FormComponents/TextAreaForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
+import {
+  getErrorMessage,
+  getFieldErrors,
+  manageApiErrorResponse
+} from '../../../_shared/helpers/handleApiErrorResponse';
+import CreateProductDto from '../../dto/product/CreateProductDto';
 import CategoryService from '../../service/CategoryService';
+import ProductService from '../../service/ProductService';
+import ProductTypeService from '../../service/ProductTypeService';
+import UnitMeasureService from '../../service/UnitMeasureService';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -40,28 +50,28 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
   };
 
   const getOptionsUnitMeasure = async () => {
-    const { results: unitsMeasure } = await CategoryService.paginateCategory({
+    const { results: unitsMeasure } = await UnitMeasureService.paginateUnitMeasure({
       limit: 200,
       isActive: true
     });
     if (unitsMeasure.length > 0) {
       const optionsUnitsMeasure = unitsMeasure.map((unitMeasure) => ({
         value: unitMeasure.id,
-        label: unitMeasure.descrição
+        label: unitMeasure.name
       }));
       setOptionsUnitMeasure(optionsUnitsMeasure);
     }
   };
 
   const getOptionsProductType = async () => {
-    const { results: productsType } = await CategoryService.paginateCategory({
+    const { results: productsType } = await ProductTypeService.paginateProductType({
       limit: 200,
       isActive: true
     });
     if (productsType.length > 0) {
       const optionsProductsType = productsType.map((productType) => ({
         value: productType.id,
-        label: productType.descrição
+        label: productType.descricao
       }));
       setOptionsProductType(optionsProductsType);
     }
@@ -81,11 +91,22 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
     }
   };
 
-  const handleAddProduct = async () => {
-    console.log('criado ou atualizado');
-    onConfirm();
-    onClose();
-    clearForm();
+  const handleAddNewProduct = async () => {
+    try {
+      const mainFormData = formRef?.current?.getData();
+      const newProductToCreate = {
+        ...mainFormData
+      } as CreateProductDto;
+
+      const result = await ProductService.createProduct(newProductToCreate);
+      toast.success(result.message);
+      onConfirm();
+      onClose();
+      console.log('criado ou atualizado');
+      clearForm();
+    } catch (error) {
+      handleErrors(error);
+    }
   };
 
   const handleCancel = () => {
@@ -95,6 +116,14 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
 
   const clearForm = () => {
     formRef.current?.reset();
+  };
+
+  const handleErrors = (resultError: unknown) => {
+    const fieldsErrors = getFieldErrors(resultError);
+    formRef.current?.setErrors(fieldsErrors);
+    const resultErrorReponse = manageApiErrorResponse(resultError);
+    const error = getErrorMessage(resultErrorReponse);
+    toast.error(error);
   };
 
   const handleProductImage = (file: File) => {
@@ -115,7 +144,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
 
   return (
     <ModalComponent isOpen={isOpen} onClose={onClose}>
-      <Form ref={formRef} onSubmit={handleAddProduct} className="flex justify-center">
+      <Form ref={formRef} onSubmit={handleAddNewProduct} className="flex justify-center">
         <div className="relative bg-white rounded-lg shadow w-full">
           <div className="flex items-start py-1 px-4 rounded-t border-b">
             <TitleCard text="Cadastrar Produto" />
@@ -170,7 +199,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
             <Button
               variant="primary"
               type="button"
-              onClick={handleAddProduct}
+              onClick={handleAddNewProduct}
               buttonText="Cadastrar"
             />
           </div>

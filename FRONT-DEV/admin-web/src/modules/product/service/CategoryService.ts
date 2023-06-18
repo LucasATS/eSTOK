@@ -1,9 +1,9 @@
 import queryString from 'query-string';
 import api from '../../_shared/services/api';
 import { Paginate, Result } from '../../_shared/types/api.types';
-import CreateCategoryDto from '../dto/CreateCategoryDto';
-import PaginateCategoryDto from '../dto/PaginateCategoryDto';
-import ResultCategoryDto from '../dto/ResultCategoryDto';
+import CreateCategoryDto from '../dto/category/CreateCategoryDto';
+import PaginateCategoryDto from '../dto/category/PaginateCategoryDto';
+import ResultCategoryDto from '../dto/category/ResultCategoryDto';
 import Category from '../models/Category';
 
 class CategoryService {

@@ -1,9 +1,9 @@
 import queryString from 'query-string';
 import api from '../../_shared/services/api';
 import { Paginate, Result } from '../../_shared/types/api.types';
-import CreateProductTypeDto from '../dto/CreateProductTypeDto';
-import PaginateProductTypeDto from '../dto/PaginateProductTypeDto';
-import ResultProductTypeDto from '../dto/ResultProductTypeDto';
+import CreateProductTypeDto from '../dto/productType/CreateProductTypeDto';
+import PaginateProductTypeDto from '../dto/productType/PaginateProductTypeDto';
+import ResultProductTypeDto from '../dto/productType/ResultProductTypeDto';
 import ProductType from '../models/ProductType';
 
 class ProductTypeService {
@@ -15,7 +15,7 @@ class ProductTypeService {
     return response.data;
   }
 
-  public async paginateProduct({
+  public async paginateProductType({
     ...paginateProductType
   }: PaginateProductTypeDto): Promise<Paginate<ProductType>> {
     const queryParams = queryString.stringify(paginateProductType);
