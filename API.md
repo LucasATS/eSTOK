@@ -73,6 +73,8 @@
 > - param => {descricao: String}
 > - response => { data: { status: 'ok', message: "Tipo de Produto cadastrado com sucesso!" / "Tipo de Produto ja existe na base de dados!" } }
 
+    Instrução Completa: submit({'descricao': 'Teste 1'},'POST', '/api/admin/tipos-de-produto/create').then(data => data.json()).then(resp => console.log(resp))
+
 ### LISTA
 
 > - route => "/api/admin/tipos-de-produto"
@@ -118,3 +120,5 @@
 > - route => "/api/admin/estoque"
 > - method => "GET"
 > - response => {data: [{ID, Produto, Categoria, Quantidade, Preço, Data Compra, Vencimento, Lotes},{ID, Produto, Categoria, Quantidade, Preço, Data Compra, Vencimento, Lotes},{ID, Produto, Categoria, Quantidade, Preço, Data Compra, Vencimento, Lotes}...]}
+
+    Instrução Completa: submit({}, "GET", "/api/admin/estoque").then(data => data.json()).then(resp => console.log(resp))

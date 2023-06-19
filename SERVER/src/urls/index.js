@@ -50,7 +50,7 @@ class urls {
 
         this.server.post("/api/admin/tipos-de-medidas/create", UserIsAuthentic, require('../views-admin/viewCreateUnidades.js').default);
 
-        this.server.get("/api/admin/tipos-de-produto/create", UserIsAuthentic, require('../views-admin/viewCreateTiposProduto.js').default);
+        this.server.post("/api/admin/tipos-de-produto/create", UserIsAuthentic, require('../views-admin/viewCreateTiposProduto.js').default);
 
         this.server.post("/api/admin/estoque/movimentacao-entrada", UserIsAuthentic, require('../views-admin/viewMovimentacaoEntrada.js').default);
         this.server.post("/api/admin/estoque/movimentacao-saida", UserIsAuthentic, require('../views-admin/viewMovimentacaoSaida.js').default);
