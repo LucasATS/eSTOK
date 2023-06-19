@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Jun-2023 às 15:41
+-- Tempo de geração: 19-Jun-2023 às 18:43
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -203,6 +203,40 @@ END IF;
 
 END$$
 
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `baixa_estoques`
+--
+
+DROP TABLE IF EXISTS `baixa_estoques`;
+CREATE TABLE `baixa_estoques` (
+  `id` int(11) NOT NULL,
+  `id_produto` int(11) NOT NULL,
+  `lote` varchar(10) NOT NULL,
+  `validade` date NOT NULL,
+  `quantidade` int(11) NOT NULL,
+  `unitario` decimal(15,4) NOT NULL,
+  `total` decimal(15,4) NOT NULL,
+  `motivo` varchar(255) NOT NULL,
+  `observacao` varchar(255) DEFAULT NULL,
+  `kar_tipo` int(11) NOT NULL,
+  `createAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updateAt` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Acionadores `baixa_estoques`
+--
+DROP TRIGGER IF EXISTS `trg_baixa_estoque_AI`;
+DELIMITER $$
+CREATE TRIGGER `trg_baixa_estoque_AI` AFTER INSERT ON `baixa_estoques` FOR EACH ROW BEGIN
+      CALL sp_atualiza_estoque (new.id_produto, new.quantidade * -1, new.lote, new.unitario, CURRENT_TIMESTAMP);
+      CALL sp_lotes (new.id_produto, new.lote, new.quantidade * -1, new.validade, 1, new.kar_tipo );
+END
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -570,6 +604,24 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Estrutura stand-in para vista `vw_baixa_estoques`
+-- (Veja abaixo para a view atual)
+--
+DROP VIEW IF EXISTS `vw_baixa_estoques`;
+CREATE TABLE `vw_baixa_estoques` (
+`ID` varchar(12)
+,`Nome` varchar(50)
+,`Lotes` varchar(10)
+,`Validade` date
+,`Quantidade` int(11)
+,`Unitário` decimal(15,4)
+,`Total` decimal(15,4)
+,`Motivo` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura stand-in para vista `vw_categorias`
 -- (Veja abaixo para a view atual)
 --
@@ -609,6 +661,22 @@ CREATE TABLE `vw_entradas_cadastro` (
 ,`Data Compra` date
 ,`Vencimento` date
 ,`Lotes` varchar(10)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para vista `vw_estoque_lote_preco`
+-- (Veja abaixo para a view atual)
+--
+DROP VIEW IF EXISTS `vw_estoque_lote_preco`;
+CREATE TABLE `vw_estoque_lote_preco` (
+`id` int(11)
+,`nome` varchar(50)
+,`preco` decimal(15,4)
+,`lote` varchar(10)
+,`qtd` int(11)
+,`validade` datetime
 );
 
 -- --------------------------------------------------------
@@ -708,6 +776,16 @@ CREATE TABLE `vw_unidades` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para vista `vw_baixa_estoques`
+--
+DROP TABLE IF EXISTS `vw_baixa_estoques`;
+
+DROP VIEW IF EXISTS `vw_baixa_estoques`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_baixa_estoques`  AS SELECT concat('#',`b`.`id_produto`) AS `ID`, `p`.`nome` AS `Nome`, `b`.`lote` AS `Lotes`, `b`.`validade` AS `Validade`, `b`.`quantidade` AS `Quantidade`, `b`.`unitario` AS `Unitário`, `b`.`total` AS `Total`, `b`.`motivo` AS `Motivo` FROM (`baixa_estoques` `b` join `produtos` `p` on(`p`.`id` = `b`.`id_produto`)) ;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para vista `vw_categorias`
 --
 DROP TABLE IF EXISTS `vw_categorias`;
@@ -734,6 +812,16 @@ DROP TABLE IF EXISTS `vw_entradas_cadastro`;
 
 DROP VIEW IF EXISTS `vw_entradas_cadastro`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_entradas_cadastro`  AS SELECT concat('#',`e`.`id_produto`) AS `ID`, concat(`p`.`nome`,' ',`p`.`descricao`) AS `Porduto`, `c`.`descricao` AS `Categoria`, sum(`e`.`quantidade`) AS `Quantidade`, `e`.`unitario` AS `Preço`, `e`.`data_compra` AS `Data Compra`, `e`.`validade` AS `Vencimento`, `e`.`lote` AS `Lotes` FROM ((`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) WHERE `p`.`id_status` = 1 GROUP BY `e`.`lote` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para vista `vw_estoque_lote_preco`
+--
+DROP TABLE IF EXISTS `vw_estoque_lote_preco`;
+
+DROP VIEW IF EXISTS `vw_estoque_lote_preco`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_estoque_lote_preco`  AS SELECT `l`.`id_produto` AS `id`, `pro`.`nome` AS `nome`, `pre`.`preco` AS `preco`, `l`.`lote` AS `lote`, `l`.`qtde_lote` AS `qtd`, `l`.`validade` AS `validade` FROM ((`lotes` `l` join `produtos` `pro` on(`l`.`id_produto` = `pro`.`id`)) join `produtos_precos` `pre` on(`l`.`id_produto` = `pre`.`id_produto`)) WHERE `l`.`qtde_lote` >= 1 AND `l`.`id_status` = 1 ;
 
 -- --------------------------------------------------------
 
@@ -808,6 +896,14 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices para tabela `baixa_estoques`
+--
+ALTER TABLE `baixa_estoques`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_produto_baixa_estoque` (`id_produto`),
+  ADD KEY `fk_kar_tipo_baixa_estoque` (`kar_tipo`);
 
 --
 -- Índices para tabela `categorias`
@@ -923,6 +1019,12 @@ ALTER TABLE `vendas_itens`
 --
 
 --
+-- AUTO_INCREMENT de tabela `baixa_estoques`
+--
+ALTER TABLE `baixa_estoques`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `categorias`
 --
 ALTER TABLE `categorias`
@@ -997,6 +1099,13 @@ ALTER TABLE `vendas_itens`
 --
 -- Restrições para despejos de tabelas
 --
+
+--
+-- Limitadores para a tabela `baixa_estoques`
+--
+ALTER TABLE `baixa_estoques`
+  ADD CONSTRAINT `fk_id_produto_baixa_estoque` FOREIGN KEY (`id_produto`) REFERENCES `produtos` (`id`),
+  ADD CONSTRAINT `fk_kar_tipo_baixa_estoque` FOREIGN KEY (`kar_tipo`) REFERENCES `kardex_tipos` (`id`);
 
 --
 -- Limitadores para a tabela `categorias`
