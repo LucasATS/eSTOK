@@ -32,6 +32,7 @@ class urls {
         this.server.get("/api/admin/tipos-de-produto", UserIsAuthentic, require('../views-admin/viewTiposProduto.js').default);
 
         this.server.get("/api/admin/estoque", UserIsAuthentic, require('../views-admin/viewEstoque.js').default);
+        this.server.get("/api/admin/baixaestoques",UserIsAuthentic, require('../views-admin/viewBaixa_Estoques.js').default);
 
         this.server.get("/api/admin/relatorios/vendas-administrador", UserIsAuthentic, require('../views-admin/viewVendasAdministrador.js').default);
         this.server.get("/api/admin/relatorios/vendas-site", UserIsAuthentic, require('../views-admin/viewVendasSite.js').default);
