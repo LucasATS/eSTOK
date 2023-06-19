@@ -130,7 +130,7 @@ class DAO {
                         break;
                     } else if (Number(lote.qtd) >= qtd_requisitada){
                         lotes.push([lote.lote, qtd_requisitada]);
-                        qtd_requisitada -= Number(lote.qtd);
+                        qtd_requisitada = 0;
                         break;
                     } else {
                         lotes.push([lote.lote, Number(lote.qtd)]);
