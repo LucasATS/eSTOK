@@ -45,8 +45,6 @@ const FormularioVenda = async (body, is_user) => {
     } else {
         return { is_valid: false, message: resp.Msg}
     }
-    
-    
 
 }
 
