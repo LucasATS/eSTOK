@@ -122,7 +122,6 @@ class DAO {
                 let qtd_requisitada = Number(prod.quantidade);
                 console.log(`requisitou ${qtd_requisitada}`);
                 for ( const lote of data ){
-                    console.log(lote)
                     if ( Number(prod.preco) != Number(lote.preco) ){
                         return {is_valid: false, Msg: `Tentativa de venda do produto ${lote.nome} com preço incorreto!`}
                     }
