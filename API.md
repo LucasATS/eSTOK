@@ -128,3 +128,71 @@
 > - response => {data: [{ID, Produto, Categoria, Quantidade, Preço, Data Compra, Vencimento, Lotes},{ID, Produto, Categoria, Quantidade, Preço, Data Compra, Vencimento, Lotes},{ID, Produto, Categoria, Quantidade, Preço, Data Compra, Vencimento, Lotes}...]}
 
     Instrução Completa: submit({}, "GET", "/api/admin/estoque").then(data => data.json()).then(resp => console.log(resp))
+
+## **Venda**
+
+### Venda por Administrador
+
+> - route => "/api/admin/venda"
+> - method => "POST"
+> - param => {
+        produtos: [
+            {id: INT, quantidade: INT, preco: Double, total: Double},
+            {id: INT, quantidade: INT, preco: Double, total: Double},
+            ...
+        ], 
+        comprador: {
+            nome: String, email: String ,telefone: String ,endereco: String ,bairro: String, 
+            uf: String(2), cidade: String ,nome_cartao: String, numero_cartao: Number , 
+            dt_vencimento: DATE, cvv_e: INT
+        },
+        total: Double
+    }
+> - response => { data: { status: 'ok', message: "Venda realizada com sucesso!" } }
+
+    Instrução Completa: submit(
+    {
+        'produtos': [
+            {id: 7, quantidade: 1, preco: 5.25, total: 5.25}
+        ], 
+        'comprador': {
+            nome: 'Oliver Queen', email: 'oliver_queen@gmail.com' ,telefone: '67999999999' ,endereco:'rua metropolitana, 35' ,bairro: 'Hades', 
+            uf: 'US', cidade: 'Starling City' ,nome_cartao: 'Industrias Queen', numero_cartao: '6458213548153458' , 
+            dt_vencimento: '2024-04-01', cvv_e: '337'
+        }, 
+        'total':5.25
+
+    },'POST', '/api/admin/venda').then(data => data.json()).then(resp => console.log(resp));
+
+### Venda Site Cliente
+
+> - route => "/api/venda"
+> - method => "POST"
+> - param => {
+        produtos: [
+            {id: INT, quantidade: INT, preco: Double, total: Double},
+            {id: INT, quantidade: INT, preco: Double, total: Double},
+            ...
+        ], 
+        comprador: {
+            nome: String, email: String ,telefone: String ,endereco: String ,bairro: String, 
+            uf: String(2), cidade: String ,nome_cartao: String, numero_cartao: Number , 
+            dt_vencimento: DATE, cvv_e: INT
+        },
+        total: Double
+    }
+> - response => { data: { status: 'ok', message: "Venda realizada com sucesso!" } }
+
+    Instrução Completa: submit(
+    {
+        'produtos': [
+            {id: 7, quantidade: 1, preco: 5.25, total: 5.25}
+        ], 
+        'comprador': {
+            nome: 'Oliver Queen', email: 'oliver_queen@gmail.com' ,telefone: '67999999999' ,endereco:'rua metropolitana, 35' ,bairro: 'Hades', 
+            uf: 'US', cidade: 'Starling City' ,nome_cartao: 'Industrias Queen', numero_cartao: '6458213548153458' , 
+            dt_vencimento: '2024-04-01', cvv_e: '337'
+        }, 
+        'total':5.25
+
+    },'POST', '/api/admin/venda').then(data => data.json()).then(resp => console.log(resp));
