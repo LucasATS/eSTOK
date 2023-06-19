@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Jun-2023 às 01:50
+-- Tempo de geração: 19-Jun-2023 às 02:15
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -85,7 +85,7 @@ DROP PROCEDURE IF EXISTS `sp_login`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_login` (IN `login_e` VARCHAR(25), IN `senha_e` VARCHAR(225))   BEGIN
     DECLARE login_ee VARCHAR(25);
 
-    SELECT login INTO login_ee FROM Usuarios u
+    SELECT login INTO login_ee FROM usuarios u
     WHERE
         (
             BINARY u.login = login_e OR 
