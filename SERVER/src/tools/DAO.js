@@ -171,12 +171,10 @@ class DAO {
             
             const id_venda = data_id[0].id_venda;
             
-            sql = '';
-            const replacements_vendas_itens = [];
+            sql = "CALL sp_vendas_itens(\n\t?,\n\t?,\n\t?,\n\t?,\n\t?,\n\t?,\n\t?)\n;";
             
             for (const p of _produtos){
-                sql += "CALL sp_vendas_itens(\n\t?,\n\t?,\n\t?,\n\t?,\n\t?,\n\t?,\n\t?)\n;";
-                replacements_vendas_itens.push(...[
+                let replacements_vendas_itens = [
                     id_venda,
                     kar_tipo,
                     p.id,
@@ -184,20 +182,20 @@ class DAO {
                     p.lote,
                     p.preco,
                     p.total
-                ]);
-            }
+                ];
 
-            await bancoDeDados.query(sql,
-                {
-                    types: QueryTypes.RAW, 
-                    replacements: replacements_vendas_itens,
-                    transaction: transaction,
-                    raw: true
-                }
-            );
-            
-            console.log(sql);
-            console.log(replacements_vendas_itens);
+                console.log(sql);
+                console.log(replacements_vendas_itens);
+
+                await bancoDeDados.query(sql,
+                    {
+                        types: QueryTypes.RAW, 
+                        replacements: replacements_vendas_itens,
+                        transaction: transaction,
+                        raw: true
+                    }
+                );
+            }
             
             await transaction.commit();
             
