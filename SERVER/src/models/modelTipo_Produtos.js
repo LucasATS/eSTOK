@@ -1,6 +1,7 @@
 import { DataTypes, QueryTypes } from 'sequelize';
 import db from '../settings/db';
 import { Status_Cads } from './modelStatus_Cads';
+import { Types } from 'mysql';
 
 export const Tipo_Produtos = db.define('tipo_produtos', {
   descricao: { type: DataTypes.STRING(100), allowNull: false },
