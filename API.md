@@ -115,6 +115,10 @@
 > - param => {id_produto: int, quantidade: Double, unitario: Double, total: Double, validade: Date, lote: String, data_compra: Date}
 > - response => { data: { status: 'ok', message: "Produtos Foram Adicionadas com Sucesso!" } }
 
+    Instrução Completa: submit({id_produto: 1, quantidade: 1, unitario: 15.00, total: 15.00, validade: '2023-12-31', lote: 'LOTE', data_compra: '2023-12-06'},'POST', '/api/admin/estoque/movimentacao-entrada').then(data => data.json()).then(resp => console.log(resp))
+    
+    submit({id_produto: 1, quantidade: 1, unitario: 15.00, total: 15.00, validade: '2023-12-31', lote: 'LOTE1', data_compra: '2023-12-06'},'POST', '/api/admin/estoque/movimentacao-entrada').then(data => data.json()).then(resp => console.log(resp))
+
 ### LISTA
 
 > - route => "/api/admin/estoque"
