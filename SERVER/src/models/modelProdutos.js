@@ -37,13 +37,14 @@ export const Produtos = db.define('produtos', {
   },
 }, {});
 
-Produtos.vw_produtos = async () => {
+Produtos.vw_produtos = async (posIni, Quantidade) => {
   const data = await db.query(
-    "SELECT * FROM vw_produtos_cadastro",
+    "SELECT * FROM vw_produtos_cadastro LIMIT ?, ?",
     {
       model: this,
       mapToModel: true,
-      type: QueryTypes.SELECT
+      type: QueryTypes.SELECT,
+      replacements: [posIni, Quantidade]
     }
   );
   return data;
