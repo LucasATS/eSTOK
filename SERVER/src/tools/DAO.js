@@ -190,7 +190,7 @@ class DAO {
             await bancoDeDados.query(sql,
                 {
                     types: QueryTypes.RAW, 
-                    replacements: replacements_venda_cabecalho,
+                    replacements: replacements_vendas_itens,
                     transaction: transaction,
                     raw: true
                 }
