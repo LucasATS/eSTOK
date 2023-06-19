@@ -9,7 +9,7 @@ type Props = {
 const ProductTable = ({ product }: Props) => {
   return (
     <>
-      <div className="lg:flex hidden">
+      <div role="table" tabIndex={-1} className="lg:flex hidden">
         <Table
           columns={[
             {

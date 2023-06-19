@@ -117,7 +117,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
     <ModalComponent isOpen={isOpen} onClose={onClose}>
       <Form ref={formRef} onSubmit={handleAddProduct} className="flex justify-center">
         <div className="relative bg-white rounded-lg shadow w-full">
-          <div className="flex items-start py-1 px-4 rounded-t border-b">
+          <div className="flex items-start py-1 px-6 rounded-t border-b">
             <TitleCard text="Cadastrar Produto" />
           </div>
           <div className="p-6 space-y-3">
@@ -163,11 +163,17 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
             />
           </div>
 
-          <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
-            <Button type="button" variant="cancel" onClick={handleCancel}>
+          <div className="flex items-center justify-between p-6 space-x-3 rounded-b border-t border-gray-200">
+            <Button
+              style={{ width: '200px' }}
+              type="button"
+              variant="cancel"
+              onClick={handleCancel}
+            >
               Cancelar
             </Button>
             <Button
+              style={{ width: '200px' }}
               variant="primary"
               type="button"
               onClick={handleAddProduct}
