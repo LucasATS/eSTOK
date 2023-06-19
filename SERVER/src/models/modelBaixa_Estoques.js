@@ -37,10 +37,10 @@ Baixa_Estoques.vw_baixa_estoques = async (id_produto) => {
 }
 
 
-Baixa_Estoques.sp_baixa_estoque = async (id_produto, lote, validade, quantidade, unitario, total, motivo, observacao) => {
-  return (await db.query("call sp_baixa_estoque(?, ?, ?, ?, ?, ?, ?, ?, ?);", {
+Baixa_Estoques.sp_baixa_estoque = async (id_produto, lote, validade, quantidade, motivo, observacao) => {
+  return (await db.query("call sp_baixa_estoque(?, ?, ?, ?, ?, ?, ?);", {
     model: this,
     mapToModel: true,
-    replacements: [id_produto, lote, validade, quantidade, unitario, total, motivo, observacao, 2]
+    replacements: [id_produto, lote, validade, quantidade, motivo, observacao, 2]
   }))[0];
 }
