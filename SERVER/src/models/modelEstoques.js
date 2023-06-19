@@ -22,11 +22,12 @@ Estoques.vw_estoque_por_lotes = async () => {
   return data;
 }
 
-Estoques.vw_entradas_cadastro = async () => {
+Estoques.vw_entradas_cadastro = async (posIni, Quantidade) => {
   const data = await db.query(
-    "SELECT * FROM vw_entradas_cadastro",
+    "SELECT * FROM vw_entradas_cadastro LIMIT ?, ?",
     {
-      type: QueryTypes.SELECT
+      type: QueryTypes.SELECT,
+      replacements: [posIni, Quantidade]
     }
   );
   return data;
