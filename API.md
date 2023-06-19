@@ -96,6 +96,7 @@
 
 > - route => "/api/admin/produtos"
 > - method => "GET"
+> - param => {Inicial : INT, Quantidade: INT}
 > - response => {data: [{ID, Produto, Categoria, Tipo do Produto, Unidade, Status},{ID, Produto, Categoria, Tipo do Produto, Unidade, Status},{ID, Produto, Categoria, Tipo do Produto, Unidade, Status}...]}
 
 
@@ -123,6 +124,7 @@
 
 > - route => "/api/admin/estoque"
 > - method => "GET"
+> - param => {Inicial : INT, Quantidade: INT}
 > - response => {data: [{ID, Produto, Categoria, Quantidade, Preço, Data Compra, Vencimento, Lotes},{ID, Produto, Categoria, Quantidade, Preço, Data Compra, Vencimento, Lotes},{ID, Produto, Categoria, Quantidade, Preço, Data Compra, Vencimento, Lotes}...]}
 
     Instrução Completa: submit({}, "GET", "/api/admin/estoque").then(data => data.json()).then(resp => console.log(resp))
