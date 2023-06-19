@@ -38,7 +38,7 @@ const FormularioVenda = async (body, is_user) => {
 
     const resp = await DAO.venda(comprador, produtos, is_user)
 
-    if ( resp.status == true ){
+    if ( resp.is_valid == true ){
         return { is_valid: true, 
             message: (!is_user)? "Compra realizada com sucesso!" : resp.Msg
         }
