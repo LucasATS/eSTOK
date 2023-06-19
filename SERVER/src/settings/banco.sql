@@ -181,14 +181,13 @@ CREATE PROCEDURE `sp_unidades` (IN `id_uni_e` CHAR(6) CHARSET utf8mb4, IN `descr
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_vendas_cabecalho`$$
-CREATE PROCEDURE `sp_vendas_cabecalho` (IN `kar_tipo_e` INT, IN `cliente_e` VARCHAR(255), IN `email_e` VARCHAR(255), IN `telefone_e` VARCHAR(14), IN `endereco_e` VARCHAR(255), IN `bairro_e` VARCHAR(150), IN `uf_e` CHAR(2), IN `cidade_e` VARCHAR(255), IN `nome_cartao_e` VARCHAR(45), IN `numero_cartao_e` VARCHAR(16), IN `dt_vencimento_e` DATE, IN `cvv_e` INT(3), IN `tipo_venda_e` INT, OUT `id_venda` INT)   BEGIN
-START TRANSACTION;
-    INSERT INTO vendas(kar_tipo, cliente, email, telefone, endereco, bairro, uf, cidade, nome_cartao, numero_cartao, dt_vencimento, cvv, tipo_venda)
-    VALUES(kar_tipo_e, cliente_e, email_e, telefone_e, endereco_e, bairro_e, uf_e, cidade_e, nome_cartao_e, numero_cartao_e, dt_vencimento_e, cvv_e, tipo_venda_e);
+CREATE PROCEDURE `sp_vendas_cabecalho` (IN `kar_tipo_e` INT, IN `cliente_e` VARCHAR(255), IN `email_e` VARCHAR(255), IN `telefone_e` VARCHAR(14), IN `endereco_e` VARCHAR(255), IN `bairro_e` VARCHAR(150), IN `uf_e` CHAR(2), IN `cidade_e` VARCHAR(255), IN `nome_cartao_e` VARCHAR(45), IN `numero_cartao_e` VARCHAR(16), IN `dt_vencimento_e` DATE, IN `cvv_e` INT(3), IN `tipo_venda_e` INT, OUT `id_venda` INT)
+BEGIN
+    INSERT INTO vendas(kar_tipo, cliente, email, telefone, endereco, bairro, uf, cidade, nome_cartao, numero_cartao, dt_vencimento, cvv, tipo_venda, id_status)
+    VALUES(kar_tipo_e, cliente_e, email_e, telefone_e, endereco_e, bairro_e, uf_e, cidade_e, nome_cartao_e, numero_cartao_e, dt_vencimento_e, cvv_e, tipo_venda_e, 1);
 
-SELECT LAST_INSERT_ID() INTO id_venda;
+  SELECT LAST_INSERT_ID() AS id_venda;
 
-COMMIT;
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_vendas_itens`$$
@@ -781,7 +780,7 @@ CREATE TABLE `vw_unidades` (
 DROP TABLE IF EXISTS `vw_baixa_estoques`;
 
 DROP VIEW IF EXISTS `vw_baixa_estoques`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_baixa_estoques`  AS SELECT concat('#',`b`.`id_produto`) AS `ID`, `p`.`nome` AS `Nome`, `b`.`lote` AS `Lotes`, `b`.`validade` AS `Validade`, `b`.`quantidade` AS `Quantidade`, `b`.`unitario` AS `Unitário`, `b`.`total` AS `Total`, `b`.`motivo` AS `Motivo` FROM (`baixa_estoques` `b` join `produtos` `p` on(`p`.`id` = `b`.`id_produto`)) ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_baixa_estoques`  AS SELECT concat('#',`b`.`id_produto`) AS `ID`, `p`.`nome` AS `Nome`, `b`.`lote` AS `Lotes`, `b`.`validade` AS `Validade`, `b`.`quantidade` AS `Quantidade`, `b`.`unitario` AS `Unitário`, `b`.`total` AS `Total`, `b`.`motivo` AS `Motivo` FROM (`baixa_estoques` `b` join `produtos` `p` on(`p`.`id` = `b`.`id_produto`)) ;
 
 -- --------------------------------------------------------
 
@@ -821,7 +820,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_entradas_cadastro`  AS 
 DROP TABLE IF EXISTS `vw_estoque_lote_preco`;
 
 DROP VIEW IF EXISTS `vw_estoque_lote_preco`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_estoque_lote_preco`  AS SELECT `l`.`id_produto` AS `id`, `pro`.`nome` AS `nome`, `pre`.`preco` AS `preco`, `l`.`lote` AS `lote`, `l`.`qtde_lote` AS `qtd`, `l`.`validade` AS `validade` FROM ((`lotes` `l` join `produtos` `pro` on(`l`.`id_produto` = `pro`.`id`)) join `produtos_precos` `pre` on(`l`.`id_produto` = `pre`.`id_produto`)) WHERE `l`.`qtde_lote` >= 1 AND `l`.`id_status` = 1 ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_estoque_lote_preco`  AS SELECT `l`.`id_produto` AS `id`, `pro`.`nome` AS `nome`, `pre`.`preco` AS `preco`, `l`.`lote` AS `lote`, `l`.`qtde_lote` AS `qtd`, `l`.`validade` AS `validade` FROM ((`lotes` `l` join `produtos` `pro` on(`l`.`id_produto` = `pro`.`id`)) join `produtos_precos` `pre` on(`l`.`id_produto` = `pre`.`id_produto`)) WHERE `l`.`qtde_lote` >= 1 AND `l`.`id_status` = 1 ;
 
 -- --------------------------------------------------------
 
