@@ -2,6 +2,7 @@ type Props = {
   isActive: boolean;
   onClick?: () => void;
   value: string;
+  onKeyDown?: () => void;
 };
 
 const PageItem = (props: Props) => {
@@ -13,6 +14,9 @@ const PageItem = (props: Props) => {
           : 'hover:bg-gray-200'
       }`}
       onClick={props.onClick}
+      onKeyDown={props.onKeyDown}
+      role="button"
+      tabIndex={0}
     >
       {props.value}
     </span>
