@@ -44,6 +44,8 @@ class urls {
         this.server.post("/api/admin/produtos/create",UserIsAuthentic, require('../views-admin/viewCreateProduto.js').default);
         this.server.post("/api/admin/produtos/altera-status", UserIsAuthentic, require('../views-admin/viewAlterStatusProduto.js').default);
 
+        this.server.post("/api/admin/baixaestoques/create",UserIsAuthentic, require('../views-admin/viewCreateBaixa_Estoques.js').default);
+
         this.server.post("/api/admin/categorias/create", UserIsAuthentic, require('../views-admin/viewCreateCategoria.js').default); //ok
 
         this.server.post("/api/admin/tipos-de-medidas/create", UserIsAuthentic, require('../views-admin/viewCreateUnidades.js').default);

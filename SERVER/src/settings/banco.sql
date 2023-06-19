@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Jun-2023 às 02:15
+-- Tempo de geração: 19-Jun-2023 às 06:11
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -41,10 +41,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_atualiza_estoque` (IN `id_produt
     
 END$$
 
-DROP PROCEDURE IF EXISTS `sp_atualiza_status`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_atualiza_status` (IN `tabela_e` VARCHAR(50), IN `id_status_e` INT, IN `campo` VARCHAR(50), IN `chave_id` INT)   BEGIN
+DROP PROCEDURE IF EXISTS `sp_baixa_estoque`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_baixa_estoque` (IN `id_produto_e` INT, IN `lote_e` VARCHAR(10), IN `validade_e` DATE, IN `quantidade_e` INT, IN `unitario_e` DECIMAL(15,4), IN `total_e` DECIMAL(15,4), IN `motivo_e` VARCHAR(255), IN `kar_tipo_e` INT)   BEGIN
 
-	UPDATE tabela_e a set a.id_status = id_status_e WHERE a.campo = chave_id;
+DECLARE saldo_lote INT(11);
+SELECT SUM(L.qtde_lote) INTO saldo_lote FROM lotes l WHERE l.lote = lote_e;
+IF saldo_lote >= quantidade_e THEN
+	INSERT INTO baixa_estoques (id_produto, lote, validade, quantidade, unitario, total, motivo, kar_tipo) VALUES (id_produto_e, lote_e, validade_e, quantidade_e, unitario_e, total_e, motivo_e, kar_tipo_e);
+ELSE
+	SELECT id_produto_e, 'A quantidade do lote ', lote_e, ' é inferior ao saldo atual: ', saldo_lote AS Msg;
+END IF;
 
 END$$
 
@@ -103,18 +109,22 @@ END$$
 DROP PROCEDURE IF EXISTS `sp_lotes`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_lotes` (IN `id_produto_e` INT, IN `lote_e` VARCHAR(10), IN `qtde_lote_e` INT, IN `validade_e` DATE, IN `id_status` INT, IN `kar_tipo` INT)   BEGIN
 
-	DECLARE status_lote INT(11);
+    DECLARE status_lote INT(11);
     DECLARE lote_existe INT(11);
+    DECLARE saldo_lote INT(11);
     SELECT COUNT(*) INTO status_lote FROM lotes l WHERE l.id_produto = id_produto_e;
     SELECT COUNT(*) INTO lote_existe FROM lotes l WHERE l.lote = lote_e;
-    IF status_lote > 0 AND lote_existe > 0 THEN
-    	IF kar_tipo = 1 THEN
-        	UPDATE lotes l set l.lote = lote_e, l.qtde_lote = l.qtde_lote + qtde_lote_e, l.validade = validade_e, l.id_status = id_status WHERE l.id_produto = id_produto_e AND l.lote = lote_e;
-        ELSEIF kar_tipo = 2 OR kar_tipo = 3  OR kar_tipo = 4 THEN
-        	UPDATE lotes l set l.lote = lote_e, l.qtde_lote = l.qtde_lote + qtde_lote_e, l.id_status = id_status WHERE l.id_produto = id_produto_e AND l.lote = lote_e;
+    SELECT SUM(L.qtde_lote) INTO saldo_lote FROM lotes l WHERE l.lote = lote_e;
+    IF status_lote > 0 AND lote_existe > 0  AND saldo_lote > 0 THEN
+        IF kar_tipo = 1 THEN
+            UPDATE lotes l set l.lote = lote_e, l.qtde_lote = l.qtde_lote + qtde_lote_e, l.validade = validade_e, l.id_status = id_status WHERE l.id_produto = id_produto_e AND l.lote = lote_e;
+        ELSEIF kar_tipo = 2 OR kar_tipo = 3 OR kar_tipo = 4 THEN
+            UPDATE lotes l set l.lote = lote_e, l.qtde_lote = l.qtde_lote + qtde_lote_e, l.id_status = id_status WHERE l.id_produto = id_produto_e AND l.lote = lote_e;
         END IF;
+    ELSEIF status_lote > 0 AND lote_existe > 0  AND saldo_lote = 0 THEN
+        UPDATE lotes l set l.lote = lote_e, l.id_status = id_status WHERE l.id_produto = id_produto_e AND l.lote = lote_e;
     ELSE
-    INSERT INTO lotes (id_produto, lote, qtde_lote, validade, id_status) VALUES (id_produto_e, lote_e, qtde_lote_e, validade_e, id_status);
+        INSERT INTO lotes (id_produto, lote, qtde_lote, validade, id_status) VALUES (id_produto_e, lote_e, qtde_lote_e, validade_e, id_status);
     END IF;
     
 END$$
@@ -265,16 +275,6 @@ CREATE TABLE `entradas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `entradas`
---
-
-INSERT INTO `entradas` (`id`, `id_produto`, `quantidade`, `unitario`, `total`, `kar_tipo`, `validade`, `lote`, `data_compra`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 1, 15.0000, 15.0000, 1, '2023-12-31', 'LOTE1', '2023-06-18', '2023-06-18 19:44:07', '2023-06-18 19:44:07'),
-(2, 1, 2, 15.0000, 30.0000, 1, '2023-12-31', 'LOTE2', '2023-06-18', '2023-06-18 19:44:07', '2023-06-18 19:44:07'),
-(3, 1, 1, 15.0000, 15.0000, 1, '2023-12-31', 'LOTE1', '2023-06-18', '2023-06-18 19:44:07', '2023-06-18 19:44:07'),
-(4, 1, 2, 15.0000, 30.0000, 1, '2023-12-31', 'LOTE2', '2023-06-18', '2023-06-18 19:44:07', '2023-06-18 19:44:07');
-
---
 -- Acionadores `entradas`
 --
 DROP TRIGGER IF EXISTS `trg_entradas_produtos_AI`;
@@ -283,17 +283,6 @@ CREATE TRIGGER `trg_entradas_produtos_AI` AFTER INSERT ON `entradas` FOR EACH RO
       CALL sp_atualiza_estoque (NEW.id_produto, NEW.quantidade, NEW.unitario, NEW.lote, NEW.data_compra);
       CALL sp_lotes (new.id_produto, new.lote, new.quantidade, new.validade, 1, 1 );
       CALL sp_produtos_precos (NEW.id_produto, NEW.unitario);
-END
-$$
-DELIMITER ;
-DROP TRIGGER IF EXISTS `trg_entradas_produtos_BU`;
-DELIMITER $$
-CREATE TRIGGER `trg_entradas_produtos_BU` BEFORE UPDATE ON `entradas` FOR EACH ROW BEGIN
-
-      CALL sp_atualiza_estoque (NEW.id_produto, NEW.quantidade - old.quantidade, NEW.unitario, NEW.lote, NEW.data_compra);
-      CALL sp_lotes (new.id_produto, new.lote, new.quantidade - old.quantidade, new.validade, 1 );
-      CALL sp_produtos_precos (NEW.id_produto, NEW.unitario);
-
 END
 $$
 DELIMITER ;
@@ -312,13 +301,6 @@ CREATE TABLE `estoques` (
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Extraindo dados da tabela `estoques`
---
-
-INSERT INTO `estoques` (`id`, `id_produto`, `quantidade`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 1, '2023-06-18 19:44:07', '2023-06-18 19:44:07');
 
 -- --------------------------------------------------------
 
@@ -362,14 +344,6 @@ CREATE TABLE `lotes` (
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Extraindo dados da tabela `lotes`
---
-
-INSERT INTO `lotes` (`id`, `id_produto`, `lote`, `qtde_lote`, `validade`, `id_status`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 'LOTE1', 0, '2023-12-31 00:00:00', 1, '2023-06-18 19:44:07', '2023-06-18 19:44:07'),
-(2, 1, 'LOTE2', 1, '2023-12-31 00:00:00', 1, '2023-06-18 19:44:07', '2023-06-18 19:44:07');
 
 -- --------------------------------------------------------
 
@@ -558,15 +532,6 @@ CREATE TABLE `vendas` (
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `vendas`
---
-
-INSERT INTO `vendas` (`id`, `kar_tipo`, `cliente`, `email`, `telefone`, `endereco`, `bairro`, `uf`, `cidade`, `nome_cartao`, `numero_cartao`, `dt_vencimento`, `cvv`, `tipo_venda`, `id_status`, `updatedAt`) VALUES
-(1, 3, 'Gaikko Alves', 'Gaikko@gmail.com', '981148042', 'Rua Medrado, 33', 'Centro Oeste', 'MS', 'Campo Grande', 'GAIKKO A DA S PINTO', '1234567890123456', '2023-12-31', 123, 0, 0, '2023-06-18 19:44:56'),
-(2, 3, 'Gaikko Alves', 'Gaikko@gmail.com', '981148042', 'Rua Medrado, 33', 'Centro Oeste', 'MS', 'Campo Grande', 'GAIKKO A DA S PINTO', '1234567890123456', '2023-12-31', 123, 0, 0, '2023-06-18 19:45:10'),
-(3, 3, 'Gaikko Alves', 'Gaikko@gmail.com', '981148042', 'Rua Medrado, 33', 'Centro Oeste', 'MS', 'Campo Grande', 'GAIKKO A DA S PINTO', '1234567890123456', '2023-12-31', 123, 0, 0, '2023-06-18 19:45:31');
-
 -- --------------------------------------------------------
 
 --
@@ -586,17 +551,6 @@ CREATE TABLE `vendas_itens` (
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Extraindo dados da tabela `vendas_itens`
---
-
-INSERT INTO `vendas_itens` (`id`, `id_venda`, `kar_tipo`, `id_produto`, `quantidade`, `lote`, `preco`, `total`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 3, 1, 1, 'LOTE1', 15.0000, 15.0000, '2023-06-18 19:44:56', '2023-06-18 19:44:56'),
-(2, 1, 3, 1, 1, 'LOTE2', 15.0000, 15.0000, '2023-06-18 19:44:56', '2023-06-18 19:44:56'),
-(3, 2, 3, 1, 1, 'LOTE1', 15.0000, 15.0000, '2023-06-18 19:45:10', '2023-06-18 19:45:10'),
-(4, 2, 3, 1, 1, 'LOTE2', 15.0000, 15.0000, '2023-06-18 19:45:10', '2023-06-18 19:45:10'),
-(5, 3, 3, 1, 1, 'LOTE2', 15.0000, 15.0000, '2023-06-18 19:45:31', '2023-06-18 19:45:31');
 
 --
 -- Acionadores `vendas_itens`
@@ -691,7 +645,7 @@ CREATE TABLE `vw_lotes` (
 `Código` int(11)
 ,`Nome do Produto` varchar(50)
 ,`Lote` varchar(10)
-,`Qunatidade Lote` int(11)
+,`Quantidade Lote` int(11)
 ,`Validade` datetime
 );
 
@@ -806,7 +760,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_lotes`;
 
 DROP VIEW IF EXISTS `vw_lotes`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_lotes`  AS SELECT `l`.`id_produto` AS `Código`, `p`.`nome` AS `Nome do Produto`, `l`.`lote` AS `Lote`, `l`.`qtde_lote` AS `Qunatidade Lote`, `l`.`validade` AS `Validade` FROM (`lotes` `l` join `produtos` `p` on(`l`.`id_produto` = `p`.`id`)) WHERE `l`.`qtde_lote` >= 1 AND `l`.`id_status` = 1 ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_lotes`  AS SELECT `l`.`id_produto` AS `Código`, `p`.`nome` AS `Nome do Produto`, `l`.`lote` AS `Lote`, `l`.`qtde_lote` AS `Quantidade Lote`, `l`.`validade` AS `Validade` FROM (`lotes` `l` join `produtos` `p` on(`l`.`id_produto` = `p`.`id`)) WHERE `l`.`qtde_lote` >= 1 AND `l`.`id_status` = 1 ;
 
 -- --------------------------------------------------------
 
@@ -981,13 +935,13 @@ ALTER TABLE `empresas`
 -- AUTO_INCREMENT de tabela `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `estoques`
 --
 ALTER TABLE `estoques`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `kardex_tipos`
@@ -999,7 +953,7 @@ ALTER TABLE `kardex_tipos`
 -- AUTO_INCREMENT de tabela `lotes`
 --
 ALTER TABLE `lotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
@@ -1029,13 +983,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `vendas`
 --
 ALTER TABLE `vendas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `vendas_itens`
 --
 ALTER TABLE `vendas_itens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restrições para despejos de tabelas
