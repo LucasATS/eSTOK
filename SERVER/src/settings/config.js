@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import bodyParser from 'body-parser';
 import db from './db';
+import { rotina_inativa_lotes } from '../rotinas';
 
 const cookie = require('cookie-parser');
 
@@ -39,6 +40,9 @@ const appConfig = async (server, PATH) => {
   server.listen(process.env.PORT, process.env.HOST, () =>
     console.log(`\n---\nSERVIDOR ON\nhttp://${process.env.HOST}:${process.env.PORT}/\n---`)
   );
+
+  //INICIA ROTINAS
+  rotina_inativa_lotes();
 };
 
 export default appConfig;
