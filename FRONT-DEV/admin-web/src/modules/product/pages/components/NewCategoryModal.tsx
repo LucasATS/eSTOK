@@ -58,17 +58,23 @@ const NewCategoryModal = ({ isOpen, onClose }: ConfigModalProps) => {
     <ModalComponent isOpen={isOpen} onClose={onClose}>
       <Form ref={formRef} onSubmit={handleAddNewCategoria} className="flex justify-center">
         <div className="relative bg-white rounded-lg shadow w-full">
-          <div className="flex items-start py-1 px-4 rounded-t border-b">
+          <div className="flex items-start py-1 px-6 rounded-t border-b">
             <TitleCard text="Cadastrar Categoria" />
           </div>
           <div className="p-6 space-y-3">
             <InputForm name="descricao" type="text" placeholder="Nome da Categoria" />
           </div>
           <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
-            <Button variant="cancel" type="button" onClick={handleCancel}>
+            <Button
+              style={{ width: '200px' }}
+              variant="cancel"
+              type="button"
+              onClick={handleCancel}
+            >
               Cancelar
             </Button>
             <Button
+              style={{ width: '200px' }}
               variant="primary"
               type="button"
               onClick={handleAddNewCategoria}

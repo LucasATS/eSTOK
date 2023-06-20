@@ -11,7 +11,7 @@ const ProductTable = ({ product }: Props) => {
   const products = product?.response;
   return (
     <>
-      <div className="lg:flex hidden">
+      <div role="table" tabIndex={-1} className="lg:flex hidden">
         <Table
           columns={[
             {

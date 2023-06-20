@@ -36,7 +36,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
             open ? 'justify-between' : 'shadow-lg md:fixed z-50 md:z-0'
           }`}
         >
-          <div className="flex flex-col p-2 md:p-0 items-center md:items-start bg-sky-600">
+          <div className="flex flex-col p-4 md:p-0 items-center md:items-start bg-sky-600">
             <div className="flex flex-row md:flex-col w-full">
               <div className="flex md:flex-col flex-row w-full gap-0 py-3 justify-between md:gap-14 md:py-10">
                 <div className="flex justify-center items-center mx-3 md:mx-8">
@@ -45,7 +45,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
                   </Link>
                 </div>
                 <div className="md:hidden visible text-right place-content-end px-3">
-                  <div onClick={toggleOpen}>
+                  <div onClick={toggleOpen} onKeyDown={toggleOpen} role="button" tabIndex={0}>
                     {open ? (
                       <svg
                         className="h-8 w-8 text-white"
@@ -77,7 +77,10 @@ const MainLayout: React.FC<Props> = ({ children }) => {
                     )}
                   </div>
                 </div>
-                <div className="md:flex hidden flex-col gap-4 md:w-full items-start -mx-4">
+                <div
+                  role="navigation"
+                  className="md:flex hidden ml-2 flex-col gap-4 md:w-full items-start -mx-4"
+                >
                   <NavLink to={RoutesURL.HOME} className={activeMenuStyle}>
                     <Home className={iconStyle} />
                     Home
@@ -98,8 +101,14 @@ const MainLayout: React.FC<Props> = ({ children }) => {
                     <OfficeBuilding className={iconStyle} />
                     Relatório
                   </NavLink>
-                  <span className="border-t-[1px] w-full"></span>
-                  <div className={`${activeMenuStyle} flex-row`} onClick={logout}>
+                  <span style={{ width: '180px' }} className="border-t-[1px]"></span>
+                  <div
+                    className={`${activeMenuStyle} flex-row ml-1`}
+                    onClick={logout}
+                    onKeyDown={logout}
+                    role="button"
+                    tabIndex={0}
+                  >
                     <Logout />
                     Sair
                   </div>
@@ -107,38 +116,75 @@ const MainLayout: React.FC<Props> = ({ children }) => {
               </div>
             </div>
 
-            <ul className={`md:hidden flex flex-col gap-4 p-4 text-center ${open ? '' : 'hidden'}`}>
-              <li className={activeMobileMenuStyle} onClick={() => navigate(RoutesURL.HOME)}>
+            <div
+              className={`md:hidden flex flex-col gap-4 p-4 text-center ${open ? '' : 'hidden'}`}
+            >
+              <div
+                className={activeMobileMenuStyle}
+                onClick={() => navigate(RoutesURL.HOME)}
+                onKeyDown={() => navigate(RoutesURL.HOME)}
+                role="button"
+                tabIndex={0}
+              >
                 <Home className={iconStyle} />
                 Home
-              </li>
-              <li
+              </div>
+
+              <div
                 className={activeMobileMenuStyle}
                 onClick={() => navigate(RoutesURL.LIST_PRODUCT)}
+                onKeyDown={() => navigate(RoutesURL.LIST_PRODUCT)}
+                role="button"
+                tabIndex={0}
               >
                 <ShoppingBag className={iconStyle} />
                 Produto
-              </li>
-              <li className={activeMobileMenuStyle} onClick={() => navigate(RoutesURL.LIST_STOCK)}>
+              </div>
+
+              <div
+                className={activeMobileMenuStyle}
+                onClick={() => navigate(RoutesURL.LIST_STOCK)}
+                onKeyDown={() => navigate(RoutesURL.LIST_STOCK)}
+                role="button"
+                tabIndex={0}
+              >
                 <ChartBar className={iconStyle} />
                 Estoque
-              </li>
+              </div>
 
-              <li className={activeMobileMenuStyle} onClick={() => navigate(RoutesURL.LIST_SALE)}>
+              <div
+                className={activeMobileMenuStyle}
+                onClick={() => navigate(RoutesURL.LIST_SALE)}
+                onKeyDown={() => navigate(RoutesURL.LIST_PRODUCT)}
+                role="button"
+                tabIndex={0}
+              >
                 <DocumentText className={iconStyle} />
                 Venda
-              </li>
+              </div>
 
-              <li className={activeMobileMenuStyle} onClick={() => navigate(RoutesURL.LIST_REPORT)}>
+              <div
+                className={activeMobileMenuStyle}
+                onClick={() => navigate(RoutesURL.LIST_REPORT)}
+                onKeyDown={() => navigate(RoutesURL.LIST_REPORT)}
+                role="button"
+                tabIndex={0}
+              >
                 <OfficeBuilding className={iconStyle} />
                 Relatório
-              </li>
+              </div>
 
-              <li className={activeMobileMenuStyle} onClick={logout}>
+              <div
+                className={activeMobileMenuStyle}
+                onClick={logout}
+                onKeyDown={logout}
+                role="button"
+                tabIndex={0}
+              >
                 <Logout className={iconStyle} />
                 Sair
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
           <div className="flex flex-col w-full h-screen bg-neutral-200 overflow-y-auto">
             {children}

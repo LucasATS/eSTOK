@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
   children?: React.ReactNode;
   styles?: string;
   className?: string;
+  style?: any;
 }
 
 const Button: React.FC<Props> = ({
@@ -17,10 +19,12 @@ const Button: React.FC<Props> = ({
   styles,
   type,
   variant = 'default',
-  className
+  className,
+  style
 }) => {
   return (
     <button
+      style={style}
       className={
         `${variant} transition duration-300 hover:bg-opacity-90 font-medium rounded text-base px-4 py-1 text-center block ${
           styles ? styles : null
