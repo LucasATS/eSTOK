@@ -1,7 +1,7 @@
 interface ProductType {
-  id: number;
-  descricao: string;
-  Status: string;
+  ID: string;
+  Descrição: string;
+  Status: boolean;
 }
 
 export default ProductType;

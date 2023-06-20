@@ -28,66 +28,66 @@ interface ConfigModalProps {
 }
 
 export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
-  const [optionsCategory, setOptionsCategory] = useState<OptionSelect[]>([]);
-  const [optionsUnitMeasure, setOptionsUnitMeasure] = useState<OptionSelect[]>([]);
-  const [optionsProductType, setOptionsProductType] = useState<OptionSelect[]>([]);
-  const [optionsProductSize, setOptionsProductSize] = useState<OptionSelect[]>([]);
+  const [categoryOptions, setCategoryOptions] = useState<OptionSelect[]>([]);
+  const [unitMeasureOptions, setUnitMeasureOptions] = useState<OptionSelect[]>([]);
+  const [productTypeoptions, setProductTypeOptions] = useState<OptionSelect[]>([]);
   const formRef = useRef<FormHandles>(null);
   const [file, setFile] = useState<File>();
 
-  const getOptionsCategory = async () => {
-    const { results: categories } = await CategoryService.paginateCategory({
-      limit: 200,
+  const getCategoryOptions = async () => {
+    const categories = await CategoryService.paginateCategory({
+      limit: 10,
       isActive: true
     });
-    if (categories.length > 0) {
-      const optionsCategories = categories.map((category) => ({
-        value: category.id,
-        label: category.descrição
-      }));
-      setOptionsCategory(optionsCategories);
+    const categoryOptions = categories.length;
+    if (categoryOptions > 0) {
+      const optionsCategories = categories.map((category) => {
+        return {
+          value: category.ID,
+          label: category.Descrição,
+          status: category.Status
+        };
+      }) as OptionSelect[];
+      console.log('optionsCategories', optionsCategories);
+      setCategoryOptions(optionsCategories);
     }
   };
 
-  const getOptionsUnitMeasure = async () => {
-    const { results: unitsMeasure } = await UnitMeasureService.paginateUnitMeasure({
-      limit: 200,
+  const getUnitMeasureOptions = async () => {
+    const unitsMeasure = await UnitMeasureService.paginateUnitMeasure({
+      limit: 10,
       isActive: true
     });
-    if (unitsMeasure.length > 0) {
-      const optionsUnitsMeasure = unitsMeasure.map((unitMeasure) => ({
-        value: unitMeasure.id,
-        label: unitMeasure.name
-      }));
-      setOptionsUnitMeasure(optionsUnitsMeasure);
+    const unitMeasureOptions = unitsMeasure.length;
+    if (unitMeasureOptions > 0) {
+      const optionsUnitsMeasure = unitsMeasure.map((unitMeasure) => {
+        return {
+          value: unitMeasure.ID,
+          label: unitMeasure.Descrição,
+          status: unitMeasure.Status
+        };
+      }) as OptionSelect[];
+      console.log('optionsUnitsMeasure', optionsUnitsMeasure);
+      setUnitMeasureOptions(optionsUnitsMeasure);
     }
   };
 
-  const getOptionsProductType = async () => {
-    const { results: productsType } = await ProductTypeService.paginateProductType({
+  const getProductTypeOptions = async () => {
+    const productsType = await ProductTypeService.paginateProductType({
       limit: 200,
       isActive: true
     });
-    if (productsType.length > 0) {
-      const optionsProductsType = productsType.map((productType) => ({
-        value: productType.id,
-        label: productType.descricao
-      }));
-      setOptionsProductType(optionsProductsType);
-    }
-  };
-
-  const getOptionsProductSize = async () => {
-    const { results: productSizes } = await CategoryService.paginateCategory({
-      limit: 200,
-      isActive: true
-    });
-    if (productSizes.length > 0) {
-      const optionsProductSizes = productSizes.map((category) => ({
-        value: category.id,
-        label: category.descrição
-      }));
-      setOptionsProductSize(optionsProductSizes);
+    const productTypeOptions = productsType.length;
+    if (productTypeOptions > 0) {
+      const optionsProductsType = productsType.map((productType) => {
+        return {
+          value: productType.ID,
+          label: productType.Descrição,
+          status: productType.Status
+        };
+      }) as OptionSelect[];
+      console.log('optionsProductsType', optionsProductsType);
+      setProductTypeOptions(optionsProductsType);
     }
   };
 
@@ -97,12 +97,10 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
       const newProductToCreate = {
         ...mainFormData
       } as CreateProductDto;
-
       const result = await ProductService.createProduct(newProductToCreate);
       toast.success(result.message);
-      onConfirm();
       onClose();
-      console.log('criado ou atualizado');
+      onConfirm();
       clearForm();
     } catch (error) {
       handleErrors(error);
@@ -136,10 +134,9 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
   };
 
   useEffect(() => {
-    getOptionsCategory();
-    getOptionsUnitMeasure();
-    getOptionsProductType();
-    getOptionsProductSize();
+    getCategoryOptions();
+    getUnitMeasureOptions();
+    getProductTypeOptions();
   }, []);
 
   return (
@@ -156,36 +153,25 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
               </div>
             )}
             <DropzoneForm
-              name="imageFile"
+              name="foto"
               onChange={handleProductImage}
               label="selecionar um arquivo .png ou .jpeg"
               acceptFiles={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
             />
-            <InputForm name="productName" type="text" placeholder="Nome do produto" />
+            <InputForm name="nome" type="text" placeholder="Produto" />
             <div className="flex w-full md:flex-row flex-col gap-3">
-              <SelectForm name="category" placeholder="Categoria" options={optionsCategory} />
+              <SelectForm name="categoria" placeholder="Categoria" options={categoryOptions} />
+              <SelectForm name="unidade" placeholder="Unidade" options={unitMeasureOptions} />
               <SelectForm
-                name="unit"
-                placeholder="Unidade de medida"
-                options={optionsUnitMeasure}
-              />
-              {/* </div>
-            <div className="flex md:flex-row flex-col gap-3"> */}
-              <SelectForm
-                name="productType"
+                name="tp_produto"
                 placeholder="Tipo de produto"
-                options={optionsProductType}
-              />
-              <SelectForm
-                name="productSize"
-                placeholder="Tamanho do produto"
-                options={optionsProductSize}
+                options={productTypeoptions}
               />
             </div>
 
             <TextAreaForm
               placeholder="Descrição do produto"
-              name="description"
+              name="descricao"
               cols={2}
               rows={4}
               maxLength={1000}

@@ -1,4 +1,3 @@
-import queryString from 'query-string';
 import api from '../../_shared/services/api';
 import { Paginate, Result } from '../../_shared/types/api.types';
 import CreateProductTypeDto from '../dto/productType/CreateProductTypeDto';
@@ -18,8 +17,7 @@ class ProductTypeService {
   public async paginateProductType({
     ...paginateProductType
   }: PaginateProductTypeDto): Promise<Paginate<ProductType>> {
-    const queryParams = queryString.stringify(paginateProductType);
-    const response = await api.get(`/api/admin/tipos-de-produto?${queryParams}`);
+    const response = await api.get(`/api/admin/tipos-de-produto`);
     return response.data.data;
   }
 }
