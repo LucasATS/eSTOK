@@ -9,13 +9,13 @@ import TitleCard from '../../../../components/TitleCard';
 import { selectOptionsProduct, selectOptionsStates } from '../../../_shared/constants/SelectOption';
 import CreateSaleDto from '../../dto/CreateSaleDto';
 
-import SaleService from '../../service/SaleService';
 import toast from 'react-hot-toast';
 import {
   getErrorMessage,
   getFieldErrors,
   manageApiErrorResponse
 } from '../../../_shared/helpers/handleApiErrorResponse';
+import SaleService from '../../service/SaleService';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -126,7 +126,7 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between p-6 space-x-3 rounded-b border-t border-gray-200">
+          <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
             <Button
               style={{ width: '200px' }}
               type="button"

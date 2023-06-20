@@ -26,7 +26,7 @@ const Button: React.FC<Props> = ({
     <button
       style={style}
       className={
-        `${variant} transition rounded-[30px] duration-300 w-50 hover:bg-opacity-90 font-medium rounded text-base px-4 py-1 text-center block ${
+        `${variant} transition duration-300 hover:bg-opacity-90 font-medium rounded text-base px-4 py-1 text-center block ${
           styles ? styles : null
         }` + className
       }

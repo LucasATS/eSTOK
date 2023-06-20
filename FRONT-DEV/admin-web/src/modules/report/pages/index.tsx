@@ -1,6 +1,7 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRef } from 'react';
+import { toast } from 'react-hot-toast';
 import Button from '../../../components/Button';
 import SelectForm from '../../../components/FormComponents/SelectForm';
 import Header from '../../../components/MainLayout/components/Header';
@@ -10,14 +11,13 @@ import {
   selectOptionsProductType,
   selectOptionsReportType
 } from '../../_shared/constants/SelectOption';
-import CreateReportDto from '../dto/CreateReportDto';
-import ReportService from '../service/ReportService';
-import { toast } from 'react-hot-toast';
 import {
   getErrorMessage,
   getFieldErrors,
   manageApiErrorResponse
 } from '../../_shared/helpers/handleApiErrorResponse';
+import CreateReportDto from '../dto/CreateReportDto';
+import ReportService from '../service/ReportService';
 
 export const CreateReport = () => {
   const formRef = useRef<FormHandles>(null);

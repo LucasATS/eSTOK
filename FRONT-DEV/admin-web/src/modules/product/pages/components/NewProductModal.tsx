@@ -178,7 +178,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
             />
           </div>
 
-          <div className="flex items-center justify-between p-6 space-x-3 rounded-b border-t border-gray-200">
+          <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
             <Button
               style={{ width: '200px' }}
               type="button"

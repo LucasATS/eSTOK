@@ -64,7 +64,7 @@ const NewCategoryModal = ({ isOpen, onClose }: ConfigModalProps) => {
           <div className="p-6 space-y-3">
             <InputForm name="descricao" type="text" placeholder="Nome da Categoria" />
           </div>
-          <div className="flex items-center justify-between p-6 space-x-3 rounded-b border-t border-gray-200">
+          <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
             <Button
               style={{ width: '200px' }}
               variant="cancel"

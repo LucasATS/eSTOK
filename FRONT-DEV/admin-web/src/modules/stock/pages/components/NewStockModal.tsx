@@ -1,20 +1,20 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRef } from 'react';
+import toast from 'react-hot-toast';
 import Button from '../../../../components/Button';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import SelectForm from '../../../../components/FormComponents/SelectForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
 import { selectOptionsProductType } from '../../../_shared/constants/SelectOption';
-import StockService from '../../service/StockService';
-import CreateStockDto from '../../dto/CreateStockDto';
 import {
   getErrorMessage,
   getFieldErrors,
   manageApiErrorResponse
 } from '../../../_shared/helpers/handleApiErrorResponse';
-import toast from 'react-hot-toast';
+import CreateStockDto from '../../dto/CreateStockDto';
+import StockService from '../../service/StockService';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -83,7 +83,7 @@ export const NewStockModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) 
             </div>
           </div>
 
-          <div className="flex items-center justify-between p-6 space-x-3 rounded-b border-t border-gray-200">
+          <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
             <Button
               style={{ width: '200px' }}
               type="button"
