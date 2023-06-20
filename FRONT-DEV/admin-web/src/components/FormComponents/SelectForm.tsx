@@ -3,7 +3,7 @@ import { useField } from '@unform/core';
 import { Selector } from 'heroicons-react';
 import { useEffect, useState } from 'react';
 
-export type OptionSelect = { value: any; label: string; unavailable?: boolean };
+export type OptionSelect = { value: any; label: string };
 
 interface Props {
   name: string;
@@ -57,7 +57,7 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
                 }`}
               >
                 <span className={`font-semibold ${error ? 'text-red-500' : 'text-stone-500'}`}>
-                  {valueSelect.label || 'Selecione'}
+                  {valueSelect.label || placeholder}
                 </span>
                 <span className="flex pointer-events-none items-center">
                   <Selector

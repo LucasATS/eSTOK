@@ -79,7 +79,7 @@ export const ListStock = () => {
         <div className="flex flex-col gap-2 mt-5">
           <StockTable />
           <Pagination
-            currentPage={stocksPaginate?.results.length}
+            currentPage={stocksPaginate?.response.length}
             page={stocksPaginate?.currentPage}
             pageSize={stocksPaginate?.limit}
             totalItems={stocksPaginate?.totalItems}

@@ -1,4 +1,4 @@
-interface Stock {
+interface ResultStockDto {
   id: string;
   product: string;
   category: string;
@@ -9,4 +9,4 @@ interface Stock {
   batch: number;
 }
 
-export default Stock;
+export default ResultStockDto;

@@ -6,7 +6,9 @@ export interface Report {
 }
 
 export type Paginate<T> = {
-  results: T[];
+  length: number;
+  map(arg0: (category: any) => { value: any; label: any; status: any }): unknown;
+  response: T[];
   totalItems: number;
   currentPage: number;
   totalPages: number;

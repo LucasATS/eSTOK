@@ -5,8 +5,9 @@ import Header from '../../../components/MainLayout/components/Header';
 import Pagination from '../../../components/Paginate';
 import { Action } from '../../../components/Table';
 import { Paginate } from '../../_shared/types/api.types';
-import PaginateProductDto from '../dto/PaginateProductDto';
+import PaginateProductDto from '../dto/product/PaginateProductDto';
 import Product from '../models/Product';
+import ProductService from '../service/ProductService';
 import NewCategoryModal from './components/NewCategoryModal';
 import { NewProductModal } from './components/NewProductModal';
 import ProductTable from './components/ProductTable';
@@ -25,20 +26,15 @@ const ListProduct = () => {
   ];
 
   const loadProduct = async () => {
-    // const result = await ProductService.paginateProduct({
-    //   ...paginationActive,
-    //   limit: 10
-    // });
-    // console.log('RESULT', result);
-    // setProductsPaginate(result);
+    const result = await ProductService.paginateProduct({
+      ...paginationActive,
+      limit: 21
+    });
+    setProductsPaginate(result);
   };
 
   const handleNewProduct = () => {
     loadProduct();
-  };
-
-  const handleNewCategory = () => {
-    console.log('categoria cadastrada');
   };
 
   const handleClickNewProduct = () => {
@@ -79,10 +75,9 @@ const ListProduct = () => {
           />
         </div>
         <div className="flex flex-col gap-2 mt-5">
-          <ProductTable product={productsPaginate?.results} />
+          <ProductTable product={productsPaginate} />
           <Pagination
-            currentPage={productsPaginate?.results.length}
-            page={productsPaginate?.currentPage}
+            currentPage={productsPaginate?.currentPage}
             pageSize={productsPaginate?.limit}
             totalItems={productsPaginate?.totalItems}
             onChangePage={onChangePage}
@@ -93,11 +88,7 @@ const ListProduct = () => {
           onClose={handleCloseNewProduct}
           onConfirm={handleNewProduct}
         />
-        <NewCategoryModal
-          isOpen={openNewCategoryModal}
-          onClose={handleCloseNewCategory}
-          onConfirm={handleNewCategory}
-        />
+        <NewCategoryModal isOpen={openNewCategoryModal} onClose={handleCloseNewCategory} />
       </div>
     </div>
   );

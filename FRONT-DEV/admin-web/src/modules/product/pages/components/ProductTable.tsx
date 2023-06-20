@@ -1,12 +1,14 @@
 import ListCard from '../../../../components/ListCard';
 import Table from '../../../../components/Table';
+import { Paginate } from '../../../_shared/types/api.types';
 import Product from '../../models/Product';
 
 type Props = {
-  product?: Product[];
+  product?: Paginate<Product>;
 };
 
 const ProductTable = ({ product }: Props) => {
+  const products = product?.response;
   return (
     <>
       <div role="table" tabIndex={-1} className="lg:flex hidden">
@@ -14,27 +16,27 @@ const ProductTable = ({ product }: Props) => {
           columns={[
             {
               columnName: 'Id',
-              key: 'idProduct'
+              key: 'ID'
             },
             {
               columnName: 'Produto',
-              key: 'name'
+              key: 'Produto'
             },
             {
               columnName: 'Categoria',
-              key: 'category'
+              key: 'Categoria'
             },
 
             {
               columnName: 'Tipo de Produto',
-              key: 'productType'
+              key: 'Tipo_do_Produto'
             },
             {
               columnName: 'Unidade de Medida',
-              key: 'unit'
+              key: 'Unidade'
             }
           ]}
-          values={product}
+          values={products}
         />
       </div>
       <div className="flex lg:hidden">
@@ -42,26 +44,26 @@ const ProductTable = ({ product }: Props) => {
           itemsLabel={[
             {
               label: 'Id',
-              key: 'idProduct'
+              key: 'ID'
             },
             {
               label: 'Produto',
-              key: 'name'
+              key: 'Produto'
             },
             {
               label: 'Categoria',
-              key: 'category'
+              key: 'categoria'
             },
             {
               label: 'Tipo de Produto',
-              key: 'productType'
+              key: 'Tipo_do_Produto'
             },
             {
               label: 'Unidade de Medida',
-              key: 'unit'
+              key: 'Unidade'
             }
           ]}
-          values={product}
+          values={products}
         />
       </div>
     </>

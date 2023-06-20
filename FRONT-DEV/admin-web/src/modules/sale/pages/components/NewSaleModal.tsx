@@ -11,6 +11,11 @@ import CreateSaleDto from '../../dto/CreateSaleDto';
 
 import SaleService from '../../service/SaleService';
 import toast from 'react-hot-toast';
+import {
+  getErrorMessage,
+  getFieldErrors,
+  manageApiErrorResponse
+} from '../../../_shared/helpers/handleApiErrorResponse';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -38,7 +43,7 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
       onClose();
       clearForm();
     } catch (error) {
-      // para caso haja erro as informações abaixo são para retornar a mensagem de acordo com o erro ocorrido
+      handleErrors(error);
     }
   };
 
@@ -49,6 +54,14 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
 
   const clearForm = () => {
     formRef.current?.reset();
+  };
+
+  const handleErrors = (resultError: unknown) => {
+    const fieldsErrors = getFieldErrors(resultError);
+    formRef.current?.setErrors(fieldsErrors);
+    const resultErrorReponse = manageApiErrorResponse(resultError);
+    const error = getErrorMessage(resultErrorReponse);
+    toast.error(error);
   };
 
   return (

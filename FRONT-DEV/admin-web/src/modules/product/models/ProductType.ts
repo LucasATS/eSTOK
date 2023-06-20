@@ -1,7 +1,7 @@
-interface Category {
+interface ProductType {
   ID: string;
   Descrição: string;
   Status: boolean;
 }
 
-export default Category;
+export default ProductType;
