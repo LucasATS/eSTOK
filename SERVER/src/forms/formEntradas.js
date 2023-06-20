@@ -4,7 +4,7 @@ const form = async (body) => {
 
     let { id_produto, quantidade, unitario, total, validade, lote, data_compra } = body;
 
-    if (!id_produto, !quantidade, !unitario, !total, !validade, !lote, !data_compra) {
+    if (!id_produto || !quantidade || !unitario || !total || !validade || !lote || !data_compra) {
         return { is_valid: false, message: 'Dados Obrigatórios' }
     }
 

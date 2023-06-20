@@ -1,3 +1,6 @@
+DELETE FROM baixa_estoques;
+ALTER TABLE baixa_estoques AUTO_INCREMENT = 1;
+
 DELETE FROM categorias WHERE id >= 3;
 ALTER TABLE categorias AUTO_INCREMENT = 2;
 

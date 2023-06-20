@@ -8,7 +8,7 @@ const form = async (body) => {
         return { is_valid: false, message: 'Descrição é obrigatório' }
     }
 
-    const resp = await Tipo_Produtos.sp_unidades(descricao, 1)
+    const resp = await Tipo_Produtos.sp_tipo_produto(descricao, 1)
 
     return { is_valid: true, message: resp.Msg }
 

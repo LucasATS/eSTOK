@@ -30,6 +30,8 @@ const ListProduct = () => {
       ...paginationActive,
       limit: 21
     });
+    console.log('result', result);
+
     setProductsPaginate(result);
   };
 
