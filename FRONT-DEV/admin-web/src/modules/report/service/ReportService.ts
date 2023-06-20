@@ -4,6 +4,7 @@ import { Paginate, Result } from '../../_shared/types/api.types';
 import CreateReportDto from '../dto/CreateReportDto';
 import PaginateReportDto from '../dto/PaginateReportDto';
 import ResultReportDto from '../dto/ResultReportDto';
+import Report from '../models/Report';
 
 class ReportService {
   public async createReport(createReportDto: CreateReportDto): Promise<Result<ResultReportDto>> {

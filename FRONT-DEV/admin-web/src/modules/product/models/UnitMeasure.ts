@@ -1,7 +1,8 @@
 interface UnitMeasure {
-  id: string;
-  name: string;
-  unit: number;
+  ID: string;
+  Abreviação: string;
+  Descrição: string;
+  Status: boolean;
 }
 
 export default UnitMeasure;
