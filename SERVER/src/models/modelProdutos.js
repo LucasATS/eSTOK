@@ -37,16 +37,29 @@ export const Produtos = db.define('produtos', {
   },
 }, {});
 
-Produtos.vw_produtos = async () => {
+Produtos.vw_produtos = async (posIni, Quantidade) => {
   const data = await db.query(
-    "SELECT * FROM vw_produtos_cadastro",
+    "SELECT * FROM vw_produtos_cadastro LIMIT ?, ?",
     {
       model: this,
       mapToModel: true,
-      type: QueryTypes.SELECT
+      type: QueryTypes.SELECT,
+      replacements: [posIni, Quantidade]
     }
   );
   return data;
+}
+
+Produtos.total_cadastro = async () => {
+  const data = await db.query(
+    "SELECT COUNT(ID) as total FROM vw_produtos_cadastro;",
+    {
+      model: this,
+      mapToModel: true,
+      type: QueryTypes.SELECT,
+    }
+  );
+  return data[0].total;
 }
 
 Produtos.sp_produtos = async (nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel) => {
