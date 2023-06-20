@@ -17,10 +17,9 @@ import CategoryService from '../../service/CategoryService';
 interface ConfigModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void;
 }
 
-const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
+const NewCategoryModal = ({ isOpen, onClose }: ConfigModalProps) => {
   const formRef = useRef<FormHandles>(null);
 
   const handleAddNewCategoria = async () => {
@@ -29,13 +28,8 @@ const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
       const newCategoryToCreate = {
         ...mainFormData
       } as CreateCategoryDto;
-
       const result = await CategoryService.createCategory(newCategoryToCreate);
-      // console.log('result', result);
-
       toast.success(result.message);
-
-      onConfirm();
       onClose();
       clearForm();
     } catch (error) {

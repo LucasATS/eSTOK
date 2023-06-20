@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import PageAction from './components/PageAction';
 import PageInfo from './components/PageInfo';
 import PageItem from './components/PageItem';
+
 type PaginateProps = {
   totalItems?: number;
   currentPage?: number;
@@ -12,6 +13,7 @@ type PaginateProps = {
   currentPageLength?: number;
   onChangePage?: (page: number) => void;
 };
+
 const Pagination = (props: PaginateProps) => {
   const pagerInit = getPager();
   const [pager, setPager] = useState(pagerInit);

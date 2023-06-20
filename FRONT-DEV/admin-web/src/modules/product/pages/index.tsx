@@ -6,9 +6,7 @@ import Pagination from '../../../components/Paginate';
 import { Action } from '../../../components/Table';
 import { Paginate } from '../../_shared/types/api.types';
 import PaginateProductDto from '../dto/product/PaginateProductDto';
-import Category from '../models/Category';
 import Product from '../models/Product';
-import CategoryService from '../service/CategoryService';
 import ProductService from '../service/ProductService';
 import NewCategoryModal from './components/NewCategoryModal';
 import { NewProductModal } from './components/NewProductModal';
@@ -19,7 +17,6 @@ const ListProduct = () => {
   const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>();
   const [openNewProductModal, setOpenNewProductModal] = useState(false);
   const [openNewCategoryModal, setOpenNewCategoryModal] = useState(false);
-  const [categoryPaginate, setCategoryPaginate] = useState<Paginate<Category>>();
 
   const menuItens: Action[] = [
     {
@@ -31,27 +28,13 @@ const ListProduct = () => {
   const loadProduct = async () => {
     const result = await ProductService.paginateProduct({
       ...paginationActive,
-      limit: 10
+      limit: 21
     });
-    console.log('RESULT', result);
     setProductsPaginate(result);
   };
 
   const handleNewProduct = () => {
     loadProduct();
-  };
-
-  const loadCategory = async () => {
-    const result = await CategoryService.paginateCategory({
-      ...paginationActive,
-      limit: 10
-    });
-    console.log('RESULT', result);
-    setCategoryPaginate(result);
-  };
-
-  const handleNewCategory = () => {
-    loadCategory();
   };
 
   const handleClickNewProduct = () => {
@@ -73,7 +56,6 @@ const ListProduct = () => {
 
   useEffect(() => {
     loadProduct();
-    loadCategory();
   }, [paginationActive]);
 
   return (
@@ -92,10 +74,9 @@ const ListProduct = () => {
           />
         </div>
         <div className="flex flex-col gap-2 mt-5">
-          <ProductTable product={productsPaginate?.results} />
+          <ProductTable product={productsPaginate} />
           <Pagination
-            currentPage={productsPaginate?.results.length}
-            page={productsPaginate?.currentPage}
+            currentPage={productsPaginate?.currentPage}
             pageSize={productsPaginate?.limit}
             totalItems={productsPaginate?.totalItems}
             onChangePage={onChangePage}
@@ -106,11 +87,7 @@ const ListProduct = () => {
           onClose={handleCloseNewProduct}
           onConfirm={handleNewProduct}
         />
-        <NewCategoryModal
-          isOpen={openNewCategoryModal}
-          onClose={handleCloseNewCategory}
-          onConfirm={handleNewCategory}
-        />
+        <NewCategoryModal isOpen={openNewCategoryModal} onClose={handleCloseNewCategory} />
       </div>
     </div>
   );

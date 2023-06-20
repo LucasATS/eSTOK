@@ -1,4 +1,3 @@
-import queryString from 'query-string';
 import api from '../../_shared/services/api';
 import { Paginate, Result } from '../../_shared/types/api.types';
 import CreateCategoryDto from '../dto/category/CreateCategoryDto';
@@ -18,8 +17,7 @@ class CategoryService {
   public async paginateCategory({
     ...paginateCategory
   }: PaginateCategoryDto): Promise<Paginate<Category>> {
-    const queryParams = queryString.stringify(paginateCategory);
-    const response = await api.get(`/api/admin/categorias?${queryParams}`);
+    const response = await api.get(`/api/admin/categorias`);
     return response.data.data;
   }
 }

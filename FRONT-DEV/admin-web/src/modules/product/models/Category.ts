@@ -1,6 +1,7 @@
 interface Category {
-  id: string;
-  descrição: string;
+  ID: string;
+  Descrição: string;
+  Status: boolean;
 }
 
 export default Category;
