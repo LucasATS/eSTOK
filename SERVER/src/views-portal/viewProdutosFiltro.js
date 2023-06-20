@@ -1,13 +1,27 @@
 import DAO from '../tools/DAO';
-import { Produtos } from '../models/modelProdutos'
+import { Produtos } from '../models/modelProdutos';
+import { Categorias } from '../models/modelCategorias';
 
 const view = async (req, res) => {
-    let fields = req.body;
-    let campos = ["Nome", "Descricao"]
-    let data = await DAO.filter(Produtos, fields, campos)
-    if(data){
-        res.status(200).json({data : {status: 'ok', data: data}})
+    let { id_categoria, Nome } = req.query;
+
+    let campos = ["Nome", "Descricao", "id_categoria"]
+
+    let data = await DAO.filter(Produtos, { id_categoria, Nome }, campos);
+
+    if(data.length > 0){
+        const _data = await data.map( async row => {
+            let categ = await DAO.get(Categorias, {id: row.id_categoria});
+            return {
+                Nome: row.Nome, Descricao: row.Descricao, Categoria: categ.descricao
+            };
+        });
+        res.status(200).json({data : _data})
+    } else {
+        res.status(200).json({data : []})
     }
+    
+
 };
 
 export default view;

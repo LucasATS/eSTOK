@@ -32,14 +32,14 @@ class urls {
         this.server.get("/api/admin/tipos-de-produto", UserIsAuthentic, require('../views-admin/viewTiposProduto.js').default);
 
         this.server.get("/api/admin/estoque", UserIsAuthentic, require('../views-admin/viewEstoque.js').default);
-        this.server.get("/api/admin/baixaestoques",UserIsAuthentic, require('../views-admin/viewBaixa_Estoques.js').default);
 
         this.server.get("/api/admin/relatorios/vendas-administrador", UserIsAuthentic, require('../views-admin/viewVendasAdministrador.js').default);
         this.server.get("/api/admin/relatorios/vendas-site", UserIsAuthentic, require('../views-admin/viewVendasSite.js').default);
         this.server.get("/api/admin/relatorios/consolidado", UserIsAuthentic, require('../views-admin/viewVendasConsolidado.js').default);
         this.server.get("/api/admin/relatorios/itens-no-estoque", UserIsAuthentic, require('../views-admin/viewItensNoEstoque.js').default);
-
-        this.server.get("/api/admin/auth/logout", require('../views-admin/viewLogout.js').default); // ok
+        this.server.get("/api/admin/relatorios/baixaestoques",UserIsAuthentic, require('../views-admin/viewBaixa_Estoques.js').default);
+        
+        this.server.get("/api/admin/auth/logout", require('../views-admin/viewLogout.js').default);
 
         //Links admin-web - POST - AUTENTICADO
         this.server.post("/api/admin/produtos/create",UserIsAuthentic, require('../views-admin/viewCreateProduto.js').default);

@@ -2,8 +2,9 @@ import { Produtos } from '../models/modelProdutos';
 import DAO from '../tools/DAO';
 
 const view = async (req, res) => {
-    let id = req.body
-    let data = DAO.get(Produtos, {id:id})
+    let { id } = req.query;
+
+    let data = await DAO.get(Produtos, { id } )
     if (data) {
         res.status(200).json({ data: data });
     }else {

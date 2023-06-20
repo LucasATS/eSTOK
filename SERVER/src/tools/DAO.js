@@ -7,8 +7,13 @@ class DAO {
         const data = await model.findOne({
             where: fields
         });
+
+        try {
+            return data.dataValues;
+        } catch (error) {
+            return null;
+        }
         
-        return data;
         
     }
 
