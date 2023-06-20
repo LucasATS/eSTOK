@@ -11,7 +11,7 @@ class ProductService {
     createProductDto: CreateProductDto
   ): Promise<Result<ResultProductDto>> {
     console.log(createProductDto);
-    const response = await api.post(`/api/admin/categorias/create`, createProductDto);
+    const response = await api.post(`/api/admin/produtos/create`, createProductDto);
     return response.data;
   }
 
@@ -19,7 +19,7 @@ class ProductService {
     ...paginateProduct
   }: PaginateProductDto): Promise<Paginate<Product>> {
     const queryParams = queryString.stringify(paginateProduct);
-    const response = await api.get(`/api/admin/produtos?${queryParams}`);
+    const response = await api.get(`/api/admin/produtos`);
     return response.data.data;
   }
 }
