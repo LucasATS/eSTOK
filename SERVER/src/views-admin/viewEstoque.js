@@ -9,7 +9,9 @@ const view = async (req, res) => {
         (!Quantidade)? 20 : Number(Quantidade)
     );
 
-    res.status(200).json({ data: data });
+    const total = await Estoques.total_cadastro();
+    
+    res.status(200).json({ data: data, total: total });
 
 };
 

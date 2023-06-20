@@ -32,3 +32,13 @@ Estoques.vw_entradas_cadastro = async (posIni, Quantidade) => {
   );
   return data;
 }
+
+Estoques.total_cadastro = async () => {
+  const data = await db.query(
+    "SELECT COUNT(ID) as total FROM vw_entradas_cadastro;",
+    {
+      type: QueryTypes.SELECT,
+    }
+  );
+  return data[0].total;;
+}

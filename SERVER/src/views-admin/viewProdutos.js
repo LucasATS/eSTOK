@@ -8,8 +8,10 @@ const view = async (req, res) => {
         (!Inicial)? 1 : Number(Inicial), 
         (!Quantidade)? 20 : Number(Quantidade)
     );
-
-    res.status(200).json({ data: data });
+    
+    const total = await Produtos.total_cadastro();
+    
+    res.status(200).json({ data: data, total: total });
 
 };
 
