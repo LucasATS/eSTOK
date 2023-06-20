@@ -1,10 +1,11 @@
 interface CreateProductDto {
-  name: string;
-  category: string;
-  unit: number;
-  productType: string;
+  nome: string;
+  categoria: string;
+  unidade: number;
+  tp_produto: string;
   tamanho: number;
-  description?: string;
+  foto: File[];
+  descricao?: string;
 }
 
 export default CreateProductDto;
