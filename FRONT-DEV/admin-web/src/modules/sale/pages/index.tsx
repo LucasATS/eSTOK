@@ -50,7 +50,7 @@ const ListSale = () => {
         <div className="flex flex-col gap-2 mt-5">
           <SaleTable />
           <Pagination
-            currentPage={salesPaginate?.results.length}
+            currentPage={salesPaginate?.response.length}
             page={salesPaginate?.currentPage}
             pageSize={salesPaginate?.limit}
             totalItems={salesPaginate?.totalItems}

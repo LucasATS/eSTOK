@@ -6,16 +6,20 @@ import Button from '../../../../components/Button';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
-import CreateCategoryDto from '../../dto/CreateCategoryDto';
-import ProductService from '../../service/CategoryService';
+import {
+  getErrorMessage,
+  getFieldErrors,
+  manageApiErrorResponse
+} from '../../../_shared/helpers/handleApiErrorResponse';
+import CreateCategoryDto from '../../dto/category/CreateCategoryDto';
+import CategoryService from '../../service/CategoryService';
 
 interface ConfigModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void;
 }
 
-const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
+const NewCategoryModal = ({ isOpen, onClose }: ConfigModalProps) => {
   const formRef = useRef<FormHandles>(null);
 
   const handleAddNewCategoria = async () => {
@@ -24,17 +28,12 @@ const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
       const newCategoryToCreate = {
         ...mainFormData
       } as CreateCategoryDto;
-
-      const result = await ProductService.createCategory(newCategoryToCreate);
-      // console.log('result', result);
-
+      const result = await CategoryService.createCategory(newCategoryToCreate);
       toast.success(result.message);
-
-      onConfirm();
       onClose();
       clearForm();
     } catch (error) {
-      // para caso haja erro as informações abaixo são para retornar a mensagem de acordo com o erro ocorrido
+      handleErrors(error);
     }
   };
 
@@ -45,6 +44,14 @@ const NewCategoryModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
 
   const clearForm = () => {
     formRef.current?.reset();
+  };
+
+  const handleErrors = (resultError: unknown) => {
+    const fieldsErrors = getFieldErrors(resultError);
+    formRef.current?.setErrors(fieldsErrors);
+    const resultErrorReponse = manageApiErrorResponse(resultError);
+    const error = getErrorMessage(resultErrorReponse);
+    toast.error(error);
   };
 
   return (
