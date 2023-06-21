@@ -44,7 +44,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
       const optionsCategories = categories.map((category) => {
         return {
           value: category.ID,
-          label: category.Descrição,
+          label: category.Descricao,
           status: category.Status
         };
       }) as OptionSelect[];
