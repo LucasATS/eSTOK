@@ -13,7 +13,9 @@ import { NewProductModal } from './components/NewProductModal';
 import ProductTable from './components/ProductTable';
 
 const ListProduct = () => {
-  const [paginationActive, setPaginationActive] = useState<PaginateProductDto>({});
+  const [paginationActive, setPaginationActive] = useState<PaginateProductDto>({
+    limit: 2
+  });
   const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>();
   const [openNewProductModal, setOpenNewProductModal] = useState(false);
   const [openNewCategoryModal, setOpenNewCategoryModal] = useState(false);
@@ -27,11 +29,8 @@ const ListProduct = () => {
 
   const loadProduct = async () => {
     const result = await ProductService.paginateProduct({
-      ...paginationActive,
-      limit: 21
+      ...paginationActive
     });
-    console.log('result', result);
-
     setProductsPaginate(result);
   };
 
@@ -52,12 +51,16 @@ const ListProduct = () => {
   };
 
   const onChangePage = async (page: number) => {
-    setPaginationActive((old) => ({ ...old, page }));
-    console.log('Próxima página');
+    const newInitial = page * Number(paginationActive.limit) - Number(paginationActive.limit);
+    setPaginationActive((old) => ({ ...old, page, initial: Math.ceil(newInitial) }));
   };
 
   useEffect(() => {
-    loadProduct();
+    if (Number.isNaN(Number(paginationActive.initial))) {
+      setPaginationActive((old) => ({ ...old, page: 1, initial: 1 }));
+    } else {
+      loadProduct();
+    }
   }, [paginationActive]);
 
   return (
@@ -79,7 +82,8 @@ const ListProduct = () => {
         <div className="flex flex-col gap-2 mt-5">
           <ProductTable product={productsPaginate} />
           <Pagination
-            currentPage={productsPaginate?.currentPage}
+            currentPageLength={productsPaginate?.length}
+            page={productsPaginate?.currentPage}
             pageSize={productsPaginate?.limit}
             totalItems={productsPaginate?.totalItems}
             onChangePage={onChangePage}

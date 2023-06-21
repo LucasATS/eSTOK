@@ -8,7 +8,6 @@ type Props = {
 };
 
 const ProductTable = ({ product }: Props) => {
-  const products = product?.response;
   return (
     <>
       <div role="table" tabIndex={-1} className="lg:flex hidden">
@@ -36,7 +35,7 @@ const ProductTable = ({ product }: Props) => {
               key: 'Unidade'
             }
           ]}
-          values={products}
+          values={product}
         />
       </div>
       <div className="flex lg:hidden">
@@ -63,7 +62,7 @@ const ProductTable = ({ product }: Props) => {
               key: 'Unidade'
             }
           ]}
-          values={products}
+          values={product}
         />
       </div>
     </>

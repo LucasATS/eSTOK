@@ -10,7 +10,7 @@ export interface LabelProps {
 }
 interface Props {
   itemsLabel: LabelProps[];
-  values?: any[];
+  values?: any;
   menuItems?: Action[];
 }
 const ListCard = ({ itemsLabel, values, menuItems }: Props) => {
@@ -41,8 +41,8 @@ const ListCard = ({ itemsLabel, values, menuItems }: Props) => {
   };
   return (
     <div className="relative flex flex-col gap-2 w-full">
-      {values?.map((value, index) => (
-        <div key={index} className="relative flex flex-col border-2 rounded border-stone-300">
+      {values?.map((value: any) => (
+        <div key={value.id} className="relative flex flex-col border-2 rounded border-stone-300">
           <div>
             {itemsLabel.map((item, index) => (
               <div className="p-3" key={index}>

@@ -17,8 +17,27 @@ class ProductService {
   public async paginateProduct({
     ...paginateProduct
   }: PaginateProductDto): Promise<Paginate<Product>> {
-    const response = await api.get(`/api/admin/produtos`);
-    return response.data.data;
+    const response = await api.get(
+      `/api/admin/produtos?Inicial=${paginateProduct.initial}&Quantidade=${paginateProduct.limit}`
+    );
+    let total = Number(response.data.total) / Number(paginateProduct.limit);
+
+    if (total < 1) {
+      total = 1;
+    }
+
+    const paginateResult: Paginate<Product> = {
+      response: response.data.data,
+      totalItems: response.data.total,
+      currentPage: 1,
+      totalPages: Math.ceil(total),
+      limit: paginateProduct.limit || 10,
+      length: response.data.data.length,
+      map: (arg0: (category: any) => { value: any; label: any; status: any }) => {
+        return response.data.data.map(arg0);
+      }
+    };
+    return paginateResult;
   }
 }
 
