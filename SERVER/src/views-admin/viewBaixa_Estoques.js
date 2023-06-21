@@ -2,19 +2,31 @@ import { Baixa_Estoques } from "../models/modelBaixa_Estoques";
 
 
 const view = async (req, res) => {
-    const { id } = req.query;
 
-    if (!id){
+    try {
+            
+        const { id } = req.query;
 
-        res.status(200).json({ data: [] });
+        if (!id){
+    
+            res.status(200).json({ data: [] });
+            
+        } else {
+    
+            const data = await Baixa_Estoques.vw_baixa_estoques('#'+id);
+    
+            res.status(200).json({ data: data });
+        }
+
+    } catch (error) {
         
-    } else {
+        if (req.status_debug){
+            res.status(400).json({ error: error });
+        } else {
+            res.status(400).json({ error: 'Erro inesperado' });
+        }
 
-        const data = await Baixa_Estoques.vw_baixa_estoques('#'+id);
-
-        res.status(200).json({ data: data });
     }
-
     
 };
 

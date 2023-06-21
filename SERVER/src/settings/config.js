@@ -9,6 +9,8 @@ const express = require('express');
 
 const cors = require('cors');
 
+const DEBUG = true;
+
 const appConfig = async (server, PATH) => {
 
   //CORS ACESSO LIBERADO
@@ -19,6 +21,13 @@ const appConfig = async (server, PATH) => {
       res.header("Access-Control-Allow-Methods", 'GET,POST');
       server.use(cors());
       next();
+  });
+
+  //CONFIGURA STATUS DEBUG
+  server.use((req, res, next) => {
+    //CORRINGA (*) PARA TODOS
+    req.status_debug = DEBUG;
+    next();
   });
 
   //PARSERS

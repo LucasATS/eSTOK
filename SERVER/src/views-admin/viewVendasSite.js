@@ -1,15 +1,26 @@
 
 const view = async (req, res) => {
 
-    const {date_de, date_ate, tipo_produto} = req.query;
-    
-    data = [];
+    try {
 
-    //const data = await Vendas.vw_vendas_cliente(
-    //    date_de, date_ate, tipo_produto
-    //);
+        const {date_de, date_ate, tipo_produto} = req.query;
     
-    res.status(200).json({ data: data });
+        data = [];
+    
+        //const data = await Vendas.vw_vendas_cliente(
+        //    date_de, date_ate, tipo_produto
+        //);
+        
+        res.status(200).json({ data: data });
+        
+    } catch (error) {
+        
+        if (req.status_debug){
+            res.status(400).json({ error: error });
+        } else {
+            res.status(400).json({ error: 'Erro inesperado' });
+        }
+    }
 
 };
 
