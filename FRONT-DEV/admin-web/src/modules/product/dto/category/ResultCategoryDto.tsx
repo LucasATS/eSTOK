@@ -1,5 +1,4 @@
 interface ResultCategoryDto {
-  id: number;
   descricao: string;
 }
 
