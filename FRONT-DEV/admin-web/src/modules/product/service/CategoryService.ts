@@ -10,7 +10,6 @@ class CategoryService {
     createCategoryDto: CreateCategoryDto
   ): Promise<Result<ResultCategoryDto>> {
     const response = await api.post(`/api/admin/categorias/create`, createCategoryDto);
-    console.log('response', response.statusText);
     return response.data;
   }
 

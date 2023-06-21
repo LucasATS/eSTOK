@@ -8,7 +8,6 @@ class UnitMeasureService {
   public async createUnitMeasure(
     unitMeasuDto: CreateUnitMeasureDto
   ): Promise<Result<ResultUnitMeasureDto>> {
-    console.log(unitMeasuDto);
     const response = await api.post(`/api/admin/tipos-de-medidas/create`, unitMeasuDto);
     return response.data;
   }

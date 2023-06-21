@@ -14,7 +14,7 @@ import ProductTable from './components/ProductTable';
 
 const ListProduct = () => {
   const [paginationActive, setPaginationActive] = useState<PaginateProductDto>({
-    limit: 2
+    limit: 6
   });
   const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>();
   const [openNewProductModal, setOpenNewProductModal] = useState(false);

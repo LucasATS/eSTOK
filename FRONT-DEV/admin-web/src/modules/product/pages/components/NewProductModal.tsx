@@ -48,7 +48,6 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
           status: category.Status
         };
       }) as OptionSelect[];
-      console.log('optionsCategories', optionsCategories);
       setCategoryOptions(optionsCategories);
     }
   };
@@ -67,7 +66,6 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
           status: unitMeasure.Status
         };
       }) as OptionSelect[];
-      console.log('optionsUnitsMeasure', optionsUnitsMeasure);
       setUnitMeasureOptions(optionsUnitsMeasure);
     }
   };
@@ -86,7 +84,6 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
           status: productType.Status
         };
       }) as OptionSelect[];
-      console.log('optionsProductsType', optionsProductsType);
       setProductTypeOptions(optionsProductsType);
     }
   };

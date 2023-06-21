@@ -10,7 +10,6 @@ class ProductTypeService {
     createProductTypeDto: CreateProductTypeDto
   ): Promise<Result<ResultProductTypeDto>> {
     const response = await api.post(`/api/admin/tipos-de-produto/create`, createProductTypeDto);
-    console.log('response', response.statusText);
     return response.data;
   }
 

@@ -9,7 +9,6 @@ class ProductService {
   public async createProduct(
     createProductDto: CreateProductDto
   ): Promise<Result<ResultProductDto>> {
-    console.log(createProductDto);
     const response = await api.post(`/api/admin/produtos/create`, createProductDto);
     return response.data;
   }
@@ -38,6 +37,13 @@ class ProductService {
       }
     };
     return paginateResult;
+  }
+
+  public async paginateOptionsProduct({
+    ...paginateProduct
+  }: PaginateProductDto): Promise<Paginate<Product>> {
+    const response = await api.get(`/api/admin/produtos`);
+    return response.data.data;
   }
 }
 
