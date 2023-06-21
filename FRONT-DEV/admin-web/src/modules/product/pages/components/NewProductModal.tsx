@@ -62,7 +62,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
       const optionsUnitsMeasure = unitsMeasure.map((unitMeasure) => {
         return {
           value: unitMeasure.ID,
-          label: unitMeasure.Descrição,
+          label: unitMeasure.Descricao,
           status: unitMeasure.Status
         };
       }) as OptionSelect[];
@@ -80,7 +80,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
       const optionsProductsType = productsType.map((productType) => {
         return {
           value: productType.ID,
-          label: productType.Descrição,
+          label: productType.Descricao,
           status: productType.Status
         };
       }) as OptionSelect[];

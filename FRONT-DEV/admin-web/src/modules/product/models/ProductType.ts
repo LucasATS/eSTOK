@@ -1,6 +1,6 @@
 interface ProductType {
   ID: string;
-  Descrição: string;
+  Descricao: string;
   Status: boolean;
 }
 
