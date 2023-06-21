@@ -10,8 +10,8 @@ const PageItem = (props: Props) => {
     <span
       className={`cursor-pointer  transition-all px-[10px] py-1 rounded sm:text-sm text-md ${
         props.isActive
-          ? 'hover:bg-teal-500 bg-teal-600 font-semibold text-white'
-          : 'hover:bg-gray-200'
+          ? 'hover:bg-teal-500 bg-sky-600 font-semibold text-white'
+          : 'cursor-pointer hover:bg-gray-200 text-gray-500'
       }`}
       onClick={props.onClick}
       onKeyDown={props.onKeyDown}

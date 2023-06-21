@@ -80,7 +80,7 @@ const Pagination = (props: PaginateProps) => {
             totalLenght={formatNumber(props.totalItems)}
           />
         </div>
-        <div className="flex flex-row sm:gap-2 gap-3">
+        <div className="flex flex-row sm:gap-1 gap-2">
           <PageAction
             isDisabled={pager.currentPage === 1 || pager.currentPage === 0}
             onClick={() => setPage(pager.currentPage - 1)}
