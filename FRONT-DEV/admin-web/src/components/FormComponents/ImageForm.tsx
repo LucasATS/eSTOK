@@ -15,8 +15,14 @@ export const ImageForm = ({ removeImage, file }: ImageDetailType) => {
         <span className="text-base font-medium max-w-[220px] truncate">{file && file.name}</span>
       </div>
       <div className="flex items-center gap-3">
-        <div className="cursor-pointer">
-          <img src={iconApi + 'delete.svg'} className="w-6 h-6 text-error" onClick={removeImage} />
+        <div
+          className="cursor-pointer"
+          role="button"
+          tabIndex={0}
+          onClick={removeImage}
+          onKeyDown={removeImage}
+        >
+          <img src={iconApi + 'delete.svg'} alt="deletar imagem" className="w-6 h-6 text-error" />
         </div>
       </div>
     </div>

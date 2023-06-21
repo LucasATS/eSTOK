@@ -1,20 +1,25 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import Button from '../../../../components/Button';
 import { DropzoneForm } from '../../../../components/FormComponents/DropzoneForm';
 import { ImageForm } from '../../../../components/FormComponents/ImageForm';
 import InputForm from '../../../../components/FormComponents/InputForm';
-import SelectForm from '../../../../components/FormComponents/SelectForm';
+import SelectForm, { OptionSelect } from '../../../../components/FormComponents/SelectForm';
 import TextAreaForm from '../../../../components/FormComponents/TextAreaForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
 import {
-  selectOptionsCategory,
-  selectOptionsProductSize,
-  selectOptionsProductType,
-  selectOptionsUnit
-} from '../../../_shared/constants/SelectOption';
+  getErrorMessage,
+  getFieldErrors,
+  manageApiErrorResponse
+} from '../../../_shared/helpers/handleApiErrorResponse';
+import CreateProductDto from '../../dto/product/CreateProductDto';
+import CategoryService from '../../service/CategoryService';
+import ProductService from '../../service/ProductService';
+import ProductTypeService from '../../service/ProductTypeService';
+import UnitMeasureService from '../../service/UnitMeasureService';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -23,14 +28,80 @@ interface ConfigModalProps {
 }
 
 export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
+  const [categoryOptions, setCategoryOptions] = useState<OptionSelect[]>([]);
+  const [unitMeasureOptions, setUnitMeasureOptions] = useState<OptionSelect[]>([]);
+  const [productTypeoptions, setProductTypeOptions] = useState<OptionSelect[]>([]);
   const formRef = useRef<FormHandles>(null);
   const [file, setFile] = useState<File>();
 
-  const handleAddProduct = async () => {
-    console.log('criado ou atualizado');
-    onConfirm();
-    onClose();
-    clearForm();
+  const getCategoryOptions = async () => {
+    const categories = await CategoryService.paginateCategory({
+      limit: 10,
+      isActive: true
+    });
+    const categoryOptions = categories.length;
+    if (categoryOptions > 0) {
+      const optionsCategories = categories.map((category) => {
+        return {
+          value: category.ID,
+          label: category.Descrição,
+          status: category.Status
+        };
+      }) as OptionSelect[];
+      setCategoryOptions(optionsCategories);
+    }
+  };
+
+  const getUnitMeasureOptions = async () => {
+    const unitsMeasure = await UnitMeasureService.paginateUnitMeasure({
+      limit: 10,
+      isActive: true
+    });
+    const unitMeasureOptions = unitsMeasure.length;
+    if (unitMeasureOptions > 0) {
+      const optionsUnitsMeasure = unitsMeasure.map((unitMeasure) => {
+        return {
+          value: unitMeasure.ID,
+          label: unitMeasure.Descrição,
+          status: unitMeasure.Status
+        };
+      }) as OptionSelect[];
+      setUnitMeasureOptions(optionsUnitsMeasure);
+    }
+  };
+
+  const getProductTypeOptions = async () => {
+    const productsType = await ProductTypeService.paginateProductType({
+      limit: 200,
+      isActive: true
+    });
+    const productTypeOptions = productsType.length;
+    if (productTypeOptions > 0) {
+      const optionsProductsType = productsType.map((productType) => {
+        return {
+          value: productType.ID,
+          label: productType.Descrição,
+          status: productType.Status
+        };
+      }) as OptionSelect[];
+      setProductTypeOptions(optionsProductsType);
+    }
+  };
+
+  const handleAddNewProduct = async () => {
+    try {
+      const mainFormData = formRef?.current?.getData();
+      const newProductToCreate = {
+        ...mainFormData
+      } as CreateProductDto;
+      const result = await ProductService.createProduct(newProductToCreate);
+      toast.success(result.message);
+      onClose();
+      onConfirm();
+      clearForm();
+    } catch (error) {
+      handleErrors(error);
+    }
   };
 
   const handleCancel = () => {
@@ -42,6 +113,14 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
     formRef.current?.reset();
   };
 
+  const handleErrors = (resultError: unknown) => {
+    const fieldsErrors = getFieldErrors(resultError);
+    formRef.current?.setErrors(fieldsErrors);
+    const resultErrorReponse = manageApiErrorResponse(resultError);
+    const error = getErrorMessage(resultErrorReponse);
+    toast.error(error);
+  };
+
   const handleProductImage = (file: File) => {
     setFile(file);
   };
@@ -51,11 +130,17 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
     formRef.current?.reset();
   };
 
+  useEffect(() => {
+    getCategoryOptions();
+    getUnitMeasureOptions();
+    getProductTypeOptions();
+  }, []);
+
   return (
     <ModalComponent isOpen={isOpen} onClose={onClose}>
-      <Form ref={formRef} onSubmit={handleAddProduct} className="flex justify-center">
+      <Form ref={formRef} onSubmit={handleAddNewProduct} className="flex justify-center">
         <div className="relative bg-white rounded-lg shadow w-full">
-          <div className="flex items-start py-1 px-4 rounded-t border-b">
+          <div className="flex items-start py-1 px-6 rounded-t border-b">
             <TitleCard text="Cadastrar Produto" />
           </div>
           <div className="p-6 space-y-3">
@@ -65,32 +150,25 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
               </div>
             )}
             <DropzoneForm
-              name="imageFile"
+              name="foto"
               onChange={handleProductImage}
               label="selecionar um arquivo .png ou .jpeg"
               acceptFiles={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
             />
-            <InputForm name="productName" type="text" placeholder="Nome do produto" />
-            <div className="flex md:flex-row flex-col gap-3">
-              <SelectForm name="category" placeholder="Categoria" options={selectOptionsCategory} />
-              <SelectForm name="unit" placeholder="Unidade de medida" options={selectOptionsUnit} />
-            </div>
-            <div className="flex md:flex-row flex-col gap-3">
+            <InputForm name="nome" type="text" placeholder="Produto" />
+            <div className="flex w-full md:flex-row flex-col gap-3">
+              <SelectForm name="categoria" placeholder="Categoria" options={categoryOptions} />
+              <SelectForm name="unidade" placeholder="Unidade" options={unitMeasureOptions} />
               <SelectForm
-                name="productType"
+                name="tp_produto"
                 placeholder="Tipo de produto"
-                options={selectOptionsProductType}
-              />
-              <SelectForm
-                name="productSize"
-                placeholder="Tamanho do produto"
-                options={selectOptionsProductSize}
+                options={productTypeoptions}
               />
             </div>
 
             <TextAreaForm
               placeholder="Descrição do produto"
-              name="description"
+              name="descricao"
               cols={2}
               rows={4}
               maxLength={1000}
@@ -98,13 +176,19 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
           </div>
 
           <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
-            <Button type="button" variant="cancel" onClick={handleCancel}>
+            <Button
+              style={{ width: '200px' }}
+              type="button"
+              variant="cancel"
+              onClick={handleCancel}
+            >
               Cancelar
             </Button>
             <Button
+              style={{ width: '200px' }}
               variant="primary"
               type="button"
-              onClick={handleAddProduct}
+              onClick={handleAddNewProduct}
               buttonText="Cadastrar"
             />
           </div>

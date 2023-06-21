@@ -60,7 +60,7 @@ const Table = ({ columns, values, menuItems }: TableProps) => {
               </th>
             ))}
             {menuItems && (
-              <th className="border-b-2 border-t-2 font-semibold p-3 text-gray-700 text-left first:pl-5 last:pr-5" />
+              <div className="border-b-2 border-t-2 font-semibold p-3 text-gray-700 text-left first:pl-5 last:pr-5" />
             )}
           </tr>
         </thead>
@@ -78,6 +78,9 @@ const Table = ({ columns, values, menuItems }: TableProps) => {
                     <div
                       className="w-4 h-4 cursor-pointer text-gray-700"
                       onClick={() => handleClickOpenMenu(value.id)}
+                      onKeyDown={() => handleClickOpenMenu(value.id)}
+                      role="button"
+                      tabIndex={0}
                     >
                       <span>AQUI</span>
                     </div>

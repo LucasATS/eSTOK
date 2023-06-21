@@ -36,7 +36,7 @@ export const LowStock = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
     <ModalComponent isOpen={isOpen} onClose={onClose}>
       <Form ref={formRef} onSubmit={handleAddNewLowStock} className="flex justify-center">
         <div className="relative bg-white rounded-lg shadow w-full">
-          <div className="flex items-start py-1 px-4 rounded-t border-b">
+          <div className="flex items-start py-1 px-6 rounded-t border-b">
             <TitleCard text="Baixa de estoque" />
           </div>
           <div className="flex ">
@@ -48,11 +48,11 @@ export const LowStock = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
               />
               <InputForm name="productName" type="text" placeholder="Quantidade" />
             </div>
-            <div className="flex relative h-32 w-full m-6">
+            <div className="flex h-38 w-full m-4">
               <TextareaForm
                 placeholder="Descrição"
                 name="description"
-                cols={2}
+                cols={33}
                 rows={4}
                 maxLength={1000}
               />
@@ -60,8 +60,15 @@ export const LowStock = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
           </div>
 
           <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
-            <Button variant="cancel" type="button" onClick={handleCancel} buttonText="Cancelar" />
             <Button
+              style={{ width: '200px' }}
+              variant="cancel"
+              type="button"
+              onClick={handleCancel}
+              buttonText="Cancelar"
+            />
+            <Button
+              style={{ width: '200px' }}
               variant="primary"
               type="button"
               onClick={handleAddNewLowStock}

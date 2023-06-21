@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes } from 'react-router';
 import { HashRouter, Route } from 'react-router-dom';
 import MainLayout from '../components/MainLayout';
@@ -9,7 +8,7 @@ import { CreateReport } from '../modules/report/pages';
 import ListSale from '../modules/sale/pages';
 import { ListStock } from '../modules/stock/pages';
 
-const AppRoutes: React.FC = () => {
+const AppRoutes = () => {
   return (
     <HashRouter>
       <MainLayout>
@@ -19,6 +18,7 @@ const AppRoutes: React.FC = () => {
           <Route path={RoutesURL.LIST_SALE} Component={ListSale} />
           <Route path={RoutesURL.LIST_STOCK} Component={ListStock} />
           <Route path={RoutesURL.LIST_REPORT} Component={CreateReport} />
+          <Route path="*" Component={Home} />
         </Routes>
       </MainLayout>
     </HashRouter>

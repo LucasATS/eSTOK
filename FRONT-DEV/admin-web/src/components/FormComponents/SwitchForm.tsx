@@ -15,6 +15,10 @@ const SwitchForm = ({ text, onChange, value }: ConfigModalProps) => {
       <div
         className="md:w-14 md:h-7 w-12 h-6 flex items-center rounded-full p-1 cursor-pointer"
         onClick={handleClick}
+        onKeyDown={handleClick}
+        role="button"
+        tabIndex={0}
+        aria-labelledby="labeldiv"
       >
         <div
           className={`${

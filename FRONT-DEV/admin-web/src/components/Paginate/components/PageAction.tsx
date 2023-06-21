@@ -4,6 +4,7 @@ type Props = {
   isDisabled: boolean;
   onClick?: () => void;
   content: React.ReactNode;
+  onKeyDown?: () => void;
 };
 
 const PageAction = (props: Props) => {
@@ -13,6 +14,9 @@ const PageAction = (props: Props) => {
         props.isDisabled ? 'bg-gray-300 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-200'
       }`}
       onClick={props.onClick}
+      onKeyDown={props.onKeyDown}
+      role="button"
+      tabIndex={0}
     >
       {props.content}
     </span>

@@ -1,16 +1,14 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { LOCAL_KEY_TOKEN, LOCAL_KEY_USER } from '../../_shared/constants/LocalStorage.constants';
-import api from '../../_shared/services/api';
-import AuthService from '../services/AuthService';
+import authService from '../services/auth.service';
 
 export interface User {
-  name: string;
-  email: string;
+  login: string;
+  senha: string;
 }
 
 export interface LoginCredentials {
-  email: string;
+  login: string;
   senha: string;
 }
 
@@ -20,6 +18,7 @@ export type AuthContextData = {
   loading: boolean;
   signIn(login: LoginCredentials): Promise<void>;
   signOut(): void;
+  setUser(user: User): void;
 };
 
 interface Props {
@@ -33,14 +32,14 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const { storedUser, storedToken } = getAuthItemsFromLocalStorage();
+    const { storedUser } = getAuthItemsFromLocalStorage();
 
     function loadStorageData() {
-      if (storedUser && storedToken) {
+      if (storedUser) {
         const parsedUser: User = JSON.parse(storedUser);
-        const parsedToken: string = JSON.parse(storedToken);
+        // const parsedToken: string = JSON.parse(storedToken);
 
-        setDefaultHeaderToken(parsedToken);
+        // setDefaultHeaderToken(parsedToken);
         setUser(parsedUser);
       }
       setLoading(false);
@@ -50,44 +49,44 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   }, []);
 
   const signIn = async (login: LoginCredentials) => {
-    const response = await AuthService.signIn(login);
+    const response = await authService.signIn(login);
     const { data } = response;
     const { token } = data;
 
-    setUser(response.data.user);
+    setUser(login);
     saveTokenInLocalStorage(token);
-    setDefaultHeaderToken(token);
+    // setDefaultHeaderToken(token);
   };
 
   const signOut = () => {
     setUser(null);
-    cleanAuthItemsFromLocalStorage();
+    // cleanAuthItemsFromLocalStorage();
   };
 
-  const cleanAuthItemsFromLocalStorage = () => {
-    localStorage.removeItem(LOCAL_KEY_USER);
-    localStorage.removeItem(LOCAL_KEY_TOKEN);
-  };
+  // const cleanAuthItemsFromLocalStorage = () => {
+  //   localStorage.removeItem(LOCAL_KEY_USER);
+  //   localStorage.removeItem(LOCAL_KEY_TOKEN);
+  // };
 
-  useEffect(() => {
-    if (!user) return;
-    localStorage.setItem(LOCAL_KEY_USER, JSON.stringify(user));
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user) return;
+  //   localStorage.setItem(LOCAL_KEY_USER, JSON.stringify(user));
+  // }, [user]);
 
-  const setDefaultHeaderToken = (token: string) => {
-    api.defaults.headers.common['authorization'] = `Bearer ${token}`;
+  // const setDefaultHeaderToken = (token: string) => {
+  //   api.defaults.headers.common['authorization'] = `Bearer ${token}`;
 
-    api.interceptors.response.use(
-      (response: any) => response,
-      (error: any) => {
-        if (error?.response?.status === 401) {
-          toast.error('Login expirado');
-          signOut();
-        }
-        return Promise.reject(error);
-      }
-    );
-  };
+  //   api.interceptors.response.use(
+  //     (response: any) => response,
+  //     (error: any) => {
+  //       if (error?.response?.status === 401) {
+  //         toast.error('Login expirado');
+  //         signOut();
+  //       }
+  //       return Promise.reject(error);
+  //     }
+  //   );
+  // };
 
   const saveTokenInLocalStorage = (token: string) => {
     localStorage.setItem(LOCAL_KEY_TOKEN, JSON.stringify(token));
@@ -95,13 +94,13 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const getAuthItemsFromLocalStorage = () => {
     const storedUser = localStorage.getItem(LOCAL_KEY_USER);
-    const storedToken = localStorage.getItem(LOCAL_KEY_TOKEN);
+    // const storedToken = localStorage.getItem(LOCAL_KEY_TOKEN);
 
-    return { storedUser, storedToken };
+    return { storedUser };
   };
 
   return (
-    <AuthContext.Provider value={{ signed: !!user, user, signIn, signOut, loading }}>
+    <AuthContext.Provider value={{ signed: !!user, user, signIn, loading, signOut, setUser }}>
       {children}
     </AuthContext.Provider>
   );
