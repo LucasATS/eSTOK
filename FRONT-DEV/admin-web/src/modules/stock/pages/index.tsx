@@ -16,6 +16,7 @@ export const ListStock = () => {
   const [openStockWriteOff, setopenStockWriteOff] = useState(false);
   const [paginationActive, setPaginationActive] = useState<PaginateStockDto>({ limit: 10 });
   const [stocksPaginate, setStocksPaginate] = useState<Paginate<Stock>>();
+  const [dadosBaixaStok, setDadosBaixaStok] = useState();
 
   const loadStock = async () => {
     const result = await StockService.paginateStock({
@@ -32,6 +33,7 @@ export const ListStock = () => {
     loadStock();
   };
 
+  // ISSO É O BOTÃO DA BAIXA N POSSO ESQUECER
   const handleClickStockWriteOff = () => {
     setopenStockWriteOff(true);
   };
@@ -77,7 +79,11 @@ export const ListStock = () => {
           />
         </div>
         <div className="flex flex-col gap-2 mt-5">
-          <StockTable stock={stocksPaginate} stockWriteOff={handleClickStockWriteOff} />
+          <StockTable
+            stock={stocksPaginate}
+            stockWriteOff={handleClickStockWriteOff}
+            onDataItens={setDadosBaixaStok}
+          />
           <Pagination
             currentPageLength={stocksPaginate?.length}
             page={stocksPaginate?.currentPage}
@@ -90,6 +96,7 @@ export const ListStock = () => {
           isOpen={openStockWriteOff}
           onClose={handleCloseStockWriteOff}
           onConfirm={handleStockWriteOff}
+          dadosStokBaixa={dadosBaixaStok}
         />
         <NewStockModal
           isOpen={openNewStockModal}

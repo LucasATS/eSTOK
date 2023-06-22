@@ -7,9 +7,16 @@ import Stock from '../../models/Stock';
 type Props = {
   stock?: Paginate<Stock>;
   stockWriteOff?: () => void;
+  onDataItens?: any;
 };
 
-export const StockTable = ({ stock, stockWriteOff }: Props) => {
+// eslint-disable-next-line @typescript-eslint/no-empty-function, react/prop-types, @typescript-eslint/no-unused-vars
+export const StockTable = ({ stock, stockWriteOff = () => {}, onDataItens }: Props) => {
+  const handleOnClick = (idProduto: any) => {
+    stockWriteOff();
+    onDataItens(idProduto);
+  };
+
   return (
     <>
       <div role="table" tabIndex={-1} className="lg:flex hidden">
@@ -50,7 +57,9 @@ export const StockTable = ({ stock, stockWriteOff }: Props) => {
                 <div className="flex justify-end space-x-2">
                   <DocumentDownloadOutline
                     className="w-5 cursor-pointer text-secondary hover:text-secondary"
-                    onClick={stockWriteOff}
+                    onClick={() => {
+                      handleOnClick(itemActive);
+                    }}
                   />
                 </div>
               )
@@ -95,7 +104,12 @@ export const StockTable = ({ stock, stockWriteOff }: Props) => {
               key: '',
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
-                  <DocumentDownloadOutline className="w-5 cursor-pointer text-secondary hover:text-secondary" />
+                  <DocumentDownloadOutline
+                    className="w-5 cursor-pointer text-secondary hover:text-secondary"
+                    onClick={() => {
+                      handleOnClick(itemActive);
+                    }}
+                  />
                 </div>
               )
             }

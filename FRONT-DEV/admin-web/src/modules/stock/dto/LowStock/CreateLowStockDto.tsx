@@ -5,5 +5,6 @@ interface CreateLowStockDto {
   produto: string;
   validade: Date;
   lote: string;
+  id_produto: string;
 }
 export default CreateLowStockDto;

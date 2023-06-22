@@ -34,7 +34,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
   const [productTypeoptions, setProductTypeOptions] = useState<OptionSelect[]>([]);
   const formRef = useRef<FormHandles>(null);
   const [file, setFile] = useState<File>();
-  const [fileBase64, setFileBase64] = useState<string>();
+  const [fileBase64, setFileBase64] = useState<string>('');
 
   const getCategoryOptions = async () => {
     const categories = await CategoryService.paginateCategory({
@@ -141,6 +141,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
 
   const handleRemoveFile = () => {
     setFile(undefined);
+    setFileBase64('');
     formRef.current?.reset();
   };
 
