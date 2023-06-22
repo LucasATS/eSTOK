@@ -45,9 +45,9 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
     if (categoryOptions > 0) {
       const optionsCategories = categories.map((category) => {
         return {
-          value: category.ID,
-          label: category.Descricao,
-          status: category.Status
+          value: category.id,
+          label: category.descricao,
+          status: category.status
         };
       }) as OptionSelect[];
       setCategoryOptions(optionsCategories);
@@ -65,9 +65,9 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
     if (unitMeasureOptions > 0) {
       const optionsUnitsMeasure = unitsMeasure.map((unitMeasure) => {
         return {
-          value: unitMeasure.Abreviacao,
-          label: unitMeasure.Descricao,
-          status: unitMeasure.Status
+          value: unitMeasure.abreviacao,
+          label: unitMeasure.descricao,
+          status: unitMeasure.status
         };
       }) as OptionSelect[];
       setUnitMeasureOptions(optionsUnitsMeasure);
@@ -83,9 +83,9 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
     if (productTypeOptions > 0) {
       const optionsProductsType = productsType.map((productType) => {
         return {
-          value: productType.ID,
-          label: productType.Descricao,
-          status: productType.Status
+          value: productType.id,
+          label: productType.descricao,
+          status: productType.status
         };
       }) as OptionSelect[];
       setProductTypeOptions(optionsProductsType);
