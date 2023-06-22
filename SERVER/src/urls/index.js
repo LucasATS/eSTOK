@@ -38,7 +38,8 @@ class urls {
         this.server.get("/api/admin/relatorios/consolidado", UserIsAuthentic, require('../views-admin/viewVendasConsolidado.js').default);
         this.server.get("/api/admin/relatorios/itens-no-estoque", UserIsAuthentic, require('../views-admin/viewItensNoEstoque.js').default);
         this.server.get("/api/admin/relatorios/baixaestoques",UserIsAuthentic, require('../views-admin/viewBaixa_Estoques.js').default);
-        
+        this.server.get("/api/admin/relatorios/entradas-produto",UserIsAuthentic, require('../views-admin/viewEntradasProdutos.js').default);
+
         this.server.get("/api/admin/auth/logout", require('../views-admin/viewLogout.js').default);
 
         //Links admin-web - POST - AUTENTICADO

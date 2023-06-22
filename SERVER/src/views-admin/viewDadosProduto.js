@@ -11,10 +11,10 @@ const view = async (req, res) => {
             return res.status(404).json({ error: 'ID é necessário.' });
         }
 
-        let data = []//await Produtos.vw_dados_produto_administrador(id)
+        let data = await Produtos.vw_dados_produto_administrador(id)
         
-        if (data) {
-            return res.status(200).json({ data: data });
+        if (data.length > 0) {
+            return res.status(200).json({ data: data[0] });
         }else {
             return res.status(404).json({ error: 'Produto não localizado' });
         }

@@ -1,19 +1,18 @@
 import { Baixa_Estoques } from "../models/modelBaixa_Estoques";
 
-
 const view = async (req, res) => {
 
     try {
             
-        const { id } = req.query;
+        const {date_de, date_ate, tipo_produto} = req.query;
 
-        if (!id){
+        if (!date_de, !date_ate, !tipo_produto){
     
-            return res.status(200).json({ data: [] });
+            return res.status(200).json({ data: 'Dados Obrigatórios' });
             
         } else {
     
-            const data = await Baixa_Estoques.vw_baixa_estoques('#'+id);
+            const data = await Baixa_Estoques.vw_baixa_estoques(date_de, date_ate, tipo_produto);
     
             return res.status(200).json({ data: data });
         }

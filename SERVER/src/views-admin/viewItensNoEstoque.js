@@ -4,9 +4,18 @@ const view = async (req, res) => {
 
     try {
 
-        const data = await Estoques.vw_estoque_por_lotes();
+        const {date_de, date_ate, tipo_produto} = req.query;
+        
+        if (!date_de, !date_ate, !tipo_produto){
+    
+            return res.status(200).json({ data: 'Dados Obrigatórios' });
+            
+        } else {
 
-        return res.status(200).json({ data: data });
+            const data = await Estoques.vw_estoque_por_lotes(date_de, date_ate, tipo_produto);
+
+            return res.status(200).json({ data: data });
+        }
         
     } catch (error) {
         
