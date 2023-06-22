@@ -22,11 +22,11 @@ var login = /*#__PURE__*/function () {
           form = _context.sent;
           if (form.is_valid) {
             res.cookie('sessao', form.sessao);
-            res.status(200).json({
+            return res.status(200).json({
               data: form.msg
             });
           } else {
-            res.status(401).json({
+            return res.status(401).json({
               data: form.msg
             });
           }

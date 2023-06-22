@@ -14,7 +14,7 @@ var logout = /*#__PURE__*/function () {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           res.clearCookie('sessao');
-          res.status(200).json({
+          return res.status(200).json({
             data: 'Sessão encerrada'
           });
         case 2:

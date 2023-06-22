@@ -1,18 +1,17 @@
-import formStatusProduto from "../forms/formAlteraStatusProduto";
+import formVenda from '../forms/formVenda';
 
 const view = async (req, res) => {
 
     try {
-            
-        let form = await formStatusProduto(req.body);
+
+        let form = await formVenda(req.body, true);
 
         if (form.is_valid) {
             return res.status(200).json({ data: { status: 'ok', message: form.message } })
         } else {
             return res.status(200).json({ data: { status: 'erro', motivo: form.message } })
         }
-
-
+        
     } catch (error) {
         
         if (req.status_debug){
@@ -21,9 +20,8 @@ const view = async (req, res) => {
         } else {
             return res.status(400).json({ error: 'Erro inesperado' });
         }
-
     }
-
+    
 };
 
 export default view;

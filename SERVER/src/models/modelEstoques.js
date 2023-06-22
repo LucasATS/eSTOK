@@ -40,5 +40,5 @@ Estoques.total_cadastro = async () => {
       type: QueryTypes.SELECT,
     }
   );
-  return data[0].total;;
+  return data[0].total;
 }

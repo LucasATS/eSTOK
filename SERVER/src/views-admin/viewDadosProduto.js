@@ -1,30 +1,34 @@
 import { Produtos } from '../models/modelProdutos';
-import DAO from '../tools/DAO';
 
 const view = async (req, res) => {
 
     try {
-            
-        let { id } = req.query;
 
-        let data = await DAO.get(Produtos, { id } )
-        if (data) {
-            res.status(200).json({ data: data });
-        }else {
-            res.status(404).json({ data: 'Produto não localizado' });
+        let { id } = req.query;
+        id = Number.parseInt(id);
+
+        if (Number.isNaN(id)) {
+            return res.status(404).json({ error: 'ID é necessário.' });
         }
 
-
-    } catch (error) {
+        let data = await Produtos.vw_dados_produto_administrador(id)
         
+        if (data.length > 0) {
+            return res.status(200).json({ data: data[0] });
+        }else {
+            return res.status(404).json({ error: 'Produto não localizado' });
+        }
+        
+    } catch (error) {
         if (req.status_debug){
-            res.status(400).json({ error: error });
+            error["params"] = req.query || req.body;
+            return res.status(400).json({ error: error });
         } else {
-            res.status(400).json({ error: 'Erro inesperado' });
+            return res.status(400).json({ error: 'Erro inesperado' });
         }
 
     }
-    
+
 };
 
 export default view;

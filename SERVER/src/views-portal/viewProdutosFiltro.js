@@ -1,35 +1,22 @@
-import DAO from '../tools/DAO';
 import { Produtos } from '../models/modelProdutos';
-import { Categorias } from '../models/modelCategorias';
 
 const view = async (req, res) => {
 
     try {
 
-        let { id_categoria, Nome } = req.query;
-
-        let campos = ["Nome", "Descricao", "id_categoria"]
+        let { category, initial, limit} = req.query;
     
-        let data = await DAO.filter(Produtos, { id_categoria, Nome }, campos);
+        let data = await Produtos.vw_produtos_cliente(category, initial, limit)
     
-        if(data.length > 0){
-            const _data = await data.map( async row => {
-                let categ = await DAO.get(Categorias, {id: row.id_categoria});
-                return {
-                    Nome: row.Nome, Descricao: row.Descricao, Categoria: categ.descricao
-                };
-            });
-            res.status(200).json({data : _data})
-        } else {
-            res.status(200).json({data : []})
-        }
+        return res.status(200).json({ data: data });
         
     } catch (error) {
         
         if (req.status_debug){
-            res.status(400).json({ error: error });
+            error["params"] = req.query || req.body;
+            return res.status(400).json({ error: error });
         } else {
-            res.status(400).json({ error: 'Erro inesperado' });
+            return res.status(400).json({ error: 'Erro inesperado' });
         }
 
     }
