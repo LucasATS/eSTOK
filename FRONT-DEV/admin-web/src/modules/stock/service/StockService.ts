@@ -1,22 +1,38 @@
-import queryString from 'query-string';
 import api from '../../_shared/services/api';
 import { Paginate, Result } from '../../_shared/types/api.types';
-import PaginateStockDto from '../dto/PaginateStockDto';
+import CreateStockDto from '../dto/CreateStockDto';
 import ResultStockDto from '../dto/ResultStockDto';
 import Stock from '../models/Stock';
-import CreateStockDto from '../dto/CreateStockDto';
 
 class StockService {
   public async createStock(createStock: CreateStockDto): Promise<Result<ResultStockDto>> {
+    console.log('createStock', createStock);
     const response = await api.post(`/api/admin/estoque/movimentacao-entrada`, createStock);
-    console.log('response', response.statusText);
     return response.data;
   }
 
-  public async paginateStock({ ...paginateStock }: PaginateStockDto): Promise<Paginate<Stock>> {
-    const queryParams = queryString.stringify(paginateStock);
-    const response = await api.get(`/api/admin/estoque?${queryParams}`);
-    return response.data.data;
+  public async paginateStock({ ...paginateStock }): Promise<Paginate<Stock>> {
+    const response = await api.get(
+      `/api/admin/estoque?Inicial=${paginateStock.initial}&Quantidade=${paginateStock.limit}`
+    );
+    let total = Number(response.data.total) / Number(paginateStock.limit);
+
+    if (total < 1) {
+      total = 1;
+    }
+
+    const paginateResult: Paginate<Stock> = {
+      response: response.data.data,
+      totalItems: response.data.total,
+      currentPage: 1,
+      totalPages: Math.ceil(total),
+      limit: paginateStock.limit || 10,
+      length: response.data.data.length,
+      map: (arg0: (category: any) => { value: any; label: any; status: any }) => {
+        return response.data.data.map(arg0);
+      }
+    };
+    return paginateResult;
   }
 }
 
