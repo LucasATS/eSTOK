@@ -19,17 +19,18 @@ const view = async (req, res) => {
                     Nome: row.Nome, Descricao: row.Descricao, Categoria: categ.descricao
                 };
             });
-            res.status(200).json({data : _data})
+            return res.status(200).json({data : _data})
         } else {
-            res.status(200).json({data : []})
+            return res.status(200).json({data : []})
         }
         
     } catch (error) {
         
         if (req.status_debug){
-            res.status(400).json({ error: error });
+            error["params"] = req.query || req.body;
+            return res.status(400).json({ error: error });
         } else {
-            res.status(400).json({ error: 'Erro inesperado' });
+            return res.status(400).json({ error: 'Erro inesperado' });
         }
 
     }

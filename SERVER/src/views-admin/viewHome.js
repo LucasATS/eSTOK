@@ -4,14 +4,15 @@ const homeAdmin = async (req, res) => {
 
     try {
 
-        res.sendFile('index.html',{ root: indexAdmin });
+        return res.sendFile('index.html',{ root: indexAdmin });
         
     } catch (error) {
         
         if (req.status_debug){
-            res.status(400).json({ error: error });
+            error["params"] = req.query || req.body;
+            return res.status(400).json({ error: error });
         } else {
-            res.status(400).json({ error: 'Erro inesperado' });
+            return res.status(400).json({ error: 'Erro inesperado' });
         }
     }
 

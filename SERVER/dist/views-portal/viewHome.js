@@ -14,7 +14,7 @@ var view = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          res.sendFile('index.html', {
+          return res.sendFile('index.html', {
             root: _templates.indexPortalWeb
           });
         case 1:

@@ -9,21 +9,22 @@ const view = async (req, res) => {
 
         if (!id){
     
-            res.status(200).json({ data: [] });
+            return res.status(200).json({ data: [] });
             
         } else {
     
             const data = await Baixa_Estoques.vw_baixa_estoques('#'+id);
     
-            res.status(200).json({ data: data });
+            return res.status(200).json({ data: data });
         }
 
     } catch (error) {
         
         if (req.status_debug){
-            res.status(400).json({ error: error });
+            error["params"] = req.query || req.body;
+            return res.status(400).json({ error: error });
         } else {
-            res.status(400).json({ error: 'Erro inesperado' });
+            return res.status(400).json({ error: 'Erro inesperado' });
         }
 
     }

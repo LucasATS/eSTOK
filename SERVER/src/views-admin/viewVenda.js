@@ -7,17 +7,18 @@ const view = async (req, res) => {
         let form = await formVenda(req.body, true);
 
         if (form.is_valid) {
-            res.status(200).json({ data: { status: 'ok', message: form.message } })
+            return res.status(200).json({ data: { status: 'ok', message: form.message } })
         } else {
-            res.status(200).json({ data: { status: 'erro', motivo: form.message } })
+            return res.status(200).json({ data: { status: 'erro', motivo: form.message } })
         }
         
     } catch (error) {
         
         if (req.status_debug){
-            res.status(400).json({ error: error });
+            error["params"] = req.query || req.body;
+            return res.status(400).json({ error: error });
         } else {
-            res.status(400).json({ error: 'Erro inesperado' });
+            return res.status(400).json({ error: 'Erro inesperado' });
         }
     }
     

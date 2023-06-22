@@ -24,7 +24,7 @@ var UserIsAuthentic = /*#__PURE__*/function () {
         case 5:
           _context.prev = 5;
           _context.t0 = _context["catch"](1);
-          return _context.abrupt("return", res.status(401).json({
+          return _context.abrupt("return", return res.status(401).json({
             data: 'Não Autenticado'
           }));
         case 8:
@@ -33,7 +33,7 @@ var UserIsAuthentic = /*#__PURE__*/function () {
             break;
           }
           res.clearCookie('sessao');
-          return _context.abrupt("return", res.status(401).json({
+          return _context.abrupt("return", return res.status(401).json({
             data: 'Não Autenticado'
           }));
         case 13:
@@ -50,7 +50,7 @@ var UserIsAuthentic = /*#__PURE__*/function () {
           _context.prev = 21;
           _context.t1 = _context["catch"](13);
           res.clearCookie('sessao');
-          return _context.abrupt("return", res.status(401).json({
+          return _context.abrupt("return", return res.status(401).json({
             data: 'Não Autenticado'
           }));
         case 25:

@@ -13,7 +13,7 @@ var view = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          res.status(200).json({
+          return res.status(200).json({
             data: 'API em construção'
           });
         case 1:

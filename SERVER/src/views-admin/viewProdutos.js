@@ -13,14 +13,15 @@ const view = async (req, res) => {
     
         const total = await Produtos.total_cadastro();
         
-        res.status(200).json({ data: data, total: total });
+        return res.status(200).json({ data: data, total: total });
         
     } catch (error) {
         
         if (req.status_debug){
-            res.status(400).json({ error: error });
+            error["params"] = req.query || req.body;
+            return res.status(400).json({ error: error });
         } else {
-            res.status(400).json({ error: 'Erro inesperado' });
+            return res.status(400).json({ error: 'Erro inesperado' });
         }
     }
 

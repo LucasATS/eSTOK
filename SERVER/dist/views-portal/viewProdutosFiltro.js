@@ -24,7 +24,7 @@ var view = /*#__PURE__*/function () {
         case 4:
           data = _context.sent;
           if (data) {
-            res.status(200).json({
+            return res.status(200).json({
               data: {
                 status: 'ok',
                 data: data
