@@ -1,7 +1,9 @@
 import { useField } from '@unform/core';
-import { useRef, useState } from 'react';
+import { Eye, EyeOff } from 'heroicons-react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Props {
+  type: string;
   name: string;
   placeholder?: string;
   label?: string;
@@ -14,6 +16,7 @@ type InputProps = JSX.IntrinsicElements['input'] & Props;
 
 const InputForm = ({
   onChange,
+  type,
   name,
   placeholder,
   label,
@@ -23,31 +26,44 @@ const InputForm = ({
   disabled,
   ...rest
 }: InputProps) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const { defaultValue, error } = useField(name);
   const inputRef = useRef(null);
+  const { fieldName, defaultValue, registerField, error, clearError } = useField(name);
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) onChange(e);
+    clearError();
   };
 
+  const toggleVisibility = () => {
+    setIsVisible((visible) => !visible);
+  };
+
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+      ref: inputRef.current,
+      path: 'value'
+    });
+  }, [fieldName, registerField]);
+
   return (
-    <div className={`flex flex-col mt-2 text-sm w-full ${className || ''}`}>
+    <div className={`flex flex-col text-sm ${className || ''}`}>
       <label
         htmlFor={name}
-        className={labelStyle || `py-1 font-medium ${error ? ' text-red-500' : 'text-[#8d8d8f]'}`}
+        className={labelStyle || `py-1 font-medium ${error ? ' text-red-500' : 'text-gray-500'}`}
       >
         {label}
       </label>
       <div
-        className={`relative rounded-[30px] ${
+        className={`relative border rounded ${
           error
             ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-            : 'text-[#8d8d8f] bg-gray-200 hover:bg-gray-300'
+            : 'text-gray-500 border-gray-200 focus:border-sky-600 focus:ring-sky-600'
         }`}
       >
         <input
-          type="text"
+          type={isVisible ? 'text' : type}
           name={name}
           placeholder={placeholder}
           defaultValue={defaultValue}
@@ -56,16 +72,28 @@ const InputForm = ({
           disabled={disabled}
           className={
             inputStyle ||
-            `w-full rounded-[30px] focus:ring-1 p-2 focus:outline-none
+            `w-full border rounded focus:ring-1 p-2 focus:outline-none
           ${
             error
               ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'text-[#8d8d8f] bg-gray-200 hover:bg-gray-300 focus:border-gray-300'
+              : 'text-gray-500 border-gray-200 focus:border-sky-600 focus:ring-sky-600'
           }
               `
           }
           {...rest}
         />
+        {type === 'password' &&
+          (isVisible ? (
+            <EyeOff
+              onClick={toggleVisibility}
+              className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-gray-500 items-center cursor-pointer"
+            />
+          ) : (
+            <Eye
+              onClick={toggleVisibility}
+              className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-gray-500 items-center cursor-pointer"
+            />
+          ))}
       </div>
       {error && <span className="text-red-500 text-xs mt-1 ml-1">{error}</span>}
     </div>

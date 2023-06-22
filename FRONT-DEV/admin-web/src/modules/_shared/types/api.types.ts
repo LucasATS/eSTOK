@@ -16,6 +16,8 @@ export type Paginate<T> = {
 };
 
 export interface Result<T> {
+  motivo: any;
+  status: string;
   Error: any;
   message: string;
   data: T;

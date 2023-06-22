@@ -82,20 +82,25 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
             <DataProducts newProduct={handleClickNewProduct} />
             {/* })} */}
             <div className="flex flex-col">
-              <p className="font-semibold mb-3 text-center text-base">Dados do comprador</p>
+              <p className="font-semibold mb-3 text-start text-base">Dados do comprador</p>
               <InputForm
                 className="mb-2"
                 name="nomeCartao"
                 type="text"
                 placeholder="Nome no cartão"
               />
-              <div className="flex mb-2 flex-row gap-3">
-                <InputForm name="numeroCartao" type="text" placeholder="Numero no cartão" />
-                <InputForm name="dataVencimento" type="date" placeholder="Data de vencimento" />
-                <InputForm name="cvv" type="text" placeholder="CVV" />
+              <div className="flex gap-3">
+                <div className="flex flex-row gap-3 mt-5">
+                  <InputForm name="numeroCartao" type="text" placeholder="Numero no cartão" />
+                  <InputForm name="cvv" type="text" placeholder="CVV" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm text-gray-500 font-medium">Vencimento</span>
+                  <InputForm name="dataVencimento" type="date" placeholder="Vencimento" />
+                </div>
               </div>
               <InputForm
-                className="mb-2"
+                className="flex mb-2 w-full"
                 name="nomeCliente"
                 type="name"
                 placeholder="Nome do cliente"
@@ -103,12 +108,10 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
               <div className="flex flex-row mb-2 gap-3">
                 <InputForm name="email" type="email" placeholder="E-mail" />
                 <InputForm name="telefone" type="tel" placeholder="Telefone" />
-              </div>
-              <div className="flex flex-row mb-2 gap-3">
                 <InputForm name="endereco" type="text" placeholder="Endereço" />
-                <InputForm name="bairro" type="text" placeholder="Bairro" />
               </div>
               <div className="flex flex-row gap-3">
+                <InputForm name="bairro" type="text" placeholder="Bairro" />
                 <SelectForm name="estado" placeholder="Estado" options={selectOptionsStates} />
                 <InputForm name="cidade" type="text" placeholder="Cidade" />
               </div>

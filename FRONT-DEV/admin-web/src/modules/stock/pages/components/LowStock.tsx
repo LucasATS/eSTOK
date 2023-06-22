@@ -21,26 +21,34 @@ interface ConfigModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  dadosStokBaixa: any;
 }
 
-export const LowStock = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
+export const LowStock = ({ isOpen, onClose, onConfirm, dadosStokBaixa }: ConfigModalProps) => {
   const formRef = useRef<FormHandles>(null);
 
   const handleAddNewLowStock = async () => {
+    console.log('dadosStokBaixa', dadosStokBaixa);
+
     try {
       const mainFormData = formRef?.current?.getData();
-
       const newLowStokToCreate = {
+        produto: dadosStokBaixa.produto,
+        observacao: dadosStokBaixa.observacao,
+        quantidade: dadosStokBaixa.quantidade,
+        id_produto: dadosStokBaixa.id.replace('#', ''),
+        lote: dadosStokBaixa.lotes,
+        validade: dadosStokBaixa.vencimento,
         ...mainFormData
       } as CreateLowStockDto;
       const result = await StockService.createLowStok(newLowStokToCreate);
-
+      console.log('result', result);
       //SISTEMA DE INTERRUPÇÃO DE PIORIDADE ALTA PARA ERRO
-      if (result.data.status === 'erro') {
-        toast.error(result.data.motivo);
-        throw new Error(result.data.motivo);
+      if (result.status === 'erro') {
+        toast.error(result.motivo);
+        throw new Error(result.motivo);
       }
-      toast.success(result.data.motivo);
+      toast.success(result.motivo);
 
       onConfirm();
       onClose();

@@ -1,8 +1,8 @@
 interface Stock {
   id: string;
+  quantidade: number;
   produto: string;
   categoria: string;
-  quantidade: number;
   preco: number;
   data_compra: Date;
   vencimento: Date;
