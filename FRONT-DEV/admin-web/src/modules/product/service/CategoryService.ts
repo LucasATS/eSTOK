@@ -1,7 +1,6 @@
 import api from '../../_shared/services/api';
 import { Paginate, Result } from '../../_shared/types/api.types';
 import CreateCategoryDto from '../dto/category/CreateCategoryDto';
-import PaginateCategoryDto from '../dto/category/PaginateCategoryDto';
 import ResultCategoryDto from '../dto/category/ResultCategoryDto';
 import Category from '../models/Category';
 
@@ -13,9 +12,7 @@ class CategoryService {
     return response.data;
   }
 
-  public async paginateCategory({
-    ...paginateCategory
-  }: PaginateCategoryDto): Promise<Paginate<Category>> {
+  public async paginateCategory({ ...paginateCategory }): Promise<Paginate<Category>> {
     const response = await api.get(`/api/admin/categorias`);
     return response.data.data;
   }
