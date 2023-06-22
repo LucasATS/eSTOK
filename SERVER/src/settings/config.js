@@ -9,10 +9,11 @@ const express = require('express');
 
 const cors = require('cors');
 
-const DEBUG = true;
+const DEBUG = false;
 
 const appConfig = async (server, PATH) => {
 
+  /*
   //CORS ACESSO LIBERADO
   server.use((req, res, next) => {
       //CORRINGA (*) PARA TODOS
@@ -22,6 +23,7 @@ const appConfig = async (server, PATH) => {
       server.use(cors());
       next();
   });
+  */
 
   //CONFIGURA STATUS DEBUG
   server.use((req, res, next) => {

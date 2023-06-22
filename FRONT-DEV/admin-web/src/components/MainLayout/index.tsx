@@ -1,9 +1,10 @@
 import { ChartBar, DocumentText, Home, Logout, OfficeBuilding, ShoppingBag } from 'heroicons-react';
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import logo from '../../assets/e-stok.svg';
+// import logo from '../../assets/e-stok.svg';
 import RoutesURL from '../../modules/_shared/constants/RoutesURL.enum';
 import { useAuth } from '../../modules/auth/contexts/AuthProvider';
+import { iconApi } from '../../modules/_shared/services/iconApi';
 
 interface Props {
   children: React.ReactNode;
@@ -41,7 +42,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
               <div className="flex md:flex-col flex-row w-full gap-0 py-3 justify-between md:gap-14 md:py-10">
                 <div className="flex justify-center items-center mx-3 md:mx-8">
                   <Link to={RoutesURL.HOME}>
-                    <img src={logo} className="w-full h-auto" alt="eStok Logo" />
+                    <img src={iconApi + 'e-stok.svg'} className="w-full h-auto" alt="eStok Logo" />
                   </Link>
                 </div>
                 <div className="md:hidden visible text-right place-content-end px-3">
