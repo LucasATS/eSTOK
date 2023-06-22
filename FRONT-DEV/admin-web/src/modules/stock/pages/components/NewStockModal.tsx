@@ -13,7 +13,7 @@ import {
   manageApiErrorResponse
 } from '../../../_shared/helpers/handleApiErrorResponse';
 import ProductService from '../../../product/service/ProductService';
-import CreateStockDto from '../../dto/CreateStockDto';
+import CreateStockDto from '../../dto/Stock/CreateStockDto';
 import StockService from '../../service/StockService';
 
 interface ConfigModalProps {
