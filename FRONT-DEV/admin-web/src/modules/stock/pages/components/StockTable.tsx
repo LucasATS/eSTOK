@@ -7,9 +7,22 @@ import Stock from '../../models/Stock';
 type Props = {
   stock?: Paginate<Stock>;
   stockWriteOff?: () => void;
+  onDataItens?: any;
 };
 
-export const StockTable = ({ stock, stockWriteOff }: Props) => {
+export const StockTable = ({
+  stock,
+  stockWriteOff = () => {
+    {
+    }
+  },
+  onDataItens
+}: Props) => {
+  const handleOnClick = (idProduto: any) => {
+    stockWriteOff();
+    onDataItens(idProduto);
+  };
+
   return (
     <>
       <div role="table" tabIndex={-1} className="lg:flex hidden">
@@ -36,11 +49,11 @@ export const StockTable = ({ stock, stockWriteOff }: Props) => {
               key: 'preco'
             },
             {
-              columnName: 'Data da Compra',
+              columnName: 'Compra',
               key: 'data_compra'
             },
             {
-              columnName: 'Data do Vencimento',
+              columnName: 'Vencimento',
               key: 'vencimento'
             },
             {
@@ -50,7 +63,9 @@ export const StockTable = ({ stock, stockWriteOff }: Props) => {
                 <div className="flex justify-end space-x-2">
                   <DocumentDownloadOutline
                     className="w-5 cursor-pointer text-secondary hover:text-secondary"
-                    onClick={stockWriteOff}
+                    onClick={() => {
+                      handleOnClick(itemActive);
+                    }}
                   />
                 </div>
               )
@@ -83,11 +98,11 @@ export const StockTable = ({ stock, stockWriteOff }: Props) => {
               key: 'preco'
             },
             {
-              label: 'Data da Compra',
+              label: 'Compra',
               key: 'data_compra'
             },
             {
-              label: 'Data do Vencimento',
+              label: 'Vencimento',
               key: 'vencimento'
             },
             {
@@ -95,7 +110,12 @@ export const StockTable = ({ stock, stockWriteOff }: Props) => {
               key: '',
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
-                  <DocumentDownloadOutline className="w-5 cursor-pointer text-secondary hover:text-secondary" />
+                  <DocumentDownloadOutline
+                    className="w-5 cursor-pointer text-secondary hover:text-secondary"
+                    onClick={() => {
+                      handleOnClick(itemActive);
+                    }}
+                  />
                 </div>
               )
             }

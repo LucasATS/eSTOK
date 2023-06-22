@@ -35,9 +35,9 @@ export const NewStockModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) 
     if (productOptions > 0) {
       const optionsProducts = products.map((product) => {
         return {
-          value: product.ID,
-          label: product.Produto,
-          status: product.Status
+          value: product.id,
+          label: product.produto,
+          status: product.status
         };
       }) as OptionSelect[];
 
@@ -96,7 +96,7 @@ export const NewStockModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) 
       <Form ref={formRef} onSubmit={handleAddNewStock} className="flex justify-center">
         <div className="relative bg-white rounded-lg shadow w-full">
           <div className="flex items-start py-1 px-6 rounded-t border-b">
-            <TitleCard text="Adicionar produto no estoque" />
+            <TitleCard text="Cadastrar Produto ao Estoque" />
           </div>
           <div className="p-6 space-y-3">
             <div className="flex flex-row gap-3">
@@ -105,9 +105,15 @@ export const NewStockModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) 
               <InputForm name="quantidade" type="number" placeholder="Quantidade" />
             </div>
             <div className="flex flex-row gap-3">
-              <InputForm name="lote" type="text" placeholder="Lote" />
-              <InputForm name="data_compra" type="date" placeholder="Data da compra" />
-              <InputForm name="validade" type="date" placeholder="Vencimento" />
+              <InputForm className="mt-6" name="lote" type="text" placeholder="Lote" />
+              <div className="flex flex-col">
+                <span className="text-sm text-gray-500 font-medium">Data da Compra</span>
+                <InputForm name="data_compra" type="date" placeholder="Data da compra" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm text-gray-500 font-medium">Vencimento</span>
+                <InputForm name="validade" type="date" placeholder="Vencimento" />
+              </div>
             </div>
           </div>
 

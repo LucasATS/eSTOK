@@ -1,7 +1,6 @@
 import { FormHandles } from '@unform/core';
 import { X } from 'heroicons-react';
 import { useRef } from 'react';
-import favicon from '../../../../assets/favicon.png';
 import Button from '../../../../components/Button/Button';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
@@ -43,7 +42,11 @@ export const ViewProductModal = ({ isOpen, onClose }: ModalConfig) => {
             </div>
             <div className="flex flex-row justify-between mx-3 space-y-3 p-3 gap-4">
               <div className="flex w-1/2 h-full">
-                <img src={favicon} />
+                <img
+                  src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+                  alt="Front of men&#039;s Basic Tee in black."
+                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                />
               </div>
               <div className="flex flex-col">
                 <TitleCard text="Blusa de Cetim" />

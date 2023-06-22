@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Button from '../../../components/Button/Button';
+import { CardProduct } from './components/CardProduct';
 import { ViewProductModal } from './components/ViewProductModal';
 
 export const Home = () => {
@@ -15,8 +15,8 @@ export const Home = () => {
 
   return (
     <div>
-      <div className="gap-3">
-        <Button onClick={handleClickView} buttonText="view" variant="primary" />
+      <div>
+        <CardProduct onClick={handleClickView} />
       </div>
       <ViewProductModal isOpen={openConfirmViewModal} onClose={handleCloeseView} />
     </div>

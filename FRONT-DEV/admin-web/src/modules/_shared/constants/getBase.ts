@@ -7,7 +7,6 @@ const getBase64 = (file: any): Promise<string> => {
       reader.readAsDataURL(file);
 
       reader.onload = () => {
-        console.log('Called', reader);
         baseURL = reader.result as string;
 
         console.log(baseURL);

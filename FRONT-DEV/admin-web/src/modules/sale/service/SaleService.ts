@@ -1,6 +1,7 @@
 import api from '../../_shared/services/api';
 import { Paginate, Result } from '../../_shared/types/api.types';
 import CreateSaleDto from '../dto/CreateSaleDto';
+import PaginateSaleDto from '../dto/PaginateSaleDto';
 import ResultSaleDto from '../dto/ResultSaleDto';
 import Sale from '../models/Sale';
 
@@ -11,9 +12,9 @@ class SaleService {
     return response.data;
   }
 
-  public async paginateSale({ ...paginateSale }): Promise<Paginate<Sale>> {
+  public async paginateSale({ ...paginateSale }: PaginateSaleDto): Promise<Paginate<Sale>> {
     const response = await api.get(
-      `/api/admin/sale?Inicial=${paginateSale.initial}&Quantidade=${paginateSale.limit}`
+      `/api/admin/vendas?Inicial=${paginateSale.initial}&Quantidade=${paginateSale.limit}`
     );
     let total = Number(response.data.total) / Number(paginateSale.limit);
 

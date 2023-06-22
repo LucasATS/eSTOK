@@ -35,11 +35,18 @@ const DataProducts = ({ newProduct }: Props) => {
 
   return (
     <div className="flex flex-wrap gap-2">
-      <span className="font-semibold mb-3 text-center text-base">Dados do produto</span>
-      <SelectForm name="selectProduto" placeholder="Produto" options={productOptions} />
-      <InputForm name="tamanhoProduto" type="text" placeholder="Tamanho" />
-      <InputForm name="quantidadee" type="text" placeholder="Quantidade" />
-      <InputForm name="dataVenda" type="date" placeholder="Data da venda" />
+      <span className="font-semibold text-center text-base">Dados do produto</span>
+      <div className="space-y-3 flex gap-3">
+        <div className="flex mt-8 gap-3">
+          <SelectForm name="selectProduto" placeholder="Produto" options={productOptions} />
+          <InputForm name="tamanhoProduto" type="text" placeholder="Tamanho" />
+          <InputForm name="quantidadee" type="text" placeholder="Quantidade" />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-sm text-gray-500 font-medium">Venda</span>
+          <InputForm name="data_compra" type="date" placeholder="Venda" />
+        </div>
+      </div>
       <div className="flex mb-2 mt-2">
         <Button
           style={{ width: '150px' }}

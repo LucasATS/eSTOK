@@ -15,24 +15,24 @@ const ProductTable = ({ product }: Props) => {
           columns={[
             {
               columnName: 'Id',
-              key: 'ID'
+              key: 'id'
             },
             {
               columnName: 'Produto',
-              key: 'Produto'
+              key: 'produto'
             },
             {
               columnName: 'Categoria',
-              key: 'Categoria'
+              key: 'categoria'
             },
 
             {
               columnName: 'Tipo de Produto',
-              key: 'Tipo_do_Produto'
+              key: 'tipo_do_produto'
             },
             {
-              columnName: 'Unidade de Medida',
-              key: 'Unidade'
+              columnName: 'Unidade',
+              key: 'unidade'
             }
           ]}
           values={product}
@@ -43,11 +43,11 @@ const ProductTable = ({ product }: Props) => {
           itemsLabel={[
             {
               label: 'Id',
-              key: 'ID'
+              key: 'id'
             },
             {
               label: 'Produto',
-              key: 'Produto'
+              key: 'produto'
             },
             {
               label: 'Categoria',
@@ -55,11 +55,11 @@ const ProductTable = ({ product }: Props) => {
             },
             {
               label: 'Tipo de Produto',
-              key: 'Tipo_do_Produto'
+              key: 'tipo_do_produto'
             },
             {
-              label: 'Unidade de Medida',
-              key: 'Unidade'
+              label: 'Unidade',
+              key: 'unidade'
             }
           ]}
           values={product}

@@ -6,23 +6,24 @@ import ToastCustom from '../../../components/ToastCustom';
 import { Paginate } from '../../_shared/types/api.types';
 import PaginateSaleDto from '../dto/PaginateSaleDto';
 import Sale from '../models/Sale';
+import SaleService from '../service/SaleService';
 import NewSaleModal from './components/NewSaleModal';
 import SaleTable from './components/SaleTable';
 
 const ListSale = () => {
   const [openNewSaleModal, setOpenNewSaleModal] = useState(false);
   const [salesPaginate, setSalesPaginate] = useState<Paginate<Sale>>();
-  const [paginationActive, setPaginationActive] = useState<PaginateSaleDto>({ limit: 2 });
+  const [paginationActive, setPaginationActive] = useState<PaginateSaleDto>({ limit: 10 });
 
   const handleClickNewSale = () => {
     setOpenNewSaleModal(true);
   };
 
   const loadSale = async () => {
-    // const result = await SaleService.paginateSale({
-    //   ...paginationActive
-    // });
-    // setSalesPaginate(result);
+    const result = await SaleService.paginateSale({
+      ...paginationActive
+    });
+    setSalesPaginate(result);
   };
 
   const handleNewSale = () => {
