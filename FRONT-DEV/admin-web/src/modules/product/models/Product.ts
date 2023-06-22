@@ -1,10 +1,10 @@
 interface Product {
-  ID: string;
-  Produto: string;
-  Categoria: string;
-  Tipo_do_Produto: string;
-  Unidade: number;
-  Status: boolean;
+  id: string;
+  produto: string;
+  categoria: string;
+  tipo_do_produto: string;
+  unidade: string;
+  status: boolean;
 }
 
 export default Product;

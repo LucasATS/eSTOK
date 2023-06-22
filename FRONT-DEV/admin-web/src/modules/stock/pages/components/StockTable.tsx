@@ -1,13 +1,15 @@
 import { DocumentDownloadOutline } from 'heroicons-react';
 import ListCard from '../../../../components/ListCard';
 import Table from '../../../../components/Table';
+import { Paginate } from '../../../_shared/types/api.types';
 import Stock from '../../models/Stock';
 
 type Props = {
-  stock?: Stock[];
+  stock?: Paginate<Stock>;
+  stockWriteOff?: () => void;
 };
 
-export const StockTable = ({ stock }: Props) => {
+export const StockTable = ({ stock, stockWriteOff }: Props) => {
   return (
     <>
       <div role="table" tabIndex={-1} className="lg:flex hidden">
@@ -15,38 +17,41 @@ export const StockTable = ({ stock }: Props) => {
           columns={[
             {
               columnName: 'Id',
-              key: 'idProduct'
+              key: 'id'
             },
             {
               columnName: 'Produto',
-              key: 'product'
+              key: 'produto'
             },
             {
               columnName: 'Categoria',
-              key: 'category'
+              key: 'categoria'
             },
             {
               columnName: 'Quantidade',
-              key: 'quantity'
+              key: 'quantidade'
             },
             {
               columnName: 'Preço',
-              key: 'price'
+              key: 'preco'
             },
             {
               columnName: 'Data da Compra',
-              key: 'datePurchase'
+              key: 'data_compra'
             },
             {
               columnName: 'Data do Vencimento',
-              key: 'dateExpiration'
+              key: 'vencimento'
             },
             {
               columnName: '',
               key: '',
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
-                  <DocumentDownloadOutline className="w-5 cursor-pointer text-secondary hover:text-secondary" />
+                  <DocumentDownloadOutline
+                    className="w-5 cursor-pointer text-secondary hover:text-secondary"
+                    onClick={stockWriteOff}
+                  />
                 </div>
               )
             }
@@ -59,31 +64,31 @@ export const StockTable = ({ stock }: Props) => {
           itemsLabel={[
             {
               label: 'Id',
-              key: 'idProduct'
+              key: 'id'
             },
             {
               label: 'Produto',
-              key: 'product'
+              key: 'produto'
             },
             {
               label: 'Categoria',
-              key: 'category'
+              key: 'categoria'
             },
             {
               label: 'Quantidade',
-              key: 'quantity'
+              key: 'quantidade'
             },
             {
               label: 'Preço',
-              key: 'price'
+              key: 'preco'
             },
             {
               label: 'Data da Compra',
-              key: 'datePurchase'
+              key: 'data_compra'
             },
             {
               label: 'Data do Vencimento',
-              key: 'dateExpiration'
+              key: 'vencimento'
             },
             {
               label: '',

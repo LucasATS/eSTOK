@@ -6,7 +6,7 @@ const FormularioProduto = async (body) => {
 
 
     if (!nome) {
-        return { is_valid: false, message: 'Nome é obrigatório' }
+        return { is_valid: false, message: 'Produto é obrigatório' }
     }
 
     if (!descricao) {

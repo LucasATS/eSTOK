@@ -1,4 +1,4 @@
-import DAO from "../tools/DAO";
+import { Vendas } from '../models/modelVendas';
 
 const FormularioVenda = async (body, is_user) => {
 
@@ -36,7 +36,7 @@ const FormularioVenda = async (body, is_user) => {
         !dt_vencimento || !cvv_e
     ) { return { is_valid: false, message: 'Dados obrigatórios' } }
 
-    const resp = await DAO.venda(comprador, produtos, is_user)
+    const resp = await Vendas.venda(comprador, produtos, is_user)
 
     if ( resp.is_valid == true ){
         return { is_valid: true, 

@@ -4,6 +4,7 @@ import Dropdown from '../../../components/Dropdown';
 import Header from '../../../components/MainLayout/components/Header';
 import Pagination from '../../../components/Paginate';
 import { Action } from '../../../components/Table';
+import ToastCustom from '../../../components/ToastCustom';
 import { Paginate } from '../../_shared/types/api.types';
 import PaginateProductDto from '../dto/product/PaginateProductDto';
 import Product from '../models/Product';
@@ -96,6 +97,7 @@ const ListProduct = () => {
         />
         <NewCategoryModal isOpen={openNewCategoryModal} onClose={handleCloseNewCategory} />
       </div>
+      <ToastCustom />
     </div>
   );
 };

@@ -29,6 +29,11 @@ const NewCategoryModal = ({ isOpen, onClose }: ConfigModalProps) => {
         ...mainFormData
       } as CreateCategoryDto;
       const result = await CategoryService.createCategory(newCategoryToCreate);
+      //SISTEMA DE INTERRUPÇÃO DE PIORIDADE ALTA PARA ERRO
+      if (result.data.status === 'erro') {
+        toast.error(result.data.motivo);
+        throw new Error(result.data.motivo);
+      }
       toast.success(result.message);
       onClose();
       clearForm();
@@ -51,7 +56,7 @@ const NewCategoryModal = ({ isOpen, onClose }: ConfigModalProps) => {
     formRef.current?.setErrors(fieldsErrors);
     const resultErrorReponse = manageApiErrorResponse(resultError);
     const error = getErrorMessage(resultErrorReponse);
-    toast.error(error);
+    console.warn(error);
   };
 
   return (
