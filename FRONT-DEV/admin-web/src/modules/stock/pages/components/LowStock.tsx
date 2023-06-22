@@ -1,6 +1,7 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRef } from 'react';
+import toast from 'react-hot-toast';
 import Button from '../../../../components/Button';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import SelectForm from '../../../../components/FormComponents/SelectForm';
@@ -8,6 +9,13 @@ import TextareaForm from '../../../../components/FormComponents/TextAreaForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
 import { selectOptionsProductType } from '../../../_shared/constants/SelectOption';
+import {
+  getErrorMessage,
+  getFieldErrors,
+  manageApiErrorResponse
+} from '../../../_shared/helpers/handleApiErrorResponse';
+import CreateLowStockDto from '../../dto/LowStock/CreateLowStockDto';
+import StockService from '../../service/StockService';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -17,19 +25,46 @@ interface ConfigModalProps {
 
 export const LowStock = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
   const formRef = useRef<FormHandles>(null);
+
+  const handleAddNewLowStock = async () => {
+    try {
+      const mainFormData = formRef?.current?.getData();
+
+      const newLowStokToCreate = {
+        ...mainFormData
+      } as CreateLowStockDto;
+      const result = await StockService.createLowStok(newLowStokToCreate);
+
+      //SISTEMA DE INTERRUPÇÃO DE PIORIDADE ALTA PARA ERRO
+      if (result.data.status === 'erro') {
+        toast.error(result.data.motivo);
+        throw new Error(result.data.motivo);
+      }
+      toast.success(result.data.motivo);
+
+      onConfirm();
+      onClose();
+      clearForm();
+    } catch (error) {
+      handleErrors(error);
+    }
+  };
+
   const clearForm = () => {
     formRef.current?.reset();
-  };
-  const handleAddNewLowStock = async () => {
-    console.log('criado ou atualizado');
-    onConfirm();
-    onClose();
-    clearForm();
   };
 
   const handleCancel = () => {
     onClose();
     clearForm();
+  };
+
+  const handleErrors = (resultError: unknown) => {
+    const fieldsErrors = getFieldErrors(resultError);
+    formRef.current?.setErrors(fieldsErrors);
+    const resultErrorReponse = manageApiErrorResponse(resultError);
+    const error = getErrorMessage(resultErrorReponse);
+    console.warn(error);
   };
 
   return (
@@ -42,16 +77,16 @@ export const LowStock = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
           <div className="flex ">
             <div className="p-6 w-full space-y-3">
               <SelectForm
-                name="productType"
+                name="motivo"
                 placeholder="Selecione o motivo"
                 options={selectOptionsProductType}
               />
-              <InputForm name="productName" type="text" placeholder="Quantidade" />
+              <InputForm name="quantidade" type="text" placeholder="Quantidade" />
             </div>
             <div className="flex h-38 w-full m-4">
               <TextareaForm
                 placeholder="Descrição"
-                name="description"
+                name="observacao"
                 cols={33}
                 rows={4}
                 maxLength={1000}
