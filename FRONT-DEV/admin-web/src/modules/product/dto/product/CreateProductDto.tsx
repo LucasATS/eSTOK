@@ -4,7 +4,7 @@ interface CreateProductDto {
   unidade: string;
   tp_produto: string;
   tamanho: number;
-  foto: string;
+  foto?: string;
   descricao?: string;
 }
 

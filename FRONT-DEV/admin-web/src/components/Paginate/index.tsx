@@ -86,7 +86,6 @@ const Pagination = (props: PaginateProps) => {
             onClick={() => setPage(pager.currentPage - 1)}
             content={<ChevronLeft className="sm:w-4 sm:h-4 w-6 h-6 text-gray-500" />}
           />
-
           {pager.pages.map((page, index) => (
             <PageItem
               isActive={pager.currentPage === page}
@@ -97,9 +96,9 @@ const Pagination = (props: PaginateProps) => {
           ))}
           <div className="sm:contents hidden">
             <PageAction
-              isDisabled={pager.currentPage === pager.totalPages}
-              onClick={() => setPage(pager.totalPages)}
-              content={<ChevronRight className="w-4 h-4 text-gray-500" />}
+              isDisabled={pager.currentPage === 1 || pager.currentPage === 0}
+              onClick={() => setPage(pager.currentPage + 1)}
+              content={<ChevronRight className="sm:w-4 sm:h-4 w-6 h-6 text-gray-500" />}
             />
           </div>
         </div>

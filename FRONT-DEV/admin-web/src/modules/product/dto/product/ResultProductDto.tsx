@@ -6,7 +6,7 @@ interface ResultProductDto {
   unidade: string;
   tp_produto: string;
   tamanho: number;
-  foto: File[];
+  foto?: string;
   descricao?: string;
 }
 
