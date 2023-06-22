@@ -15,31 +15,31 @@ const SaleTable = ({ sale }: Props) => {
           columns={[
             {
               columnName: 'Id',
-              key: 'idSale'
+              key: 'id'
             },
             {
               columnName: 'Cliente',
-              key: 'client'
+              key: 'nome'
             },
             {
               columnName: 'Categoria',
-              key: 'category'
+              key: 'categoria'
             },
             {
-              columnName: 'Produtos',
-              key: 'products'
+              columnName: 'Produto',
+              key: 'produto'
             },
             {
               columnName: 'Quantidade',
-              key: 'quantity'
+              key: 'quantidade'
             },
             {
               columnName: 'Preço',
-              key: 'price'
+              key: 'preco'
             },
             {
-              columnName: 'Data da Compra',
-              key: 'datePurchase'
+              columnName: 'Compra',
+              key: 'data_compra'
             }
           ]}
           values={sale}
@@ -50,31 +50,31 @@ const SaleTable = ({ sale }: Props) => {
           itemsLabel={[
             {
               label: 'Id',
-              key: 'idVenda'
+              key: 'id'
             },
             {
               label: 'Cliente',
-              key: 'cliente'
+              key: 'nome'
             },
             {
               label: 'Categoria',
               key: 'categoria'
             },
             {
-              label: 'Produtos',
-              key: 'produtos'
+              label: 'Produto',
+              key: 'produto'
             },
             {
-              label: 'Unidades',
-              key: 'unidades'
+              label: 'Quantidade',
+              key: 'quantidade'
             },
             {
               label: 'Preço',
               key: 'preco'
             },
             {
-              label: 'Data da Compra',
-              key: 'dataCompra'
+              label: 'Compra',
+              key: 'data_compra'
             }
           ]}
           values={sale}

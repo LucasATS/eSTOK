@@ -10,8 +10,14 @@ type Props = {
   onDataItens?: any;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function, react/prop-types, @typescript-eslint/no-unused-vars
-export const StockTable = ({ stock, stockWriteOff = () => {}, onDataItens }: Props) => {
+export const StockTable = ({
+  stock,
+  stockWriteOff = () => {
+    {
+    }
+  },
+  onDataItens
+}: Props) => {
   const handleOnClick = (idProduto: any) => {
     stockWriteOff();
     onDataItens(idProduto);
@@ -43,11 +49,11 @@ export const StockTable = ({ stock, stockWriteOff = () => {}, onDataItens }: Pro
               key: 'preco'
             },
             {
-              columnName: 'Data da Compra',
+              columnName: 'Compra',
               key: 'data_compra'
             },
             {
-              columnName: 'Data do Vencimento',
+              columnName: 'Vencimento',
               key: 'vencimento'
             },
             {
@@ -92,11 +98,11 @@ export const StockTable = ({ stock, stockWriteOff = () => {}, onDataItens }: Pro
               key: 'preco'
             },
             {
-              label: 'Data da Compra',
+              label: 'Compra',
               key: 'data_compra'
             },
             {
-              label: 'Data do Vencimento',
+              label: 'Vencimento',
               key: 'vencimento'
             },
             {

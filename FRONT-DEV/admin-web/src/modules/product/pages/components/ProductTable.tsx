@@ -31,7 +31,7 @@ const ProductTable = ({ product }: Props) => {
               key: 'tipo_do_produto'
             },
             {
-              columnName: 'Unidade de Medida',
+              columnName: 'Unidade',
               key: 'unidade'
             }
           ]}
@@ -58,7 +58,7 @@ const ProductTable = ({ product }: Props) => {
               key: 'tipo_do_produto'
             },
             {
-              label: 'Unidade de Medida',
+              label: 'Unidade',
               key: 'unidade'
             }
           ]}
