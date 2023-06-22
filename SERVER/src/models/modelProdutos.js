@@ -52,7 +52,7 @@ Produtos.vw_produtos = async (posIni, Quantidade) => {
 
 Produtos.total_cadastro = async () => {
   const data = await db.query(
-    "SELECT COUNT(ID) as total FROM vw_produtos_cadastro;",
+    "SELECT * FROM vw_total_produtos",
     {
       model: this,
       mapToModel: true,
