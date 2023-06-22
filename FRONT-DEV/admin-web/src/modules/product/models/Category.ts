@@ -1,6 +1,6 @@
 interface Category {
   ID: string;
-  Descrição: string;
+  Descricao: string;
   Status: boolean;
 }
 
