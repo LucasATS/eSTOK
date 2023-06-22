@@ -1,8 +1,8 @@
 interface CreateLowStockDto {
   motivo: string;
-  produto: string;
   observacao: string;
   quantidade: number;
+  produto: string;
   validade: Date;
   lote: string;
 }
