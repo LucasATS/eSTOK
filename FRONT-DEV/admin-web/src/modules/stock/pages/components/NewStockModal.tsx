@@ -35,9 +35,9 @@ export const NewStockModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) 
     if (productOptions > 0) {
       const optionsProducts = products.map((product) => {
         return {
-          value: product.ID,
-          label: product.Produto,
-          status: product.Status
+          value: product.id,
+          label: product.produto,
+          status: product.status
         };
       }) as OptionSelect[];
 
