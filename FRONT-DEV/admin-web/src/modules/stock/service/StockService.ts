@@ -1,7 +1,10 @@
 import api from '../../_shared/services/api';
 import { Paginate, Result } from '../../_shared/types/api.types';
-import CreateStockDto from '../dto/CreateStockDto';
-import ResultStockDto from '../dto/ResultStockDto';
+import CreateLowStockDto from '../dto/LowStock/CreateLowStockDto';
+import ResultLowStockDto from '../dto/LowStock/ResultLowStockDto';
+import CreateStockDto from '../dto/Stock/CreateStockDto';
+import PaginateStockDto from '../dto/Stock/PaginateStockDto';
+import ResultStockDto from '../dto/Stock/ResultStockDto';
 import Stock from '../models/Stock';
 
 class StockService {
@@ -11,7 +14,7 @@ class StockService {
     return response.data;
   }
 
-  public async paginateStock({ ...paginateStock }): Promise<Paginate<Stock>> {
+  public async paginateStock({ ...paginateStock }: PaginateStockDto): Promise<Paginate<Stock>> {
     const response = await api.get(
       `/api/admin/estoque?Inicial=${paginateStock.initial}&Quantidade=${paginateStock.limit}`
     );
@@ -33,6 +36,12 @@ class StockService {
       }
     };
     return paginateResult;
+  }
+
+  public async createLowStok(createLowStok: CreateLowStockDto): Promise<Result<ResultLowStockDto>> {
+    console.log('createLowStok', createLowStok);
+    const response = await api.post(`/api/admin/baixaestoques/create`, createLowStok);
+    return response.data.data;
   }
 }
 

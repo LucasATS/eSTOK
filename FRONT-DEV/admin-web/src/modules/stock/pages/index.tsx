@@ -4,12 +4,12 @@ import Header from '../../../components/MainLayout/components/Header';
 import Pagination from '../../../components/Paginate';
 import ToastCustom from '../../../components/ToastCustom';
 import { Paginate } from '../../_shared/types/api.types';
-import PaginateStockDto from '../dto/PaginateStockDto';
 import Stock from '../models/Stock';
 import StockService from '../service/StockService';
 import { LowStock } from './components/LowStock';
 import { NewStockModal } from './components/NewStockModal';
 import { StockTable } from './components/StockTable';
+import PaginateStockDto from '../dto/Stock/PaginateStockDto';
 
 export const ListStock = () => {
   const [openNewStockModal, setOpenNewStockModal] = useState(false);

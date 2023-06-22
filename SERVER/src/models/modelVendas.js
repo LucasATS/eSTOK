@@ -168,8 +168,11 @@ export class Vendas {
 
     static vw_vendas = async ( posIni, Quantidade ) => {
 
+        let sql = "SELECT v.id as id, v.cliente as cliente, c.descricao as categoria, p.nome as produto, i.quantidade as quantidade, i.preco as preco, v.updatedAt as data_compra"
+        sql += " FROM vendas v INNER JOIN vendas_itens i ON i.id_venda = v.id INNER JOIN produtos p ON p.id = i.id_produto INNER JOIN categorias c ON c.id = p.id_categoria"
+        sql += " ORDER BY v.id DESC LIMIT ?, ?"
         const data = await db.query(
-            "SELECT * FROM vw_vendas LIMIT ?, ?",
+            sql,
             {
               type: QueryTypes.SELECT,
               replacements: [posIni, Quantidade]
@@ -181,7 +184,7 @@ export class Vendas {
     static total_cadastro = async () => {
 
         const data = await db.query(
-            "SELECT COUNT(ID) as total FROM vw_vendas;",
+            "SELECT COUNT(id) as total FROM vendas v INNER JOIN vendas_itens i ON i.id_venda = v.id;",
             {
               type: QueryTypes.SELECT,
             }
