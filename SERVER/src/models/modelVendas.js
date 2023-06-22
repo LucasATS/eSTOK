@@ -184,7 +184,7 @@ export class Vendas {
     static total_cadastro = async () => {
 
         const data = await db.query(
-            "SELECT COUNT(id) as total FROM vendas v INNER JOIN vendas_itens i ON i.id_venda = v.id;",
+            "SELECT COUNT(i.id) as total FROM vendas v INNER JOIN vendas_itens i ON i.id_venda = v.id;",
             {
               type: QueryTypes.SELECT,
             }
