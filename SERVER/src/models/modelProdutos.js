@@ -39,7 +39,7 @@ export const Produtos = db.define('produtos', {
 
 Produtos.vw_produtos = async (posIni, Quantidade) => {
   const data = await db.query(
-    "SELECT * FROM vw_produtos_cadastro LIMIT ?, ?",
+    "SELECT * FROM vw_produtos_cadastro ORDER BY id DESC LIMIT ?, ?",
     {
       model: this,
       mapToModel: true,

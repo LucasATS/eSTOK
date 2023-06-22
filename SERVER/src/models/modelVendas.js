@@ -170,7 +170,7 @@ export class Vendas {
 
         let sql = "SELECT v.id as id, v.cliente as cliente, c.descricao as categoria, p.nome as produto, i.quantidade as quantidade, i.preco as preco, v.updatedAt as data_compra"
         sql += " FROM vendas v INNER JOIN vendas_itens i ON i.id_venda = v.id INNER JOIN produtos p ON p.id = i.id_produto INNER JOIN categorias c ON c.id = p.id_categoria"
-        sql += " LIMIT ?, ?"
+        sql += " ORDER BY v.id DESC LIMIT ?, ?"
         const data = await db.query(
             sql,
             {
