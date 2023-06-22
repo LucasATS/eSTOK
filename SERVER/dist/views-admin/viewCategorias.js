@@ -21,7 +21,7 @@ var view = /*#__PURE__*/function () {
           return _DAO["default"].filter(_modelCategorias.Categorias, {}, ['id', 'descricao']);
         case 2:
           data = _context.sent;
-          res.status(200).json({
+          return res.status(200).json({
             data: data
           });
         case 4:

@@ -13,8 +13,20 @@ ALTER TABLE estoques AUTO_INCREMENT = 1;
 DELETE FROM lotes;
 ALTER TABLE lotes AUTO_INCREMENT = 1;
 
+DELETE FROM produtos_precos;
+ALTER TABLE produtos_precos AUTO_INCREMENT = 1;
+
+DELETE FROM produtos;
+ALTER TABLE produtos AUTO_INCREMENT = 1;
+
+DELETE FROM tipo_produtos WHERE id > 3;
+ALTER TABLE tipo_produtos AUTO_INCREMENT = 3;
+
 DELETE FROM vendas_itens;
 ALTER TABLE vendas_itens AUTO_INCREMENT = 1;
 
 DELETE FROM vendas;
 ALTER TABLE vendas AUTO_INCREMENT = 1;
+
+
+UPDATE lotes l SET l.id_status = 2 WHERE l.id_produto IN (SELECT p.id FROM produtos p WHERE p.id_status = 2);

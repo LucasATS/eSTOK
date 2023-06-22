@@ -98,12 +98,13 @@
 > - method => "GET"
 > - param => {Inicial : INT, Quantidade: INT}
 > - response => {total: INT, data: [{ID, Produto, Categoria, Tipo do Produto, Unidade, Status},{ID, Produto, Categoria, Tipo do Produto, Unidade, Status},{ID, Produto, Categoria, Tipo do Produto, Unidade, Status}...]}
+    Instrução Completa: submit({}, "GET", "/api/admin/produtos").then(data => data.json()).then(resp => console.log(resp))
 
 ### ATIVAR/INATIVAR STATUS
 
 > - route => "/api/admin/produtos/altera-status"
 > - method => "POST"
-> - param => {nome: String, descricao: String, id_categoria: int, id_tp_produto: int, id_unidade: String, foto: Blob/buffer, fungibilidade: Boolean, estocavel: Boolean}
+> - param => {}
 > - response => { data: { status: 'ok', message: "Produto Ativado com sucesso!" / "Produto Inativado com sucesso!" } }
 
 ## **Estoque**
