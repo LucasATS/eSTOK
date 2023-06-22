@@ -5,8 +5,8 @@ export interface SelectOption {
 }
 
 export const selectOptionsProductType: SelectOption[] = [
-  { id: 'productType', value: 'productType', label: 'Depreciado' },
-  { id: 'productType', value: 'productType', label: 'Vencido' }
+  { id: 'depreciado', value: 'depreciado', label: 'Depreciado' },
+  { id: 'vencido', value: 'vencido', label: 'Vencido' }
 ];
 
 export const selectOptionsStates: SelectOption[] = [
@@ -39,29 +39,18 @@ export const selectOptionsStates: SelectOption[] = [
   { id: 'tocantis', value: 'tocantis', label: 'TO' }
 ];
 
-export const selectOptionsProduct: SelectOption[] = [
-  { id: 'product', value: 'product', label: 'Produto 1' },
-  { id: 'product', value: 'product', label: 'Produto 2' }
-];
-
 export const selectOptionsReportType: SelectOption[] = [
-  { id: 'reportType', value: 'reportType', label: 'Tipo de Relatório 1' },
-  { id: 'reportType', value: 'reportType', label: 'Tipo de Relatório 2' }
+  { id: 'vendaConsolidada', value: 'vendaConsolidada', label: 'Vendas Consolidados' },
+  { id: 'vendaSite', value: 'vendaSite', label: 'Vendas Site' },
+  { id: 'vendasAdmin', value: 'vendasAdmin', label: 'Vendas Administrador' },
+  { id: 'baixaProdutos', value: 'baixaProdutos', label: 'Baixas de Produtos' },
+  { id: 'entradaProduto', value: 'entradaProduto', label: 'Entradas de Produtos' },
+  { id: 'itensEstoque', value: 'itensEstoque', label: 'Itens no Estoque' }
 ];
 
 export const selectOptionsPeriodType: SelectOption[] = [
   { id: 'periodType', value: 'periodType', label: 'Tipo de Período 1' },
   { id: 'periodType', value: 'periodType', label: 'Tipo de Período 2' }
-];
-
-export const selectOptionsCategory: SelectOption[] = [
-  { id: 'category', value: 'category', label: 'Categoria 1' },
-  { id: 'category', value: 'category', label: 'Categoria 2' }
-];
-
-export const selectOptionsUnit: SelectOption[] = [
-  { id: 'unit', value: 'unit', label: 'Unidade 1' },
-  { id: 'unit', value: 'unit', label: 'Unidade 2' }
 ];
 
 export const selectOptionsProductSize: SelectOption[] = [
