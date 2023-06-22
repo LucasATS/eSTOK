@@ -2,22 +2,26 @@ import { useEffect, useState } from 'react';
 import Button from '../../../components/Button';
 import Header from '../../../components/MainLayout/components/Header';
 import Pagination from '../../../components/Paginate';
-import { PaginateDto } from '../../_shared/dto/PaginateDto';
+import ToastCustom from '../../../components/ToastCustom';
 import { Paginate } from '../../_shared/types/api.types';
+import PaginateStockDto from '../dto/PaginateStockDto';
 import Stock from '../models/Stock';
+import StockService from '../service/StockService';
 import { LowStock } from './components/LowStock';
 import { NewStockModal } from './components/NewStockModal';
 import { StockTable } from './components/StockTable';
 
 export const ListStock = () => {
-  const [stockIdActive, setStockIdActive] = useState<number>();
   const [openNewStockModal, setOpenNewStockModal] = useState(false);
   const [openStockWriteOff, setopenStockWriteOff] = useState(false);
-  const [paginationActive, setPaginationActive] = useState<PaginateDto>({});
+  const [paginationActive, setPaginationActive] = useState<PaginateStockDto>({ limit: 2 });
   const [stocksPaginate, setStocksPaginate] = useState<Paginate<Stock>>();
 
-  const loadStock = () => {
-    // setStocksPaginate()
+  const loadStock = async () => {
+    const result = await StockService.paginateStock({
+      ...paginationActive
+    });
+    setStocksPaginate(result);
   };
 
   const handleNewStock = () => {
@@ -45,12 +49,16 @@ export const ListStock = () => {
   };
 
   const onChangePage = async (page: number) => {
-    setPaginationActive((old) => ({ ...old, page }));
-    console.log('Próxima página');
+    const newInitial = page * Number(paginationActive.limit) - Number(paginationActive.limit);
+    setPaginationActive((old) => ({ ...old, page, initial: Math.ceil(newInitial) }));
   };
 
   useEffect(() => {
-    loadStock();
+    if (Number.isNaN(Number(paginationActive.initial))) {
+      setPaginationActive((old) => ({ ...old, page: 1, initial: 1 }));
+    } else {
+      loadStock();
+    }
   }, [paginationActive]);
 
   return (
@@ -62,14 +70,6 @@ export const ListStock = () => {
         <div className="flex flex-row md:px-4 w-auto gap-3 justify-end items-end">
           <Button
             style={{ width: '150px' }}
-            type="button"
-            variant="primary"
-            onClick={handleClickStockWriteOff}
-          >
-            Baixa
-          </Button>
-          <Button
-            style={{ width: '150px' }}
             buttonText="Novo"
             variant="primary"
             type="button"
@@ -77,9 +77,9 @@ export const ListStock = () => {
           />
         </div>
         <div className="flex flex-col gap-2 mt-5">
-          <StockTable />
+          <StockTable stock={stocksPaginate} stockWriteOff={handleClickStockWriteOff} />
           <Pagination
-            currentPage={stocksPaginate?.response.length}
+            currentPageLength={stocksPaginate?.length}
             page={stocksPaginate?.currentPage}
             pageSize={stocksPaginate?.limit}
             totalItems={stocksPaginate?.totalItems}
@@ -97,6 +97,7 @@ export const ListStock = () => {
           onConfirm={handleNewStock}
         />
       </div>
+      <ToastCustom />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import Button from '../../../components/Button';
 import SelectForm, { OptionSelect } from '../../../components/FormComponents/SelectForm';
 import Header from '../../../components/MainLayout/components/Header';
 import TitleCard from '../../../components/TitleCard';
+import ToastCustom from '../../../components/ToastCustom';
 import {
   selectOptionsPeriodType,
   selectOptionsReportType
@@ -50,8 +51,12 @@ export const CreateReport = () => {
       } as CreateReportDto;
 
       const result = await ReportService.createReport(newReportToCreate);
-
-      toast.success(result.message);
+      //SISTEMA DE INTERRUPÇÃO DE PIORIDADE ALTA PARA ERRO
+      if (result.data.status === 'erro') {
+        toast.error(result.data.motivo);
+        throw new Error(result.data.motivo);
+      }
+      toast.success(result.data.motivo);
       console.log('criado');
       clearForm();
     } catch (error) {
@@ -68,7 +73,7 @@ export const CreateReport = () => {
     formRef.current?.setErrors(fieldsErrors);
     const resultErrorReponse = manageApiErrorResponse(resultError);
     const error = getErrorMessage(resultErrorReponse);
-    toast.error(error);
+    console.warn(error);
   };
 
   useEffect(() => {
@@ -105,6 +110,7 @@ export const CreateReport = () => {
           </div>
         </Form>
       </div>
+      <ToastCustom />
     </div>
   );
 };

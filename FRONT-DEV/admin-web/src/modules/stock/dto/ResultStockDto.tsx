@@ -1,12 +1,14 @@
 interface ResultStockDto {
-  id: string;
-  product: string;
-  category: string;
-  quantity: number;
-  price: number;
-  datePurchase: Date;
-  dateExpiration: Date;
-  batch: number;
+  status: string;
+  motivo: string;
+  produto: string;
+  categoria: string;
+  quantidade: number;
+  unitario: number;
+  data_compra: Date;
+  validade: Date;
+  total: number;
+  lote: string;
 }
 
 export default ResultStockDto;

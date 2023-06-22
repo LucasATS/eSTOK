@@ -1,4 +1,6 @@
 interface ResultReportDto {
+  status: string;
+  motivo: string;
   Id: string;
   tipo_relatorio: string;
   produto: string;

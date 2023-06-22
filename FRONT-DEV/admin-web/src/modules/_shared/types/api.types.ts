@@ -16,8 +16,9 @@ export type Paginate<T> = {
 };
 
 export interface Result<T> {
-  data: T;
+  Error: any;
   message: string;
+  data: T;
   success: boolean;
   errors: Report[];
   statusCode?: string;

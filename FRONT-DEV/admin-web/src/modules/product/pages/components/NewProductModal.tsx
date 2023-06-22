@@ -10,6 +10,7 @@ import SelectForm, { OptionSelect } from '../../../../components/FormComponents/
 import TextAreaForm from '../../../../components/FormComponents/TextAreaForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
+import getBase64 from '../../../_shared/constants/getBase';
 import {
   getErrorMessage,
   getFieldErrors,
@@ -33,6 +34,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
   const [productTypeoptions, setProductTypeOptions] = useState<OptionSelect[]>([]);
   const formRef = useRef<FormHandles>(null);
   const [file, setFile] = useState<File>();
+  const [fileBase64, setFileBase64] = useState<string>();
 
   const getCategoryOptions = async () => {
     const categories = await CategoryService.paginateCategory({
@@ -57,11 +59,13 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
       limit: 10,
       isActive: true
     });
+
     const unitMeasureOptions = unitsMeasure.length;
+    console.log('unitMeasureOptions', unitMeasureOptions);
     if (unitMeasureOptions > 0) {
       const optionsUnitsMeasure = unitsMeasure.map((unitMeasure) => {
         return {
-          value: unitMeasure.ID,
+          value: unitMeasure.Abreviacao,
           label: unitMeasure.Descricao,
           status: unitMeasure.Status
         };
@@ -91,13 +95,21 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
   const handleAddNewProduct = async () => {
     try {
       const mainFormData = formRef?.current?.getData();
+
       const newProductToCreate = {
-        ...mainFormData
+        ...mainFormData,
+        foto: fileBase64 // SOBRESCREVE FILE COM O BASE64
       } as CreateProductDto;
+      console.log('newProductToCreate', newProductToCreate);
       const result = await ProductService.createProduct(newProductToCreate);
-      toast.success(result.message);
-      onClose();
+      //SISTEMA DE INTERRUPÇÃO DE PIORIDADE ALTA PARA ERRO
+      if (result.data.status === 'erro') {
+        toast.error(result.data.motivo);
+        throw new Error(result.data.motivo);
+      }
+      toast.success(result.data.motivo);
       onConfirm();
+      onClose();
       clearForm();
     } catch (error) {
       handleErrors(error);
@@ -118,11 +130,13 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
     formRef.current?.setErrors(fieldsErrors);
     const resultErrorReponse = manageApiErrorResponse(resultError);
     const error = getErrorMessage(resultErrorReponse);
-    toast.error(error);
+    console.warn(error);
   };
 
-  const handleProductImage = (file: File) => {
+  const handleProductImage = async (file: File) => {
     setFile(file);
+    setFileBase64(await getBase64(file));
+    console.log(fileBase64);
   };
 
   const handleRemoveFile = () => {
