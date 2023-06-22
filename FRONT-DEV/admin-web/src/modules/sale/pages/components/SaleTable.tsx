@@ -1,9 +1,10 @@
 import ListCard from '../../../../components/ListCard';
 import Table from '../../../../components/Table';
+import { Paginate } from '../../../_shared/types/api.types';
 import Sale from '../../models/Sale';
 
 type Props = {
-  sale?: Sale[];
+  sale?: Paginate<Sale>;
 };
 
 const SaleTable = ({ sale }: Props) => {

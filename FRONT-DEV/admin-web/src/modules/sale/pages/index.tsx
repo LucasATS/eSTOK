@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import Button from '../../../components/Button';
 import Header from '../../../components/MainLayout/components/Header';
 import Pagination from '../../../components/Paginate';
-import { PaginateDto } from '../../_shared/dto/PaginateDto';
+import ToastCustom from '../../../components/ToastCustom';
 import { Paginate } from '../../_shared/types/api.types';
+import PaginateSaleDto from '../dto/PaginateSaleDto';
 import Sale from '../models/Sale';
 import NewSaleModal from './components/NewSaleModal';
 import SaleTable from './components/SaleTable';
@@ -11,14 +12,17 @@ import SaleTable from './components/SaleTable';
 const ListSale = () => {
   const [openNewSaleModal, setOpenNewSaleModal] = useState(false);
   const [salesPaginate, setSalesPaginate] = useState<Paginate<Sale>>();
-  const [paginationActive, setPaginationActive] = useState<PaginateDto>({});
+  const [paginationActive, setPaginationActive] = useState<PaginateSaleDto>({ limit: 2 });
 
   const handleClickNewSale = () => {
     setOpenNewSaleModal(true);
   };
 
   const loadSale = async () => {
-    // setSalesPaginate();
+    // const result = await SaleService.paginateSale({
+    //   ...paginationActive
+    // });
+    // setSalesPaginate(result);
   };
 
   const handleNewSale = () => {
@@ -30,12 +34,16 @@ const ListSale = () => {
   };
 
   const onChangePage = async (page: number) => {
-    setPaginationActive((old) => ({ ...old, page }));
-    console.log('Próxima página');
+    const newInitial = page * Number(paginationActive.limit) - Number(paginationActive.limit);
+    setPaginationActive((old) => ({ ...old, page, initial: Math.ceil(newInitial) }));
   };
 
   useEffect(() => {
-    loadSale();
+    if (Number.isNaN(Number(paginationActive.initial))) {
+      setPaginationActive((old) => ({ ...old, page: 1, initial: 1 }));
+    } else {
+      loadSale();
+    }
   }, [paginationActive]);
 
   return (
@@ -54,9 +62,9 @@ const ListSale = () => {
           />
         </div>
         <div className="flex flex-col gap-2 mt-5">
-          <SaleTable />
+          <SaleTable sale={salesPaginate} />
           <Pagination
-            currentPage={salesPaginate?.response.length}
+            currentPageLength={salesPaginate?.length}
             page={salesPaginate?.currentPage}
             pageSize={salesPaginate?.limit}
             totalItems={salesPaginate?.totalItems}
@@ -69,6 +77,7 @@ const ListSale = () => {
           onConfirm={handleNewSale}
         />
       </div>
+      <ToastCustom />
     </div>
   );
 };

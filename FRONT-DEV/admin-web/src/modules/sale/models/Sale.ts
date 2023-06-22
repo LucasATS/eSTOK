@@ -1,10 +1,10 @@
+import BuyerSale from './BuyerSale';
+import ProductSale from './ProductSale';
+
 interface Sale {
-  client: string;
-  category: string;
-  products: string;
-  quantity: number;
-  price: number;
-  datePurchase: Date;
+  produtos: ProductSale[];
+  comprador: BuyerSale;
+  total: number;
 }
 
 export default Sale;

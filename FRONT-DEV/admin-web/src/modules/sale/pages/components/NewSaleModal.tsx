@@ -1,12 +1,12 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Button from '../../../../components/Button';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import SelectForm from '../../../../components/FormComponents/SelectForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
-import { selectOptionsProduct, selectOptionsStates } from '../../../_shared/constants/SelectOption';
+import { selectOptionsStates } from '../../../_shared/constants/SelectOption';
 import CreateSaleDto from '../../dto/CreateSaleDto';
 
 import toast from 'react-hot-toast';
@@ -16,6 +16,7 @@ import {
   manageApiErrorResponse
 } from '../../../_shared/helpers/handleApiErrorResponse';
 import SaleService from '../../service/SaleService';
+import DataProducts from './DataProducts';
 
 interface ConfigModalProps {
   isOpen: boolean;
@@ -25,20 +26,25 @@ interface ConfigModalProps {
 
 const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
   const formRef = useRef<FormHandles>(null);
+  const [addNewProduct, setAddNewProduct] = useState();
+
+  const handleClickNewProduct = () => {
+    // setAddNewProduct(true);
+  };
 
   const handleAddSale = async () => {
     try {
-      // integração com o service
       const mainFormData = formRef?.current?.getData();
       const newSaleToCreate = {
         ...mainFormData
       } as CreateSaleDto;
-
       const result = await SaleService.createSale(newSaleToCreate);
-
-      toast.success(result.message);
-      console.log(result.message);
-
+      //SISTEMA DE INTERRUPÇÃO DE PIORIDADE ALTA PARA ERRO
+      if (result.data.status === 'erro') {
+        toast.error(result.data.motivo);
+        throw new Error(result.data.motivo);
+      }
+      toast.success(result.data.motivo);
       onConfirm();
       onClose();
       clearForm();
@@ -61,7 +67,7 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
     formRef.current?.setErrors(fieldsErrors);
     const resultErrorReponse = manageApiErrorResponse(resultError);
     const error = getErrorMessage(resultErrorReponse);
-    toast.error(error);
+    console.warn(error);
   };
 
   return (
@@ -72,27 +78,9 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
             <TitleCard text="Cadastrar Venda" />
           </div>
           <div className="gap-2 p-6 space-y-3">
-            <div className="flex flex-col">
-              <p className="font-semibold mb-3 text-center text-base">Dados do produto</p>
-              <div className="flex flex-wrap gap-2">
-                <SelectForm
-                  name="selectProduto"
-                  placeholder="Selecione o produto"
-                  options={selectOptionsProduct}
-                />
-                <InputForm name="tamanhoProduto" type="text" placeholder="Tamanho do produto" />
-                <InputForm name="quantidadee" type="text" placeholder="Quantidade" />
-                <InputForm name="dataVenda" type="date" placeholder="Data da venda" />
-                <div className="flex mb-2 mt-2">
-                  <Button
-                    style={{ width: '150px' }}
-                    variant="primary"
-                    type="button"
-                    buttonText="Adicionar"
-                  />
-                </div>
-              </div>
-            </div>
+            {/* {addNewProduct.map((add: any) => { */}
+            <DataProducts newProduct={handleClickNewProduct} />
+            {/* })} */}
             <div className="flex flex-col">
               <p className="font-semibold mb-3 text-center text-base">Dados do comprador</p>
               <InputForm
