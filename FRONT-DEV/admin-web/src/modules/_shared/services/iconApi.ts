@@ -1,3 +1,1 @@
-const iconApi = 'https://e-stok.onrender.com/static/SVG/';
-
-export default iconApi;
+export const iconApi = window.location.origin + '/static/SVG/';

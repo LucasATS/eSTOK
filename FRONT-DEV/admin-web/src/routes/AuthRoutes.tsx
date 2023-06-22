@@ -9,7 +9,8 @@ const AuthRoutes = () => {
     <HashRouter>
       <MainLayout>
         <Routes>
-          <Route index path={RoutesURL.LOGIN} element={<Login />} />
+          <Route path={RoutesURL.LOGIN} index Component={Login} />
+          <Route path="/" Component={Login} />
         </Routes>
       </MainLayout>
     </HashRouter>

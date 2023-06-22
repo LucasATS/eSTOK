@@ -1,47 +1,25 @@
+import { Produtos } from "../models/modelProdutos";
 
-import modelProduto from "../models/modelProduto";
+const FormularioProduto = async (body) => {
 
-const FormularioProduto = async (
-    {
-        id = null,
-        Nome = '',
-        Descricao = '',
-        Foto = '',
-    }) => {
-    if (id == null){
-        //INSERT PRODUTO
-        Produto.create({
-            Nome: Nome,
-            Descricao: Descricao,
-            Foto: Foto,
-            })
-            .then( () => {
-                console.log(`Produto ${Nome} cadastrado!`);
-                return 'sucess';
-            })
-            .catch((error) => {
-                console.log(`${Nome} : ${error.errors[0].message}`);
-                return error.errors[0].message;
-            });
-    } else {
-        //UPDATE PRODUTO
-        Produto.update(
-            { 
-                Nome: Nome,
-                Descricao: Descricao,
-                Foto: Foto, 
-            },
-            { where: { id: id } }
-            )
-            .then( () => {
-                console.log(`Produto ${Nome} atualizado!`);
-                return "success";
-            })
-            .catch((error) => {
-                console.log(`${Nome} : ${error.errors[0].message}`);
-                return error.errors[0].message;
-            });
+    let { nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel } = body;
+
+
+    if (!nome) {
+        return { is_valid: false, message: 'Nome é obrigatório' }
     }
+
+    if (!descricao) {
+        return { is_valid: false, message: 'Descrição é obrigatório' }
+    }
+
+    let fungibilidade_e = eval(fungibilidade) ? 1 : 0;
+    let estocavel_e = eval(estocavel) ? 1 : 0;
+
+    const resp = await Produtos.sp_produtos(nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade_e, estocavel_e)
+    
+    return { is_valid: true, message: resp.Msg }
+
 }
 
 export default FormularioProduto;

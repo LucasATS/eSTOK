@@ -1,7 +1,10 @@
 enum RoutesURL {
-  HOME = '/home',
+  HOME = '/',
   LOGIN = '/login',
-  LIST_PRODUCT = '/list-product'
+  LIST_PRODUCT = '/list-product',
+  LIST_SALE = '/list-sale',
+  LIST_STOCK = '/list-stock',
+  LIST_REPORT = '/list-report'
 }
 
 export default RoutesURL;

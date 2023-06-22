@@ -1,20 +1,27 @@
 import formAuthenticUser from "../forms/formAutenticacaoUsuario";
 
 const login = async (req, res) => {
-    let { login, senha } = req.body;
-    let form = await formAuthenticUser({
-        login: login,
-        email: login,
-        senha: senha
-    });
 
-    if (form.is_valid){
+    try {
+
+        let form = await formAuthenticUser(req.body);
+
+        if (form.is_valid){
+            res.cookie('sessao', form.sessao);
+            res.status(200).json({ data: { status: 'ok', message: form.msg } })
+        } else {
+            res.status(401).json({ data: { status: 'erro', message: form.msg } })
+        }
         
-        res.cookie('sessao', form.sessao);
-        res.status(200).json({data : 'Autorizado'})
-    } else {
-        res.status(401).json({data : 'Usuário e/ou senha incorreto(s)'})
+    } catch (error) {
+        
+        if (req.status_debug){
+            res.status(400).json({ error: error });
+        } else {
+            res.status(400).json({ error: 'Erro inesperado' });
+        }
     }
+
 };
 
 export default login;

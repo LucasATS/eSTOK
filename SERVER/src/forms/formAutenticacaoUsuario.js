@@ -1,39 +1,27 @@
 const JWT = require('jsonwebtoken');
 import 'dotenv/config';
-import { Op } from "sequelize";
-import modelUsuarios from '../models/modelUsuarios';
+import { Usuarios } from '../models/modelUsuarios';
 
-const FormularioAuthentic = async (
-    {
-        email = '',
-        login = '',
-        senha = '',
-    }) => {
+const FormularioAuthentic = async ( body ) => {
     
+    const { login, senha } = body;
+    const email = login;
+
     if (!senha || !(email || login)){
         return { is_valid: false }
     }
 
-    const user = await modelUsuarios.findOne({
-        attributes: ['id', 'email', 'senha'],
-        where: { senha : senha,
-            [Op.or]: [
-                { login },
-                { email },
-            ]
-        }
-    });
+    const user = await Usuarios.sp_login(login, senha);
 
-    if (!user){
-        return { is_valid: false }
+    if (!user.login){
+        return { is_valid: false, msg: user.Msg}
     }
     
-    let Token = await JWT.sign({
-        id: user.id,
-        usuario: user.email,
+    const Token = await JWT.sign({
+        usuario: user.login,
     }, process.env.SECRETKEY);
     
-    return {is_valid: true, sessao: Token}
+    return {is_valid: true, sessao: Token, msg: user.Msg}
 }
 
 export default FormularioAuthentic;

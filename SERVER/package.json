@@ -13,7 +13,7 @@
   "scripts": {
     "server": "nodemon --exec babel-node src/main.js",
     "build": "babel src -d dist",
-    "start": "node dist/main.js"
+    "dist": "node dist/main.js"
   },
   "dependencies": {
     "@babel/cli": "^7.21.5",
@@ -23,13 +23,15 @@
     "@babel/preset-env": "^7.21.5",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^3.3.1",
+    "node-cron": "^3.0.2",
     "nodemon": "^2.0.22",
-    "sequelize": "^6.31.1",
-    "sequelize-cli": "^6.6.0",
+    "sequelize": "^6.32.1",
+    "sequelize-cli": "^6.6.1",
     "sqlite3": "^5.1.6"
   }
 }

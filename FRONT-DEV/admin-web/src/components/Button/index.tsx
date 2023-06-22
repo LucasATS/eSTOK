@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 
 interface Props {
   onClick?: () => void;
   type?: 'submit' | 'button' | 'reset';
-  variant?: 'primary' | 'secondary' | 'default' | 'clean' | 'error';
+  variant?: 'primary' | 'secondary' | 'default' | 'cancel' | 'clean' | 'error';
   buttonText?: string;
   children?: React.ReactNode;
   styles?: string;
+  className?: string;
+  style?: any;
 }
 
 const Button: React.FC<Props> = ({
@@ -15,13 +18,18 @@ const Button: React.FC<Props> = ({
   onClick,
   styles,
   type,
-  variant = 'default'
+  variant = 'default',
+  className,
+  style
 }) => {
   return (
     <button
-      className={`${variant} transition duration-300 hover:bg-opacity-90 font-medium rounded text-base px-4 py-1 text-center block ${
-        styles ? styles : null
-      }`}
+      style={style}
+      className={
+        `${variant} transition duration-300 hover:bg-opacity-90 font-medium rounded text-base px-4 py-1 text-center block ${
+          styles ? styles : null
+        }` + className
+      }
       type={type}
       onClick={onClick}
     >

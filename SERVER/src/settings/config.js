@@ -1,12 +1,34 @@
 import 'dotenv/config';
 import bodyParser from 'body-parser';
 import db from './db';
+import { rotina_inativa_lotes } from '../rotinas';
 
 const cookie = require('cookie-parser');
 
 const express = require('express');
 
+const cors = require('cors');
+
+const DEBUG = true;
+
 const appConfig = async (server, PATH) => {
+
+  //CORS ACESSO LIBERADO
+  server.use((req, res, next) => {
+      //CORRINGA (*) PARA TODOS
+      res.header("Access-Control-Allow-Origin", "*");
+      //METODOS GET E POST LIBERADOS
+      res.header("Access-Control-Allow-Methods", 'GET,POST');
+      server.use(cors());
+      next();
+  });
+
+  //CONFIGURA STATUS DEBUG
+  server.use((req, res, next) => {
+    //CORRINGA (*) PARA TODOS
+    req.status_debug = DEBUG;
+    next();
+  });
 
   //PARSERS
   server.use(cookie());
@@ -27,6 +49,9 @@ const appConfig = async (server, PATH) => {
   server.listen(process.env.PORT, process.env.HOST, () =>
     console.log(`\n---\nSERVIDOR ON\nhttp://${process.env.HOST}:${process.env.PORT}/\n---`)
   );
+
+  //INICIA ROTINAS
+  rotina_inativa_lotes();
 };
 
 export default appConfig;

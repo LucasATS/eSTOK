@@ -5,12 +5,11 @@
     "node": true
   },
   "extends": [
-    "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "prettier",
+    "plugin:jsx-a11y/recommended"
   ],
-  "overrides": [],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -19,20 +18,46 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "prettier",
+    "jsx-a11y"
+  ],
   "settings": {
     "react": {
       "version": "detect"
     }
   },
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "react/jsx-uses-react": "off",
+    "react/jsx-uses-vars": "error",
     "react/react-in-jsx-scope": "off",
-    "prettier/prettier": "error",
-    "semi": ["error", "always"],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "never",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/prop-types": [
       2,
       {
-        "ignore": ["children"]
+        "ignore": [
+          "children"
+        ]
       }
     ]
   }

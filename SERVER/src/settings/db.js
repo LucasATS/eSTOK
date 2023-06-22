@@ -6,18 +6,16 @@ const sequelize = new Sequelize(
     process.env.USER,
     process.env.PASS,
     {
-      host: process.env.HOST,             //banco local
+      host: process.env.HOST_DB,          //banco local
+      port: process.env.PORT_DB,      
       dialect: 'mysql',                   // CONFIGURADO PARA MySQL
-      logging: false           
+      dialectOptions: { connectTimeout: 15000 },
+      logging: false,
+      define: {
+        charset: 'utf8',
+        collate: 'utf8_general_ci', 
+        timestamps: true
+      },          
 });
-
-// CONEXÃO - SQLITE
-/*
-const sequelize = new Sequelize({
-  dialect: 'sqlite',             // CONFIGURADO PARA SQLite
-  storage: process.env.DATABASE, // PUXA A INFORMAÇÃO DATABASE DO ENV
-  logging: false,                // SERVE PARA ELE NÃO FICAR PRINTANDO O TEMPO TODO
-});
-*/
 
 export default sequelize;

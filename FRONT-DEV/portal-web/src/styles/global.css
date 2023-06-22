@@ -4,7 +4,7 @@
 
 @layer components {
   .primary {
-    @apply bg-zinc-800 text-white;
+    @apply bg-zinc-700 text-white;
   }
 
   .primary:hover {
@@ -12,7 +12,7 @@
   }
 
   .secondary {
-    @apply bg-stone-700 text-white;
+    @apply bg-stone-600 text-white;
   }
 
   .secondary:hover {
@@ -27,12 +27,12 @@
     @apply bg-neutral-300 text-white bg-opacity-90;
   }
 
-  .clean {
-    @apply bg-white text-teal-500;
+  .cancel {
+    @apply bg-white text-stone-400;
   }
 
-  .clean:hover {
-    @apply bg-gray-200 text-teal-600 bg-opacity-90;
+  .cancel:hover {
+    @apply bg-gray-200 text-stone-600 bg-opacity-90;
   }
 
   .error {
@@ -48,7 +48,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Montserrat';
+  font-family: 'Raleway', sans-serif;
   scroll-behavior: smooth;
 }
 

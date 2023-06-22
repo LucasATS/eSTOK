@@ -1,0 +1,20 @@
+DELETE FROM baixa_estoques;
+ALTER TABLE baixa_estoques AUTO_INCREMENT = 1;
+
+DELETE FROM categorias WHERE id >= 3;
+ALTER TABLE categorias AUTO_INCREMENT = 2;
+
+DELETE FROM entradas;
+ALTER TABLE entradas AUTO_INCREMENT = 1;
+
+DELETE FROM estoques;
+ALTER TABLE estoques AUTO_INCREMENT = 1;
+
+DELETE FROM lotes;
+ALTER TABLE lotes AUTO_INCREMENT = 1;
+
+DELETE FROM vendas_itens;
+ALTER TABLE vendas_itens AUTO_INCREMENT = 1;
+
+DELETE FROM vendas;
+ALTER TABLE vendas AUTO_INCREMENT = 1;
