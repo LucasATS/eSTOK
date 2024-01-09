@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 22-Jun-2023 às 06:09
+-- Tempo de geração: 22-Jun-2023 às 23:44
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -46,7 +46,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_baixa_estoque` (IN `id_produto_e
 
 DECLARE saldo_lote INT(11);
 DECLARE unitario_e DECIMAL(15,4);
-SELECT SUM(L.qtde_lote) INTO saldo_lote FROM lotes l WHERE l.lote = lote_e;
+SELECT SUM(l.qtde_lote) INTO saldo_lote FROM lotes l WHERE l.lote = lote_e;
 SELECT pp.preco INTO unitario_e FROM produtos_precos pp WHERE pp.id_produto = id_produto_e;
 IF saldo_lote >= quantidade_e THEN
 	INSERT INTO baixa_estoques (id_produto, lote, validade, quantidade, unitario, motivo, observacao, kar_tipo) VALUES (id_produto_e, lote_e, validade_e, quantidade_e, unitario_e, motivo_e, observacao_e, kar_tipo_e);
@@ -1036,6 +1036,7 @@ CREATE TABLE `vendas` (
   `dt_vencimento` date NOT NULL,
   `cvv` int(3) NOT NULL,
   `tipo_venda` int(11) NOT NULL DEFAULT 0,
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1281,6 +1282,17 @@ CREATE TABLE `vw_tipo_produtos` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura stand-in para vista `vw_total_produtos`
+-- (Veja abaixo para a view atual)
+--
+DROP VIEW IF EXISTS `vw_total_produtos`;
+CREATE TABLE `vw_total_produtos` (
+`total` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura stand-in para vista `vw_unidades`
 -- (Veja abaixo para a view atual)
 --
@@ -1329,7 +1341,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_entradas_cadastro`;
 
 DROP VIEW IF EXISTS `vw_entradas_cadastro`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_entradas_cadastro`  AS SELECT concat('#',`e`.`id_produto`) AS `id`, concat(`p`.`nome`,' ',`p`.`descricao`) AS `produto`, `c`.`descricao` AS `categoria`, sum(`e`.`quantidade`) AS `quantidade`, `e`.`unitario` AS `preco`, `e`.`data_compra` AS `data_compra`, `e`.`validade` AS `vencimento`, `e`.`lote` AS `lotes` FROM ((`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) WHERE `p`.`id_status` = 1 GROUP BY `e`.`lote`, `e`.`id_produto`, `e`.`id_produto`, `p`.`nome`, `p`.`descricao`, `c`.`descricao`, `e`.`unitario`, `e`.`data_compra`, `e`.`validade` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_entradas_cadastro`  AS SELECT concat('#',`e`.`id_produto`) AS `id`, concat(`p`.`nome`,' ',`p`.`descricao`) AS `produto`, `c`.`descricao` AS `categoria`, sum(`e`.`quantidade`) AS `quantidade`, `e`.`unitario` AS `preco`, `e`.`data_compra` AS `data_compra`, `e`.`validade` AS `vencimento`, `e`.`lote` AS `lotes` FROM ((`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) WHERE `p`.`id_status` = 1 GROUP BY `e`.`lote`, `e`.`id_produto`, `e`.`id_produto`, `p`.`nome`, `p`.`descricao`, `c`.`descricao`, `e`.`unitario`, `e`.`data_compra`, `e`.`validade` ORDER BY `e`.`id` DESC ;
 
 -- --------------------------------------------------------
 
@@ -1430,6 +1442,16 @@ DROP TABLE IF EXISTS `vw_tipo_produtos`;
 
 DROP VIEW IF EXISTS `vw_tipo_produtos`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_tipo_produtos`  AS SELECT `tp`.`id` AS `id`, `tp`.`descricao` AS `descricao`, `sc`.`descricao` AS `status` FROM (`tipo_produtos` `tp` join `status_cads` `sc` on(`tp`.`id_status` = `sc`.`id`)) ORDER BY `tp`.`id` ASC ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para vista `vw_total_produtos`
+--
+DROP TABLE IF EXISTS `vw_total_produtos`;
+
+DROP VIEW IF EXISTS `vw_total_produtos`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_total_produtos`  AS SELECT count(0) AS `total` FROM ((`entradas` `e` join `produtos` `p` on(`e`.`id_produto` = `p`.`id`)) join `categorias` `c` on(`p`.`id_categoria` = `c`.`id`)) WHERE `p`.`id_status` = 1 ;
 
 -- --------------------------------------------------------
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Button from '../../../components/Button';
-import Header from '../../../components/MainLayout/components/Header';
+import HeaderTitle from '../../../components/MainLayout/components/HeaderTitle';
 import Pagination from '../../../components/Paginate';
 import ToastCustom from '../../../components/ToastCustom';
 import { Paginate } from '../../_shared/types/api.types';
@@ -66,7 +66,7 @@ export const ListStock = () => {
   return (
     <div className="w-full flex flex-col">
       <div className="w-full px-6 bg-white justify-start items-start">
-        <Header mainText="Estoque" />
+        <HeaderTitle mainText="Estoque" />
       </div>
       <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
         <div className="flex flex-row md:px-4 w-auto gap-3 justify-end items-end">

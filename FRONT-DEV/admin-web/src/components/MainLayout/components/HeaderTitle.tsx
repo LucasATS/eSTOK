@@ -4,7 +4,7 @@ interface Props {
   mainText: string;
 }
 
-const Header = ({ mainText }: Props) => {
+const HeaderTitle = ({ mainText }: Props) => {
   return (
     <div className="flex px-6 py-3 items-start justify-start text-start w-full">
       <TitleCard text={mainText} />
@@ -12,4 +12,4 @@ const Header = ({ mainText }: Props) => {
   );
 };
 
-export default Header;
+export default HeaderTitle;

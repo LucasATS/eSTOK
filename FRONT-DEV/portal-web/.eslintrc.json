@@ -8,7 +8,9 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "prettier",
+    "react-app",
+    "react-app/jest"
   ],
   "overrides": [],
   "parser": "@typescript-eslint/parser",
@@ -19,7 +21,11 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "prettier"
+  ],
   "settings": {
     "react": {
       "version": "detect"
@@ -33,11 +39,16 @@
         "endOfLine": "auto"
       }
     ],
-    "semi": ["error", "always"],
+    "semi": [
+      "error",
+      "always"
+    ],
     "react/prop-types": [
       2,
       {
-        "ignore": ["children"]
+        "ignore": [
+          "children"
+        ]
       }
     ]
   }

@@ -3,7 +3,6 @@ import { Form } from '@unform/web';
 import { useRef } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-import logo from '../../../assets/e-stok.png';
 import Button from '../../../components/Button';
 import InputForm from '../../../components/FormComponents/InputForm';
 import {
@@ -12,6 +11,7 @@ import {
   manageApiErrorResponse
 } from '../../_shared/helpers/handleApiErrorResponse';
 import { LoginCredentials, useAuth } from '../contexts/AuthProvider';
+import { iconApi } from '../../_shared/services/iconApi';
 
 const Login = () => {
   const { signIn } = useAuth();
@@ -37,7 +37,7 @@ const Login = () => {
       <div className="flex flex-col w-full gap-10">
         <div className="flex flex-col justify-center items-center">
           <Link to="/">
-            <img src={logo} className="w-full h-auto py-2" alt="eStok Logo" />
+            <img src={iconApi + 'e-stok.png'} className="w-full h-auto py-2" alt="eStok Logo" />
           </Link>
         </div>
         <Form ref={formRef} onSubmit={handleLogin}>
