@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Button from '../../../components/Button';
 import SelectForm, { OptionSelect } from '../../../components/FormComponents/SelectForm';
-import Header from '../../../components/MainLayout/components/Header';
+import HeaderTitle from '../../../components/MainLayout/components/HeaderTitle';
 import TitleCard from '../../../components/TitleCard';
 import ToastCustom from '../../../components/ToastCustom';
 import {
@@ -83,7 +83,7 @@ export const CreateReport = () => {
   return (
     <div className="w-full flex flex-col">
       <div className="w-full bg-white justify-start items-start px-6">
-        <Header mainText="Relatório" />
+        <HeaderTitle mainText="Relatório" />
       </div>
       <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
         <div className="text-center">

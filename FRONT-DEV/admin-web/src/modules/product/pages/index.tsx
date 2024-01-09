@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Button from '../../../components/Button';
 import Dropdown from '../../../components/Dropdown';
-import Header from '../../../components/MainLayout/components/Header';
+import HeaderTitle from '../../../components/MainLayout/components/HeaderTitle';
 import Pagination from '../../../components/Paginate';
 import { Action } from '../../../components/Table';
 import ToastCustom from '../../../components/ToastCustom';
@@ -67,7 +67,7 @@ const ListProduct = () => {
   return (
     <div className="w-full flex flex-col">
       <div className="w-full px-6 bg-white justify-start items-start">
-        <Header mainText="Produto" />
+        <HeaderTitle mainText="Produto" />
       </div>
       <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
         <div className="flex flex-row md:px-4 w-auto gap-3 justify-end items-end">

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import logo from '../../assets/e-stok.svg';
 import { Cart } from '../../modules/Cart/pages';
 
@@ -7,8 +6,6 @@ interface Props {
 }
 
 export const MainLayout: React.FC<Props> = ({ children }) => {
-  const [open, setOpen] = useState(false);
-
   return (
     <div className="flex">
       <div className="flex flex-col w-full h-screen">
