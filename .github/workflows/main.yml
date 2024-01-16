@@ -8,10 +8,9 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-
       - name: Change to SERVER directory
-        run: cd SERVER
-        
+        run: cd server
+
       - name: Get Lastest Code
         uses: actions/checkout@v4
 
