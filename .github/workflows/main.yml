@@ -8,10 +8,6 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-        # - name: Acessando pasta SERVER
-        # run: cd SERVER
-        # run: dir
-
       - name: Get Lastest Code
         uses: actions/checkout@v4
 
@@ -19,7 +15,10 @@ jobs:
         with:
           node-version: '18.x'
           cache: 'npm'
-      
+
+      - name: Change to SERVER directory
+        run: cd SERVER
+
       - name: Install dependencies
         run: npm install
       
