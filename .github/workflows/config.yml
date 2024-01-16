@@ -1,29 +1,13 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-name: Node.js Package
-
-on:
-  release:
-    types: [created]
-
+on: push
+name: 🚀 Deploy do servidor eSTOK
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  deploy:
+    name: 🎉 Deploy
+    runs-on: windowns-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - run: npm ci
-      - run: npm test
+      - name: Get Lastest Code
+        uses: actions/checkout@v2
 
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 18
