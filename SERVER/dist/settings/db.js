@@ -12,6 +12,9 @@ var sequelize = new _sequelize.Sequelize(process.env.DATABASE, process.env.USER,
   port: process.env.PORT_DB,
   dialect: 'mysql',
   // CONFIGURADO PARA MySQL
+  dialectOptions: {
+    connectTimeout: 15000
+  },
   logging: false,
   define: {
     charset: 'utf8',

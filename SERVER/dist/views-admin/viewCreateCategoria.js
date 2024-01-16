@@ -16,30 +16,51 @@ var view = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _context.next = 2;
+          _context.prev = 0;
+          _context.next = 3;
           return (0, _formCategorias["default"])(req.body);
-        case 2:
+        case 3:
           form = _context.sent;
-          if (form.is_valid) {
-            return res.status(200).json({
-              data: {
-                status: 'ok',
-                message: form.message
-              }
-            });
-          } else {
-            return res.status(200).json({
-              data: {
-                status: 'erro',
-                motivo: form.message
-              }
-            });
+          if (!form.is_valid) {
+            _context.next = 8;
+            break;
           }
-        case 4:
+          return _context.abrupt("return", res.status(200).json({
+            data: {
+              status: 'ok',
+              message: form.message
+            }
+          }));
+        case 8:
+          return _context.abrupt("return", res.status(200).json({
+            data: {
+              status: 'erro',
+              motivo: form.message
+            }
+          }));
+        case 9:
+          _context.next = 19;
+          break;
+        case 11:
+          _context.prev = 11;
+          _context.t0 = _context["catch"](0);
+          if (!req.status_debug) {
+            _context.next = 18;
+            break;
+          }
+          _context.t0["params"] = req.query || req.body;
+          return _context.abrupt("return", res.status(400).json({
+            error: _context.t0
+          }));
+        case 18:
+          return _context.abrupt("return", res.status(400).json({
+            error: 'Erro inesperado'
+          }));
+        case 19:
         case "end":
           return _context.stop();
       }
-    }, _callee);
+    }, _callee, null, [[0, 11]]);
   }));
   return function view(_x, _x2) {
     return _ref.apply(this, arguments);

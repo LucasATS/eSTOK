@@ -29,19 +29,20 @@ var Categorias = _db["default"].define('categorias', {
 }, {});
 exports.Categorias = Categorias;
 Categorias.vw_categorias = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(id_status) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(status_cat) {
+    var data;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return _db["default"].query("SELECT * FROM vw_categorias vw WHERE vw.Status = (?)", {
-            model: _this,
-            mapToModel: true,
-            replacements: [id_status]
+          return _db["default"].query("SELECT * FROM vw_categorias vw WHERE vw.Status = (?)" /*o valor de referencia sera Literal Ativo ou Inativo valores numericos nao retornam informações */, {
+            replacements: [status_cat],
+            type: _sequelize.QueryTypes.SELECT
           });
         case 2:
-          return _context.abrupt("return", _context.sent);
-        case 3:
+          data = _context.sent;
+          return _context.abrupt("return", data);
+        case 4:
         case "end":
           return _context.stop();
       }
@@ -52,15 +53,15 @@ Categorias.vw_categorias = /*#__PURE__*/function () {
   };
 }();
 Categorias.sp_categorias = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(descricao, id_status) {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(descricao) {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           _context2.next = 2;
-          return _db["default"].query("call `sp_categorias`(?, ?);", {
+          return _db["default"].query("call `sp_categorias`(?, 1);", {
             model: _this,
             mapToModel: true,
-            replacements: [descricao, id_status]
+            replacements: [descricao]
           });
         case 2:
           return _context2.abrupt("return", _context2.sent[0]);
@@ -70,7 +71,7 @@ Categorias.sp_categorias = /*#__PURE__*/function () {
       }
     }, _callee2);
   }));
-  return function (_x2, _x3) {
+  return function (_x2) {
     return _ref2.apply(this, arguments);
   };
 }();

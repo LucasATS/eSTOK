@@ -14,14 +14,30 @@ var view = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          return res.sendFile('index.html', {
+          _context.prev = 0;
+          return _context.abrupt("return", res.sendFile('index.html', {
             root: _templates.indexPortalWeb
-          });
-        case 1:
+          }));
+        case 4:
+          _context.prev = 4;
+          _context.t0 = _context["catch"](0);
+          if (!req.status_debug) {
+            _context.next = 11;
+            break;
+          }
+          _context.t0["params"] = req.query || req.body;
+          return _context.abrupt("return", res.status(400).json({
+            error: _context.t0
+          }));
+        case 11:
+          return _context.abrupt("return", res.status(400).json({
+            error: 'Erro inesperado'
+          }));
+        case 12:
         case "end":
           return _context.stop();
       }
-    }, _callee);
+    }, _callee, null, [[0, 4]]);
   }));
   return function view(_x, _x2) {
     return _ref.apply(this, arguments);

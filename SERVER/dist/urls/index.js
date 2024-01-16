@@ -39,28 +39,28 @@ var urls = /*#__PURE__*/function () {
       this.server.get("/api/admin/produtos", _verificaAutenticacao["default"], require('../views-admin/viewProdutos.js')["default"]);
       this.server.get("/api/admin/produtos/dados-produto", _verificaAutenticacao["default"], require('../views-admin/viewDadosProduto.js')["default"]);
       this.server.get("/api/admin/categorias", _verificaAutenticacao["default"], require('../views-admin/viewCategorias.js')["default"]);
-      this.server.get("/api/admin/tipos-de-medidas", _verificaAutenticacao["default"], require('../views-admin/viewTiposMedida.js')["default"]);
+      this.server.get("/api/admin/tipos-de-medidas", _verificaAutenticacao["default"], require('../views-admin/viewUnidades.js')["default"]);
       this.server.get("/api/admin/tipos-de-produto", _verificaAutenticacao["default"], require('../views-admin/viewTiposProduto.js')["default"]);
       this.server.get("/api/admin/estoque", _verificaAutenticacao["default"], require('../views-admin/viewEstoque.js')["default"]);
-      this.server.get("/api/admin/estoque/filtro", _verificaAutenticacao["default"], require('../views-admin/viewEstoqueFiltro.js')["default"]);
       this.server.get("/api/admin/relatorios/vendas-administrador", _verificaAutenticacao["default"], require('../views-admin/viewVendasAdministrador.js')["default"]);
       this.server.get("/api/admin/relatorios/vendas-site", _verificaAutenticacao["default"], require('../views-admin/viewVendasSite.js')["default"]);
       this.server.get("/api/admin/relatorios/consolidado", _verificaAutenticacao["default"], require('../views-admin/viewVendasConsolidado.js')["default"]);
       this.server.get("/api/admin/relatorios/itens-no-estoque", _verificaAutenticacao["default"], require('../views-admin/viewItensNoEstoque.js')["default"]);
-      this.server.get("/api/admin/auth/logout", require('../views-admin/viewLogout.js')["default"]); // ok
+      this.server.get("/api/admin/relatorios/baixaestoques", _verificaAutenticacao["default"], require('../views-admin/viewBaixa_Estoques.js')["default"]);
+      this.server.get("/api/admin/relatorios/entradas-produto", _verificaAutenticacao["default"], require('../views-admin/viewEntradasProdutos.js')["default"]);
+      this.server.get("/api/admin/vendas", _verificaAutenticacao["default"], require('../views-admin/viewVendas.js')["default"]);
+      this.server.get("/api/admin/auth/logout", require('../views-admin/viewLogout.js')["default"]);
 
       //Links admin-web - POST - AUTENTICADO
       this.server.post("/api/admin/produtos/create", _verificaAutenticacao["default"], require('../views-admin/viewCreateProduto.js')["default"]);
       this.server.post("/api/admin/produtos/altera-status", _verificaAutenticacao["default"], require('../views-admin/viewAlterStatusProduto.js')["default"]);
+      this.server.post("/api/admin/baixaestoques/create", _verificaAutenticacao["default"], require('../views-admin/viewCreateBaixa_Estoques.js')["default"]);
       this.server.post("/api/admin/categorias/create", _verificaAutenticacao["default"], require('../views-admin/viewCreateCategoria.js')["default"]); //ok
 
-      this.server.post("/api/admin/tipos-de-medidas/create", _verificaAutenticacao["default"], require('../views-admin/viewCreateTiposMedida.js')["default"]);
+      this.server.post("/api/admin/tipos-de-medidas/create", _verificaAutenticacao["default"], require('../views-admin/viewCreateUnidades.js')["default"]);
+      this.server.post("/api/admin/tipos-de-produto/create", _verificaAutenticacao["default"], require('../views-admin/viewCreateTiposProduto.js')["default"]);
       this.server.post("/api/admin/estoque/movimentacao-entrada", _verificaAutenticacao["default"], require('../views-admin/viewMovimentacaoEntrada.js')["default"]);
-      this.server.post("/api/admin/estoque/movimentacao-saida", _verificaAutenticacao["default"], require('../views-admin/viewMovimentacaoSaida.js')["default"]);
-      this.server.post("/api/admin/venda", _verificaAutenticacao["default"], require('../views-admin/viewVenda.js')["default"]);
-
-      //para executar dados de teste
-      this.server.get("/api/for-tests", require('../views-admin/_viewDadosTeste.js')["default"]);
+      this.server.post("/api/admin/venda", _verificaAutenticacao["default"], require('../views-admin/viewVendaCreate.js')["default"]);
     }
   }]);
   return urls;

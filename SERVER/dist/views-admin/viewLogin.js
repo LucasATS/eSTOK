@@ -16,25 +16,52 @@ var login = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _context.next = 2;
+          _context.prev = 0;
+          _context.next = 3;
           return (0, _formAutenticacaoUsuario["default"])(req.body);
-        case 2:
+        case 3:
           form = _context.sent;
-          if (form.is_valid) {
-            res.cookie('sessao', form.sessao);
-            return res.status(200).json({
-              data: form.msg
-            });
-          } else {
-            return res.status(401).json({
-              data: form.msg
-            });
+          if (!form.is_valid) {
+            _context.next = 9;
+            break;
           }
-        case 4:
+          res.cookie('sessao', form.sessao);
+          return _context.abrupt("return", res.status(200).json({
+            data: {
+              status: 'ok',
+              message: form.msg
+            }
+          }));
+        case 9:
+          return _context.abrupt("return", res.status(401).json({
+            data: {
+              status: 'erro',
+              message: form.msg
+            }
+          }));
+        case 10:
+          _context.next = 20;
+          break;
+        case 12:
+          _context.prev = 12;
+          _context.t0 = _context["catch"](0);
+          if (!req.status_debug) {
+            _context.next = 19;
+            break;
+          }
+          _context.t0["params"] = req.query || req.body;
+          return _context.abrupt("return", res.status(400).json({
+            error: _context.t0
+          }));
+        case 19:
+          return _context.abrupt("return", res.status(400).json({
+            error: 'Erro inesperado'
+          }));
+        case 20:
         case "end":
           return _context.stop();
       }
-    }, _callee);
+    }, _callee, null, [[0, 12]]);
   }));
   return function login(_x, _x2) {
     return _ref.apply(this, arguments);

@@ -40,7 +40,7 @@ var Produtos = _db["default"].define('produtos', {
       key: 'id'
     }
   },
-  id_id_unidade: {
+  id_unidade: {
     type: _sequelize.DataTypes.INTEGER,
     references: {
       model: _modelUnidades.Unidades,
@@ -69,48 +69,71 @@ var Produtos = _db["default"].define('produtos', {
 }, {});
 exports.Produtos = Produtos;
 Produtos.vw_produtos = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(id_status) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(posIni, Quantidade) {
+    var data;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return _db["default"].query("SELECT * FROM vw_produtos WHERE id_status = (?)", {
+          return _db["default"].query("SELECT * FROM vw_produtos_cadastro ORDER BY id DESC LIMIT ?, ?", {
             model: _this,
             mapToModel: true,
-            replacements: [id_status]
+            type: _sequelize.QueryTypes.SELECT,
+            replacements: [posIni, Quantidade]
           });
         case 2:
-          return _context.abrupt("return", _context.sent);
-        case 3:
+          data = _context.sent;
+          return _context.abrupt("return", data);
+        case 4:
         case "end":
           return _context.stop();
       }
     }, _callee);
   }));
-  return function (_x) {
+  return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }();
+Produtos.total_cadastro = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+  var data;
+  return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+    while (1) switch (_context2.prev = _context2.next) {
+      case 0:
+        _context2.next = 2;
+        return _db["default"].query("SELECT * FROM vw_total_produtos", {
+          model: _this,
+          mapToModel: true,
+          type: _sequelize.QueryTypes.SELECT
+        });
+      case 2:
+        data = _context2.sent;
+        return _context2.abrupt("return", data[0].total);
+      case 4:
+      case "end":
+        return _context2.stop();
+    }
+  }, _callee2);
+}));
 Produtos.sp_produtos = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel, id_status) {
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel) {
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
         case 0:
-          _context2.next = 2;
+          _context3.next = 2;
           return _db["default"].query("call `sp_produtos`(?, ?, ?, ?, ?, ?, ?, ?, ?);", {
             model: _this,
             mapToModel: true,
-            replacements: [nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel, id_status]
+            replacements: [nome, descricao, id_categoria, id_tp_produto, id_unidade, foto, fungibilidade, estocavel, 1]
           });
         case 2:
-          return _context2.abrupt("return", _context2.sent[0]);
+          return _context3.abrupt("return", _context3.sent[0]);
         case 3:
         case "end":
-          return _context2.stop();
+          return _context3.stop();
       }
-    }, _callee2);
+    }, _callee3);
   }));
-  return function (_x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10) {
-    return _ref2.apply(this, arguments);
+  return function (_x3, _x4, _x5, _x6, _x7, _x8, _x9, _x10) {
+    return _ref3.apply(this, arguments);
   };
 }();

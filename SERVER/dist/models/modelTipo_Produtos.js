@@ -29,18 +29,19 @@ var Tipo_Produtos = _db["default"].define('tipo_produtos', {
 exports.Tipo_Produtos = Tipo_Produtos;
 Tipo_Produtos.vw_tipo_produto = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(id_status) {
+    var data;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return _db["default"].query("SELECT * FROM vw_tipo_produto WHERE id_status = (?)", {
-            model: _this,
-            mapToModel: true,
+          return _db["default"].query("SELECT * FROM vw_tipo_produtos WHERE Status = (?)", {
+            type: _sequelize.QueryTypes.SELECT,
             replacements: [id_status]
           });
         case 2:
-          return _context.abrupt("return", _context.sent);
-        case 3:
+          data = _context.sent;
+          return _context.abrupt("return", data);
+        case 4:
         case "end":
           return _context.stop();
       }
@@ -56,7 +57,7 @@ Tipo_Produtos.sp_tipo_produto = /*#__PURE__*/function () {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           _context2.next = 2;
-          return _db["default"].query("call `sp_tipo_produto`(?,?);", {
+          return _db["default"].query("call sp_tipo_produtos(?,?);", {
             model: _this,
             mapToModel: true,
             replacements: [descricao, id_status]

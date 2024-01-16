@@ -14,6 +14,12 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var Unidades = _db["default"].define('unidades', {
+  id: {
+    type: _sequelize.DataTypes.CHAR(6),
+    allowNull: false,
+    primaryKey: true
+  },
+  /* ID é PK exemplo "Caixa com 25, id = CX25" */
   descricao: {
     type: _sequelize.DataTypes.STRING(50),
     allowNull: false
@@ -29,18 +35,19 @@ var Unidades = _db["default"].define('unidades', {
 exports.Unidades = Unidades;
 Unidades.vw_unidades = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(id_satus) {
+    var data;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return _db["default"].query("SELECT * FROM vw_unidades WHERE id_status = (?)", {
-            model: _this,
-            mapToModel: true,
+          return _db["default"].query("SELECT * FROM vw_unidades vwu WHERE vwu.status = (?)" /**o valor de referencia sera Literal Ativo ou Inativo valores numericos nao retornam informações */, {
+            type: _sequelize.QueryTypes.SELECT,
             replacements: [id_satus]
           });
         case 2:
-          return _context.abrupt("return", _context.sent);
-        case 3:
+          data = _context.sent;
+          return _context.abrupt("return", data);
+        case 4:
         case "end":
           return _context.stop();
       }
@@ -51,15 +58,15 @@ Unidades.vw_unidades = /*#__PURE__*/function () {
   };
 }();
 Unidades.sp_unidades = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(id_uni, descricao, id_satus) {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(id_uni, descricao) {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           _context2.next = 2;
-          return _db["default"].query("call `sp_unidades`(?,?,?);", {
+          return _db["default"].query("call `sp_unidades`(?,?, 1);", {
             model: _this,
             mapToModel: true,
-            replacements: [id_uni, descricao, id_satus]
+            replacements: [id_uni, descricao]
           });
         case 2:
           return _context2.abrupt("return", _context2.sent[0]);
@@ -69,7 +76,7 @@ Unidades.sp_unidades = /*#__PURE__*/function () {
       }
     }, _callee2);
   }));
-  return function (_x2, _x3, _x4) {
+  return function (_x2, _x3) {
     return _ref2.apply(this, arguments);
   };
 }();
