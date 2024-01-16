@@ -11,7 +11,6 @@ jobs:
       - name: Get Lastest Code
         uses: actions/checkout@v2
 
-      - name: Start Server
       - uses: actions/setup-node@v3
         with:
           node-version: 18
