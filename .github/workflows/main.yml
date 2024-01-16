@@ -11,11 +11,13 @@ jobs:
       - name: Get Lastest Code
         uses: actions/checkout@v2
 
+      - name: Start Server
       - uses: actions/setup-node@v3
         with:
           node-version: 18
           registry-url: https://npm.pkg.github.com/
       - run: cd SERVER
+      - run: npm install
       - run: npm run server
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
