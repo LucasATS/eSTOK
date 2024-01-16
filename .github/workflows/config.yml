@@ -1,4 +1,7 @@
-on: push
+on: 
+  push:
+    branches:
+      - PRODUÇÃO
 name: 🚀 Deploy do servidor eSTOK
 jobs:
   deploy:
