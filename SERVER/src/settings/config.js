@@ -25,6 +25,7 @@ const appConfig = async (server, PATH) => {
   });
   */
 
+  
   //CONFIGURA STATUS DEBUG
   server.use((req, res, next) => {
     //CORRINGA (*) PARA TODOS
@@ -32,25 +33,34 @@ const appConfig = async (server, PATH) => {
     next();
   });
 
+
   //PARSERS
   server.use(cookie());
-  server.use(bodyParser.urlencoded({extended:true}));
+  server.use(bodyParser.urlencoded({ extended: true }));
   server.use(bodyParser.json());
+
 
   //CAPTURA AS URLS
   const urls = require('../urls').default;
   new urls(server);
 
+
   //LIBERA A PASTA STATIC E DISPONIBILIZA COMO PUBLICA
   server.use('/static', express.static(PATH + '/web/static'));
 
+
   //Conecta Banco
-  db.sync({ force: false }); 
+  db.sync({ force: false });
+
 
   //INICIA SERVIDOR
-  server.listen(process.env.PORT, process.env.HOST, () =>
-    console.log(`\n---\nSERVIDOR ON\nhttp://${process.env.HOST}:${process.env.PORT}/\n---`)
+  const PORT = process.env.PORT || '3000';
+  const HOST = process.env.HOST || 'localhost';
+
+  server.listen(PORT, HOST, () =>
+    console.log(`\n---\nSERVIDOR ON\nhttp://${HOST}:${PORT}/\n---`)
   );
+
 
   //INICIA ROTINAS
   rotina_inativa_lotes();
