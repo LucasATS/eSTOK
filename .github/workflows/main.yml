@@ -6,7 +6,7 @@ name: 🚀 Deploy do servidor eSTOK
 jobs:
   deploy:
     name: 🎉 Deploy
-    runs-on: windowns-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Get Lastest Code
         uses: actions/checkout@v2
