@@ -6,9 +6,63 @@
 [🔗 ACESSE O PROJETO ](/LINK-ACESSO-PROJETO/)
 -->
 
-Pojeto contruído durante um trabalho da faculdade na disciplina de Desenvolvimento Colaborativo com o objetivo de a turma trabalhar em equipe na construção de um sistema de Gerenciamento de Estoque em um semestre.
+## **📚 INSTALAÇÃO**
 
-## **🛠 Tecnologias**
+> - git clone https://github.com/LucasATS/eStoK.git
+> - Use NVM windowns para realizar o controle de versões do node [🔗 DOWNLOAD NVM ](https://github.com/coreybutler/nvm-windows/releases)
+> - nvm install 18.16.0
+> - nvm use 18.16.0
+> - certifique-se de que esta com a versão 18.16.0
+> - node -v
+
+### 🔧 Configuração
+
+> - cd server
+> - npm install @babel/node
+> - npm install @babel/core @babel/cli @babel/preset-env
+> - npm install @babel/plugin-transform-async-to-generator
+> - npm install dotenv
+> - npm install nodemon
+> - npm install express
+> - npm install cookie-parser
+> - npm install cookie-parser
+> - npm install body-parser
+> - npm install jsonwebtoken
+
+## **✨ Como executar**
+
+### Crie um servidor mySql
+
+    CREATE DATABASE IF NOT EXISTS `estok` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+    USE `estok`;
+
+<!-- -   [Backend](./server/README.md) -->
+
+> - [Administrador eSTOK](./FRONT-DEV/admin-web/README-install.md)
+> - [Loja eSTOK](./FRONT-DEV/portal-web/README-install.md)
+
+### 🎲 Banco de dados
+
+> - cd server
+> - npm install sequelize
+> - npm install sequelize-cli
+> - npm install sqlite3
+> - npm install mysql2
+
+## **📂 PLAY**
+
+Após feito todas as instalações, rode o servidor usando
+
+> - cd server
+> - npm install
+> - npm run server
+
+<!--
+## __❤ AGRADECIMENTOS__
+[@<NOME>](<LINK>) "<MENSAGEM>"
+-->
+
+## **🛠 TECNOLOGIAS**
 
 ### _Banco de Dados_
 
@@ -31,17 +85,3 @@ Pojeto contruído durante um trabalho da faculdade na disciplina de Desenvolvime
 ### _Produção_
 
 ![VERCEL](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
-
-## **✨ Como executar**
-
-- **_[Backend](./server/README.md)_**
-- **_[Administrador eSTOK](./FRONT-DEV/admin-web/README-install.md)_**
-- **_[Loja eSTOK](./FRONT-DEV/portal-web/README-install.md)_**
-
-## **🚀 Criadores**
-
-| [<img src="https://avatars.githubusercontent.com/u/88682522?v=4" width=115><br><sub>Bárbara Marcheti</sub>](https://github.com/Bamarcheti) <br><br> [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/barbara-marcheti-fiorin) |                 [<img src="https://avatars.githubusercontent.com/u/64665422?v=4" width=115><br><sub>Lucas Almeida</sub>](https://github.com/LucasATS) <br><br> [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/lucas-almeida-tiburtino-da-silva)                 |    [<img src="https://avatars.githubusercontent.com/u/15002987?v=4" width=115><br><sub>Matheus Figueiredo</sub>](https://github.com/MatheusFiigueiredo) <br><br> [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/matheus-fernandes-de-figueiredo)    |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|     [<img src="https://avatars.githubusercontent.com/u/101616134?v=4" width=115><br><sub>Thales Vargas</sub>](https://github.com/ThalesTayson) <br><br> [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/thalesvargas96/)     | [<img src="https://github.com/Espinoza9.png?size=115" width=115><br><sub>Gabriela Espinoza</sub>](https://github.com/Espinoza9) <br><br> [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/gabriela-espinoza%F0%9F%8F%B3%EF%B8%8F%E2%80%8D%F0%9F%8C%88-47449819a/) |                          [<img src="https://github.com/Raycsm.png?size=115" width=115><br><sub>Rayane Assis</sub>](https://github.com/Raycsm) <br><br> [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/rayassismagalhaes/)                           |
-|      [<img src="https://github.com/2LordDark2.png?size=115" width=115><br><sub>Kleberson Alan</sub>](https://github.com/2LordDark2) <br><br> [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/kleberson-alan-036045214/)      |                     [<img src="https://github.com/marcelfy.png?size=115" width=115><br><sub>Marcel F. Yassumoto</sub>](https://github.com/marcelfy) <br><br> [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/marcel-f-yassumoto-126826211/)                      |              [<img src="https://github.com/PhelipeMelo.png?size=115" width=115><br><sub>Phelipe Melo</sub>](https://github.com/PhelipeMelo) <br><br> [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/phelipe-gomes-de-melo-806015190/)               |
-|                    [<img src="https://github.com/Gaikko.png?size=115" width=115><br><sub>Gaikko Alves</sub>](https://github.com/Gaikko) <br><br> [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/gaikko/)                    |                    [<img src="https://github.com/MatheusNxt25.png?size=115" width=115><br><sub>Matheus Oliveira</sub>](https://github.com/MatheusNxt25) <br><br> [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/matheus-oliveira-251a06154/)                    | [<img src="https://github.com/SergioAdrianoSousa.png?size=115" width=115><br><sub>Sergio Adriano</sub>](https://github.com/SergioAdrianoSousa) <br><br> [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/s%C3%A9rgio-adriano-sousa-santos-8a8331160/) |
