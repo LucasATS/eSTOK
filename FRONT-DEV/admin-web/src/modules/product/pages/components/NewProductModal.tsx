@@ -30,7 +30,6 @@ interface ConfigModalProps {
 export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
   const formMethods = useForm<CreateProductDto>();
   const {
-    register,
     control,
     handleSubmit,
     reset,
@@ -154,7 +153,13 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
                 label="selecionar um arquivo .png ou .jpeg"
                 acceptFiles={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
               />
-              <InputForm name="nome" type="text" placeholder="Produto" />
+              <InputForm
+                name="nome_produto"
+                type="text"
+                placeholder="Produto"
+                error={errors.nome_produto?.message}
+              />
+
               <div className="flex w-full md:flex-row flex-col gap-3">
                 <SelectForm
                   name="categoria"

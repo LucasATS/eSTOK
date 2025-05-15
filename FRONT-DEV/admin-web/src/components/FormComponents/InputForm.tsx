@@ -1,5 +1,7 @@
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid';
 import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
   type: string;
@@ -10,13 +12,11 @@ interface Props {
   inputStyle?: string;
   disabled?: boolean;
   error?: string;
-  register?: any;
 }
 
 type InputProps = JSX.IntrinsicElements['input'] & Props;
 
 const InputForm = ({
-  onChange,
   type,
   name,
   placeholder,
@@ -26,14 +26,14 @@ const InputForm = ({
   className,
   disabled,
   error,
-  register,
   ...rest
 }: InputProps) => {
+  const { register } = useFormContext();
   const [isVisible, setIsVisible] = useState(false);
 
-  const toggleVisibility = () => {
-    setIsVisible((visible) => !visible);
-  };
+  const toggleVisibility = () => setIsVisible((visible) => !visible);
+
+  const inputType = type === 'password' ? (isVisible ? 'text' : 'password') : type;
 
   return (
     <div className={`flex flex-col text-sm ${className || ''}`}>
@@ -53,19 +53,20 @@ const InputForm = ({
         }`}
       >
         <input
-          type={isVisible ? 'text' : type}
+          {...register(name)}
+          id={name}
+          type={inputType}
           placeholder={placeholder}
           disabled={disabled}
-          className={
-            inputStyle ||
-            `w-full border rounded focus:ring-1 p-2 focus:outline-none ${
-              error
-                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                : 'text-gray-500 border-gray-200 focus:border-sky-600 focus:ring-sky-600'
-            }`
-          }
-          {...register(name)}
+          className={twMerge(
+            'w-full border rounded px-4 py-2 text-sm',
+            error ? 'border-red-500' : 'border-gray-300',
+            inputStyle,
+            className
+          )}
+          {...rest}
         />
+
         {type === 'password' && (
           <button
             type="button"

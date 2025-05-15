@@ -1,5 +1,5 @@
 interface CreateProductDto {
-  nome: string;
+  nome_produto: string;
   categoria: string;
   unidade: string;
   tp_produto: string;

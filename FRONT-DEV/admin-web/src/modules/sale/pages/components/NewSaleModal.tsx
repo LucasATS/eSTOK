@@ -26,7 +26,6 @@ interface ConfigModalProps {
 const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
   const formMethods = useForm<CreateSaleDto>();
   const {
-    register,
     control,
     handleSubmit,
     reset,

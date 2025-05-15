@@ -21,7 +21,6 @@ import ReportService from '../service/ReportService';
 
 export const CreateReport = () => {
   const {
-    register,
     control,
     handleSubmit,
     reset,

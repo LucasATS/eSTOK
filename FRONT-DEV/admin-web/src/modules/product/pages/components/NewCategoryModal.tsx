@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import Button from '../../../../components/Button';
 import InputForm from '../../../../components/FormComponents/InputForm';
@@ -18,13 +18,14 @@ interface ConfigModalProps {
 }
 
 const NewCategoryModal = ({ isOpen, onClose }: ConfigModalProps) => {
+  const formMethods = useForm<CreateCategoryDto>();
   const {
-    register,
+    // register,
     handleSubmit,
     reset,
     setError,
     formState: { errors }
-  } = useForm<CreateCategoryDto>();
+  } = formMethods;
 
   const handleAddNewCategoria = async (data: CreateCategoryDto) => {
     try {
@@ -58,37 +59,40 @@ const NewCategoryModal = ({ isOpen, onClose }: ConfigModalProps) => {
 
   return (
     <ModalComponent isOpen={isOpen} onClose={onClose}>
-      <form onSubmit={handleSubmit(handleAddNewCategoria)} className="flex justify-center">
-        <div className="relative bg-white rounded-lg shadow w-full">
-          <div className="flex items-start py-1 px-6 rounded-t border-b">
-            <TitleCard text="Cadastrar Categoria" />
+      <FormProvider {...formMethods}>
+        <form onSubmit={handleSubmit(handleAddNewCategoria)} className="flex justify-center">
+          <div className="relative bg-white rounded-lg shadow w-full">
+            <div className="flex items-start py-1 px-6 rounded-t border-b">
+              <TitleCard text="Cadastrar Categoria" />
+            </div>
+            <div className="p-6 space-y-3">
+              <InputForm
+                name="categoria"
+                // {...register('descricao', { required: 'Descrição é obrigatória' })}
+                type="text"
+                placeholder="Nome da Categoria"
+                error={errors.descricao?.message}
+              />
+            </div>
+            <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
+              <Button
+                style={{ width: '200px' }}
+                variant="cancel"
+                type="button"
+                onClick={handleCancel}
+              >
+                Cancelar
+              </Button>
+              <Button
+                style={{ width: '200px' }}
+                variant="primary"
+                type="submit"
+                buttonText="Cadastrar"
+              />
+            </div>
           </div>
-          <div className="p-6 space-y-3">
-            <InputForm
-              {...register('descricao', { required: 'Descrição é obrigatória' })}
-              type="text"
-              placeholder="Nome da Categoria"
-              error={errors.descricao?.message}
-            />
-          </div>
-          <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
-            <Button
-              style={{ width: '200px' }}
-              variant="cancel"
-              type="button"
-              onClick={handleCancel}
-            >
-              Cancelar
-            </Button>
-            <Button
-              style={{ width: '200px' }}
-              variant="primary"
-              type="submit"
-              buttonText="Cadastrar"
-            />
-          </div>
-        </div>
-      </form>
+        </form>
+      </FormProvider>
     </ModalComponent>
   );
 };

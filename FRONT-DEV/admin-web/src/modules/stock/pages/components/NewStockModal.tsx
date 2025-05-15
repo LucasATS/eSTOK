@@ -26,7 +26,6 @@ export const NewStockModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) 
   const formMethods = useForm<CreateStockDto>();
   const {
     control,
-    register,
     handleSubmit,
     setError,
     reset,

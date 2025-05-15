@@ -26,7 +26,6 @@ export const LowStock = ({ isOpen, onClose, onConfirm, dadosStokBaixa }: ConfigM
   const formMethods = useForm<CreateLowStockDto>();
   const {
     control,
-    register,
     handleSubmit,
     reset,
     setError,
