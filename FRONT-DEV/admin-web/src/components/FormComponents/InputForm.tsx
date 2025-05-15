@@ -1,7 +1,5 @@
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid';
-import { isVisible } from '@testing-library/user-event/dist/utils';
-import { useField } from '@unform/core';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 interface Props {
   type: string;
@@ -11,6 +9,8 @@ interface Props {
   labelStyle?: string;
   inputStyle?: string;
   disabled?: boolean;
+  error?: string;
+  register?: any;
 }
 
 type InputProps = JSX.IntrinsicElements['input'] & Props;
@@ -25,37 +25,26 @@ const InputForm = ({
   inputStyle,
   className,
   disabled,
+  error,
+  register,
   ...rest
 }: InputProps) => {
-  const inputRef = useRef(null);
-  const { fieldName, defaultValue, registerField, error, clearError } = useField(name);
   const [isVisible, setIsVisible] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (onChange) onChange(e);
-    clearError();
-  };
 
   const toggleVisibility = () => {
     setIsVisible((visible) => !visible);
   };
 
-  useEffect(() => {
-    registerField({
-      name: fieldName,
-      ref: inputRef.current,
-      path: 'value'
-    });
-  }, [fieldName, registerField]);
-
   return (
     <div className={`flex flex-col text-sm ${className || ''}`}>
-      <label
-        htmlFor={name}
-        className={labelStyle || `py-1 font-medium ${error ? ' text-red-500' : 'text-gray-500'}`}
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          htmlFor={name}
+          className={labelStyle || `py-1 font-medium ${error ? 'text-red-500' : 'text-gray-500'}`}
+        >
+          {label}
+        </label>
+      )}
       <div
         className={`relative border rounded ${
           error
@@ -65,31 +54,26 @@ const InputForm = ({
       >
         <input
           type={isVisible ? 'text' : type}
-          name={name}
           placeholder={placeholder}
-          defaultValue={defaultValue}
-          ref={inputRef}
-          onChange={(e) => handleChange(e)}
           disabled={disabled}
           className={
             inputStyle ||
-            `w-full border rounded focus:ring-1 p-2 focus:outline-none
-          ${
-            error
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'text-gray-500 border-gray-200 focus:border-sky-600 focus:ring-sky-600'
+            `w-full border rounded focus:ring-1 p-2 focus:outline-none ${
+              error
+                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                : 'text-gray-500 border-gray-200 focus:border-sky-600 focus:ring-sky-600'
+            }`
           }
-              `
-          }
-          {...rest}
+          {...register(name)}
         />
         {type === 'password' && (
-          <span
+          <button
+            type="button"
             onClick={toggleVisibility}
             className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-gray-500 items-center cursor-pointer"
           >
             {isVisible ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
-          </span>
+          </button>
         )}
       </div>
       {error && <span className="text-red-500 text-xs mt-1 ml-1">{error}</span>}

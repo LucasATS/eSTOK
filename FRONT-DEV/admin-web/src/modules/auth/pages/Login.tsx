@@ -1,6 +1,4 @@
-import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
-import { useRef } from 'react';
+import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Button from '../../../components/Button';
@@ -10,25 +8,33 @@ import {
   manageApiErrorMessages,
   manageApiErrorResponse
 } from '../../_shared/helpers/handleApiErrorResponse';
-import { LoginCredentials, useAuth } from '../contexts/AuthProvider';
 import { iconApi } from '../../_shared/services/iconApi';
+import { LoginCredentials, useAuth } from '../contexts/AuthProvider';
 
 const Login = () => {
   const { signIn } = useAuth();
-  const formRef = useRef<FormHandles>(null);
+  const {
+    handleSubmit,
+    register,
+    setError,
+    formState: { errors }
+  } = useForm<LoginCredentials>();
 
-  const handleLogin = async () => {
+  const onSubmit = async (data: LoginCredentials) => {
     try {
-      // integração com o service
-      const singInCredentials = formRef.current?.getData() as LoginCredentials;
-      await signIn(singInCredentials);
-    } catch (resultError) {
-      // para caso haja erro as informações abaixo são para retornar a mensagem de acordo com o erro ocorrido
-      const fieldsErrors = getFieldErrors(resultError);
-      formRef.current?.setErrors(fieldsErrors);
-      const resultErrorResponse = manageApiErrorResponse(resultError);
+      await signIn(data);
+    } catch (error) {
+      const fieldsErrors = getFieldErrors(error);
+      Object.entries(fieldsErrors).forEach(([field, message]) => {
+        setError(field as keyof LoginCredentials, {
+          type: 'manual',
+          message
+        });
+      });
+
+      const resultErrorResponse = manageApiErrorResponse(error);
       const resultErrors = manageApiErrorMessages(resultErrorResponse);
-      resultErrors.map((resultError) => toast.error(resultError));
+      resultErrors.map((errMsg) => toast.error(errMsg));
     }
   };
 
@@ -40,13 +46,23 @@ const Login = () => {
             <img src={iconApi + 'e-stok.png'} className="w-full h-auto py-2" alt="eStok Logo" />
           </Link>
         </div>
-        <Form ref={formRef} onSubmit={handleLogin}>
-          <div className="flex flex-col w-full gap-5">
-            <InputForm name="login" type="text" placeholder="Digite o e-mail" />
-            <InputForm name="senha" type="password" placeholder="Digite a senha" />
-            <Button type="submit" variant="primary" buttonText="Acessar" />
-          </div>
-        </Form>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full gap-5">
+          <InputForm
+            {...register('login')}
+            name="login"
+            type="text"
+            placeholder="Digite o e-mail"
+            error={errors.login?.message}
+          />
+          <InputForm
+            {...register('senha')}
+            name="senha"
+            type="password"
+            placeholder="Digite a senha"
+            error={errors.senha?.message}
+          />
+          <Button type="submit" variant="primary" buttonText="Acessar" />
+        </form>
       </div>
     </div>
   );

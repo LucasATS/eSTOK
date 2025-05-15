@@ -37,9 +37,6 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     function loadStorageData() {
       if (storedUser) {
         const parsedUser: User = JSON.parse(storedUser);
-        // const parsedToken: string = JSON.parse(storedToken);
-
-        // setDefaultHeaderToken(parsedToken);
         setUser(parsedUser);
       }
       setLoading(false);
@@ -48,54 +45,33 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     loadStorageData();
   }, []);
 
-  const signIn = async (login: LoginCredentials) => {
-    const response = await authService.signIn(login);
+  const signIn = async (loginCredentials: LoginCredentials) => {
+    const response = await authService.signIn(loginCredentials);
     const { data } = response;
     const { token } = data;
 
-    setUser(login);
-    saveTokenInLocalStorage(token);
-    // setDefaultHeaderToken(token);
+    const user: User = { login: loginCredentials.login, senha: loginCredentials.senha };
+    setUser(user);
+    saveAuthItemsInLocalStorage(token, user);
   };
 
   const signOut = () => {
     setUser(null);
-    // cleanAuthItemsFromLocalStorage();
+    cleanAuthItemsFromLocalStorage();
   };
 
-  // const cleanAuthItemsFromLocalStorage = () => {
-  //   localStorage.removeItem(LOCAL_KEY_USER);
-  //   localStorage.removeItem(LOCAL_KEY_TOKEN);
-  // };
-
-  // useEffect(() => {
-  //   if (!user) return;
-  //   localStorage.setItem(LOCAL_KEY_USER, JSON.stringify(user));
-  // }, [user]);
-
-  // const setDefaultHeaderToken = (token: string) => {
-  //   api.defaults.headers.common['authorization'] = `Bearer ${token}`;
-
-  //   api.interceptors.response.use(
-  //     (response: any) => response,
-  //     (error: any) => {
-  //       if (error?.response?.status === 401) {
-  //         toast.error('Login expirado');
-  //         signOut();
-  //       }
-  //       return Promise.reject(error);
-  //     }
-  //   );
-  // };
-
-  const saveTokenInLocalStorage = (token: string) => {
+  const saveAuthItemsInLocalStorage = (token: string, user: User) => {
     localStorage.setItem(LOCAL_KEY_TOKEN, JSON.stringify(token));
+    localStorage.setItem(LOCAL_KEY_USER, JSON.stringify(user));
+  };
+
+  const cleanAuthItemsFromLocalStorage = () => {
+    localStorage.removeItem(LOCAL_KEY_TOKEN);
+    localStorage.removeItem(LOCAL_KEY_USER);
   };
 
   const getAuthItemsFromLocalStorage = () => {
     const storedUser = localStorage.getItem(LOCAL_KEY_USER);
-    // const storedToken = localStorage.getItem(LOCAL_KEY_TOKEN);
-
     return { storedUser };
   };
 
@@ -109,6 +85,5 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 export default AuthProvider;
 
 export function useAuth() {
-  const context = useContext(AuthContext);
-  return context;
+  return useContext(AuthContext);
 }
