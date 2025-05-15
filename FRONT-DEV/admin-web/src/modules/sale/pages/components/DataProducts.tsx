@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import Button from '../../../../components/Button';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import SelectForm, { OptionSelect } from '../../../../components/FormComponents/SelectForm';
@@ -9,7 +10,12 @@ interface Props {
 }
 
 const DataProducts = ({ newProduct }: Props) => {
+  const { control, handleSubmit } = useForm();
   const [productOptions, setProductOptions] = useState<OptionSelect[]>([]);
+
+  const onSubmit = (data: any) => {
+    console.log('Dados do formulário:', data);
+  };
 
   const getProductOptions = async () => {
     const products = await ProductService.paginateOptionsProduct({
@@ -34,11 +40,16 @@ const DataProducts = ({ newProduct }: Props) => {
   }, []);
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-wrap gap-2">
       <span className="font-semibold text-center text-base">Dados do produto</span>
       <div className="space-y-3 flex gap-3">
         <div className="flex mt-8 gap-3">
-          <SelectForm name="selectProduto" placeholder="Produto" options={productOptions} />
+          <SelectForm
+            name="selectProduto"
+            placeholder="Produto"
+            options={productOptions}
+            control={control}
+          />
           <InputForm name="tamanhoProduto" type="text" placeholder="Tamanho" />
           <InputForm name="quantidadee" type="text" placeholder="Quantidade" />
         </div>
@@ -51,59 +62,13 @@ const DataProducts = ({ newProduct }: Props) => {
         <Button
           style={{ width: '150px' }}
           variant="primary"
-          type="button"
+          type="submit"
           buttonText="Adicionar"
           onClick={newProduct}
         />
       </div>
-    </div>
+    </form>
   );
 };
 
-// --------
-
-// function App() {
-//   const inputArr = [
-//     {
-//       type: 'text',
-//       id: 1,
-//       value: ''
-//     }
-//   ];
-
-//   const [arr, setArr] = useState(inputArr);
-
-//   const addInput = () => {
-//     setArr((s: any) => {
-//       return [
-//         ...s,
-//         {
-//           type: 'text',
-//           value: ''
-//         }
-//       ];
-//     });
-//   };
-
-//   const handleChange = (e: any) => {
-//     e.preventDefault();
-
-//     const index = e.target.id;
-//     setArr((s) => {
-//       const newArr = s.slice();
-//       newArr[index].value = e.target.value;
-
-//       return newArr;
-//     });
-//   };
-
-//   return (
-//     <div>
-//       <button onClick={addInput}>+</button>
-//       {arr.map((item, i) => {
-//         return <input onChange={handleChange} value={item.value} key={i} type={item.type} />;
-//       })}
-//     </div>
-//   );
-// };
 export default DataProducts;
