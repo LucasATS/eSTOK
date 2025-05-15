@@ -1,5 +1,5 @@
+import { XMarkIcon } from '@heroicons/react/24/solid';
 import { FormHandles } from '@unform/core';
-import { X } from 'heroicons-react';
 import { useRef } from 'react';
 import Button from '../../../../components/Button/Button';
 import { ModalComponent } from '../../../../components/ModalComponent';
@@ -35,7 +35,7 @@ export const ViewProductModal = ({ isOpen, onClose }: ModalConfig) => {
         <div className="relative bg-white rounded-lg shadow w-full">
           <div className="flex flex-col mt-3 px-3">
             <div className="flex justify-end">
-              <X
+              <XMarkIcon
                 className="text-stone-500 hover:text-stone-600 cursor-pointer"
                 onClick={handleCancel}
               />

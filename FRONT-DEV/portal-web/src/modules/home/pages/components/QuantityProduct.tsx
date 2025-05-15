@@ -1,4 +1,4 @@
-import { Minus, Plus, Refresh } from 'heroicons-react';
+import { ArrowPathIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 
 const QuantityProduct = () => {
@@ -21,17 +21,17 @@ const QuantityProduct = () => {
 
   return (
     <div className="flex flex-row gap-3">
-      <Minus
+      <MinusIcon
         onClick={handleSubtractOne}
         className="w-6 h-6 border-[#afafb1] hover:bg-[#afafb1] border rounded-lg p-0.5 cursor-pointer"
       />
       <p>{count}</p>
-      <Plus
+      <PlusIcon
         onClick={handleAddOne}
         className="w-6 h-6 border-[#afafb1] hover:bg-[#afafb1] border rounded-lg p-0.5 cursor-pointer"
       />
       <button onClick={handleResetCounter}>
-        <Refresh className="w-5 h-5 text-[#afafb1] hover:text-[#878788]" />
+        <ArrowPathIcon className="w-5 h-5 text-[#afafb1] hover:text-[#878788]" />
       </button>
     </div>
   );

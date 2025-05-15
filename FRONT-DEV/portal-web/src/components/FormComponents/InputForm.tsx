@@ -1,5 +1,5 @@
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid';
 import { useField } from '@unform/core';
-import { Eye, EyeOff } from 'heroicons-react';
 import { useEffect, useRef, useState } from 'react';
 
 interface Props {
@@ -82,18 +82,14 @@ const InputForm = ({
           }
           {...rest}
         />
-        {type === 'password' &&
-          (isVisible ? (
-            <EyeOff
-              onClick={toggleVisibility}
-              className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-gray-500 items-center cursor-pointer"
-            />
-          ) : (
-            <Eye
-              onClick={toggleVisibility}
-              className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-gray-500 items-center cursor-pointer"
-            />
-          ))}
+        {type === 'password' && (
+          <span
+            onClick={toggleVisibility}
+            className="absolute inset-y-0 mr-2 mt-2 right-0 w-5 h-5 text-gray-500 items-center cursor-pointer"
+          >
+            {isVisible ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
+          </span>
+        )}
       </div>
       {error && <span className="text-red-500 text-xs mt-1 ml-1">{error}</span>}
     </div>

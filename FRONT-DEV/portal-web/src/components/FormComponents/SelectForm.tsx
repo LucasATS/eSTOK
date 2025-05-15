@@ -1,6 +1,6 @@
 import { Listbox, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useField } from '@unform/core';
-import { Selector } from 'heroicons-react';
 import { useEffect, useState } from 'react';
 
 export type OptionSelect = { value: any; label: string };
@@ -60,7 +60,7 @@ const SelectForm = ({ name, label, options, placeholder, ...rest }: SelectProps)
                   {valueSelect.label || placeholder}
                 </span>
                 <span className="flex pointer-events-none items-center">
-                  <Selector
+                  <ChevronDownIcon
                     className={`w-5 h-5 ${error ? 'text-red-500' : 'text-gray-400'}`}
                     aria-hidden="true"
                   />
