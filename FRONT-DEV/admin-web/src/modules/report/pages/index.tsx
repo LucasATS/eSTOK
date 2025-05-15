@@ -1,6 +1,5 @@
-import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import Button from '../../../components/Button';
 import SelectForm, { OptionSelect } from '../../../components/FormComponents/SelectForm';
@@ -21,7 +20,15 @@ import CreateReportDto from '../dto/CreateReportDto';
 import ReportService from '../service/ReportService';
 
 export const CreateReport = () => {
-  const formRef = useRef<FormHandles>(null);
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors }
+  } = useForm<CreateReportDto>();
+
   const [productOptions, setProductOptions] = useState<OptionSelect[]>([]);
 
   const getProductOptions = async () => {
@@ -29,48 +36,35 @@ export const CreateReport = () => {
       limit: 10,
       isActive: true
     });
-    const productOptions = products.length;
-    if (productOptions > 0) {
-      const optionsProducts = products.map((product) => {
-        return {
-          value: product.id,
-          label: product.produto,
-          status: product.status
-        };
-      }) as OptionSelect[];
-
+    if (products.length > 0) {
+      const optionsProducts = products.map((product) => ({
+        value: product.id,
+        label: product.produto,
+        status: product.status
+      })) as OptionSelect[];
       setProductOptions(optionsProducts);
     }
   };
 
-  const handleAddNewReport = async () => {
+  const handleAddNewReport = async (data: CreateReportDto) => {
     try {
-      const mainFormData = formRef?.current?.getData();
-      const newReportToCreate = {
-        ...mainFormData
-      } as CreateReportDto;
-
-      const result = await ReportService.createReport(newReportToCreate);
-      //SISTEMA DE INTERRUPÇÃO DE PIORIDADE ALTA PARA ERRO
+      const result = await ReportService.createReport(data);
       if (result.data.status === 'erro') {
         toast.error(result.data.motivo);
         throw new Error(result.data.motivo);
       }
       toast.success(result.data.motivo);
-      console.log('criado');
-      clearForm();
+      reset();
     } catch (error) {
       handleErrors(error);
     }
   };
 
-  const clearForm = () => {
-    formRef.current?.reset();
-  };
-
   const handleErrors = (resultError: unknown) => {
     const fieldsErrors = getFieldErrors(resultError);
-    formRef.current?.setErrors(fieldsErrors);
+    Object.entries(fieldsErrors).forEach(([field, message]) => {
+      setError(field as keyof CreateReportDto, { message });
+    });
     const resultErrorReponse = manageApiErrorResponse(resultError);
     const error = getErrorMessage(resultErrorReponse);
     console.warn(error);
@@ -89,28 +83,43 @@ export const CreateReport = () => {
         <div className="text-center">
           <TitleCard text="Gerar Relatório" />
         </div>
-        <Form ref={formRef} onSubmit={handleAddNewReport} className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit(handleAddNewReport)} className="flex flex-col gap-6">
           <div className="flex flex-row gap-2">
             <SelectForm
-              name="reportType"
+              name="tp_relatorio"
               placeholder="Tipo de Relatório"
               options={selectOptionsReportType}
+              control={control}
+              error={errors.descricao?.message}
             />
-            <SelectForm name="Product" placeholder="Produto" options={productOptions} />
-            <SelectForm name="Period" placeholder="Período" options={selectOptionsPeriodType} />
+            <SelectForm
+              name="produto"
+              placeholder="Produto"
+              options={productOptions}
+              control={control}
+              error={errors.descricao?.message}
+            />
+            <SelectForm
+              name="periodo"
+              placeholder="Período"
+              options={selectOptionsPeriodType}
+              control={control}
+              error={errors.descricao?.message}
+            />
           </div>
           <div className="flex justify-end">
             <Button
               variant="primary"
               style={{ width: '200px' }}
-              type="button"
-              onClick={handleAddNewReport}
+              type="submit"
               buttonText="Gerar Relatório"
             />
           </div>
-        </Form>
+        </form>
       </div>
       <ToastCustom />
     </div>
   );
 };
+
+export default CreateReport;
