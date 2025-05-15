@@ -1,5 +1,5 @@
+import { XMarkIcon } from '@heroicons/react/24/solid';
 import { useField } from '@unform/core';
-import { X } from 'heroicons-react';
 import { useEffect, useRef, useState } from 'react';
 import { Accept, useDropzone } from 'react-dropzone';
 
@@ -117,7 +117,7 @@ export const DropzoneForm = ({ name, onChange, acceptFiles, label }: Props) => {
           )}
           {isDragReject && (
             <div className="flex flex-col justify-center items-center pt-5 pb-6">
-              <X className="mb-3 w-10 h-10 text-error" />
+              <XMarkIcon className="mb-3 w-10 h-10 text-error" />
               <p className="text-sm text-error">
                 Formato de arquivo <span className="font-semibold">inválido</span>
               </p>

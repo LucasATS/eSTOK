@@ -1,4 +1,11 @@
-import { ChartBar, DocumentText, Home, Logout, OfficeBuilding, ShoppingBag } from 'heroicons-react';
+import {
+  ArrowRightEndOnRectangleIcon,
+  BuildingOfficeIcon,
+  ChartBarIcon,
+  DocumentTextIcon,
+  HomeIcon,
+  ShoppingBagIcon
+} from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/e-stok.svg';
@@ -82,23 +89,23 @@ const MainLayout: React.FC<Props> = ({ children }) => {
                   className="md:flex hidden ml-2 flex-col gap-4 md:w-full items-start -mx-4"
                 >
                   <NavLink to={RoutesURL.HOME} className={activeMenuStyle}>
-                    <Home className={iconStyle} />
+                    <HomeIcon className={iconStyle} />
                     Home
                   </NavLink>
                   <NavLink to={RoutesURL.LIST_PRODUCT} className={activeMenuStyle}>
-                    <ShoppingBag className={iconStyle} />
+                    <ShoppingBagIcon className={iconStyle} />
                     Produto
                   </NavLink>
                   <NavLink to={RoutesURL.LIST_STOCK} className={activeMenuStyle}>
-                    <ChartBar className={iconStyle} />
+                    <ChartBarIcon className={iconStyle} />
                     Estoque
                   </NavLink>
                   <NavLink to={RoutesURL.LIST_SALE} className={activeMenuStyle}>
-                    <DocumentText className={iconStyle} />
+                    <DocumentTextIcon className={iconStyle} />
                     Venda
                   </NavLink>
                   <NavLink to={RoutesURL.LIST_REPORT} className={activeMenuStyle}>
-                    <OfficeBuilding className={iconStyle} />
+                    <BuildingOfficeIcon className={iconStyle} />
                     Relatório
                   </NavLink>
                   <span style={{ width: '180px' }} className="border-t-[1px]"></span>
@@ -109,7 +116,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
                     role="button"
                     tabIndex={0}
                   >
-                    <Logout />
+                    <ArrowRightEndOnRectangleIcon className={iconStyle} />
                     Sair
                   </div>
                 </div>
@@ -126,7 +133,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
                 role="button"
                 tabIndex={0}
               >
-                <Home className={iconStyle} />
+                <HomeIcon className={iconStyle} />
                 Home
               </div>
 
@@ -137,7 +144,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
                 role="button"
                 tabIndex={0}
               >
-                <ShoppingBag className={iconStyle} />
+                <ShoppingBagIcon className={iconStyle} />
                 Produto
               </div>
 
@@ -148,7 +155,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
                 role="button"
                 tabIndex={0}
               >
-                <ChartBar className={iconStyle} />
+                <ChartBarIcon className={iconStyle} />
                 Estoque
               </div>
 
@@ -159,7 +166,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
                 role="button"
                 tabIndex={0}
               >
-                <DocumentText className={iconStyle} />
+                <DocumentTextIcon className={iconStyle} />
                 Venda
               </div>
 
@@ -170,7 +177,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
                 role="button"
                 tabIndex={0}
               >
-                <OfficeBuilding className={iconStyle} />
+                <BuildingOfficeIcon className={iconStyle} />
                 Relatório
               </div>
 
@@ -181,7 +188,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
                 role="button"
                 tabIndex={0}
               >
-                <Logout className={iconStyle} />
+                <ArrowRightEndOnRectangleIcon className={iconStyle} />
                 Sair
               </div>
             </div>

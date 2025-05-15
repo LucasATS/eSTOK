@@ -1,4 +1,4 @@
-import { DotsVertical } from 'heroicons-react';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import Dropdown from '../Dropdown';
 import { Action } from '../Table';
@@ -54,7 +54,7 @@ const ListCard = ({ itemsLabel, values, menuItems }: Props) => {
           {menuItems && (
             <div className="absolute top-0 right-0 p-3 mr-1 mt-1">
               <Dropdown menuItens={menuItems}>
-                <DotsVertical
+                <EllipsisVerticalIcon
                   className="w-5 h-5 cursor-pointer text-gray-700"
                   onClick={() => handleClickOpenMenu(value.id)}
                 />

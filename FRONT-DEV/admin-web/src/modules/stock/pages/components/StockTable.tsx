@@ -1,4 +1,4 @@
-import { DocumentDownloadOutline } from 'heroicons-react';
+import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import ListCard from '../../../../components/ListCard';
 import Table from '../../../../components/Table';
 import { Paginate } from '../../../_shared/types/api.types';
@@ -61,7 +61,7 @@ export const StockTable = ({
               key: '',
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
-                  <DocumentDownloadOutline
+                  <ArrowDownTrayIcon
                     className="w-5 cursor-pointer text-secondary hover:text-secondary"
                     onClick={() => {
                       handleOnClick(itemActive);
@@ -110,7 +110,7 @@ export const StockTable = ({
               key: '',
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
-                  <DocumentDownloadOutline
+                  <ArrowDownTrayIcon
                     className="w-5 cursor-pointer text-secondary hover:text-secondary"
                     onClick={() => {
                       handleOnClick(itemActive);
