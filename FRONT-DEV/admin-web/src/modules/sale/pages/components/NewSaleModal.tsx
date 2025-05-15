@@ -34,10 +34,10 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
     formState: { errors }
   } = formMethods;
 
-  const [addNewProduct, setAddNewProduct] = useState();
+  const [addNewProduct, setAddNewProduct] = useState<number[]>([]);
 
   const handleClickNewProduct = () => {
-    // setAddNewProduct(true);
+    setAddNewProduct((prev) => [...prev, prev.length]);
   };
 
   const onSubmit = async (data: CreateSaleDto) => {
@@ -83,9 +83,9 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
               <TitleCard text="Cadastrar Venda" />
             </div>
             <div className="gap-2 p-6 space-y-3">
-              {/* {addNewProduct.map((add: any) => { */}
-              <DataProducts newProduct={handleClickNewProduct} />
-              {/* })} */}
+              {addNewProduct.map((_, index) => (
+                <DataProducts key={index} newProduct={handleClickNewProduct} />
+              ))}
               <div className="flex flex-col">
                 <p className="font-semibold mb-3 text-start text-base">Dados do comprador</p>
                 <InputForm
@@ -122,7 +122,6 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
                     placeholder="Estado"
                     options={selectOptionsStates}
                     control={control}
-                    error={errors.nameSale?.message}
                   />
                   <InputForm name="cidade" type="text" placeholder="Cidade" />
                 </div>

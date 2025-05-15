@@ -1,6 +1,4 @@
-import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
-import { useRef } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import Button from '../../../../components/Button';
 import InputForm from '../../../../components/FormComponents/InputForm';
@@ -25,51 +23,53 @@ interface ConfigModalProps {
 }
 
 export const LowStock = ({ isOpen, onClose, onConfirm, dadosStokBaixa }: ConfigModalProps) => {
-  const formRef = useRef<FormHandles>(null);
+  const formMethods = useForm<CreateLowStockDto>();
+  const {
+    control,
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors }
+  } = formMethods;
 
-  const handleAddNewLowStock = async () => {
-    console.log('dadosStokBaixa', dadosStokBaixa);
-
+  const onSubmit = async (formData: CreateLowStockDto) => {
     try {
-      const mainFormData = formRef?.current?.getData();
-      const newLowStokToCreate = {
+      const newLowStockToCreate = {
+        ...formData,
         produto: dadosStokBaixa.produto,
-        observacao: dadosStokBaixa.observacao,
         quantidade: dadosStokBaixa.quantidade,
         id_produto: dadosStokBaixa.id.replace('#', ''),
         lote: dadosStokBaixa.lotes,
-        validade: dadosStokBaixa.vencimento,
-        ...mainFormData
+        validade: dadosStokBaixa.vencimento
       } as CreateLowStockDto;
-      const result = await StockService.createLowStok(newLowStokToCreate);
-      console.log('result', result);
-      //SISTEMA DE INTERRUPÇÃO DE PIORIDADE ALTA PARA ERRO
+
+      const result = await StockService.createLowStok(newLowStockToCreate);
+
       if (result.status === 'erro') {
         toast.error(result.motivo);
         throw new Error(result.motivo);
       }
-      toast.success(result.motivo);
 
+      toast.success(result.motivo);
       onConfirm();
       onClose();
-      clearForm();
+      reset();
     } catch (error) {
       handleErrors(error);
     }
   };
 
-  const clearForm = () => {
-    formRef.current?.reset();
-  };
-
   const handleCancel = () => {
     onClose();
-    clearForm();
+    reset();
   };
 
   const handleErrors = (resultError: unknown) => {
     const fieldsErrors = getFieldErrors(resultError);
-    formRef.current?.setErrors(fieldsErrors);
+    Object.entries(fieldsErrors).forEach(([key, message]) =>
+      setError(key as keyof CreateLowStockDto, { message })
+    );
     const resultErrorReponse = manageApiErrorResponse(resultError);
     const error = getErrorMessage(resultErrorReponse);
     console.warn(error);
@@ -77,49 +77,59 @@ export const LowStock = ({ isOpen, onClose, onConfirm, dadosStokBaixa }: ConfigM
 
   return (
     <ModalComponent isOpen={isOpen} onClose={onClose}>
-      <Form ref={formRef} onSubmit={handleAddNewLowStock} className="flex justify-center">
-        <div className="relative bg-white rounded-lg shadow w-full">
-          <div className="flex items-start py-1 px-6 rounded-t border-b">
-            <TitleCard text="Baixa de estoque" />
-          </div>
-          <div className="flex ">
-            <div className="p-6 w-full space-y-3">
-              <SelectForm
-                name="motivo"
-                placeholder="Selecione o motivo"
-                options={selectOptionsProductType}
-              />
-              <InputForm name="quantidade" type="text" placeholder="Quantidade" />
+      <FormProvider {...formMethods}>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex justify-center w-full">
+          <div className="relative bg-white rounded-lg shadow w-full">
+            <div className="flex items-start py-1 px-6 rounded-t border-b">
+              <TitleCard text="Baixa de estoque" />
             </div>
-            <div className="flex h-38 w-full m-4">
-              <TextareaForm
-                placeholder="Descrição"
-                name="observacao"
-                cols={33}
-                rows={4}
-                maxLength={1000}
-              />
+            <div className="flex">
+              <div className="p-6 w-full space-y-3">
+                <SelectForm
+                  name="motivo"
+                  placeholder="Selecione o motivo"
+                  options={selectOptionsProductType}
+                  control={control}
+                  error={errors.motivo?.message}
+                />
+                <InputForm
+                  name="quantidade"
+                  type="text"
+                  placeholder="Quantidade"
+                  error={errors.quantidade?.message}
+                />
+              </div>
+              <div className="flex h-38 w-full m-4">
+                <TextareaForm
+                  placeholder="Descrição"
+                  name="observacao"
+                  cols={33}
+                  rows={4}
+                  maxLength={1000}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
-            <Button
-              style={{ width: '200px' }}
-              variant="cancel"
-              type="button"
-              onClick={handleCancel}
-              buttonText="Cancelar"
-            />
-            <Button
-              style={{ width: '200px' }}
-              variant="primary"
-              type="button"
-              onClick={handleAddNewLowStock}
-              buttonText="Confirmar"
-            />
+            <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
+              <Button
+                style={{ width: '200px' }}
+                variant="cancel"
+                type="button"
+                onClick={handleCancel}
+                buttonText="Cancelar"
+              />
+              <Button
+                style={{ width: '200px' }}
+                variant="primary"
+                type="submit"
+                buttonText="Confirmar"
+              />
+            </div>
           </div>
-        </div>
-      </Form>
+        </form>
+      </FormProvider>
     </ModalComponent>
   );
 };
+
+export default LowStock;
