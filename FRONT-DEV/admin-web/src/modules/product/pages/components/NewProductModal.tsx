@@ -1,6 +1,5 @@
-import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import Button from '../../../../components/Button';
 import { DropzoneForm } from '../../../../components/FormComponents/DropzoneForm';
@@ -29,27 +28,30 @@ interface ConfigModalProps {
 }
 
 export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
+  const formMethods = useForm<CreateProductDto>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors }
+  } = formMethods;
+
   const [categoryOptions, setCategoryOptions] = useState<OptionSelect[]>([]);
   const [unitMeasureOptions, setUnitMeasureOptions] = useState<OptionSelect[]>([]);
-  const [productTypeoptions, setProductTypeOptions] = useState<OptionSelect[]>([]);
-  const formRef = useRef<FormHandles>(null);
+  const [productTypeOptions, setProductTypeOptions] = useState<OptionSelect[]>([]);
   const [file, setFile] = useState<File>();
   const [fileBase64, setFileBase64] = useState<string>('');
 
   const getCategoryOptions = async () => {
-    const categories = await CategoryService.paginateCategory({
-      limit: 10,
-      isActive: true
-    });
-    const categoryOptions = categories.length;
-    if (categoryOptions > 0) {
-      const optionsCategories = categories.map((category) => {
-        return {
-          value: category.id,
-          label: category.descricao,
-          status: category.status
-        };
-      }) as OptionSelect[];
+    const categories = await CategoryService.paginateCategory({ limit: 10, isActive: true });
+    if (categories.length > 0) {
+      const optionsCategories = categories.response.map((category) => ({
+        value: category.id,
+        label: category.descricao,
+        status: category.status
+      }));
       setCategoryOptions(optionsCategories);
     }
   };
@@ -59,17 +61,12 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
       limit: 10,
       isActive: true
     });
-
-    const unitMeasureOptions = unitsMeasure.length;
-    console.log('unitMeasureOptions', unitMeasureOptions);
-    if (unitMeasureOptions > 0) {
-      const optionsUnitsMeasure = unitsMeasure.map((unitMeasure) => {
-        return {
-          value: unitMeasure.abreviacao,
-          label: unitMeasure.descricao,
-          status: unitMeasure.status
-        };
-      }) as OptionSelect[];
+    if (unitsMeasure.length > 0) {
+      const optionsUnitsMeasure = unitsMeasure.response.map((unitMeasure) => ({
+        value: unitMeasure.id,
+        label: unitMeasure.descricao,
+        status: unitMeasure.status
+      }));
       setUnitMeasureOptions(optionsUnitsMeasure);
     }
   };
@@ -79,30 +76,23 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
       limit: 200,
       isActive: true
     });
-    const productTypeOptions = productsType.length;
-    if (productTypeOptions > 0) {
-      const optionsProductsType = productsType.map((productType) => {
-        return {
-          value: productType.id,
-          label: productType.descricao,
-          status: productType.status
-        };
-      }) as OptionSelect[];
+    if (productsType.length > 0) {
+      const optionsProductsType = productsType.response.map((productType) => ({
+        value: productType.id,
+        label: productType.descricao,
+        status: productType.status
+      }));
       setProductTypeOptions(optionsProductsType);
     }
   };
 
-  const handleAddNewProduct = async () => {
+  const onSubmit = async (data: CreateProductDto) => {
     try {
-      const mainFormData = formRef?.current?.getData();
-
       const newProductToCreate = {
-        ...mainFormData,
-        foto: fileBase64 // SOBRESCREVE FILE COM O BASE64
-      } as CreateProductDto;
-      console.log('newProductToCreate', newProductToCreate);
+        ...data,
+        foto: fileBase64
+      };
       const result = await ProductService.createProduct(newProductToCreate);
-      //SISTEMA DE INTERRUPÇÃO DE PIORIDADE ALTA PARA ERRO
       if (result.data.status === 'erro') {
         toast.error(result.data.motivo);
         throw new Error(result.data.motivo);
@@ -110,39 +100,36 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
       toast.success(result.data.motivo);
       onConfirm();
       onClose();
-      clearForm();
+      reset();
+      setFile(undefined);
+      setFileBase64('');
     } catch (error) {
-      handleErrors(error);
+      const fieldsErrors = getFieldErrors(error);
+      Object.entries(fieldsErrors).forEach(([key, message]) =>
+        setError(key as keyof CreateProductDto, { message })
+      );
+      const resultErrorReponse = manageApiErrorResponse(error);
+      const message = getErrorMessage(resultErrorReponse);
+      console.warn(message);
     }
-  };
-
-  const handleCancel = () => {
-    onClose();
-    clearForm();
-  };
-
-  const clearForm = () => {
-    formRef.current?.reset();
-  };
-
-  const handleErrors = (resultError: unknown) => {
-    const fieldsErrors = getFieldErrors(resultError);
-    formRef.current?.setErrors(fieldsErrors);
-    const resultErrorReponse = manageApiErrorResponse(resultError);
-    const error = getErrorMessage(resultErrorReponse);
-    console.warn(error);
   };
 
   const handleProductImage = async (file: File) => {
     setFile(file);
     setFileBase64(await getBase64(file));
-    console.log(fileBase64);
   };
 
   const handleRemoveFile = () => {
     setFile(undefined);
     setFileBase64('');
-    formRef.current?.reset();
+    reset();
+  };
+
+  const handleCancel = () => {
+    onClose();
+    reset();
+    setFile(undefined);
+    setFileBase64('');
   };
 
   useEffect(() => {
@@ -153,62 +140,71 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
 
   return (
     <ModalComponent isOpen={isOpen} onClose={onClose}>
-      <Form ref={formRef} onSubmit={handleAddNewProduct} className="flex justify-center">
-        <div className="relative bg-white rounded-lg shadow w-full">
-          <div className="flex items-start py-1 px-6 rounded-t border-b">
-            <TitleCard text="Cadastrar Produto" />
-          </div>
-          <div className="p-6 space-y-3">
-            {file && (
-              <div className="flex flex-col">
-                <ImageForm removeImage={handleRemoveFile} file={file} />
+      <FormProvider {...formMethods}>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex justify-center">
+          <div className="relative bg-white rounded-lg shadow w-full">
+            <div className="flex items-start py-1 px-6 rounded-t border-b">
+              <TitleCard text="Cadastrar Produto" />
+            </div>
+            <div className="p-6 space-y-3">
+              {file && <ImageForm removeImage={handleRemoveFile} file={file} />}
+              <DropzoneForm
+                name="foto"
+                onChange={handleProductImage}
+                label="selecionar um arquivo .png ou .jpeg"
+                acceptFiles={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
+              />
+              <InputForm name="nome" type="text" placeholder="Produto" />
+              <div className="flex w-full md:flex-row flex-col gap-3">
+                <SelectForm
+                  name="categoria"
+                  placeholder="Categoria"
+                  options={categoryOptions}
+                  control={control}
+                  error={errors.categoria?.message}
+                />
+                <SelectForm
+                  name="unidade"
+                  placeholder="Unidade"
+                  options={unitMeasureOptions}
+                  control={control}
+                  error={errors.unidade?.message}
+                />
+                <SelectForm
+                  name="tp_produto"
+                  placeholder="Tipo de produto"
+                  options={productTypeOptions}
+                  control={control}
+                  error={errors.tp_produto?.message}
+                />
               </div>
-            )}
-            <DropzoneForm
-              name="foto"
-              onChange={handleProductImage}
-              label="selecionar um arquivo .png ou .jpeg"
-              acceptFiles={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
-            />
-            <InputForm name="nome" type="text" placeholder="Produto" />
-            <div className="flex w-full md:flex-row flex-col gap-3">
-              <SelectForm name="categoria" placeholder="Categoria" options={categoryOptions} />
-              <SelectForm name="unidade" placeholder="Unidade" options={unitMeasureOptions} />
-              <SelectForm
-                name="tp_produto"
-                placeholder="Tipo de produto"
-                options={productTypeoptions}
+              <TextAreaForm
+                placeholder="Descrição do produto"
+                name="descricao"
+                cols={2}
+                rows={4}
+                maxLength={1000}
               />
             </div>
-
-            <TextAreaForm
-              placeholder="Descrição do produto"
-              name="descricao"
-              cols={2}
-              rows={4}
-              maxLength={1000}
-            />
+            <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
+              <Button
+                style={{ width: '200px' }}
+                type="button"
+                variant="cancel"
+                onClick={handleCancel}
+              >
+                Cancelar
+              </Button>
+              <Button
+                style={{ width: '200px' }}
+                variant="primary"
+                type="submit"
+                buttonText="Cadastrar"
+              />
+            </div>
           </div>
-
-          <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
-            <Button
-              style={{ width: '200px' }}
-              type="button"
-              variant="cancel"
-              onClick={handleCancel}
-            >
-              Cancelar
-            </Button>
-            <Button
-              style={{ width: '200px' }}
-              variant="primary"
-              type="button"
-              onClick={handleAddNewProduct}
-              buttonText="Cadastrar"
-            />
-          </div>
-        </div>
-      </Form>
+        </form>
+      </FormProvider>
     </ModalComponent>
   );
 };
