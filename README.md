@@ -34,7 +34,7 @@ Pojeto contruído durante um trabalho da faculdade na disciplina de Desenvolvime
 
 ## **✨ Como executar**
 
-- **_[Backend](./server/README.md)_**
+- **_[Backend](./server/README-install.md)_**
 - **_[Administrador eSTOK](./FRONT-DEV/admin-web/README-install.md)_**
 - **_[Loja eSTOK](./FRONT-DEV/portal-web/README-install.md)_**
 
