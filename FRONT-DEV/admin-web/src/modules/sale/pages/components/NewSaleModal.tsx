@@ -1,6 +1,4 @@
-import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import Button from '../../../../components/Button';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import SelectForm from '../../../../components/FormComponents/SelectForm';
@@ -9,6 +7,7 @@ import TitleCard from '../../../../components/TitleCard';
 import { selectOptionsStates } from '../../../_shared/constants/SelectOption';
 import CreateSaleDto from '../../dto/CreateSaleDto';
 
+import { FormProvider, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import {
   getErrorMessage,
@@ -25,21 +24,28 @@ interface ConfigModalProps {
 }
 
 const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
-  const formRef = useRef<FormHandles>(null);
+  const formMethods = useForm<CreateSaleDto>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors }
+  } = formMethods;
+
   const [addNewProduct, setAddNewProduct] = useState();
 
   const handleClickNewProduct = () => {
     // setAddNewProduct(true);
   };
 
-  const handleAddSale = async () => {
+  const onSubmit = async (data: CreateSaleDto) => {
     try {
-      const mainFormData = formRef?.current?.getData();
       const newSaleToCreate = {
-        ...mainFormData
-      } as CreateSaleDto;
+        ...data
+      };
       const result = await SaleService.createSale(newSaleToCreate);
-      //SISTEMA DE INTERRUPÇÃO DE PIORIDADE ALTA PARA ERRO
       if (result.data.status === 'erro') {
         toast.error(result.data.motivo);
         throw new Error(result.data.motivo);
@@ -47,7 +53,7 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
       toast.success(result.data.motivo);
       onConfirm();
       onClose();
-      clearForm();
+      reset();
     } catch (error) {
       handleErrors(error);
     }
@@ -55,87 +61,92 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
 
   const handleCancel = () => {
     onClose();
-    clearForm();
-  };
-
-  const clearForm = () => {
-    formRef.current?.reset();
+    reset();
   };
 
   const handleErrors = (resultError: unknown) => {
     const fieldsErrors = getFieldErrors(resultError);
-    formRef.current?.setErrors(fieldsErrors);
+    Object.entries(fieldsErrors).forEach(([key, message]) =>
+      setError(key as keyof CreateSaleDto, { message })
+    );
     const resultErrorReponse = manageApiErrorResponse(resultError);
-    const error = getErrorMessage(resultErrorReponse);
-    console.warn(error);
+    const message = getErrorMessage(resultErrorReponse);
+    console.warn(message);
   };
 
   return (
     <ModalComponent isOpen={isOpen} onClose={onClose}>
-      <Form ref={formRef} onSubmit={handleAddSale}>
-        <div className="relative bg-white rounded-lg shadow w-full">
-          <div className="flex py-1 px-6 rounded-t border-b text-center">
-            <TitleCard text="Cadastrar Venda" />
-          </div>
-          <div className="gap-2 p-6 space-y-3">
-            {/* {addNewProduct.map((add: any) => { */}
-            <DataProducts newProduct={handleClickNewProduct} />
-            {/* })} */}
-            <div className="flex flex-col">
-              <p className="font-semibold mb-3 text-start text-base">Dados do comprador</p>
-              <InputForm
-                className="mb-2"
-                name="nomeCartao"
-                type="text"
-                placeholder="Nome no cartão"
-              />
-              <div className="flex gap-3">
-                <div className="flex flex-row gap-3 mt-5">
-                  <InputForm name="numeroCartao" type="text" placeholder="Numero no cartão" />
-                  <InputForm name="cvv" type="text" placeholder="CVV" />
+      <FormProvider {...formMethods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="relative bg-white rounded-lg shadow w-full">
+            <div className="flex py-1 px-6 rounded-t border-b text-center">
+              <TitleCard text="Cadastrar Venda" />
+            </div>
+            <div className="gap-2 p-6 space-y-3">
+              {/* {addNewProduct.map((add: any) => { */}
+              <DataProducts newProduct={handleClickNewProduct} />
+              {/* })} */}
+              <div className="flex flex-col">
+                <p className="font-semibold mb-3 text-start text-base">Dados do comprador</p>
+                <InputForm
+                  className="mb-2"
+                  name="nomeCartao"
+                  type="text"
+                  placeholder="Nome no cartão"
+                />
+                <div className="flex gap-3">
+                  <div className="flex flex-row gap-3 mt-5">
+                    <InputForm name="numeroCartao" type="text" placeholder="Numero no cartão" />
+                    <InputForm name="cvv" type="text" placeholder="CVV" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-sm text-gray-500 font-medium">Vencimento</span>
+                    <InputForm name="dataVencimento" type="date" placeholder="Vencimento" />
+                  </div>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-sm text-gray-500 font-medium">Vencimento</span>
-                  <InputForm name="dataVencimento" type="date" placeholder="Vencimento" />
+                <InputForm
+                  className="flex mb-2 w-full"
+                  name="nomeCliente"
+                  type="name"
+                  placeholder="Nome do cliente"
+                />
+                <div className="flex flex-row mb-2 gap-3">
+                  <InputForm name="email" type="email" placeholder="E-mail" />
+                  <InputForm name="telefone" type="tel" placeholder="Telefone" />
+                  <InputForm name="endereco" type="text" placeholder="Endereço" />
                 </div>
-              </div>
-              <InputForm
-                className="flex mb-2 w-full"
-                name="nomeCliente"
-                type="name"
-                placeholder="Nome do cliente"
-              />
-              <div className="flex flex-row mb-2 gap-3">
-                <InputForm name="email" type="email" placeholder="E-mail" />
-                <InputForm name="telefone" type="tel" placeholder="Telefone" />
-                <InputForm name="endereco" type="text" placeholder="Endereço" />
-              </div>
-              <div className="flex flex-row gap-3">
-                <InputForm name="bairro" type="text" placeholder="Bairro" />
-                <SelectForm name="estado" placeholder="Estado" options={selectOptionsStates} />
-                <InputForm name="cidade" type="text" placeholder="Cidade" />
+                <div className="flex flex-row gap-3">
+                  <InputForm name="bairro" type="text" placeholder="Bairro" />
+                  <SelectForm
+                    name="estado"
+                    placeholder="Estado"
+                    options={selectOptionsStates}
+                    control={control}
+                    error={errors.nameSale?.message}
+                  />
+                  <InputForm name="cidade" type="text" placeholder="Cidade" />
+                </div>
               </div>
             </div>
+            <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
+              <Button
+                style={{ width: '200px' }}
+                type="button"
+                variant="cancel"
+                onClick={handleCancel}
+              >
+                Cancelar
+              </Button>
+              <Button
+                style={{ width: '200px' }}
+                variant="primary"
+                type="submit"
+                buttonText="Cadastrar"
+              />
+            </div>
           </div>
-          <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
-            <Button
-              style={{ width: '200px' }}
-              type="button"
-              variant="cancel"
-              onClick={handleCancel}
-            >
-              Cancelar
-            </Button>
-            <Button
-              style={{ width: '200px' }}
-              variant="primary"
-              type="button"
-              buttonText="Cadastrar"
-              onClick={handleAddSale}
-            />
-          </div>
-        </div>
-      </Form>
+        </form>
+      </FormProvider>
     </ModalComponent>
   );
 };
