@@ -4,10 +4,10 @@ import Container from '../../../components/Container';
 import HeaderTitle from '../../../components/HeaderTitle';
 import Pagination from '../../../components/Paginate';
 import ToastCustom from '../../../components/ToastCustom';
+import { mockListStock } from '../../../helper/mockListStock';
 import { Paginate } from '../../_shared/types/api.types';
 import PaginateStockDto from '../dto/Stock/PaginateStockDto';
 import Stock from '../models/Stock';
-import StockService from '../service/StockService';
 import { LowStock } from './components/LowStock';
 import { NewStockModal } from './components/NewStockModal';
 import { StockTable } from './components/StockTable';
@@ -20,9 +20,10 @@ export const ListStock = () => {
   const [dadosBaixaStok, setDadosBaixaStok] = useState();
 
   const loadStock = async () => {
-    const result = await StockService.paginateStock({
-      ...paginationActive
-    });
+    // const result = await StockService.paginateStock({
+    //   ...paginationActive
+    // });
+    const result = mockListStock;
     setStocksPaginate(result);
   };
 

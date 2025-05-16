@@ -82,8 +82,8 @@ export const LowStock = ({ isOpen, onClose, onConfirm, dadosStokBaixa }: ConfigM
             <div className="flex items-start py-1 px-6 rounded-t border-b">
               <TitleCard text="Baixa de estoque" />
             </div>
-            <div className="flex">
-              <div className="p-6 w-full space-y-3">
+            <div className="flex p-6 gap-3">
+              <div className="w-full space-y-3">
                 <SelectForm
                   name="motivo"
                   placeholder="Selecione o motivo"
@@ -98,13 +98,14 @@ export const LowStock = ({ isOpen, onClose, onConfirm, dadosStokBaixa }: ConfigM
                   error={errors.quantidade?.message}
                 />
               </div>
-              <div className="flex h-38 w-full m-4">
+              <div className="flex h-32 w-full">
                 <TextareaForm
-                  placeholder="Descrição"
                   name="observacao"
+                  placeholder="Descrição"
                   cols={33}
                   rows={4}
                   maxLength={1000}
+                  control={control}
                 />
               </div>
             </div>

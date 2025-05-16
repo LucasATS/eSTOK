@@ -62,7 +62,7 @@ export const StockTable = ({
               component: (value, itemActive) => (
                 <div className="flex justify-end space-x-2">
                   <ArrowDownTrayIcon
-                    className="w-5 cursor-pointer text-secondary hover:text-secondary"
+                    className="w-9 cursor-pointer text-secondary px-2 py-2 rounded hover:bg-primary hover:bg-opacity-80 hover:text-white"
                     onClick={() => {
                       handleOnClick(itemActive);
                     }}

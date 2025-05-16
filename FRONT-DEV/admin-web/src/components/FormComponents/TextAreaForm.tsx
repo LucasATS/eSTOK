@@ -1,5 +1,5 @@
-import { useField } from '@unform/core';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Control, useController } from 'react-hook-form';
 
 interface Props {
   label?: string;
@@ -9,97 +9,81 @@ interface Props {
   placeholder?: string;
   labelStyle?: string;
   inputStyle?: string;
+  className?: string;
   maxLength?: number;
+  control?: Control<any>;
 }
-type TextareaProps = JSX.IntrinsicElements['textarea'] & Props;
 
-const TextAreaForm: React.FC<TextareaProps> = ({
+const TextAreaForm: React.FC<Props> = ({
   label,
   name,
   cols,
   rows,
   placeholder,
-  maxLength,
+  maxLength = 300,
   inputStyle,
   labelStyle,
   className,
-  children,
-  ...rest
+  control
 }) => {
-  const textareaRef = useRef(null);
-  const { fieldName, defaultValue, registerField, error, clearError } = useField(name);
-  const [content, setContent] = useState(defaultValue?.toString().slice(0, maxLength));
+  const {
+    field,
+    fieldState: { error }
+  } = useController({
+    name,
+    control,
+    defaultValue: ''
+  });
 
-  const setFormattedContent = useCallback(
-    (text: string) => {
-      clearError();
-      setContent(text.slice(0, maxLength));
-    },
-    [maxLength, setContent]
-  );
-
-  useEffect(() => {
-    registerField({
-      name: fieldName,
-      ref: textareaRef.current,
-      path: 'value'
-    });
-  }, [fieldName, registerField]);
+  const [content, setContent] = useState(field.value?.slice(0, maxLength) || '');
 
   useEffect(() => {
-    if (defaultValue) setFormattedContent(defaultValue);
-  }, [!defaultValue]);
+    setContent(field.value?.slice(0, maxLength) || '');
+  }, [field.value, maxLength]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value.slice(0, maxLength);
+    setContent(value);
+    field.onChange(value);
+  };
 
   return (
-    <div className={`flex flex-col py-2 ${className || ''}`}>
-      {/* {label && ( */}
-      <label
-        htmlFor={name}
-        className={
-          labelStyle || `text-sm py-1 font-medium ${error ? ' text-red-500' : 'text-[#8d8d8f]'}`
-        }
-      >
-        {label}
-      </label>
-      {/* )} */}
-      {/* <div
-        className={`relative rounded-[30px]  ${
-          error
-            ? ' border-red-500 focus:border-red-500 focus:ring-red-500'
-            : ' text-[#8d8d8f] bg-gray-200 hover:bg-gray-300'
-        }`}
-      > */}
+    <div className={`flex flex-col pb-2 ${className || ''}`}>
+      {label && (
+        <label
+          htmlFor={name}
+          className={
+            labelStyle || `text-sm py-1 font-medium ${error ? 'text-red-500' : 'text-[#8d8d8f]'}`
+          }
+        >
+          {label}
+        </label>
+      )}
+
       <textarea
-        name={name}
-        defaultValue={defaultValue}
-        ref={textareaRef}
+        id={name}
         cols={cols}
         rows={rows}
         placeholder={placeholder}
         maxLength={maxLength}
-        onChange={(event) => setFormattedContent(event.target.value)}
+        value={content}
+        onChange={handleChange}
         className={
           inputStyle ||
-          `w-full px-3 py-2 text-sm border rounded focus:outline-none focus:ring-1
-          ${
+          `w-full h-full py-2 px-3 text-sm border rounded focus:outline-none focus:ring-1 ${
             error
               ? 'text-[#8d8d8f] border-red-500 focus:border-red-500 focus:ring-red-500'
               : 'text-[#8d8d8f] border-gray-200 focus:border-sky-600 focus:ring-sky-600'
-          }
-              `
+          }`
         }
-        {...rest}
       />
-      {error && <span className="text-red-500 text-xs mt-1 ml-1">{error}</span>}
-      <p
-        className={`flex text-xs justify-end mt-1 ml-1
-            ${error ? 'text-error' : ''}
-          `}
-      >
-        {content ? content?.length : 0}/{maxLength}
+
+      {error && <span className="text-red-500 text-xs mt-1 ml-1">{error.message}</span>}
+
+      <p className={`flex text-xs justify-end mt-1 ml-1 ${error ? 'text-red-500' : ''}`}>
+        {content.length}/{maxLength}
       </p>
     </div>
-    // </div>
   );
 };
 
