@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import Button from '../../../components/Button';
 import SelectForm, { OptionSelect } from '../../../components/FormComponents/SelectForm';
-import HeaderTitle from '../../../components/MainLayout/components/HeaderTitle';
+import HeaderTitle from '../../../components/HeaderTitle';
 import TitleCard from '../../../components/TitleCard';
 import ToastCustom from '../../../components/ToastCustom';
 import {

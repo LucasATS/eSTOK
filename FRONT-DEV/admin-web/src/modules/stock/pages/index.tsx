@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Button from '../../../components/Button';
-import HeaderTitle from '../../../components/MainLayout/components/HeaderTitle';
+import HeaderTitle from '../../../components/HeaderTitle';
 import Pagination from '../../../components/Paginate';
 import ToastCustom from '../../../components/ToastCustom';
 import { Paginate } from '../../_shared/types/api.types';

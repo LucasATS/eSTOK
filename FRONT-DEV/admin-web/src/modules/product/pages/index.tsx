@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Button from '../../../components/Button';
 import Dropdown from '../../../components/Dropdown';
-import HeaderTitle from '../../../components/MainLayout/components/HeaderTitle';
+import HeaderTitle from '../../../components/HeaderTitle';
 import Pagination from '../../../components/Paginate';
 import { Action } from '../../../components/Table';
 import ToastCustom from '../../../components/ToastCustom';
