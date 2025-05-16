@@ -95,7 +95,7 @@ export const NewStockModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) 
               <TitleCard text="Cadastrar Produto ao Estoque" />
             </div>
             <div className="p-6 space-y-3">
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-row items-end gap-3">
                 <SelectForm
                   name="produto"
                   placeholder="Produto"
@@ -106,42 +106,40 @@ export const NewStockModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) 
                 <InputForm
                   name="unitario"
                   type="number"
-                  placeholder="Preço"
+                  label="Preço"
+                  placeholder="Digite o preço"
                   error={errors.unitario?.message}
                 />
                 <InputForm
                   name="quantidade"
                   type="number"
-                  placeholder="Quantidade"
+                  label="Quantidade"
+                  placeholder="Digite a quantidade"
                   error={errors.quantidade?.message}
                 />
               </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-row items-end gap-3">
                 <InputForm
-                  className="mt-6"
                   name="lote"
                   type="text"
-                  placeholder="Lote"
+                  label="Lote"
+                  className="w-full"
+                  placeholder="Digite o lote"
                   error={errors.lote?.message}
                 />
-                <div className="flex flex-col">
-                  <span className="text-sm text-gray-500 font-medium">Data da Compra</span>
-                  <InputForm
-                    name="data_compra"
-                    type="date"
-                    placeholder="Data da compra"
-                    error={errors.data_compra?.message}
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-sm text-gray-500 font-medium">Vencimento</span>
-                  <InputForm
-                    name="validade"
-                    type="date"
-                    placeholder="Vencimento"
-                    error={errors.validade?.message}
-                  />
-                </div>
+                <InputForm
+                  name="data_compra"
+                  type="date"
+                  label="Data da compra"
+                  error={errors.data_compra?.message}
+                />
+                <InputForm
+                  name="validade"
+                  type="date"
+                  label="Vencimento"
+                  placeholder="Digite o bairro"
+                  error={errors.validade?.message}
+                />
               </div>
             </div>
 
