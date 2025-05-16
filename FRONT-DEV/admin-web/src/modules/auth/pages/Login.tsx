@@ -1,14 +1,16 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import iconApi from '../../../assets/e-stok.png';
 import Button from '../../../components/Button';
+import Container from '../../../components/Container';
 import InputForm from '../../../components/FormComponents/InputForm';
 import {
   getFieldErrors,
   manageApiErrorMessages,
   manageApiErrorResponse
 } from '../../_shared/helpers/handleApiErrorResponse';
-import { iconApi } from '../../_shared/services/iconApi';
+// import { iconApi } from '../../_shared/services/iconApi';
 import { LoginCredentials, useAuth } from '../contexts/AuthProvider';
 
 const Login = () => {
@@ -40,11 +42,11 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-black h-screen">
-      <div className="flex flex-col h-full w-1/2 p-10 gap-10 justify-center items-center bg-white rounded-lg shadow-md">
+    <Container className="flex flex-col justify-center items-center">
+      <div className="flex flex-col h-auto w-full md:w-[450px] lg:w-[560px] px-10 py-14 md:p-10 gap-10 justify-center items-center bg-white md:rounded-lg md:shadow-md">
         <div className="flex flex-col">
           <Link to="/">
-            <img src={iconApi + 'e-stok.png'} className="w-full h-auto py-2" alt="eStok Logo" />
+            <img src={iconApi} className="w-full h-16 py-2" alt="eStok Logo" />
           </Link>
         </div>
         <FormProvider {...methods}>
@@ -65,7 +67,7 @@ const Login = () => {
           </form>
         </FormProvider>
       </div>
-    </div>
+    </Container>
   );
 };
 
