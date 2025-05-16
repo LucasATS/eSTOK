@@ -6,12 +6,12 @@ import InputForm from '../../../../components/FormComponents/InputForm';
 import SelectForm, { OptionSelect } from '../../../../components/FormComponents/SelectForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
+import { mockListProducts } from '../../../../helper/mockListProducts';
 import {
   getErrorMessage,
   getFieldErrors,
   manageApiErrorResponse
 } from '../../../_shared/helpers/handleApiErrorResponse';
-import ProductService from '../../../product/service/ProductService';
 import CreateStockDto from '../../dto/Stock/CreateStockDto';
 import StockService from '../../service/StockService';
 
@@ -33,10 +33,11 @@ export const NewStockModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) 
   } = formMethods;
 
   const getProductOptions = async () => {
-    const products = await ProductService.paginateOptionsProduct({
-      limit: 10,
-      isActive: true
-    });
+    //   const products = await ProductService.paginateOptionsProduct({
+    //     limit: 10,
+    //     isActive: true
+    //   });
+    const products = mockListProducts.response.filter((product) => product.status);
 
     if (products.length > 0) {
       const optionsProducts = products.map((product) => ({

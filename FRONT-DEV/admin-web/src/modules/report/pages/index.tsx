@@ -7,6 +7,7 @@ import SelectForm, { OptionSelect } from '../../../components/FormComponents/Sel
 import HeaderTitle from '../../../components/HeaderTitle';
 import TitleCard from '../../../components/TitleCard';
 import ToastCustom from '../../../components/ToastCustom';
+import { mockListProducts } from '../../../helper/mockListProducts';
 import {
   selectOptionsPeriodType,
   selectOptionsReportType
@@ -16,7 +17,6 @@ import {
   getFieldErrors,
   manageApiErrorResponse
 } from '../../_shared/helpers/handleApiErrorResponse';
-import ProductService from '../../product/service/ProductService';
 import CreateReportDto from '../dto/CreateReportDto';
 import ReportService from '../service/ReportService';
 
@@ -32,10 +32,12 @@ export const CreateReport = () => {
   const [productOptions, setProductOptions] = useState<OptionSelect[]>([]);
 
   const getProductOptions = async () => {
-    const products = await ProductService.paginateOptionsProduct({
-      limit: 10,
-      isActive: true
-    });
+    // const products = await ProductService.paginateOptionsProduct({
+    //   limit: 10,
+    //   isActive: true
+    // });
+    const products = mockListProducts.response.filter((product) => product.status);
+
     if (products.length > 0) {
       const optionsProducts = products.map((product) => ({
         value: product.id,
