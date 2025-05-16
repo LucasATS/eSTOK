@@ -4,6 +4,9 @@
 ![preview](./.github/preview2.png)
 ![preview](./.github/preview3.png)
 ![preview](./.github/preview4.png)
+![preview](./.github/preview5.png)
+![preview](./.github/preview6.png)
+![preview](./.github/preview7.png)
 
 <!--
 [🔗 ACESSE O PROJETO ](/LINK-ACESSO-PROJETO/)
