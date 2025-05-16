@@ -40,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center p-32 w-full">
+    <div className="flex flex-col items-center bg-black h-screen">
       <div className="flex flex-col h-full w-1/2 p-10 gap-10 justify-center items-center bg-white rounded-lg shadow-md">
         <div className="flex flex-col">
           <Link to="/">
