@@ -68,10 +68,9 @@ const NewCategoryModal = ({ isOpen, onClose }: ConfigModalProps) => {
             <div className="p-6 space-y-3">
               <InputForm
                 name="categoria"
-                // {...register('descricao', { required: 'Descrição é obrigatória' })}
                 type="text"
-                placeholder="Nome da Categoria"
-                error={errors.descricao?.message}
+                label="Categoria"
+                placeholder="Digite a Categoria"
               />
             </div>
             <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">

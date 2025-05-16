@@ -7,7 +7,7 @@ export const mockListProducts: Paginate<Product> = {
       id: '1',
       produto: 'Água Mineral',
       categoria: 'Bebidas',
-      unidade: 'Litro (L)',
+      unidade: 5,
       tipo_do_produto: 'Produto Final',
       status: true
     },
@@ -15,7 +15,7 @@ export const mockListProducts: Paginate<Product> = {
       id: '2',
       produto: 'Arroz Branco Tipo 1',
       categoria: 'Alimentos',
-      unidade: 'Quilo (Kg)',
+      unidade: 10,
       tipo_do_produto: 'Produto Final',
       status: true
     },
@@ -23,23 +23,31 @@ export const mockListProducts: Paginate<Product> = {
       id: '3',
       produto: 'Sabão em Pó',
       categoria: 'Limpeza',
-      unidade: 'Quilo (Kg)',
+      unidade: 3,
+      tipo_do_produto: 'Produto Final',
+      status: false
+    },
+    {
+      id: '4',
+      produto: 'Sabonete Líquido Corporal',
+      categoria: 'Higiene Pessoal',
+      unidade: 1,
       tipo_do_produto: 'Produto Final',
       status: false
     }
   ],
-  totalItems: 3,
+  totalItems: 4,
   currentPage: 1,
   totalPages: 1,
   limit: 10,
-  length: 3,
+  length: 4,
   map: (callback) =>
     [
       {
         id: '1',
         produto: 'Água Mineral',
         categoria: 'Bebidas',
-        unidade: 'Litro (L)',
+        unidade: 5,
         tipo_do_produto: 'Produto Final',
         status: true
       },
@@ -47,7 +55,7 @@ export const mockListProducts: Paginate<Product> = {
         id: '2',
         produto: 'Arroz Branco Tipo 1',
         categoria: 'Alimentos',
-        unidade: 'Quilo (Kg)',
+        unidade: 10,
         tipo_do_produto: 'Produto Final',
         status: true
       },
@@ -55,7 +63,15 @@ export const mockListProducts: Paginate<Product> = {
         id: '3',
         produto: 'Sabão em Pó',
         categoria: 'Limpeza',
-        unidade: 'Quilo (Kg)',
+        unidade: 3,
+        tipo_do_produto: 'Produto Final',
+        status: false
+      },
+      {
+        id: '4',
+        produto: 'Sabonete Líquido Corporal',
+        categoria: 'Higiene Pessoal',
+        unidade: 1,
         tipo_do_produto: 'Produto Final',
         status: false
       }

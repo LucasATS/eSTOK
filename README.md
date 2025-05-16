@@ -1,12 +1,15 @@
 # **eSTOK:** _compra de um produto disponível no estoque do fornecedor_
 
-![preview](./.github/preview.png)
-![preview](./.github/preview2.png)
-![preview](./.github/preview3.png)
-![preview](./.github/preview4.png)
-![preview](./.github/preview5.png)
-![preview](./.github/preview6.png)
-![preview](./.github/preview7.png)
+![Login](./.github/preview1.png)
+![Bem-vindo](./.github/preview2.png)
+![Lista de Produto](./.github/preview3.png)
+![Cadastro Categoria](./.github/preview4.png)
+![Cadastro Produto](./.github/preview5.png)
+![Lista de Produto Atualizada](./.github/preview6.png)
+![Lista de Estoque](./.github/preview7.png)
+![Baixa de Estoque](./.github/preview8.png)
+![Relatório](./.github/preview9.png)
+![Relatório Preenchido](./.github/preview10.png)
 
 <!--
 [🔗 ACESSE O PROJETO ](/LINK-ACESSO-PROJETO/)

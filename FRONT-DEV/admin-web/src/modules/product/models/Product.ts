@@ -3,7 +3,7 @@ interface Product {
   produto: string;
   categoria: string;
   tipo_do_produto: string;
-  unidade: string;
+  unidade: number;
   status: boolean;
 }
 
