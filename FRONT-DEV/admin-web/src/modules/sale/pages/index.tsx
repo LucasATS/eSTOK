@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import Button from '../../../components/Button';
+import Container from '../../../components/Container';
 import HeaderTitle from '../../../components/HeaderTitle';
 import Pagination from '../../../components/Paginate';
 import ToastCustom from '../../../components/ToastCustom';
+import { mockListSales } from '../../../helper/mockListSale';
 import { Paginate } from '../../_shared/types/api.types';
 import PaginateSaleDto from '../dto/PaginateSaleDto';
-import Sale from '../models/Sale';
-import SaleService from '../service/SaleService';
+import Sale, { FlattenedSaleItem } from '../models/Sale';
 import NewSaleModal from './components/NewSaleModal';
 import SaleTable from './components/SaleTable';
-import Container from '../../../components/Container';
 
 const ListSale = () => {
   const [openNewSaleModal, setOpenNewSaleModal] = useState(false);
@@ -21,9 +21,10 @@ const ListSale = () => {
   };
 
   const loadSale = async () => {
-    const result = await SaleService.paginateSale({
-      ...paginationActive
-    });
+    // const result = await SaleService.paginateSale({
+    //   ...paginationActive
+    // });
+    const result = mockListSales;
     setSalesPaginate(result);
   };
 
