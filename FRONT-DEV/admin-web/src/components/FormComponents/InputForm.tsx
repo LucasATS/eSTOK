@@ -36,7 +36,7 @@ const InputForm = ({
   const inputType = type === 'password' ? (isVisible ? 'text' : 'password') : type;
 
   return (
-    <div className={`flex flex-col text-sm ${className || ''}`}>
+    <div className={`flex flex-col gap-1 text-sm ${className || ''}`}>
       {label && (
         <label
           htmlFor={name}
@@ -77,7 +77,7 @@ const InputForm = ({
           </button>
         )}
       </div>
-      {error && <span className="text-red-500 text-xs mt-1 ml-1">{error}</span>}
+      {error && <span className="text-red-500 text-xs">{error}</span>}
     </div>
   );
 };
