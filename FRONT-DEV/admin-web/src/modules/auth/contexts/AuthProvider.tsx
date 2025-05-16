@@ -15,7 +15,7 @@ export interface LoginCredentials {
 export type AuthContextData = {
   signed: boolean;
   user: User | null;
-  loading: boolean;
+  isAuthLoading: boolean;
   signIn(login: LoginCredentials): Promise<void>;
   signOut(): void;
   setUser(user: User): void;
@@ -29,7 +29,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   useEffect(() => {
     const { storedUser } = getAuthItemsFromLocalStorage();
@@ -39,7 +39,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         const parsedUser: User = JSON.parse(storedUser);
         setUser(parsedUser);
       }
-      setLoading(false);
+      setIsAuthLoading(false);
     }
 
     loadStorageData();
@@ -76,7 +76,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ signed: !!user, user, signIn, loading, signOut, setUser }}>
+    <AuthContext.Provider value={{ signed: !!user, user, signIn, isAuthLoading, signOut, setUser }}>
       {children}
     </AuthContext.Provider>
   );

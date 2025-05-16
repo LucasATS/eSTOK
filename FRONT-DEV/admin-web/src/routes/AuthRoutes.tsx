@@ -1,19 +1,14 @@
-import { Routes } from 'react-router';
-import { HashRouter, Route } from 'react-router-dom';
-import MainLayout from '../components/MainLayout';
+import { Navigate, Routes } from 'react-router';
+import { Route } from 'react-router-dom';
 import RoutesURL from '../modules/_shared/constants/RoutesURL.enum';
 import Login from '../modules/auth/pages/Login';
 
 const AuthRoutes = () => {
   return (
-    <HashRouter>
-      <MainLayout>
-        <Routes>
-          <Route path={RoutesURL.LOGIN} index Component={Login} />
-          <Route path="/" Component={Login} />
-        </Routes>
-      </MainLayout>
-    </HashRouter>
+    <Routes>
+      <Route path={RoutesURL.LOGIN} element={<Login />} />
+      <Route path="*" element={<Navigate to={RoutesURL.LOGIN} />} />
+    </Routes>
   );
 };
 
