@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import Button from '../../../components/Button';
+import Container from '../../../components/Container';
 import SelectForm, { OptionSelect } from '../../../components/FormComponents/SelectForm';
 import HeaderTitle from '../../../components/HeaderTitle';
 import TitleCard from '../../../components/TitleCard';
@@ -74,7 +75,7 @@ export const CreateReport = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col">
+    <Container className="w-full flex flex-col">
       <div className="w-full bg-white justify-start items-start px-6">
         <HeaderTitle mainText="Relatório" />
       </div>
@@ -117,7 +118,7 @@ export const CreateReport = () => {
         </form>
       </div>
       <ToastCustom />
-    </div>
+    </Container>
   );
 };
 

@@ -9,6 +9,7 @@ import Sale from '../models/Sale';
 import SaleService from '../service/SaleService';
 import NewSaleModal from './components/NewSaleModal';
 import SaleTable from './components/SaleTable';
+import Container from '../../../components/Container';
 
 const ListSale = () => {
   const [openNewSaleModal, setOpenNewSaleModal] = useState(false);
@@ -48,7 +49,7 @@ const ListSale = () => {
   }, [paginationActive]);
 
   return (
-    <div className="w-full flex flex-col">
+    <Container className="w-full flex flex-col">
       <div className="w-full px-4 bg-white justify-start items-start">
         <HeaderTitle mainText="Venda" />
       </div>
@@ -79,7 +80,7 @@ const ListSale = () => {
         />
       </div>
       <ToastCustom />
-    </div>
+    </Container>
   );
 };
 

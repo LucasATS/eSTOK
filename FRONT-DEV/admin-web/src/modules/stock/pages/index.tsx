@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Button from '../../../components/Button';
+import Container from '../../../components/Container';
 import HeaderTitle from '../../../components/HeaderTitle';
 import Pagination from '../../../components/Paginate';
 import ToastCustom from '../../../components/ToastCustom';
@@ -64,7 +65,7 @@ export const ListStock = () => {
   }, [paginationActive]);
 
   return (
-    <div className="w-full flex flex-col">
+    <Container className="w-full flex flex-col">
       <div className="w-full px-6 bg-white justify-start items-start">
         <HeaderTitle mainText="Estoque" />
       </div>
@@ -105,6 +106,6 @@ export const ListStock = () => {
         />
       </div>
       <ToastCustom />
-    </div>
+    </Container>
   );
 };
