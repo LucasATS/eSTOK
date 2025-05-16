@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from '../../../components/Button';
+import Container from '../../../components/Container';
 import Dropdown from '../../../components/Dropdown';
 import HeaderTitle from '../../../components/HeaderTitle';
 import Pagination from '../../../components/Paginate';
@@ -8,7 +9,6 @@ import ToastCustom from '../../../components/ToastCustom';
 import { Paginate } from '../../_shared/types/api.types';
 import PaginateProductDto from '../dto/product/PaginateProductDto';
 import Product from '../models/Product';
-import ProductService from '../service/ProductService';
 import NewCategoryModal from './components/NewCategoryModal';
 import { NewProductModal } from './components/NewProductModal';
 import ProductTable from './components/ProductTable';
@@ -17,7 +17,68 @@ const ListProduct = () => {
   const [paginationActive, setPaginationActive] = useState<PaginateProductDto>({
     limit: 10
   });
-  const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>();
+  // const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>();
+  const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>({
+    response: [
+      {
+        id: '1',
+        produto: 'Produto A',
+        categoria: 'Categoria X',
+        tipo_do_produto: 'Tipo 1',
+        unidade: 'Unidade A',
+        status: true
+      },
+      {
+        id: '2',
+        produto: 'Produto B',
+        categoria: 'Categoria Y',
+        tipo_do_produto: 'Tipo 2',
+        unidade: 'Unidade B',
+        status: true
+      },
+      {
+        id: '3',
+        produto: 'Produto C',
+        categoria: 'Categoria Z',
+        tipo_do_produto: 'Tipo 3',
+        unidade: 'Unidade C',
+        status: false
+      }
+    ],
+    totalItems: 3,
+    currentPage: 1,
+    totalPages: 1,
+    limit: 10,
+    length: 3,
+    map: (fn) => {
+      return [
+        {
+          id: '1',
+          produto: 'Produto A',
+          categoria: 'Categoria X',
+          tipo_do_produto: 'Tipo 1',
+          unidade: 'Unidade A',
+          status: true
+        },
+        {
+          id: '2',
+          produto: 'Produto B',
+          categoria: 'Categoria Y',
+          tipo_do_produto: 'Tipo 2',
+          unidade: 'Unidade B',
+          status: true
+        },
+        {
+          id: '3',
+          produto: 'Produto C',
+          categoria: 'Categoria Z',
+          tipo_do_produto: 'Tipo 3',
+          unidade: 'Unidade C',
+          status: false
+        }
+      ].map(fn);
+    }
+  });
   const [openNewProductModal, setOpenNewProductModal] = useState(false);
   const [openNewCategoryModal, setOpenNewCategoryModal] = useState(false);
 
@@ -28,16 +89,16 @@ const ListProduct = () => {
     }
   ];
 
-  const loadProduct = async () => {
-    const result = await ProductService.paginateProduct({
-      ...paginationActive
-    });
-    setProductsPaginate(result);
-  };
+  // const loadProduct = async () => {
+  //   const result = await ProductService.paginateProduct({
+  //     ...paginationActive
+  //   });
+  //   setProductsPaginate(result);
+  // };
 
-  const handleNewProduct = () => {
-    loadProduct();
-  };
+  // const handleNewProduct = () => {
+  //   loadProduct();
+  // };
 
   const handleClickNewProduct = () => {
     setOpenNewProductModal(true);
@@ -56,16 +117,16 @@ const ListProduct = () => {
     setPaginationActive((old) => ({ ...old, page, initial: Math.ceil(newInitial) }));
   };
 
-  useEffect(() => {
-    if (Number.isNaN(Number(paginationActive.initial))) {
-      setPaginationActive((old) => ({ ...old, page: 1, initial: 1 }));
-    } else {
-      loadProduct();
-    }
-  }, [paginationActive]);
+  // useEffect(() => {
+  //   if (Number.isNaN(Number(paginationActive.initial))) {
+  //     setPaginationActive((old) => ({ ...old, page: 1, initial: 1 }));
+  //   } else {
+  //     loadProduct();
+  //   }
+  // }, [paginationActive]);
 
   return (
-    <div className="w-full flex flex-col">
+    <Container className="w-full flex flex-col">
       <div className="w-full px-6 bg-white justify-start items-start">
         <HeaderTitle mainText="Produto" />
       </div>
@@ -93,12 +154,12 @@ const ListProduct = () => {
         <NewProductModal
           isOpen={openNewProductModal}
           onClose={handleCloseNewProduct}
-          onConfirm={handleNewProduct}
+          onConfirm={() => console.log('confirm')}
         />
         <NewCategoryModal isOpen={openNewCategoryModal} onClose={handleCloseNewCategory} />
       </div>
       <ToastCustom />
-    </div>
+    </Container>
   );
 };
 
