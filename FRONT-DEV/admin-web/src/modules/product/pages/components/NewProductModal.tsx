@@ -9,6 +9,11 @@ import SelectForm, { OptionSelect } from '../../../../components/FormComponents/
 import TextAreaForm from '../../../../components/FormComponents/TextAreaForm';
 import { ModalComponent } from '../../../../components/ModalComponent';
 import TitleCard from '../../../../components/TitleCard';
+import {
+  mockCategoryOptions,
+  mockProductTypeOptions,
+  mockUnitMeasureOptions
+} from '../../../../helper/mockSelectOptions';
 import getBase64 from '../../../_shared/constants/getBase';
 import {
   getErrorMessage,
@@ -28,7 +33,17 @@ interface ConfigModalProps {
 }
 
 export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
-  const formMethods = useForm<CreateProductDto>();
+  const formMethods = useForm<CreateProductDto>({
+    defaultValues: {
+      nome_produto: '',
+      categoria: '',
+      unidade: '',
+      tp_produto: '',
+      tamanho: 0,
+      foto: '',
+      descricao: ''
+    }
+  });
   const {
     control,
     handleSubmit,
@@ -132,9 +147,12 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
   };
 
   useEffect(() => {
-    getCategoryOptions();
-    getUnitMeasureOptions();
-    getProductTypeOptions();
+    // getCategoryOptions();
+    // getUnitMeasureOptions();
+    // getProductTypeOptions();
+    setCategoryOptions(mockCategoryOptions);
+    setUnitMeasureOptions(mockUnitMeasureOptions);
+    setProductTypeOptions(mockProductTypeOptions);
   }, []);
 
   return (

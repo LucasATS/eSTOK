@@ -12,73 +12,75 @@ import Product from '../models/Product';
 import NewCategoryModal from './components/NewCategoryModal';
 import { NewProductModal } from './components/NewProductModal';
 import ProductTable from './components/ProductTable';
+import { mockListProducts } from '../../../helper/mockListProducts';
 
 const ListProduct = () => {
   const [paginationActive, setPaginationActive] = useState<PaginateProductDto>({
     limit: 10
   });
   // const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>();
-  const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>({
-    response: [
-      {
-        id: '1',
-        produto: 'Produto A',
-        categoria: 'Categoria X',
-        tipo_do_produto: 'Tipo 1',
-        unidade: 'Unidade A',
-        status: true
-      },
-      {
-        id: '2',
-        produto: 'Produto B',
-        categoria: 'Categoria Y',
-        tipo_do_produto: 'Tipo 2',
-        unidade: 'Unidade B',
-        status: true
-      },
-      {
-        id: '3',
-        produto: 'Produto C',
-        categoria: 'Categoria Z',
-        tipo_do_produto: 'Tipo 3',
-        unidade: 'Unidade C',
-        status: false
-      }
-    ],
-    totalItems: 3,
-    currentPage: 1,
-    totalPages: 1,
-    limit: 10,
-    length: 3,
-    map: (fn) => {
-      return [
-        {
-          id: '1',
-          produto: 'Produto A',
-          categoria: 'Categoria X',
-          tipo_do_produto: 'Tipo 1',
-          unidade: 'Unidade A',
-          status: true
-        },
-        {
-          id: '2',
-          produto: 'Produto B',
-          categoria: 'Categoria Y',
-          tipo_do_produto: 'Tipo 2',
-          unidade: 'Unidade B',
-          status: true
-        },
-        {
-          id: '3',
-          produto: 'Produto C',
-          categoria: 'Categoria Z',
-          tipo_do_produto: 'Tipo 3',
-          unidade: 'Unidade C',
-          status: false
-        }
-      ].map(fn);
-    }
-  });
+  const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>(mockListProducts);
+  // const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>({
+  //   response: [
+  //     {
+  //       id: '1',
+  //       produto: 'Produto A',
+  //       categoria: 'Categoria X',
+  //       tipo_do_produto: 'Tipo 1',
+  //       unidade: 'Unidade A',
+  //       status: true
+  //     },
+  //     {
+  //       id: '2',
+  //       produto: 'Produto B',
+  //       categoria: 'Categoria Y',
+  //       tipo_do_produto: 'Tipo 2',
+  //       unidade: 'Unidade B',
+  //       status: true
+  //     },
+  //     {
+  //       id: '3',
+  //       produto: 'Produto C',
+  //       categoria: 'Categoria Z',
+  //       tipo_do_produto: 'Tipo 3',
+  //       unidade: 'Unidade C',
+  //       status: false
+  //     }
+  //   ],
+  //   totalItems: 3,
+  //   currentPage: 1,
+  //   totalPages: 1,
+  //   limit: 10,
+  //   length: 3,
+  //   map: (fn) => {
+  //     return [
+  //       {
+  //         id: '1',
+  //         produto: 'Produto A',
+  //         categoria: 'Categoria X',
+  //         tipo_do_produto: 'Tipo 1',
+  //         unidade: 'Unidade A',
+  //         status: true
+  //       },
+  //       {
+  //         id: '2',
+  //         produto: 'Produto B',
+  //         categoria: 'Categoria Y',
+  //         tipo_do_produto: 'Tipo 2',
+  //         unidade: 'Unidade B',
+  //         status: true
+  //       },
+  //       {
+  //         id: '3',
+  //         produto: 'Produto C',
+  //         categoria: 'Categoria Z',
+  //         tipo_do_produto: 'Tipo 3',
+  //         unidade: 'Unidade C',
+  //         status: false
+  //       }
+  //     ].map(fn);
+  //   }
+  // });
   const [openNewProductModal, setOpenNewProductModal] = useState(false);
   const [openNewCategoryModal, setOpenNewCategoryModal] = useState(false);
 
