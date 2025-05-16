@@ -1,4 +1,4 @@
-enum RoutesURL {
+enum RoutesEnum {
   HOME = '/',
   LOGIN = '/login',
   LIST_PRODUCT = '/list-product',
@@ -7,4 +7,4 @@ enum RoutesURL {
   LIST_REPORT = '/list-report'
 }
 
-export default RoutesURL;
+export default RoutesEnum;
