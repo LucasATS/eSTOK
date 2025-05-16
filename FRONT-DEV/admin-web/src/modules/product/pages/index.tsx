@@ -16,7 +16,9 @@ import ProductTable from './components/ProductTable';
 
 const ListProduct = () => {
   const [paginationActive, setPaginationActive] = useState<PaginateProductDto>({
-    limit: 10
+    limit: 10,
+    page: 1,
+    initial: 0
   });
   const [productsPaginate, setProductsPaginate] = useState<Paginate<Product>>();
   const [openNewProductModal, setOpenNewProductModal] = useState(false);
@@ -30,10 +32,22 @@ const ListProduct = () => {
   ];
 
   const loadProduct = async () => {
+    const { initial = 0, limit = 10, page = 1 } = paginationActive;
+
+    const allProducts = mockListProducts.response;
+    const paginatedItems = allProducts.slice(initial, initial + limit);
+
     //   const result = await ProductService.paginateProduct({
     //     ...paginationActive
     //   });
-    const result = mockListProducts;
+    const result = {
+      ...mockListProducts,
+      response: paginatedItems,
+      currentPage: page,
+      totalPages: Math.ceil(allProducts.length / limit),
+      length: paginatedItems.length
+    };
+
     setProductsPaginate(result);
   };
 
@@ -55,7 +69,7 @@ const ListProduct = () => {
 
   const onChangePage = async (page: number) => {
     const newInitial = page * Number(paginationActive.limit) - Number(paginationActive.limit);
-    setPaginationActive((old) => ({ ...old, page, initial: Math.ceil(newInitial) }));
+    setPaginationActive((old) => ({ ...old, page, initial: newInitial }));
   };
 
   useEffect(() => {
