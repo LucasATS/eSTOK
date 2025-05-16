@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import Button from '../../../../components/Button';
-import { DropzoneForm } from '../../../../components/FormComponents/DropzoneForm';
-import { ImageForm } from '../../../../components/FormComponents/ImageForm';
+import DropzoneForm from '../../../../components/FormComponents/DropzoneForm';
+import FileDetail from '../../../../components/FormComponents/FileDetail';
 import InputForm from '../../../../components/FormComponents/InputForm';
 import SelectForm, { OptionSelect } from '../../../../components/FormComponents/SelectForm';
 import TextAreaForm from '../../../../components/FormComponents/TextAreaForm';
@@ -40,7 +40,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
       unidade: '',
       tp_produto: '',
       tamanho: 0,
-      foto: '',
+      foto: undefined,
       descricao: ''
     }
   });
@@ -49,6 +49,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
     handleSubmit,
     reset,
     setError,
+    watch,
     formState: { errors }
   } = formMethods;
 
@@ -100,8 +101,15 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
     }
   };
 
+  const fotoFile = watch('foto');
+
   const onSubmit = async (data: CreateProductDto) => {
     try {
+      let fotoBase64 = '';
+      if (typeof fotoFile === 'string') {
+        fotoBase64 = await getBase64(fotoFile);
+      }
+
       const newProductToCreate = {
         ...data,
         foto: fileBase64
@@ -164,13 +172,18 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
               <TitleCard text="Cadastrar Produto" />
             </div>
             <div className="p-6 space-y-3">
-              {file && <ImageForm removeImage={handleRemoveFile} file={file} />}
+              {file && (
+                <div className="flex flex-col">
+                  <FileDetail removeImage={handleRemoveFile} file={file} />
+                </div>
+              )}
               <DropzoneForm
                 name="foto"
                 onChange={handleProductImage}
                 label="selecionar um arquivo .png ou .jpeg"
                 acceptFiles={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
               />
+
               <InputForm
                 name="nome_produto"
                 type="text"
@@ -207,6 +220,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
                 cols={2}
                 rows={4}
                 maxLength={1000}
+                control={control}
               />
             </div>
             <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
