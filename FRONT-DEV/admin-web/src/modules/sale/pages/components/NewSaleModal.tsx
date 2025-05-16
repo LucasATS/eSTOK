@@ -85,44 +85,77 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
               {addNewProduct.map((_, index) => (
                 <DataProducts key={index} newProduct={handleClickNewProduct} />
               ))}
-              <div className="flex flex-col">
-                <p className="font-semibold mb-3 text-start text-base">Dados do comprador</p>
-                <InputForm
-                  className="mb-2"
-                  name="nomeCartao"
-                  type="text"
-                  placeholder="Nome no cartão"
-                />
-                <div className="flex gap-3">
-                  <div className="flex flex-row gap-3 mt-5">
-                    <InputForm name="numeroCartao" type="text" placeholder="Numero no cartão" />
-                    <InputForm name="cvv" type="text" placeholder="CVV" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-sm text-gray-500 font-medium">Vencimento</span>
-                    <InputForm name="dataVencimento" type="date" placeholder="Vencimento" />
-                  </div>
-                </div>
-                <InputForm
-                  className="flex mb-2 w-full"
-                  name="nomeCliente"
-                  type="name"
-                  placeholder="Nome do cliente"
-                />
-                <div className="flex flex-row mb-2 gap-3">
-                  <InputForm name="email" type="email" placeholder="E-mail" />
-                  <InputForm name="telefone" type="tel" placeholder="Telefone" />
-                  <InputForm name="endereco" type="text" placeholder="Endereço" />
-                </div>
-                <div className="flex flex-row gap-3">
-                  <InputForm name="bairro" type="text" placeholder="Bairro" />
-                  <SelectForm
-                    name="estado"
-                    placeholder="Estado"
-                    options={selectOptionsStates}
-                    control={control}
+              <div className="flex flex-col gap-3">
+                <p className="font-semibold text-start text-base">Dados do comprador</p>
+                <div className="flex flex-col gap-2">
+                  <InputForm
+                    name="nomeCartao"
+                    type="text"
+                    placeholder="Digite o nome do cartão"
+                    label="Nome do cartão"
                   />
-                  <InputForm name="cidade" type="text" placeholder="Cidade" />
+                  <div className="flex items-end gap-3">
+                    <InputForm
+                      name="numeroCartao"
+                      type="text"
+                      placeholder="Digite o número do cartão"
+                      label="Número do cartão"
+                    />
+                    <InputForm name="cvv" type="text" placeholder="Digite o CVV" label="CVV" />
+                    <InputForm
+                      name="dataVencimento"
+                      type="date"
+                      placeholder="Vencimento"
+                      label="Vencimento"
+                    />
+                  </div>
+                  <InputForm
+                    className="flex w-full"
+                    name="nomeCliente"
+                    type="name"
+                    placeholder="Digite o nome do cliente"
+                    label="Nome do cliente"
+                  />
+                  <div className="flex flex-row gap-3">
+                    <InputForm
+                      name="email"
+                      type="email"
+                      placeholder="Digite o e-mail"
+                      label="E-mail"
+                    />
+                    <InputForm
+                      name="telefone"
+                      type="tel"
+                      placeholder="Digite o telefone"
+                      label="Telefone"
+                    />
+                    <InputForm
+                      name="endereco"
+                      type="text"
+                      placeholder="Digite o endereço"
+                      label="Endereço"
+                    />
+                  </div>
+                  <div className="flex flex-row items-end gap-3">
+                    <InputForm
+                      name="bairro"
+                      type="text"
+                      placeholder="Digite o bairro"
+                      label="Bairro"
+                    />
+                    <SelectForm
+                      name="estado"
+                      placeholder="Estado"
+                      options={selectOptionsStates}
+                      control={control}
+                    />
+                    <InputForm
+                      name="cidade"
+                      type="text"
+                      placeholder="Digite a cidade"
+                      label="Cidade"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

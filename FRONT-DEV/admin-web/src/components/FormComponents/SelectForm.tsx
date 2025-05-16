@@ -3,7 +3,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Fragment } from 'react';
 import { Control, Controller } from 'react-hook-form';
 
-export type OptionSelect = { value: any; label: string };
+export type OptionSelect = { value: any; label: string; status?: boolean };
 
 interface Props {
   name: string;
@@ -32,7 +32,7 @@ const SelectForm = ({ name, label, options, placeholder, control, error }: Props
                 >
                   {label}
                 </Listbox.Label>
-                <div className="relative border rounded mt-2 z-10">
+                <div className="relative border rounded z-10">
                   <Listbox.Button
                     className={`flex justify-between items-center group rounded border focus:ring-1 p-2 focus:outline-none font-sans w-full ${
                       error
