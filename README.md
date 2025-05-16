@@ -1,8 +1,8 @@
 # **eSTOK:** _compra de um produto disponível no estoque do fornecedor_
 
-<!--
 [![preview](./.github/preview.png)](/LINK-ACESSO-PROJETO/)
 
+<!--
 [🔗 ACESSE O PROJETO ](/LINK-ACESSO-PROJETO/)
 -->
 
