@@ -49,11 +49,16 @@ export const selectOptionsReportType: SelectOption[] = [
 ];
 
 export const selectOptionsPeriodType: SelectOption[] = [
-  { id: 'periodType', value: 'periodType', label: 'Tipo de Período 1' },
-  { id: 'periodType', value: 'periodType', label: 'Tipo de Período 2' }
+  { id: 'mensal', value: 'mensal', label: 'Mensal' },
+  { id: 'trimestral', value: 'trimestral', label: 'Trimestral' },
+  { id: 'semestral', value: 'semestral', label: 'Semestral' },
+  { id: 'anual', value: 'anual', label: 'Anual' }
 ];
 
 export const selectOptionsProductSize: SelectOption[] = [
-  { id: 'productSize', value: 'productSize', label: 'Tamanho do Produto 1' },
-  { id: 'productSize', value: 'productSize', label: 'Tamanho do Produto 2' }
+  { id: '250ml', value: '250ml', label: '250ml' },
+  { id: '500ml', value: '500ml', label: '500ml' },
+  { id: '1l', value: '1l', label: '1 Litro' },
+  { id: '5kg', value: '5kg', label: '5 Quilos' },
+  { id: '10kg', value: '10kg', label: '10 Quilos' }
 ];
