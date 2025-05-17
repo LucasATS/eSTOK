@@ -108,10 +108,10 @@ export const CreateReport = () => {
               error={errors.descricao?.message}
             />
           </div>
-          <div className="flex justify-end">
+          <div className="flex md:justify-end">
             <Button
               variant="primary"
-              style={{ width: '200px' }}
+              className=" w-full md:w-52"
               type="submit"
               buttonText="Gerar Relatório"
             />
