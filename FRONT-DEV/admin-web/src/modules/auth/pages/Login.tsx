@@ -3,7 +3,6 @@ import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import iconApi from '../../../assets/e-stok.png';
 import Button from '../../../components/Button';
-import Container from '../../../components/Container';
 import InputForm from '../../../components/FormComponents/InputForm';
 import {
   getFieldErrors,
@@ -42,7 +41,7 @@ const Login = () => {
   };
 
   return (
-    <Container className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center">
       <div className="flex flex-col h-auto w-full md:w-[450px] lg:w-[560px] px-10 py-14 md:p-10 gap-10 justify-center items-center bg-white md:rounded-lg md:shadow-md">
         <div className="flex flex-col">
           <Link to="/">
@@ -67,7 +66,7 @@ const Login = () => {
           </form>
         </FormProvider>
       </div>
-    </Container>
+    </div>
   );
 };
 

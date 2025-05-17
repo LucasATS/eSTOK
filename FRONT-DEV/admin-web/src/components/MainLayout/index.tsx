@@ -12,7 +12,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
   return (
     <div className="flex md:flex-row flex-col min-h-screen w-full h-full">
       {user && <Header />}
-      <main className="flex-1 flex-col h-full w-full bg-neutral-200">{children}</main>
+      <main className="flex-1 flex-col w-full bg-neutral-200">{children}</main>
     </div>
   );
 };

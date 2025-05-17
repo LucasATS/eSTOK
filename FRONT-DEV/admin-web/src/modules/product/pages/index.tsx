@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Button from '../../../components/Button';
-import Container from '../../../components/Container';
 import Dropdown from '../../../components/Dropdown';
 import HeaderTitle from '../../../components/HeaderTitle';
 import Pagination from '../../../components/Paginate';
@@ -81,11 +80,11 @@ const ListProduct = () => {
   }, [paginationActive]);
 
   return (
-    <Container className="w-full flex flex-col">
+    <div className="w-full flex flex-col">
       <div className="w-full px-6 bg-white justify-start items-start">
         <HeaderTitle mainText="Produto" />
       </div>
-      <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
+      <div className="flex flex-col mx-8 bg-white my-6 rounded-[30px] p-5">
         <div className="flex flex-row md:px-4 w-auto gap-3 justify-end items-end">
           <Dropdown menuItens={menuItens} text="Cadastros" variant="clean" />
           <Button
@@ -114,7 +113,7 @@ const ListProduct = () => {
         <NewCategoryModal isOpen={openNewCategoryModal} onClose={handleCloseNewCategory} />
       </div>
       <ToastCustom />
-    </Container>
+    </div>
   );
 };
 

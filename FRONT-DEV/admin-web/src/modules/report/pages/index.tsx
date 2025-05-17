@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import Button from '../../../components/Button';
-import Container from '../../../components/Container';
 import SelectForm, { OptionSelect } from '../../../components/FormComponents/SelectForm';
 import HeaderTitle from '../../../components/HeaderTitle';
 import TitleCard from '../../../components/TitleCard';
@@ -77,16 +76,16 @@ export const CreateReport = () => {
   }, []);
 
   return (
-    <Container className="w-full flex flex-col">
+    <div className="w-full flex flex-col">
       <div className="w-full bg-white justify-start items-start px-6">
         <HeaderTitle mainText="Relatório" />
       </div>
-      <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
+      <div className="flex flex-col mx-8 bg-white my-6 rounded-[30px] p-5">
         <div className="text-center">
           <TitleCard text="Gerar Relatório" />
         </div>
         <form onSubmit={handleSubmit(handleAddNewReport)} className="flex flex-col gap-6">
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-col md:flex-row gap-2">
             <SelectForm
               name="tp_relatorio"
               placeholder="Tipo de Relatório"
@@ -120,7 +119,7 @@ export const CreateReport = () => {
         </form>
       </div>
       <ToastCustom />
-    </Container>
+    </div>
   );
 };
 
