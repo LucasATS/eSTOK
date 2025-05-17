@@ -10,7 +10,7 @@ type Props = {
 const ProductTable = ({ product }: Props) => {
   return (
     <>
-      <div role="table" tabIndex={-1} className="lg:flex hidden">
+      <div role="table" tabIndex={-1} className="md:flex hidden">
         <Table
           columns={[
             {
@@ -38,7 +38,7 @@ const ProductTable = ({ product }: Props) => {
           values={product}
         />
       </div>
-      <div className="flex lg:hidden">
+      <div className="flex md:hidden">
         <ListCard
           itemsLabel={[
             {
