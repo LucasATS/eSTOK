@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Button from '../../../components/Button';
-import Container from '../../../components/Container';
 import HeaderTitle from '../../../components/HeaderTitle';
 import Pagination from '../../../components/Paginate';
 import ToastCustom from '../../../components/ToastCustom';
@@ -8,7 +7,7 @@ import { mockListStock } from '../../../helper/mockListStock';
 import { Paginate } from '../../_shared/types/api.types';
 import PaginateStockDto from '../dto/Stock/PaginateStockDto';
 import Stock from '../models/Stock';
-import { LowStock } from './components/LowStock';
+import LowStockModal from './components/LowStockModal';
 import { NewStockModal } from './components/NewStockModal';
 import { StockTable } from './components/StockTable';
 
@@ -66,11 +65,11 @@ export const ListStock = () => {
   }, [paginationActive]);
 
   return (
-    <Container className="w-full flex flex-col">
+    <div className="w-full flex flex-col">
       <div className="w-full px-6 bg-white justify-start items-start">
         <HeaderTitle mainText="Estoque" />
       </div>
-      <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
+      <div className="flex flex-col mx-8 bg-white my-6 rounded-[30px] p-5">
         <div className="flex flex-row md:px-4 w-auto gap-3 justify-end items-end">
           <Button
             style={{ width: '150px' }}
@@ -94,7 +93,7 @@ export const ListStock = () => {
             onChangePage={onChangePage}
           />
         </div>
-        <LowStock
+        <LowStockModal
           isOpen={openStockWriteOff}
           onClose={handleCloseStockWriteOff}
           onConfirm={handleStockWriteOff}
@@ -107,6 +106,6 @@ export const ListStock = () => {
         />
       </div>
       <ToastCustom />
-    </Container>
+    </div>
   );
 };

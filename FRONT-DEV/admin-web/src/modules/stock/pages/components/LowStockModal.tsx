@@ -22,7 +22,7 @@ interface ConfigModalProps {
   dadosStokBaixa: any;
 }
 
-export const LowStock = ({ isOpen, onClose, onConfirm, dadosStokBaixa }: ConfigModalProps) => {
+export const LowStockModal = ({ isOpen, onClose, onConfirm, dadosStokBaixa }: ConfigModalProps) => {
   const formMethods = useForm<CreateLowStockDto>();
   const {
     control,
@@ -82,8 +82,8 @@ export const LowStock = ({ isOpen, onClose, onConfirm, dadosStokBaixa }: ConfigM
             <div className="flex items-start py-1 px-6 rounded-t border-b">
               <TitleCard text="Baixa de estoque" />
             </div>
-            <div className="flex p-6 gap-3">
-              <div className="w-full space-y-3">
+            <div className="flex flex-col md:flex-row p-6 gap-3">
+              <div className="flex flex-col gap-3 w-full">
                 <SelectForm
                   name="motivo"
                   placeholder="Selecione o motivo"
@@ -98,28 +98,26 @@ export const LowStock = ({ isOpen, onClose, onConfirm, dadosStokBaixa }: ConfigM
                   error={errors.quantidade?.message}
                 />
               </div>
-              <div className="flex h-32 w-full">
-                <TextareaForm
-                  name="observacao"
-                  placeholder="Descrição"
-                  cols={33}
-                  rows={4}
-                  maxLength={1000}
-                  control={control}
-                />
-              </div>
+              <TextareaForm
+                name="observacao"
+                placeholder="Descrição"
+                cols={33}
+                rows={4}
+                maxLength={1000}
+                control={control}
+              />
             </div>
 
-            <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
+            <div className="flex flex-col md:flex-row items-center justify-end p-6 gap-3 rounded-b border-t border-gray-200">
               <Button
-                style={{ width: '200px' }}
+                className=" w-full md:w-52"
                 variant="cancel"
                 type="button"
                 onClick={handleCancel}
                 buttonText="Cancelar"
               />
               <Button
-                style={{ width: '200px' }}
+                className=" w-full md:w-52"
                 variant="primary"
                 type="submit"
                 buttonText="Confirmar"
@@ -132,4 +130,4 @@ export const LowStock = ({ isOpen, onClose, onConfirm, dadosStokBaixa }: ConfigM
   );
 };
 
-export default LowStock;
+export default LowStockModal;

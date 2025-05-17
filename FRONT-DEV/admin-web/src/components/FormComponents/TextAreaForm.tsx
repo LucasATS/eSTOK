@@ -48,7 +48,7 @@ const TextAreaForm: React.FC<Props> = ({
   };
 
   return (
-    <div className={`flex flex-col pb-2 ${className || ''}`}>
+    <div className={`flex flex-col w-full pb-2 ${className || ''}`}>
       {label && (
         <label
           htmlFor={name}

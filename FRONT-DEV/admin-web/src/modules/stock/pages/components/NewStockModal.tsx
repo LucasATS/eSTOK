@@ -96,7 +96,7 @@ export const NewStockModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) 
               <TitleCard text="Cadastrar Produto ao Estoque" />
             </div>
             <div className="p-6 space-y-3">
-              <div className="flex flex-row items-end gap-3">
+              <div className="flex flex-col md:flex-row items-end gap-3">
                 <SelectForm
                   name="produto"
                   placeholder="Produto"
@@ -119,7 +119,7 @@ export const NewStockModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) 
                   error={errors.quantidade?.message}
                 />
               </div>
-              <div className="flex flex-row items-end gap-3">
+              <div className="flex flex-col md:flex-row items-end gap-3">
                 <InputForm
                   name="lote"
                   type="text"
