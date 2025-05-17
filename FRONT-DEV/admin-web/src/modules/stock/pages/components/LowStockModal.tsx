@@ -94,13 +94,15 @@ export const LowStockModal = ({ isOpen, onClose, onConfirm, dadosStokBaixa }: Co
                 <InputForm
                   name="quantidade"
                   type="text"
-                  placeholder="Quantidade"
+                  label="Quantidade"
+                  placeholder="Digite a quantidade"
                   error={errors.quantidade?.message}
                 />
               </div>
               <TextareaForm
                 name="observacao"
-                placeholder="Descrição"
+                label="Descrição"
+                placeholder="Digite a descrição"
                 cols={33}
                 rows={4}
                 maxLength={1000}
