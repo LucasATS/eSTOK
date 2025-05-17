@@ -163,9 +163,9 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
+            <div className="flex flex-col md:flex-row items-center justify-end p-6 gap-3 rounded-b border-t border-gray-200">
               <Button
-                style={{ width: '200px' }}
+                className=" w-full md:w-52"
                 type="button"
                 variant="cancel"
                 onClick={handleCancel}
@@ -173,7 +173,7 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
                 Cancelar
               </Button>
               <Button
-                style={{ width: '200px' }}
+                className=" w-full md:w-52"
                 variant="primary"
                 type="submit"
                 buttonText="Cadastrar"
