@@ -171,7 +171,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
             <div className="flex items-start py-1 px-6 rounded-t border-b">
               <TitleCard text="Cadastrar Produto" />
             </div>
-            <div className="p-6 gap-3">
+            <div className="flex flex-col p-6 gap-3">
               {file && (
                 <div className="flex flex-col">
                   <FileDetail removeImage={handleRemoveFile} file={file} />
