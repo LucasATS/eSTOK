@@ -12,11 +12,12 @@ interface Props {
   placeholder?: string;
   control: Control<any>;
   error?: string;
+  className?: string;
 }
 
-const SelectForm = ({ name, label, options, placeholder, control, error }: Props) => {
+const SelectForm = ({ name, label, options, placeholder, control, error, className }: Props) => {
   return (
-    <div className="text-sm w-full">
+    <div className={`${className} text-sm w-full`}>
       <Controller
         name={name}
         control={control}

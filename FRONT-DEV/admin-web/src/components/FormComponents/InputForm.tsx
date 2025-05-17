@@ -36,7 +36,7 @@ const InputForm = ({
   const inputType = type === 'password' ? (isVisible ? 'text' : 'password') : type;
 
   return (
-    <div className={`flex flex-col gap-1 text-sm ${className || ''}`}>
+    <div className={`flex flex-col w-full gap-1 text-sm ${className || ''}`}>
       {label && (
         <label
           htmlFor={name}

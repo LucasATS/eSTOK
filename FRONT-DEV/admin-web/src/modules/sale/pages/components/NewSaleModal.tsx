@@ -94,7 +94,7 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
                     placeholder="Digite o nome do cartão"
                     label="Nome do cartão"
                   />
-                  <div className="flex items-end gap-3">
+                  <div className="flex flex-col md:flex-row items-end gap-3">
                     <InputForm
                       name="numeroCartao"
                       type="text"
@@ -107,6 +107,7 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
                       type="date"
                       placeholder="Vencimento"
                       label="Vencimento"
+                      className="col-span-2"
                     />
                   </div>
                   <InputForm
@@ -116,7 +117,7 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
                     placeholder="Digite o nome do cliente"
                     label="Nome do cliente"
                   />
-                  <div className="flex flex-row gap-3">
+                  <div className="flex flex-col md:flex-row gap-3">
                     <InputForm
                       name="email"
                       type="email"
@@ -136,24 +137,27 @@ const NewSaleModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps) => {
                       label="Endereço"
                     />
                   </div>
-                  <div className="flex flex-row items-end gap-3">
+                  <div className="flex flex-col md:flex-row items-end gap-3">
                     <InputForm
                       name="bairro"
                       type="text"
                       placeholder="Digite o bairro"
                       label="Bairro"
+                      className="w-full"
                     />
                     <SelectForm
                       name="estado"
                       placeholder="Estado"
                       options={selectOptionsStates}
                       control={control}
+                      className="mt-3 md:mt-0"
                     />
                     <InputForm
                       name="cidade"
                       type="text"
                       placeholder="Digite a cidade"
                       label="Cidade"
+                      className="w-full"
                     />
                   </div>
                 </div>

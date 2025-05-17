@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import Button from '../../../components/Button';
-import Container from '../../../components/Container';
 import HeaderTitle from '../../../components/HeaderTitle';
 import Pagination from '../../../components/Paginate';
 import ToastCustom from '../../../components/ToastCustom';
 import { mockListSales } from '../../../helper/mockListSale';
 import { Paginate } from '../../_shared/types/api.types';
 import PaginateSaleDto from '../dto/PaginateSaleDto';
-import Sale, { FlattenedSaleItem } from '../models/Sale';
+import Sale from '../models/Sale';
 import NewSaleModal from './components/NewSaleModal';
 import SaleTable from './components/SaleTable';
 
@@ -50,11 +49,11 @@ const ListSale = () => {
   }, [paginationActive]);
 
   return (
-    <Container className="w-full flex flex-col">
+    <div className="w-full flex flex-col">
       <div className="w-full px-4 bg-white justify-start items-start">
         <HeaderTitle mainText="Venda" />
       </div>
-      <div className="flex flex-col mx-8 bg-white mt-6 rounded-[30px] p-5">
+      <div className="flex flex-col mx-8 bg-white my-6 rounded-[30px] p-5">
         <div role="button" className="flex flex-row md:px-4 w-auto gap-3 justify-end items-end">
           <Button
             style={{ width: '150px' }}
@@ -81,7 +80,7 @@ const ListSale = () => {
         />
       </div>
       <ToastCustom />
-    </Container>
+    </div>
   );
 };
 
