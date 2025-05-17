@@ -73,9 +73,9 @@ const NewCategoryModal = ({ isOpen, onClose }: ConfigModalProps) => {
                 placeholder="Digite a Categoria"
               />
             </div>
-            <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
+            <div className="flex flex-col md:flex-row items-center justify-end p-6 gap-3 rounded-b border-t border-gray-200">
               <Button
-                style={{ width: '200px' }}
+                className=" w-full md:w-52"
                 variant="cancel"
                 type="button"
                 onClick={handleCancel}
@@ -83,7 +83,7 @@ const NewCategoryModal = ({ isOpen, onClose }: ConfigModalProps) => {
                 Cancelar
               </Button>
               <Button
-                style={{ width: '200px' }}
+                className=" w-full md:w-52"
                 variant="primary"
                 type="submit"
                 buttonText="Cadastrar"

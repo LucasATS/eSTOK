@@ -171,7 +171,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
             <div className="flex items-start py-1 px-6 rounded-t border-b">
               <TitleCard text="Cadastrar Produto" />
             </div>
-            <div className="p-6 space-y-3">
+            <div className="p-6 gap-3">
               {file && (
                 <div className="flex flex-col">
                   <FileDetail removeImage={handleRemoveFile} file={file} />
@@ -187,35 +187,37 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
               <InputForm
                 name="nome_produto"
                 type="text"
-                placeholder="Produto"
+                label="Produto"
+                placeholder="Digite o produto"
                 error={errors.nome_produto?.message}
               />
 
               <div className="flex w-full md:flex-row flex-col gap-3">
                 <SelectForm
                   name="categoria"
-                  placeholder="Categoria"
+                  placeholder="Selecione a categoria"
                   options={categoryOptions}
                   control={control}
                   error={errors.categoria?.message}
                 />
                 <SelectForm
                   name="unidade"
-                  placeholder="Unidade"
+                  placeholder="Selecione a unidade"
                   options={unitMeasureOptions}
                   control={control}
                   error={errors.unidade?.message}
                 />
                 <SelectForm
                   name="tp_produto"
-                  placeholder="Tipo de produto"
+                  placeholder="Selecione o tipo"
                   options={productTypeOptions}
                   control={control}
                   error={errors.tp_produto?.message}
                 />
               </div>
               <TextAreaForm
-                placeholder="Descrição do produto"
+                label="Descrição"
+                placeholder="Digite a descrição do produto"
                 name="descricao"
                 cols={2}
                 rows={4}
@@ -223,9 +225,9 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
                 control={control}
               />
             </div>
-            <div className="flex items-center justify-end p-6 space-x-3 rounded-b border-t border-gray-200">
+            <div className="flex flex-col md:flex-row items-center justify-end p-6 gap-3 rounded-b border-t border-gray-200">
               <Button
-                style={{ width: '200px' }}
+                className=" w-full md:w-52"
                 type="button"
                 variant="cancel"
                 onClick={handleCancel}
@@ -233,7 +235,7 @@ export const NewProductModal = ({ isOpen, onClose, onConfirm }: ConfigModalProps
                 Cancelar
               </Button>
               <Button
-                style={{ width: '200px' }}
+                className=" w-full md:w-52"
                 variant="primary"
                 type="submit"
                 buttonText="Cadastrar"
